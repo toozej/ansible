@@ -45,6 +45,21 @@ echo "\n\n"
 echo "running ansible playbook based on user input\n"
 
 # get user input
+while getopts "h" option
+do
+  case $option in
+    h)
+      usage
+      exit 1
+      ;;
+    ?)
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+
 # parse user input
 # run the ansible playbooks based on the playbook names inserted by user
 

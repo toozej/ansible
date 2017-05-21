@@ -30,7 +30,7 @@
 - GUI: xfce, i3, and custom configs for both, simplenote, atom (sync-settings:restore)
 - office: libreoffice, lyx, tex, dropbox
 - dev-common: dbeaver, devtools, make, automake, git, git-review, git-flow
-- dev-python: pycharms CE, virtualenv, pip, python2 and dev, python3 and dev, ipython
+- dev-python: pycharms CE, virtualenv, python-pip, python2 and dev, python3 and dev, ipython
 - dev-ruby: ruby, gem
 - dev-go: golang
 - common: VIM, htop, bwm-ng, smb client, ssh and configs, dotfiles, bash, zsh, wget, curl, powerline, vim config from github, the\_silver\_searcher, tmux and configs, tree, screen
