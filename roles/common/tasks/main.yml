@@ -52,3 +52,9 @@
   package:
     name: the_silver_searcher
     state: latest
+
+- git:
+  repo: 'https://github.com/toozej/vimfiles.git'
+  dest: /home/james/.vim
+  recursive: yes
+
