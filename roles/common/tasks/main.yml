@@ -1,0 +1,54 @@
+---
+- name: install the latest version of VIM
+  package:
+    name: vim
+    state: latest
+
+- name: install the latest version of htop
+  package:
+    name: htop
+    state: latest
+
+- name: install the latest version of bwm-ng
+  package:
+    name: bwm-ng
+    state: latest
+
+- name: install the latest version of smb client
+  package:
+    name: samba-client
+    state: latest
+
+- name: install the latest version of sshd and client
+  package:
+    name: {{item}}
+    state: latest
+  with_items:
+    - openssh-server
+    - openssh-client
+
+- name: install the latest versions of shells
+  package:
+    name: {{item}}
+    state: latest
+  with_items:
+    - bash
+    - znc
+
+- name: install the latest versions of download tools
+  package:
+    name: {{item}}
+    state: latest
+  with_items:
+    - wget
+    - curl
+
+- name: install the latest version of tmux
+  package:
+    name: tmux
+    state: latest
+
+- name: install the latest version of ag
+  package:
+    name: the_silver_searcher
+    state: latest

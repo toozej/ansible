@@ -6,19 +6,19 @@
     - update
     - install -y ansible git python2.7
 - pull down Ansible playbooks, roles from git
-- install and run playbooks based on which type the system is
+- install and run playbooks commond on which type the system is
 
 ## Playbooks
-- base
-    - base role only
+- common
+    - common role only
 - server (VM)
-    - file server, VM, base, docker
+    - file server, VM, common, docker
     - db server: above + db
     - web server: above + web
 - desktop (VM or BM)
-    - home: chrome, audio, GUI, office, base
-    - dev: chrome, GUI, base, db, docker, dev-python, dev-ruby, dev-go, dev-base
-    - ops: chrome, GUI, base, docker, k8s, dev-base
+    - home: chrome, audio, GUI, office, common
+    - dev: chrome, GUI, common, db, docker, dev-python, dev-ruby, dev-go, dev-base
+    - ops: chrome, GUI, common, docker, k8s, dev-base
     - all
 
 ## Roles
@@ -28,12 +28,12 @@
 - fileserver: smbd
 - GUI: xfce, i3, and custom configs for both, simplenote, atom (sync-settings:restore)
 - office: libreoffice, lyx, tex, dropbox
-- dev-base: dbeaver, devtools, make, automake, git, git-review, git-flow
+- dev-common: dbeaver, devtools, make, automake, git, git-review, git-flow
 - dev-python: pycharms CE, virtualenv, pip, python2 and dev, python3 and dev, ipython
 - dev-ruby: ruby, gem
-- dev-go: golang, 
-- base: VIM, htop, bwm-ng, smb client, ssh and configs, dotfiles, bash, zsh, wget, curl, powerline, vim config from github, the\_silver\_searcher, tmux and configs, 
+- dev-go: golang
+- common: VIM, htop, bwm-ng, smb client, ssh and configs, dotfiles, bash, zsh, wget, curl, powerline, vim config from github, the\_silver\_searcher, tmux and configs, tree, screen
 - db: postgresql, mysql, db clients, sqlite
 - docker: docker engine, docker compose, docker swarm
-- k8s: minikube, kubernetes-cli, kubectl, terraform, chtf, 
+- k8s: minikube, kubernetes-cli, kubectl, terraform, chtf, awscli
 - web server: apache, php
