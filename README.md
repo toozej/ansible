@@ -4,6 +4,7 @@
 - determine OS type: RHEL, Debian, CoreOS, other
 - run pkg manager
     - update
+	- if RHEL, install EPEL repo
     - install -y ansible git python2.7
 - pull down Ansible playbooks, roles from git
 - install and run playbooks commond on which type the system is
