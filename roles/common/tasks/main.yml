@@ -21,7 +21,7 @@
 
 - name: install the latest version of sshd and client
   package:
-    name: {{item}}
+    name: "{{item}}"
     state: latest
   with_items:
     - openssh-server
@@ -29,7 +29,7 @@
 
 - name: install the latest versions of shells
   package:
-    name: {{item}}
+    name: "{{item}}"
     state: latest
   with_items:
     - bash
@@ -37,7 +37,7 @@
 
 - name: install the latest versions of download tools
   package:
-    name: {{item}}
+    name: "{{item}}"
     state: latest
   with_items:
     - wget
@@ -54,7 +54,7 @@
     state: latest
 
 - git:
-  repo: 'https://github.com/toozej/vimfiles.git'
-  dest: /home/james/.vim
-  recursive: yes
+    repo: 'https://github.com/toozej/vimfiles.git'
+    dest: /home/james/.vim
+    recursive: yes
 
