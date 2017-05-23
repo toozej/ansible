@@ -55,6 +55,8 @@
 
 - git:
     repo: 'https://github.com/toozej/vimfiles.git'
+    clone: yes
+    accept_hostkey: yes
     dest: /home/james/.vim
     recursive: yes
 
