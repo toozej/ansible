@@ -1,5 +1,12 @@
 # Home Ansible Setup
 
+## How to use it
+- wget https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh && chmod +x bootstrap.sh
+- sudo ./bootstrap.sh $playbook\_name.yml
+
+Or if you would rather just run one playbook stand-alone:
+- ansible-playbook --check $playbook\_name.yml
+
 ## bootstrap.sh
 - determine OS type: RHEL, Debian, CoreOS, other
 - run pkg manager

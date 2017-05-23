@@ -25,7 +25,7 @@
     state: latest
   with_items:
     - openssh-server
-    - openssh-client
+    - openssh-clients
 
 - name: install the latest versions of shells
   package:
