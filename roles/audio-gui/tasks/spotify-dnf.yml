@@ -1,6 +1,6 @@
 ---
-- name: "dnf | ensure Negativo17.org repo present"
-  dnf_repository:
+- name: "yum | ensure Negativo17.org repo present"
+  yum_repository:
     name: negativo17
     baseurl: http://negativo17.org/repos/fedora-spotify.repo
 
