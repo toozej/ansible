@@ -2,7 +2,7 @@
 - name: "yum | ensure Negativo17.org repo present"
   yum_repository:
     name: negativo17
-    baseurl: http://negativo17.org/repos/fedora-spotify.repo
+    baseurl: http://negativo17.org/repos/epel-spotify.repo
 
 - name: "yum | install latest version of Spotify"
   yum:
