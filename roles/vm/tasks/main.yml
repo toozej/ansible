@@ -1,0 +1,6 @@
+---
+- name: install the latest Open VM Tools
+  package:
+    name: open-vm-tools
+    state: latest
+

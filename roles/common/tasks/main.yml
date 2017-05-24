@@ -59,4 +59,5 @@
     accept_hostkey: yes
     dest: /home/james/.vim
     recursive: yes
+    key_file: /home/james/.ssh/id_rsa_github
 

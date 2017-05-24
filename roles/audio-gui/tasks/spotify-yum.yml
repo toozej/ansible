@@ -1,0 +1,10 @@
+---
+- name: "yum | ensure Negativo17.org repo present"
+  yum_repository:
+    name: negativo17
+    baseurl: http://negativo17.org/repos/fedora-spotify.repo
+
+- name: "yum | install latest version of Spotify"
+  yum:
+    name: spotify-client
+    state: latest

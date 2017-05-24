@@ -1,0 +1,19 @@
+---
+- name: install latest versions of gstreamer plugins
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - gstreamer1
+    - gstreamer1-plugins-base
+    - gstreamer1-plugins-bad-free
+    - gstreamer1-plugins-good
+
+- name: install latest version of Spotify client
+  include: spotify-apt.yml
+  when: ansible_pkg_mgr == 'apt'
+  include: spotify-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+  include: spotify-yum.yml
+  when: ansible_pkg_mgr == 'yum'
+

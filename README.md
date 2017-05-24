@@ -1,6 +1,7 @@
 # Home Ansible Setup
 
 ## How to use it
+- scp private SSH key into ~/.ssh/
 - wget https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh && chmod +x bootstrap.sh
 - sudo ./bootstrap.sh $playbook\_name.yml
 

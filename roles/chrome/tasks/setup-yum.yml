@@ -1,0 +1,15 @@
+# yum tasks file for ansible-role-chrome
+
+- name: "yum | ensure Google chrome repo present"
+  copy:
+    src: google-chrome.repo
+    dest: /etc/yum.repos.d/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: "yum | ensure Google chrome present"
+  yum:
+    name: google-chrome-stable
+    state: latest
+

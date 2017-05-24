@@ -1,0 +1,15 @@
+---
+- name: install latest version of ffmpeg
+  package:
+    name: ffmpeg
+    state: latest
+
+- name: install latest version of mediainfo
+  package:
+    name: mediainfo
+    state: latest
+
+- name: install latest version of mkvtoolnix
+  package:
+    name: mkvtoolnix
+    state: latest
