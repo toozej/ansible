@@ -1,16 +1,15 @@
 # dnf tasks file for ansible-role-chrome
 
-- name: "dnf | ensure Google chrome repo present"
-  copy: 
-    src: google-chrome.repo
-    dest: /etc/yum.repos.d/
-    owner: root
-    group: root
-    mode: 0644
+
+- name: Add Google Chrome repository
+  yum_repository:
+    name: google-chrome
+    baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+    gpgkey: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    gpgcheck: yes
 
 - name: "dnf | ensure Google chrome present"
   dnf: 
     name: google-chrome-stable
     state: latest
 
-...

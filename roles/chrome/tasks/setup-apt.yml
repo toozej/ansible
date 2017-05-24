@@ -28,4 +28,3 @@
     update_cache: yes
     state: latest
 
-...
