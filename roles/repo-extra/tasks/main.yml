@@ -27,19 +27,16 @@
   dnf:
     name: http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
     state: present
-  sudo: True
   when: rpmfusion_free_installed|failed
 
 - name: install rpmfusion-nonfree dnf repo
   dnf:
     name: http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm
     state: present
-  sudo: True
   when: rpmfusion_nonfree_installed|failed
 
 - name: install livna dnf repo
   dnf:
     name: http://rpm.livna.org/livna-release.rpm
     state: present
-  sudo: True
   when: livna_installed|failed

@@ -9,11 +9,15 @@
     - gstreamer1-plugins-bad-free
     - gstreamer1-plugins-good
 
-- name: install latest version of Spotify client
+- name: install latest version of Spotify client apt
   include: spotify-apt.yml
   when: ansible_pkg_mgr == 'apt'
+
+- name: install latest version of Spotify client dnf
   include: spotify-dnf.yml
   when: ansible_pkg_mgr == 'dnf'
+
+- name: install latest version of Spotify client yum
   include: spotify-yum.yml
   when: ansible_pkg_mgr == 'yum'
 
