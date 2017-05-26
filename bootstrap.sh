@@ -17,12 +17,13 @@ if [ -f /etc/lsb-release ]; then
 elif [ -f /etc/debian_version ]; then
         os="Debian $(cat /etc/debian_version)"
         apt-get update
-        apt-get install -y git python2 ansible
+        apt-get install -y git python2 ansible python-apt
 elif [ -f /etc/redhat-release ]; then
         os=`cat /etc/redhat-release`
         yum update
         if [[ $os == *"release 7."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+          yum install -y python-dnf
         elif [[ $os == *"release 6."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm"
         fi

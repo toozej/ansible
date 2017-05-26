@@ -1,0 +1,5 @@
+---
+- name: install latest versions of Samba daemon
+  package:
+    name: samba
+    state: latest
