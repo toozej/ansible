@@ -1,0 +1,19 @@
+---
+- name: install latest version of xfce desktop environment via APT
+  apt:
+    name: "xfce4"
+    state: latest
+  when: ansible_pkg_mgr == 'apt'
+
+- name: install latest version of xfce desktop environment via DNF
+  dnf:
+    name: "@Xfce"
+    state: latest
+  when: ansible_pkg_mgr == 'dnf'
+
+- name: install latest version of xfce desktop environment via YUM
+  yum:
+    name: "@Xfce"
+    state: latest
+ when: ansible_pkg_mgr == 'yum'
+
