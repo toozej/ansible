@@ -1,0 +1,4 @@
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    hooks:
+    -   id: check-yaml
+    -   id: detect-private-key

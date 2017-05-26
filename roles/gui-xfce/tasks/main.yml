@@ -15,5 +15,5 @@
   yum:
     name: "@Xfce"
     state: latest
- when: ansible_pkg_mgr == 'yum'
+  when: ansible_pkg_mgr == 'yum'
 
