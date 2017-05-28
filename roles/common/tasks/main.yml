@@ -35,7 +35,7 @@
 
 - name: install the latest version of ssh client
   package:
-    name: {{ ssh_client_package_name }}
+    name: "{{ ssh_client_package_name }}"
     state: latest
 
 - name: install the latest versions of shells
@@ -61,7 +61,7 @@
 
 - name: install the latest version of ag
   package:
-    name: {{ ag_package_name }}
+    name: "{{ ag_package_name }}"
     state: latest
 
 - git:
