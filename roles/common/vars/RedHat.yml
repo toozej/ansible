@@ -1,0 +1,3 @@
+---
+ssh_client_package_name: openssh-clients
+ag_package_name: the_silver_searcher

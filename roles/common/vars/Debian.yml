@@ -1,0 +1,3 @@
+---
+ssh_client_package_name: openssh-client
+ag_package_name: silversearcher-ag
