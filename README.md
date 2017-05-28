@@ -1,5 +1,7 @@
 # Home Ansible Setup
 
+[![Build Status](https://travis-ci.org/toozej/ansible.svg?branch=master)](https://travis-ci.org/toozej/ansible)
+
 ## How to use it
 - scp private SSH key into ~/.ssh/
 - wget https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh && chmod +x bootstrap.sh
