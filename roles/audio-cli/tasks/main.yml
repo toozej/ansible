@@ -1,10 +1,4 @@
 ---
-# include_role requires Ansible > v2.2
-- name: setup rpmfusion repo if installing via yum or dnf
-  include_role:
-    name: repo-extra
-    when: (ansible_pkg_mgr == 'yum') or (ansible_pkg_mgr == 'dnf')
-
 - name: install latest version of ffmpeg
   package:
     name: ffmpeg

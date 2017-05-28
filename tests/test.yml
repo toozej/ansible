@@ -1,7 +1,15 @@
 # test playbook
 
 - hosts: all
-  become: yes
+  become: true
   roles:
-    - role: ../roles/
+    - {role: ../roles/common}
+    - {role: ../roles/repo-extra}
+    - {role: ../roles/audio-cli}
+    - {role: ../roles/audio-gui}
+    - {role: ../roles/chrome}
+    - {role: ../roles/file-server}
+    - {role: ../roles/gui-common}
+    - {role: ../roles/gui-xfce}
+    - {role: ../roles/vm}
 
