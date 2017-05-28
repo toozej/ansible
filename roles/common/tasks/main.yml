@@ -19,13 +19,22 @@
     name: samba-client
     state: latest
 
-- name: install the latest version of sshd and client
+- name: install the latest version of sshd
   package:
-    name: "{{item}}"
+    name: openssh-server
     state: latest
-  with_items:
-    - openssh-server
-    - openssh-clients
+
+- name: install the latest version of ssh client via YUM or DNF
+  package:
+    name: openssh-clients
+    state: latest
+  when: (ansible_pkg_mgr == 'yum') or (ansible_pkg_mgr == 'dnf')
+
+- name: install the latest version of ssh client via APT
+  package:
+    name: openssh-client
+    state: latest
+  when: ansible_pkg_mgr == 'apt'
 
 - name: install the latest versions of shells
   package:
