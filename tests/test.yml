@@ -1,6 +1,7 @@
 # test playbook
 
-- hosts: all
+- hosts: localhost
+  connection: local
   become: true
   roles:
     - {role: ../roles/common}

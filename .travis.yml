@@ -7,7 +7,6 @@ python: "2.7"
 
 # Doc: https://docs.travis-ci.com/user/customizing-the-build#Build-Matrix
 env:
-  - 
   - ANSIBLE_VERSION=latest
   - ANSIBLE_VERSION=2.3.0.0
   - ANSIBLE_VERSION=2.2.2.0
@@ -22,6 +21,9 @@ branches:
     - master
 
 before_install:
+  - cat /proc/cpuinfo
+  - cat /proc/meminfo
+  - free -m
   - sudo apt-get update -qq
 
 install:
