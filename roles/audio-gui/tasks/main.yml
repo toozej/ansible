@@ -6,7 +6,7 @@
     - "../vars/{{ ansible_distribution }}.yml"
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/default.yml"
-    when: (gstreamer1_package_name is not defined) or (gstreamer1-plugins-base_package_name is not defined) or (gstreamer1-plugins-good_package_name is not defined) or (gstreamer1-plugins-bad_package_name is not defined)
+  when: (gstreamer1_package_name is not defined) or (gstreamer1-plugins-base_package_name is not defined) or (gstreamer1-plugins-good_package_name is not defined) or (gstreamer1-plugins-bad_package_name is not defined)
 
 - name: install latest versions of gstreamer plugins
   package:
