@@ -64,11 +64,12 @@
     name: "{{ ag_package_name }}"
     state: latest
 
-- git:
+- name: grab and init latest vimfiles from github.com/toozej/vimfiles
+  git:
     repo: 'https://github.com/toozej/vimfiles.git'
     clone: yes
     accept_hostkey: yes
     dest: /home/james/.vim
     recursive: yes
     key_file: /home/james/.ssh/id_rsa_github
-
+  tags: github
