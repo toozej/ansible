@@ -7,9 +7,11 @@
 - name: install the latest version of Ansible-Lint
   pip:
     name: ansible-lint
+    state: latest
   become: True
 
 - name: install the latest version of Ansible-Review
   pip:
     name: ansible-review
+    state: latest
   become: True
