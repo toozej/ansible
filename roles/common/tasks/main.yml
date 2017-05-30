@@ -6,7 +6,7 @@
     - "../vars/{{ ansible_distribution }}.yml"
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/default.yml"
-  when: (ssh_client_package is not defined) or (ag_package_name is not defined)
+  when: (ssh_client_package is not defined) or (ag_package_name is not defined) or (pip2_package_name is not defined)
 
 - name: install the latest version of VIM
   package:
@@ -45,6 +45,11 @@
   with_items:
     - bash
     - znc
+
+- name: install the latest version of pip2
+  package:
+    name: "{{ pip2_package_name }}"
+    state: latest
 
 - name: install the latest versions of download tools
   package:

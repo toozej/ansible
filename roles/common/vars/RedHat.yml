@@ -1,3 +1,4 @@
 ---
 ssh_client_package_name: openssh-clients
 ag_package_name: the_silver_searcher
+pip2_package_name: python2-pip

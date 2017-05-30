@@ -1,0 +1,6 @@
+---
+pip3_package_name: python34-pip
+python3_package_name: python34
+python3_devtools_package_name: python34-devel
+python3_setuptools_package_name: python34-setuptools
+ipython_package_name: python-ipython

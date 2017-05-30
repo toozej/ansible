@@ -11,6 +11,7 @@
     - {role: ../roles/dev-common}
     - {role: ../roles/dev-ansible}
     - {role: ../roles/dev-go}
+    - {role: ../roles/dev-python}
     - {role: ../roles/file-server}
     - {role: ../roles/gui-common}
     - {role: ../roles/gui-xfce}
