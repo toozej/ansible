@@ -1,4 +1,10 @@
 ---
+- name: install trusty-media PPA when using Ubuntu 14.04 Trusty
+  apt_repository:
+    repo: 'ppa:mc3man/trusty-media'
+    update_cache: True
+  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_release == 'trusty')
+
 - name: install latest version of ffmpeg
   package:
     name: ffmpeg
