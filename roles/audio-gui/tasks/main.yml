@@ -1,13 +1,23 @@
 ---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "../vars/{{ ansible_distribution }}.yml"
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/default.yml"
+    when: (gstreamer1_package_name is not defined) or (gstreamer1-plugins-base_package_name is not defined) or (gstreamer1-plugins-good_package_name is not defined) or (gstreamer1-plugins-bad_package_name is not defined) or (gstreamer1-plugins-ugly_package_name is not defined)
+
 - name: install latest versions of gstreamer plugins
   package:
     name: "{{item}}"
     state: latest
   with_items:
-    - gstreamer1
-    - gstreamer1-plugins-base
-    - gstreamer1-plugins-bad-free
-    - gstreamer1-plugins-good
+    - "{{ gstreamer1_package_name }}"
+    - "{{ gstreamer1-plugins-base_package_name }}"
+    - "{{ gstreamer1-plugins-good_package_name }}"
+    - "{{ gstreamer1-plugins-bad_package_name }}"
+    - "{{ gstreamer1-plugins-ugly_package_name }}"
 
 - name: install latest version of Spotify client apt
   include: spotify-apt.yml
