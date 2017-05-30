@@ -1,5 +1,5 @@
 ---
 gstreamer1_package_name: gstreamer1.0
 gstreamer1-plugins-base_package_name: gstreamer1.0-plugins-base
-gstreamer1_-plugins-good_package_name: gstreamer1.0-plugins-good
+gstreamer1-plugins-good_package_name: gstreamer1.0-plugins-good
 gstreamer1-plugins-bad_package_name: gstreamer1.0-plugins-bad
