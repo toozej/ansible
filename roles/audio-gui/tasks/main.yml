@@ -10,13 +10,13 @@
 
 - name: install latest versions of gstreamer plugins
   package:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: latest
   with_items:
-    - {{ gstreamer1_package_name }}
-    - {{ gstreamer1-plugins-base_package_name }}
-    - {{ gstreamer1-plugins-good_package_name }}
-    - {{ gstreamer1-plugins-bad_package_name }}
+    - "{{ gstreamer1_package_name }}"
+    - "{{ gstreamer1-plugins-base_package_name }}"
+    - "{{ gstreamer1-plugins-good_package_name }}"
+    - "{{ gstreamer1-plugins-bad_package_name }}"
 
 - name: install latest version of Spotify client apt
   include: spotify-apt.yml
