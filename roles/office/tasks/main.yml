@@ -1,0 +1,27 @@
+---
+- name: install latest version of Libre Office
+  package:
+    name: libreoffice
+    state: latest
+
+- name: install latest version of LyX
+  package:
+    name: lyx
+    state: latest
+
+- name: install latest version of TexLive
+  package:
+    name: texlive
+    state: latest
+
+- name: Install latest version of Dropbox using APT
+  include: dropbox-apt.yml
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Install latest version of Dropbox using DNF
+  include: dropbox-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+
+- name: Install latest version of Dropbox using YUM
+  include: dropbox-yum.yml
+  when: ansible_pkg_mgr == 'yum'

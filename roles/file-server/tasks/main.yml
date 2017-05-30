@@ -3,3 +3,40 @@
   package:
     name: samba
     state: latest
+
+- name: download latest version of Dropbox Headless
+  get_url:
+    url: https://www.dropbox.com/download?plat=lnx.x86_64
+    dest: /home/james/dropbox.tgz
+
+- name: create Dropbox Headless directory
+  file:
+    dest: /home/james/.dropbox-dist/
+    state: directory
+    mode: 0755
+
+- name: create .dropbox directory
+  file:
+    dest: /home/james/.dropbox/
+    state: directory
+    mode: 0700
+
+- name: extract Dropbox Headless
+  unarchive:
+    src: /home/james/dropbox.tgz
+    dest: /home/james/.dropbox-dist/
+    remote_src: True
+
+- name: create /home/james/bin/ directory to put Dropbox Python Helper Script in
+  file:
+    dest: /home/james/bin/
+    state: directory
+    mode: 0755
+
+- name: download latest version of Dropbox Python Helper Script
+  get_url:
+    url: https://www.dropbox.com/download?dl=packages/dropbox.py
+    dest: /home/james/bin/dropbox.py
+
+- name: start Dropbox Headless daemon
+  raw: /home/james/.dropbox-dist/dropboxd &

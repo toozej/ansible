@@ -1,26 +1,8 @@
-Role Name
-=========
+# Common Ansible role
 
-The common role exists to simplify the inclusion of all the common roles.
+Includes commonly used programs which should be installed across the board.
 
-Requirements
-------------
+Package name variables based off example from
+https://serverfault.com/questions/587727/how-to-unify-package-installation-tasks-in-ansible
 
-All the dependent roles are required.
-
-Role Variables
---------------
-
-Each dependent role has it's own set of variables each with sane defaults.
-
-Dependencies
-------------
-
-none
-
-Example Playbook
-----------------
-
-    - hosts: servers
-      roles:
-         - { role: common, tags: 'common' }
+This role is not a git submodule, nor does it auto update.
