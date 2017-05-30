@@ -9,6 +9,7 @@
     - {role: ../roles/audio-gui}
     - {role: ../roles/chrome}
     - {role: ../roles/dev-common}
+    - {role: ../roles/dev-go}
     - {role: ../roles/file-server}
     - {role: ../roles/gui-common}
     - {role: ../roles/gui-xfce}
