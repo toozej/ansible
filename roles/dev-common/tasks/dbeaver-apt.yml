@@ -1,0 +1,6 @@
+---
+- name: install latest version of DBeaver via APT
+  apt:
+    deb: http://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb
+    state: latest
+
