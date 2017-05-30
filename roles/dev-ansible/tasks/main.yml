@@ -1,0 +1,15 @@
+---
+- name: install the latest versions of Ansible
+  package:
+    name: ansible
+    state: latest
+
+- name: install the latest version of Ansible-Lint
+  pip:
+    name: ansible-lint
+  become: True
+
+- name: install the latest version of Ansible-Review
+  pip:
+    name: ansible-review
+  become: True
