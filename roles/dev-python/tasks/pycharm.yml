@@ -1,6 +1,6 @@
 # tasks file for pycharm
 ---
-- name: create (download) directory
+- name: create download directory
   file:
     path: "{{ pycharm_downloads_path }}"
     state: directory
