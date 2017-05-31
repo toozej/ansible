@@ -1,8 +1,10 @@
-# tasks file for pycharm
 ---
-- name: include pycharm variables
+- name: include pycharm variables and defaults
   include_vars:
-    file: pycharm.yml
+    file: "{{ item }}"
+  with_items:
+    -vars/pycharm.yml
+    -defaults/pycharm.yml
 
 - name: create download directory
   file:
