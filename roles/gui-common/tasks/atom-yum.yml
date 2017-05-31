@@ -2,5 +2,5 @@
 - name: install latest version of Atom editor via RPM
   yum:
     name: https://atom.io/download/rpm
-    state: latest
+    state: present
 

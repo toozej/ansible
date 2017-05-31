@@ -2,5 +2,5 @@
 - name: install latest version of Atom editor via APT
   apt:
     deb: https://atom.io/download/deb
-    state: latest
+    state: present
 
