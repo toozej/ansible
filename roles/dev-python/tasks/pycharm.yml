@@ -1,5 +1,9 @@
 # tasks file for pycharm
 ---
+- name: include pycharm variables
+  include_vars:
+    file: pycharm.yml
+
 - name: create download directory
   file:
     path: "{{ pycharm_downloads_path }}"
