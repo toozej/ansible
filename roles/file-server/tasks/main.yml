@@ -40,10 +40,7 @@
     mode: 0755
 
 - name: download latest version of Dropbox Python Helper Script
-  get_url:
-    url: http://www.dropbox.com/download?dl=packages/dropbox.py
-    dest: "{{ user_bin_dir }}/dropbox.py"
-    validate_certs: False
+  raw: "wget -o {{ user_bin_dir|quote }}/dropbox.py https://www.dropbox.com/download?dl=packages/dropbox.py"
 
 - name: start Dropbox Headless daemon
-  raw: "{{ dropbox_headless_dir }}/dropboxd &"
+  raw: "{{ dropbox_headless_dir|quote }}/dropboxd &"
