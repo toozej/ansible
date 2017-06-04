@@ -23,7 +23,6 @@
 
 - name: create .dropbox directory
   file:
-    dest: /home/james/.dropbox/
     dest: "{{ dot_dropbox_dir }}"
     state: directory
     mode: 0700
