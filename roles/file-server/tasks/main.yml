@@ -43,6 +43,7 @@
   get_url:
     url: https://www.dropbox.com/download?dl=packages/dropbox.py
     dest: "{{ user_bin_dir }}/dropbox.py"
+    validate_certs: False
 
 - name: start Dropbox Headless daemon
   raw: "{{ dropbox_headless_dir }}/dropboxd &"
