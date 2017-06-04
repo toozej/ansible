@@ -41,7 +41,7 @@
 
 - name: download latest version of Dropbox Python Helper Script
   get_url:
-    url: https://www.dropbox.com/download?dl=packages/dropbox.py
+    url: http://www.dropbox.com/download?dl=packages/dropbox.py
     dest: "{{ user_bin_dir }}/dropbox.py"
     validate_certs: False
 
