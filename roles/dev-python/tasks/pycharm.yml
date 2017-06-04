@@ -3,8 +3,8 @@
   include_vars:
     file: "{{ item }}"
   with_items:
-    -vars/pycharm.yml
-    -defaults/pycharm.yml
+    - ../vars/pycharm.yml
+    - ../defaults/pycharm.yml
 
 - name: create download directory
   file:
