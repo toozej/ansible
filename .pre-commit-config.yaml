@@ -2,4 +2,12 @@
   sha: v0.7.1
   hooks:
   - id: check-yaml
+    name: Check for valid YAML syntax in repo
+    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_yaml.py
   - id: detect-private-key
+    name: Check for existence of private key in repo
+    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/detect_private_key.py
+  - id: trailing-whitespace
+    name: Remove trailing whitespace in YAML files
+    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/trailing_whitespace_fixer.py
+    files: \.(py|sh|yaml|yml)$

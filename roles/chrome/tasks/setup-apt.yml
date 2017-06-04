@@ -23,7 +23,7 @@
   when: google_repo.changed
 
 - name: "apt | ensure Google chrome latest"
-  apt: 
+  apt:
     name: google-chrome-stable
     update_cache: yes
     state: latest

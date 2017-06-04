@@ -5,7 +5,7 @@
     dest: /tmp/simplenote.tgz
 
 - name: Create simplenote directory as /opt/simplenote
-  file: 
+  file:
     path: /opt/simplenote
     state: directory
     mode: 0755

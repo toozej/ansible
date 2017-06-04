@@ -1,12 +1,12 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: bootstrap.sh
-# 
-#         USAGE: ./bootstrap.sh 
-# 
+#
+#         USAGE: ./bootstrap.sh
+#
 #   DESCRIPTION: bootstrap new OS install using Ansible
-# 
+#
 #       OPTIONS: ---
 #        AUTHOR: toozej
 #       CREATED: 05/20/2017 17:14

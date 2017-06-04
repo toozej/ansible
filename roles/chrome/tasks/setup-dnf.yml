@@ -10,7 +10,7 @@
     gpgcheck: yes
 
 - name: "dnf | ensure Google chrome present"
-  dnf: 
+  dnf:
     name: google-chrome-stable
     state: latest
 
