@@ -4,6 +4,12 @@
     name: samba
     state: latest
 
+- name: create james home directory
+  file:
+    dest: /home/james/
+    state: directory
+    mode: 0755
+
 - name: download latest version of Dropbox Headless
   get_url:
     url: https://www.dropbox.com/download?plat=lnx.x86_64
@@ -27,7 +33,7 @@
     dest: /home/james/.dropbox-dist/
     remote_src: True
 
-- name: create /home/james/bin/ directory to put Dropbox Python Helper Script in
+- name: create /home/james/bin/ directory for Dropbox Python Helper Script
   file:
     dest: /home/james/bin/
     state: directory
