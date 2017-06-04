@@ -4,45 +4,46 @@
     name: samba
     state: latest
 
-- name: create james home directory
+- name: create user home directory
   file:
-    dest: /home/james/
+    dest: "{{ user_home_dir }}"
     state: directory
     mode: 0755
 
 - name: download latest version of Dropbox Headless
   get_url:
     url: https://www.dropbox.com/download?plat=lnx.x86_64
-    dest: /home/james/dropbox.tgz
+    dest: "{{ user_home_dir }}/dropbox.tgz"
 
 - name: create Dropbox Headless directory
   file:
-    dest: /home/james/.dropbox-dist/
+    dest: "{{ dropbox_headless_dir }}"
     state: directory
     mode: 0755
 
 - name: create .dropbox directory
   file:
     dest: /home/james/.dropbox/
+    dest: "{{ dot_dropbox_dir }}"
     state: directory
     mode: 0700
 
 - name: extract Dropbox Headless
   unarchive:
-    src: /home/james/dropbox.tgz
-    dest: /home/james/.dropbox-dist/
+    src: "{{ user_home_dir }}/dropbox.tgz"
+    dest: "{{ dropbox_headless_dir }}"
     remote_src: True
 
-- name: create /home/james/bin/ directory for Dropbox Python Helper Script
+- name: create user bin directory for Dropbox Python Helper Script
   file:
-    dest: /home/james/bin/
+    dest: "{{ user_bin_dir }}"
     state: directory
     mode: 0755
 
 - name: download latest version of Dropbox Python Helper Script
   get_url:
     url: https://www.dropbox.com/download?dl=packages/dropbox.py
-    dest: /home/james/bin/dropbox.py
+    dest: "{{ user_bin_dir }}/dropbox.py"
 
 - name: start Dropbox Headless daemon
-  raw: /home/james/.dropbox-dist/dropboxd &
+  raw: "{{ dropbox_headless_dir }}/dropboxd &"
