@@ -1,0 +1,4 @@
+---
+postgresql_client_package_name: postgresql-client
+postgresql_server_package_name: postgresql
+mariadb_client_package_name: mariadb-client
