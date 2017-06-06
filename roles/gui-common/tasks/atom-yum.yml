@@ -3,5 +3,4 @@
   yum:
     name: https://atom.io/download/rpm
     state: present
-    validate_certs: False
 
