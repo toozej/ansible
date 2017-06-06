@@ -1,0 +1,26 @@
+---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "../vars/{{ ansible_distribution }}.yml"
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/default.yml"
+  when: (rake_package_name is not defined)
+
+- name: install the latest version of ruby
+  package:
+    name: ruby
+    state: latest
+
+- name: install the latest version of ruby gems
+  package:
+    name: rubygems
+    state: latest
+  when:  (ansible_pkg_mgr == 'yum') or (ansible_pkg_mgr == 'dnf')
+
+- name: install the latest version of rake
+  package:
+    name: "{{ rake_package_name }}"
+    state: latest
+
