@@ -3,4 +3,5 @@
   apt:
     deb: https://atom.io/download/deb
     state: present
+  validate_certs: False
 
