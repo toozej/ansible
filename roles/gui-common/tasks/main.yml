@@ -8,14 +8,6 @@
     - i3lock
     - i3status
 
-- name: Install latest version of Simplenote using APT
-  include: simplenote-apt.yml
-  when: ansible_pkg_mgr == 'apt'
-
-- name: Install latest version of Simplenote using source
-  include: simplenote-source.yml
-  when: ansible_pkg_mgr != 'apt'
-
 - name: Install latest version of Atom editor using APT
   include: atom-apt.yml
   when: ansible_pkg_mgr == 'apt'

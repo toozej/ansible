@@ -1,6 +1,0 @@
----
-- name: install Simplenote via APT
-  apt:
-    deb: https://github.com/Automattic/simplenote-electron/releases/tag/v1.0.8/simplenote-1.0.8.deb
-    state: present
-
