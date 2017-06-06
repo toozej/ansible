@@ -8,6 +8,11 @@
     - i3lock
     - i3status
 
+- name: Install latest version of CA certificates
+  package:
+    name: ca-certificates
+    state: latest
+
 - name: Install latest version of Atom editor using APT
   include: atom-apt.yml
   when: ansible_pkg_mgr == 'apt'
