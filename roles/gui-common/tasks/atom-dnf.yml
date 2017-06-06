@@ -3,5 +3,5 @@
   dnf:
     name: https://atom.io/download/rpm
     state: present
-  validate_certs: False
+    validate_certs: False
 
