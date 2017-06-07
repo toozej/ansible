@@ -6,7 +6,7 @@
     - "../vars/{{ ansible_distribution }}.yml"
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/default.yml"
-  when: (postgresql_client_package is not defined) or (postgresql_server_package_name is not defined) or (mariadb_client_package_name is not defined)
+  when: (postgresql_client_package is not defined) or (postgresql_server_package_name is not defined) or (mariadb_client_package_name is not defined) or (mariadb_server_package_name is not defined)
 
 - name: install the latest version of PostgreSQL
   package:
@@ -27,5 +27,10 @@
     state: latest
   with_items:
     - "{{ mariadb_client_package_name }}"
-    - mariadb-server
+    - "{{ mariadb_server_package_name }}"
+
+- name: install the latest version of MySQL Python connector
+  pip:
+    name: mysql-connector-python
+    state: latest
 

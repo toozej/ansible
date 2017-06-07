@@ -2,3 +2,4 @@
 postgresql_client_package_name: postgresql
 postgresql_server_package_name: postgresql-server
 mariadb_client_package_name: mariadb
+mariadb_server_package_name: mariadb-server
