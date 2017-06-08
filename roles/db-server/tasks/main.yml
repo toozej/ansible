@@ -6,7 +6,7 @@
     - "../vars/{{ ansible_distribution }}.yml"
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/default.yml"
-  when: (postgresql_client_package is not defined) or (postgresql_server_package_name is not defined) or (mariadb_client_package_name is not defined) or (mariadb_server_package_name is not defined)
+  when: (postgresql_client_package is not defined) or (postgresql_server_package_name is not defined)
 
 - name: install the latest version of PostgreSQL
   package:
@@ -21,13 +21,26 @@
     name: python-psycopg2
     state: latest
 
-- name: install the latest version of MariaDB
+- name: Install latest version of MariaDB on Debian
+  include: mariadb-debian.yml
+  when: ansible_distribution == 'Debian'
+
+- name: Install latest version of MariaDB on Ubuntu
+  include: mariadb-ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install latest version of MariaDB on CentOS/RedHat
+  include: mariadb-centos.yml
+  when: (ansible_distribution == 'CentOS') or (ansible_distribution == 'RedHat')
+
+- name: install latest version of MariaDB on Fedora
   package:
     name: "{{item}}"
     state: latest
   with_items:
-    - "{{ mariadb_client_package_name }}"
-    - "{{ mariadb_server_package_name }}"
+    - mariadb
+    - mariadb-server
+  when: (ansible_distribution == 'Fedora') and (ansible_distribution_version >= 19)
 
 - name: install the latest version of MySQL Python connector
   pip:
