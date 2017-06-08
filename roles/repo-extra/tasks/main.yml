@@ -1,42 +1,8 @@
 ---
+- name: Install latest version of RPMFusion using DNF
+  include: setup-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
 
-# Check whether repo packages are installed before forcing a network download.
-
-- name: is the rpmfusion-free repo installed
-  command: rpm -q rpmfusion-free-release
-  register: rpmfusion_free_installed
-  ignore_errors: yes
-  changed_when: rpmfusion_free_installed|failed
-
-- name: is the rpmfusion-nonfree repo installed
-  command: rpm -q rpmfusion-nonfree-release
-  register: rpmfusion_nonfree_installed
-  ignore_errors: yes
-  changed_when: rpmfusion_nonfree_installed|failed
-
-- name: is the livna repo installed
-  command: rpm -q livna-release
-  register: livna_installed
-  ignore_errors: yes
-  changed_when: livna_installed|failed
-
-
-# Install missing repo packages.
-
-- name: install rpmfusion-free dnf repo
-  dnf:
-    name: http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
-    state: present
-  when: rpmfusion_free_installed|failed
-
-- name: install rpmfusion-nonfree dnf repo
-  dnf:
-    name: http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm
-    state: present
-  when: rpmfusion_nonfree_installed|failed
-
-- name: install livna dnf repo
-  dnf:
-    name: http://rpm.livna.org/livna-release.rpm
-    state: present
-  when: livna_installed|failed
+- name: Install latest version of RPMFusion using YUM
+  include: setup-yum.yml
+  when: ansible_pkg_mgr == 'yum'

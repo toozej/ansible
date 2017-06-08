@@ -1,0 +1,19 @@
+---
+- name: install rpmfusion dnf repo for Fedora
+  dnf:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
+    - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm
+  when: ansible_distribution == 'Fedora'
+
+- name: install rpmfusion dnf repo for RedHat
+  dnf:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - http://download1.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version|int }}.noarch.rpm
+    - http://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version|int }}.noarch.rpm
+  when: ansible_distribution_family == 'RedHat'
+
