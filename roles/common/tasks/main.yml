@@ -51,6 +51,11 @@
     name: "{{ pip2_package_name }}"
     state: latest
 
+- name: install urllib3[secure]
+  pip:
+    name: urllib3[secure]
+    state: latest
+
 - name: install the latest versions of download tools
   package:
     name: "{{item}}"
