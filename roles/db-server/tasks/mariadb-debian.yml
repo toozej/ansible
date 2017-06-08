@@ -1,20 +1,15 @@
 ---
-# Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
-  with_first_found:
-    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-    - "../vars/{{ ansible_distribution }}.yml"
-    - "../vars/{{ ansible_os_family }}.yml"
-    - "../vars/default.yml"
-  when: (mariadb_version is not defined)
+- name: include mariadb variables
+  include_vars:
+    file: ../vars/mariadb.yml
 
 - name: "apt | ensure MariaDB signing keys present"
   apt_key:
     keyserver: keyserver.ubuntu.com
     id: "{{item}}"
   with_items:
-    - 0xcbcb082a1bb943db
-    - 0xF1656F24C74CD1D8
+    - cbcb082a1bb943db
+    - F1656F24C74CD1D8
 
 - name: "apt | ensure MariaDB repo present"
   copy:
