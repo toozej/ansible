@@ -11,7 +11,7 @@
 - name: "apt | ensure MariaDB signing key present"
   apt_key:
     keyserver: keyserver.ubuntu.com
-    id: 0xF1656F24C74CD1D8
+    id: 0xcbcb082a1bb943db
 
 - name: "apt | ensure MariaDB repo present"
   copy:
