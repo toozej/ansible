@@ -4,7 +4,7 @@
 
 - name: Add Dropbox PPA Repo
   apt_repository:
-    repo: 'deb http://linux.dropbox.com/{{ansible_distribution}} {{ansible_distribution_release}} main'
+    repo: 'deb http://linux.dropbox.com/{{ansible_distribution|lower}} {{ansible_distribution_release}} main'
 
 - name: Install Dropbox
   apt:
