@@ -23,6 +23,7 @@ before_install:
   - cat /proc/meminfo
   - free -m
   - sudo apt-get update -qq
+  - sudo pip install --upgrade --force pip
   - sudo apt list --installed
   - sudo apt-get remove mysql-*
   - sudo rm -rf /var/lib/mysql/debian-*.flag

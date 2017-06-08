@@ -42,8 +42,8 @@
     - mariadb-server
   when: (ansible_distribution == 'Fedora') and (ansible_distribution_version >= 19)
 
-- name: install the latest version of MySQL Python connector
+- name: install the latest version of MySQL Python connector from mysql dev website
   pip:
-    name: mysql-connector-python
+    name: https://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python-2.1.6.zip
     state: latest
 
