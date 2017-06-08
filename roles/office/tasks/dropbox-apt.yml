@@ -8,6 +8,10 @@
 
 - name: Install Dropbox
   apt:
-    name: nautilus-dropbox
+    name: "{{item}}"
     state: latest
+    update_cache: yes
+  with_items:
+    - dropbox
+    - nautilus-dropbox
 

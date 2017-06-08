@@ -31,7 +31,7 @@
   unarchive:
     src: "{{ user_home_dir }}/dropbox.tgz"
     dest: "{{ dropbox_headless_dir }}"
-    remote_src: True
+    remote_src: yes
 
 - name: create user bin directory for Dropbox Python Helper Script
   file:

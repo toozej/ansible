@@ -5,19 +5,19 @@
 - name: is the rpmfusion-free repo installed
   command: rpm -q rpmfusion-free-release
   register: rpmfusion_free_installed
-  ignore_errors: True
+  ignore_errors: yes
   changed_when: rpmfusion_free_installed|failed
 
 - name: is the rpmfusion-nonfree repo installed
   command: rpm -q rpmfusion-nonfree-release
   register: rpmfusion_nonfree_installed
-  ignore_errors: True
+  ignore_errors: yes
   changed_when: rpmfusion_nonfree_installed|failed
 
 - name: is the livna repo installed
   command: rpm -q livna-release
   register: livna_installed
-  ignore_errors: True
+  ignore_errors: yes
   changed_when: livna_installed|failed
 
 
