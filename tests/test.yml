@@ -12,6 +12,7 @@
     - {role: ../roles/dev-common}
     - {role: ../roles/dev-ansible}
     - {role: ../roles/dev-go}
+    - {role: ../roles/dev-kubernetes}
     - {role: ../roles/dev-python}
     - {role: ../roles/dev-ruby}
     - {role: ../roles/docker}
