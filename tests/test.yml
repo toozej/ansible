@@ -14,10 +14,11 @@
     - {role: ../roles/dev-go}
     - {role: ../roles/dev-python}
     - {role: ../roles/dev-ruby}
+    - {role: ../roles/docker}
     - {role: ../roles/file-server}
     - {role: ../roles/gui-common}
     - {role: ../roles/gui-xfce}
     - {role: ../roles/office}
-    - {role: ../roles/vm}
     - {role: ../roles/repo-extra}
+    - {role: ../roles/vm}
 
