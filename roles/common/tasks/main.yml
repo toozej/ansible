@@ -91,6 +91,11 @@
     name: tmux
     state: latest
 
+- name: install the latest version of zip
+  package:
+    name: zip
+    state: latest
+
 - name: install the latest version of ag
   package:
     name: "{{ ag_package_name }}"
