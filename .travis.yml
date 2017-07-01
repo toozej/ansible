@@ -24,6 +24,8 @@ before_install:
   - sudo apt list --installed
   - sudo apt-get remove mysql-*
   - sudo rm -rf /var/lib/mysql/debian-*.flag
+  - cat /etc/apt/sources.list
+  - cat /etc/apt/sources.list.d/*
 
 install:
   # Install Ansible.
