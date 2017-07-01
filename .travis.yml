@@ -21,10 +21,14 @@ before_install:
   - free -m
   - sudo apt-get update -qq
   - sudo pip install --upgrade --force pip
+  # combat downgrading MySQL on Debian-based distro
   - sudo apt list --installed
   - sudo apt-get remove mysql-*
   - sudo rm -rf /var/lib/mysql/debian-*.flag
+  # combat invalid i386 Docker version in sources.list
+  # - sudo sed -i -e 's/deb https/deb [arch=amd64] https/' "/etc/apt/sources.list.d/.list"
   - cat /etc/apt/sources.list
+  - ls -l /etc/apt/sources.list.d/
   - cat /etc/apt/sources.list.d/*
 
 install:
