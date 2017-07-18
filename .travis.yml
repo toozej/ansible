@@ -29,7 +29,7 @@ before_install:
   - cat /etc/apt/sources.list
   - ls -l /etc/apt/sources.list.d/
   - cat /etc/apt/sources.list.d/*
-  - sudo sed -i -e 's/deb https/deb [arch=amd64] https/' "/etc/apt/sources.list.d/docker.list"
+  - sudo sed -i -e 's/      / [arch=amd64] /' "/etc/apt/sources.list.d/docker.list"
   - cat /etc/apt/sources.list.d/docker.list
 
 install:
