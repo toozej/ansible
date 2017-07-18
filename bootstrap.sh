@@ -14,6 +14,8 @@
 echo "determining OS and distro, then installing python2 git and ansible packages\n"
 if [ -f /etc/lsb-release ]; then
         os=$(lsb_release -s -d)
+
+# if Debian-based
 elif [ -f /etc/debian_version ]; then
         os="Debian $(cat /etc/debian_version)"
         apt-get update
@@ -22,6 +24,8 @@ elif [ -f /etc/debian_version ]; then
         apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
         apt-get update
         apt-get install ansible
+
+## if RedHat-based
 elif [ -f /etc/redhat-release ]; then
         os=`cat /etc/redhat-release`
         yum update
@@ -33,6 +37,13 @@ elif [ -f /etc/redhat-release ]; then
         fi
         yum install -y $epel_rpm
         yum install -y git python2 ansible
+
+# if ArchLinux-based
+elif [ -f /etc/arch-release ]; then
+        os="archlinux"
+        pacman -S ansible git python2
+
+## otherwise...
 else
         os="$(uname -s) $(uname -r)"
 fi
