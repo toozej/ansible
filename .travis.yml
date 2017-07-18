@@ -25,12 +25,8 @@ before_install:
   - sudo apt list --installed
   - sudo apt-get remove mysql-*
   - sudo rm -rf /var/lib/mysql/debian-*.flag
-  # combat invalid i386 Docker version in sources.list
-  - cat /etc/apt/sources.list
-  - ls -l /etc/apt/sources.list.d/
-  - cat /etc/apt/sources.list.d/*
-  - sudo sed -i -e 's/      / [arch=amd64] /' "/etc/apt/sources.list.d/docker.list"
-  - cat /etc/apt/sources.list.d/docker.list
+  # list out apt sources
+  - grep "" /etc/apt/sources.list.d/*
 
 install:
   # Install Ansible.
