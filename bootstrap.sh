@@ -11,7 +11,7 @@
 #        AUTHOR: toozej
 #       CREATED: 05/20/2017 17:14
 #===============================================================================
-echo "determining OS and distro, then installing python2 git and ansible packages\n"
+echo -e "determining OS and distro, then installing python2 git and ansible packages\n"
 if [ -f /etc/lsb-release ]; then
         os=$(lsb_release -s -d)
 
@@ -23,7 +23,7 @@ elif [ -f /etc/debian_version ]; then
         echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list
         apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
         apt-get update
-        apt-get install ansible
+        apt-get install -y ansible
 
 ## if RedHat-based
 elif [ -f /etc/redhat-release ]; then
@@ -48,17 +48,16 @@ else
         os="$(uname -s) $(uname -r)"
 fi
 
-echo "\n\n"
-echo "setting up ansible\n"
-echo "setting up localhost in the ansible inventory\n"
+echo -e "\n\n"
+echo -e "setting up localhost in the ansible inventory"
 echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 
-echo "pulling down ansible repo from github\n"
+echo -e "pulling down ansible repo from github"
 git clone https://github.com/toozej/ansible.git /tmp/ansible
 cd /tmp/ansible
-echo "\n\n"
+echo -e "\n\n"
 
-echo "running ansible playbook based on user input\n"
+echo -e "running ansible playbook based on user input\n"
 
 # get user input
 while getopts "h" option
@@ -80,6 +79,6 @@ done
 # run the ansible playbooks based on the playbook names inserted by user
 
 
-echo "\n\n"
-echo "all finished bootstrapping"
+echo -e "\n\n"
+echo -e "all finished bootstrapping"
 
