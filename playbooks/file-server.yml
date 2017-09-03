@@ -1,0 +1,8 @@
+---
+# Playbook to setup a basic fileserver
+- name: Setup file server
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: file-server

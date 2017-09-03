@@ -26,6 +26,9 @@ before_install:
   - sudo rm -rf /var/lib/mysql/debian-*.flag
   # list out apt sources
   - grep "" /etc/apt/sources.list.d/*
+  # combat not having CA Certs installed
+  - sudo pip install urllib3
+
 
 install:
   # Install Ansible.

@@ -1,0 +1,33 @@
+---
+# Playbook to setup a desktop system with full toolchain
+- name: Setup common environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: common
+
+- name: Setup Docker environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: docker
+
+- name: Setup GUI
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: gui-common
+    - role: gui-xfce
+
+- name: Setup programs and tools
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: chrome
+    - role: audio-cli
+    - role: audio-gui
+    - role: office
