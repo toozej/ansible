@@ -6,6 +6,7 @@
   become_user: root
   roles:
     - role: common
+    - role: repo-extra
 
 - name: Setup Docker environment
   hosts: all
