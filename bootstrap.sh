@@ -55,9 +55,23 @@ echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 echo -e "pulling down ansible repo from github"
 git clone https://github.com/toozej/ansible.git /tmp/ansible
 cd /tmp/ansible
+echo -e "setting up default ansible.cfg"
+cp ansible.cfg.example ansible.cfg
 echo -e "\n\n"
 
+# check if github SSH key is configured, and if it's not request user to place it there
+if [-z /home/james/.ssh/id_rsa_github]; then
+  echo "Github SSH key is not in the correct path, please add and retry"
+  exit 1
+fi
+
+# if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
+if [ $DRYRUN = true ]; then
+  ansible-playbook --dry-run /tmp/ansible/playbooks/$1
+elif [ $RUN = true ]; then
+  ansible-playbook /tmp/ansible/playbooks/$2
+fi
 
 # get user input
 while getopts "h" option
@@ -65,6 +79,14 @@ do
   case $option in
     h)
       usage
+      exit 1
+      ;;
+    d)
+      DRYRUN=true
+      exit 1
+      ;;
+    r)
+      RUN=true
       exit 1
       ;;
     ?)
