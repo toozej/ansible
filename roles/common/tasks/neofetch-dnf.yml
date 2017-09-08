@@ -1,0 +1,13 @@
+---
+- name: Add NeoFetch repository
+  yum_repository:
+    name: neofetch
+    description: "NeoFetch repository"
+    baseurl: https://copr.fedorainfracloud.org/coprs/konimex/neofetch/repo/fedora-{{ ansible_distribution_major_version|int }}/konimex-neofetch-fedora-{{ ansible_distribution_major_version|int }}.repo
+    gpgcheck: no
+
+- name: "dnf | ensure NeoFetch present"
+  dnf:
+    name: neofetch
+    state: latest
+

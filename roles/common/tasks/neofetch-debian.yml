@@ -1,0 +1,15 @@
+---
+- name: "apt | ensure BinTray signing keys present"
+  raw: curl -L "https://bintray.com/user/downloadSubjectPublicKey?username=bintray" -o Release-neofetch.key && sudo apt-key add Release-neofetch.key && rm Release-neofetch.key
+
+- name: "apt | ensure BinTray repo present"
+  copy:
+    content: "deb [amd64] http://dl.bintray.com/dawidd6/neofetch jessie main"
+    dest: "/etc/apt/sources.list.d/neofetch.list"
+
+- name: "apt | ensure neofetch installed"
+  apt:
+    name: neofetch
+    update_cache: yes
+    state: latest
+

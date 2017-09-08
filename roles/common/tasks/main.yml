@@ -101,6 +101,22 @@
     name: "{{ ag_package_name }}"
     state: latest
 
+- name: Install latest version of Neofetch on Debian
+  include: neofetch-debian.yml
+  when: ansible_distribution == 'Debian'
+
+- name: Install latest version of Neofetch on Ubuntu
+  include: neofetch-ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install latest version of Neofetch using YUM
+  include: neofetch-yum.yml
+  when: ansible_pkg_mgr == 'yum'
+
+- name: Install latest version of Neofetch using DNF
+  include: neofetch-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+
 - name: grab and init latest vimfiles from github.com/toozej/vimfiles
   git:
     repo: 'https://github.com/toozej/vimfiles.git'
