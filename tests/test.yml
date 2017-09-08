@@ -19,6 +19,7 @@
     - {role: ../roles/file-server}
     - {role: ../roles/gui-common}
     - {role: ../roles/gui-xfce}
+    - {role: ../roles/monitoring}
     - {role: ../roles/office}
     - {role: ../roles/web-server}
     - {role: ../roles/repo-extra}

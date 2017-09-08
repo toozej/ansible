@@ -14,3 +14,10 @@
   roles:
     - role: db-server
     - role: web-server
+
+- name: Setup server monitoring via Netdata
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: monitoring
