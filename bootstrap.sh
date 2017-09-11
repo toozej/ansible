@@ -60,16 +60,16 @@ cp ansible.cfg.example ansible.cfg
 echo -e "\n\n"
 
 # check if github SSH key is configured, and if it's not request user to place it there
-if [-z /home/james/.ssh/id_rsa_github]; then
+if [ -z /home/james/.ssh/id_rsa_github ]; then
   echo "Github SSH key is not in the correct path, please add and retry"
   exit 1
 fi
 
 # if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
-if [ $DRYRUN = true ]; then
+if [ $DRYRUN == true ]; then
   ansible-playbook --dry-run /tmp/ansible/playbooks/$1
-elif [ $RUN = true ]; then
+elif [ $RUN == true ]; then
   ansible-playbook /tmp/ansible/playbooks/$2
 fi
 
