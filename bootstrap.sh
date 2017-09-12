@@ -1,16 +1,20 @@
 #!/bin/bash -
-#===============================================================================
-#
-#          FILE: bootstrap.sh
-#
-#         USAGE: ./bootstrap.sh
-#
-#   DESCRIPTION: bootstrap new OS install using Ansible
-#
-#       OPTIONS: ---
-#        AUTHOR: toozej
-#       CREATED: 05/20/2017 17:14
-#===============================================================================
+
+# help/usage information
+function usage {
+    echo "Usage: bootstrap.sh [-d] [-r] PLAYBOOK"
+    echo ""
+    echo "  -h                  Display usage."
+    echo ""
+    echo "  -d                  Run Ansible Playbook in dry-run mode."
+    echo ""
+    echo "  -r                  Run Ansible Playbook."
+    echo ""
+    echo "  PLAYBOOK            Filename of the Ansible playbook to run."
+    echo "                        For example, web-server.yml."
+    echo ""
+}
+
 # get user input
 while getopts ":hd:r:" option
 do
