@@ -2,11 +2,11 @@
 
 # help/usage information
 function usage {
-    echo "Usage: bootstrap.sh [-d] [-r] PLAYBOOK"
+    echo "Usage: bootstrap.sh [-c] [-r] PLAYBOOK"
     echo ""
     echo "  -h                  Display usage."
     echo ""
-    echo "  -d                  Run Ansible Playbook in dry-run mode."
+    echo "  -c                  Run Ansible Playbook in check mode."
     echo ""
     echo "  -r                  Run Ansible Playbook."
     echo ""
@@ -16,20 +16,18 @@ function usage {
 }
 
 # get user input
-while getopts ":hd:r:" option
+while getopts ":hc:r:" option
 do
   case $option in
     h)
       usage
       exit 1
       ;;
-    d)
-      DRYRUN=true
-      exit 1
+    c)
+      CHECK=true
       ;;
     r)
       RUN=true
-      exit 1
       ;;
     ?)
       usage
@@ -77,6 +75,10 @@ else
 fi
 
 # download and configure ansible on localhost
+# trash /tmp/ansible if it already exists
+if  [ -d /tmp/ansible ]; then
+  rm -rf /tmp/ansible
+fi
 echo -e "pulling down ansible repo from github"
 git clone https://github.com/toozej/ansible.git /tmp/ansible
 cd /tmp/ansible
@@ -94,8 +96,8 @@ fi
 
 # if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
-if [[ $DRYRUN == "true" ]]; then
-  ansible-playbook --dry-run /tmp/ansible/playbooks/$1
+if [[ $CHECK == "true" ]]; then
+  ansible-playbook --check /tmp/ansible/playbooks/$2
 elif [[ $RUN == "true" ]]; then
   ansible-playbook /tmp/ansible/playbooks/$2
 fi
