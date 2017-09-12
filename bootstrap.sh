@@ -11,6 +11,30 @@
 #        AUTHOR: toozej
 #       CREATED: 05/20/2017 17:14
 #===============================================================================
+# get user input
+while getopts ":hd:r:" option
+do
+  case $option in
+    h)
+      usage
+      exit 1
+      ;;
+    d)
+      DRYRUN=true
+      exit 1
+      ;;
+    r)
+      RUN=true
+      exit 1
+      ;;
+    ?)
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+
 echo -e "determining OS and distro, then installing python2 git and ansible packages\n"
 if [ -f /etc/lsb-release ]; then
         os=$(lsb_release -s -d)
@@ -48,15 +72,14 @@ else
         os="$(uname -s) $(uname -r)"
 fi
 
-echo -e "\n\n"
-echo -e "setting up localhost in the ansible inventory"
-echo "localhost ansible_connection=local" >> /etc/ansible/hosts
-
+# download and configure ansible on localhost
 echo -e "pulling down ansible repo from github"
 git clone https://github.com/toozej/ansible.git /tmp/ansible
 cd /tmp/ansible
 echo -e "setting up default ansible.cfg"
 cp ansible.cfg.example ansible.cfg
+echo -e "setting up localhost in the ansible inventory"
+echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 echo -e "\n\n"
 
 # check if github SSH key is configured, and if it's not request user to place it there
@@ -67,39 +90,11 @@ fi
 
 # if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
-if [ $DRYRUN == true ]; then
+if [[ $DRYRUN == "true" ]]; then
   ansible-playbook --dry-run /tmp/ansible/playbooks/$1
-elif [ $RUN == true ]; then
+elif [[ $RUN == "true" ]]; then
   ansible-playbook /tmp/ansible/playbooks/$2
 fi
-
-# get user input
-while getopts "h" option
-do
-  case $option in
-    h)
-      usage
-      exit 1
-      ;;
-    d)
-      DRYRUN=true
-      exit 1
-      ;;
-    r)
-      RUN=true
-      exit 1
-      ;;
-    ?)
-      usage
-      exit 1
-      ;;
-  esac
-done
-
-
-# parse user input
-# run the ansible playbooks based on the playbook names inserted by user
-
 
 echo -e "\n\n"
 echo -e "all finished bootstrapping"
