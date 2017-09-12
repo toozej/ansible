@@ -84,9 +84,8 @@ git clone https://github.com/toozej/ansible.git /tmp/ansible
 cd /tmp/ansible
 echo -e "setting up default ansible.cfg"
 cp ansible.cfg.example ansible.cfg
-echo -e "setting up localhost in the ansible inventory"
+echo -e "setting up localhost in the ansible inventory\n"
 echo "localhost ansible_connection=local" >> /etc/ansible/hosts
-echo -e "\n\n"
 
 # check if github SSH key is configured, and if it's not request user to place it there
 if [ -z /home/james/.ssh/id_rsa_github ]; then
