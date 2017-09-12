@@ -1,6 +1,6 @@
 ---
 - name: install latest version of DBeaver via RPM
   dnf:
-    name: http://dbeaver.jkiss.org/files/dbeaver-ce-latest-stable.x86_64.rpm
+    name: https://dbeaver.jkiss.org/files/dbeaver-ce-latest-stable.x86_64.rpm
     state: present
 
