@@ -21,9 +21,14 @@ before_install:
   - sudo apt-get update -qq
   - sudo pip install --upgrade --force pip
   # combat downgrading MySQL on Debian-based distro
-  - sudo apt list --installed
+  - sudo apt list --installed | grep mysql
   - sudo apt-get remove mysql-*
   - sudo rm -rf /var/lib/mysql/debian-*.flag
+  # combat upgrading to PostgreSQL 10 when 9.x is running
+  - sudo apt list --installed | grep postgresql
+  - sudo ps aux | grep postgresql
+  - sudo service postgresql stop
+  - sudo ps aux | grep postgresql
   # list out apt sources
   - grep "" /etc/apt/sources.list.d/*
   # combat not having CA Certs installed
