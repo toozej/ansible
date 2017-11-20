@@ -1,4 +1,11 @@
 ---
+- name: include simplenote variables and defaults
+  include_vars:
+    file: "{{ item }}"
+  with_items:
+    - ../vars/simplenote.yml
+    - ../defaults/simplenote.yml
+
 - name: install latest version of i3 window manager
   package:
     name: "{{item}}"
@@ -24,3 +31,25 @@
 - name: Install latest version of Atom editor using YUM
   include: atom-yum.yml
   when: ansible_pkg_mgr == 'yum'
+
+- name: Install latest version of Simplenote for Debian-based systems
+  apt:
+    deb:  https://github.com/Automattic/simplenote-electron/releases/download/v1.0.8/simplenote-1.0.8.deb
+    state: present
+  when: ansible_distribution == 'Debian'
+
+- name: Install latest version of Simplenote for RedHat-based systems
+  include: simplenote-RedHat.yml
+  when: ansible_distribution == 'RedHat'
+
+- name: Setup shortcut for Simplenote
+  template:
+    src: simplenote_shortcut.j2
+    dest: /usr/share/applications/Simplenote.desktop
+    owner: root
+    group: root
+    mode: 0744
+
+- name: Seetup path for Simplenote
+  shell: |
+         /opt/Simplenote-linux-x64/Simplenote $@ > /dev/null 2>&1 &
