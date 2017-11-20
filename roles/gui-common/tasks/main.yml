@@ -36,11 +36,11 @@
   apt:
     deb:  https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/simplenote-{{ simplenote_version }}.deb
     state: present
-  when: ansible_distribution == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: Install latest version of Simplenote for RedHat-based systems
   include: simplenote-RedHat.yml
-  when: ansible_distribution == 'RedHat'
+  when: ansible_os_family == 'RedHat'
 
 - name: Setup shortcut for Simplenote
   template:
