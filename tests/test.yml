@@ -24,4 +24,5 @@
     - {role: ../roles/web-server}
     - {role: ../roles/repo-extra}
     - {role: ../roles/vm}
+    - {role: ../roles/hardening}
 
