@@ -50,6 +50,9 @@
     group: root
     mode: 0744
 
-- name: Seetup path for Simplenote
-  shell: |
-         /opt/Simplenote-linux-x64/Simplenote $@ > /dev/null 2>&1 &
+- name: Setup path for Simplenote
+  blockinfile:
+    path: /usr/local/bin/simplenote
+    state: present
+    content: |
+      /opt/Simplenote-linux-x64/Simplenote $@ > /dev/null 2>&1 &
