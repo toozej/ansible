@@ -9,7 +9,7 @@
 
 - name: Download Simplenote archive for RedHat-based systems
   get_url:
-    url: "https://github.com/Automattic/simplenote-electron/releases/download/v1.0.8/Simplenote-linux-x64.{{ simplenote_version }}.tar.gz"
+    url: "https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-x64.{{ simplenote_version }}.tar.gz"
     dest: "{{ simplenote_downloads_path }}/Simplenote-linux-x64.{{ simplenote_version }}.tar.gz"
     owner: root
     group: root

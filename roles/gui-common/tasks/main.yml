@@ -34,7 +34,7 @@
 
 - name: Install latest version of Simplenote for Debian-based systems
   apt:
-    deb:  https://github.com/Automattic/simplenote-electron/releases/download/v1.0.8/simplenote-1.0.8.deb
+    deb:  https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/simplenote-{{ simplenote_version }}.deb
     state: present
   when: ansible_distribution == 'Debian'
 
