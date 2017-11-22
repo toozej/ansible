@@ -1,0 +1,39 @@
+---
+- name: install unattended-upgrades for Debian-based systems
+  package:
+    name: unattended-upgrades
+    state: latest
+  when: ansible_os_family == "Debian"
+
+- name: Setup unattended-upgrades config file for Debian-based systems
+  template:
+    src: 50unattended-upgrades.debian.j2
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "Debian"
+
+- name: Setup unattended-upgrades config file for Ubuntu-based systems
+  template:
+    src: 50unattended-upgrades.ubuntu.j2
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "Ubuntu"
+
+- name: install yum-cron for RHEL-based systems
+  package:
+    name: yum-cron
+    state: latest
+  when: ansible_os_family == "RedHat"
+
+- name: Setup yum-cron config file for RHEL-based systems
+  template:
+    src: yum-cron.conf.j2
+    dest: /etc/yum/yum-cron.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == "RedHat"
