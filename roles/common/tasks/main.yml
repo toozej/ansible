@@ -13,15 +13,15 @@
     name: vim
     state: latest
 
-- name: install the latest version of htop
+- name: install the latest versions of system monitoring utilities
   package:
-    name: htop
+    name: "{{item}}"
     state: latest
-
-- name: install the latest version of bwm-ng
-  package:
-    name: bwm-ng
-    state: latest
+  with_items:
+    - htop
+    - iotop
+    - powertop
+    - bwm-ng
 
 - name: install the latest version of smb client
   package:
