@@ -22,6 +22,7 @@
     - iotop
     - powertop
     - bwm-ng
+    - ncdu
 
 - name: install the latest version of smb client
   package:
