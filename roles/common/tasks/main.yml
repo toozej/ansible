@@ -74,11 +74,19 @@
     name: "{{ gnupg_package_name }}"
     state: latest
 
-- name: install the latest version of gnupg-agent
+- name: install the latest version of gnupg-agent (gpg-agent)
   package:
     name: gnupg-agent
     state: latest
   when: ansible_os_family == 'Debian'
+
+- name: Setup config file for gnupg-agent
+  template:
+    src: gpg-agent.conf.j2
+    dest: /home/james/.gnupg/gpg-agent.conf
+    owner: james
+    group: james
+    mode: 0664
 
 - name: install the latest version of pip2
   package:
