@@ -1,0 +1,3 @@
+---
+libvirt_package_name: libvirt
+ovmf_package_name: edk2-ovmf
