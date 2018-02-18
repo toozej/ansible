@@ -10,17 +10,20 @@
 
 - name: install latest versions of libvirt packages
   package:
-    name: "{{ item }}"
+    name: "{{ libvirt_package_name }}"
     state: latest
-  with_items:
-    - "{{ libvirt_package_name }} "
-    - libvirt-daemon
+
+- name: install latest version of libvirt-daemon on RedHat-based only
+  package:
+    name: libvirt-daemon
+    state: latest
+  when: ansible_os_family == 'RedHat'
 
 - name: install latest version of libvirt-clients on Debian-based only
   package:
     name: libvirt-clients
     state: latest
-  when: ansible_os_family == 'Debian'
+  when: ansible_distribution == 'Debian'
 
 - name: install latest versions of emulation tools
   package:
