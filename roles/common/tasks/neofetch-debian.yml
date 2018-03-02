@@ -4,7 +4,7 @@
 
 - name: "apt | ensure BinTray repo present"
   copy:
-    content: "deb [amd64] http://dl.bintray.com/dawidd6/neofetch jessie main"
+    content: "deb http://dl.bintray.com/dawidd6/neofetch stable main"
     dest: "/etc/apt/sources.list.d/neofetch.list"
 
 - name: "apt | ensure neofetch installed"
