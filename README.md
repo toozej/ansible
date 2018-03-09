@@ -5,10 +5,11 @@
 ## How to use it
 - scp private SSH key into ~/.ssh/
 - wget https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh && chmod +x bootstrap.sh
-- sudo ./bootstrap.sh $playbook\_name.yml
+- check the playbook: sudo ./bootstrap.sh -c $playbook\_name.yml
+- run the playbook: sudo ./bootstrap.sh -r $playbook\_name.yml
 
 Or if you would rather just run one playbook stand-alone:
-- ansible-playbook --check $playbook\_name.yml
+- cd /tmp/ansible; ansible-playbook $playbook\_name.yml
 
 ## bootstrap.sh
 - determine OS type: RHEL, Debian, CoreOS, other
