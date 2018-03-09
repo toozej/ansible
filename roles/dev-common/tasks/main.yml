@@ -24,14 +24,17 @@
 - name: Install latest version of DBeaver using APT
   include: dbeaver-apt.yml
   when: ansible_pkg_mgr == 'apt'
+  tags: gui
 
 - name: Install latest version of DBeaver using DNF
   include: dbeaver-dnf.yml
   when: ansible_pkg_mgr == 'dnf'
+  tags: gui
 
 - name: Install latest version of DBeaver using YUM
   include: dbeaver-yum.yml
   when: ansible_pkg_mgr == 'yum'
+  tags: gui
 
 - name: clean any existing vimfiles at /home/james/.vim
   file:

@@ -39,3 +39,4 @@
     state: latest
 
 - include: "pycharm.yml"
+  tags: gui
