@@ -32,3 +32,18 @@
 - name: Install latest version of DBeaver using YUM
   include: dbeaver-yum.yml
   when: ansible_pkg_mgr == 'yum'
+
+- name: clean any existing vimfiles at /home/james/.vim
+  file:
+    state: absent
+    path: /home/james/.vim/
+ 
+- name: grab and init latest vimfiles from github.com/toozej/vimfiles
+  git:
+    repo: 'https://github.com/toozej/vimfiles.git'
+    clone: yes
+    accept_hostkey: yes
+    dest: /home/james/.vim
+    recursive: yes
+    key_file: /home/james/.ssh/id_rsa_github
+  tags: github
