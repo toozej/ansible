@@ -7,6 +7,7 @@
 - wget https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh && chmod +x bootstrap.sh
 - check the playbook: sudo ./bootstrap.sh -c $playbook\_name.yml
 - run the playbook: sudo ./bootstrap.sh -r $playbook\_name.yml
+- run the playbook skipping tags: sudo ./bootstrap.sh -r $playbook\_name.yml --skip-tags $tag\_name,$tag\_name\_2
 
 Or if you would rather just run one playbook stand-alone:
 - cd /tmp/ansible; ansible-playbook $playbook\_name.yml
