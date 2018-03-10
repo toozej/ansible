@@ -11,3 +11,9 @@
     name: Remove trailing whitespace in YAML files
     description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/trailing_whitespace_fixer.py
     files: \.(py|sh|yaml|yml)$
+
+- repo: https://github.com/willthames/ansible-lint.git
+  sha: v3.3.1
+  hooks:
+    - id: ansible-lint
+      files: \.(yaml|yml)$
