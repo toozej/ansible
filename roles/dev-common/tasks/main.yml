@@ -15,7 +15,7 @@
 
 - name: install the latest versions of Git tools
   package:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: latest
   with_items:
     - git-review
@@ -36,3 +36,10 @@
   when: ansible_pkg_mgr == 'yum'
   tags: gui
 
+- name: Install pre-commit and pre-commit hooks using Pip
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - pre-commit
+    - pre-commit-hooks
