@@ -1,5 +1,6 @@
+repos:
 - repo: git://github.com/pre-commit/pre-commit-hooks
-  sha: v1.2.3
+  rev: v1.2.3
   hooks:
   - id: check-yaml
     name: Check for valid YAML syntax in repo
@@ -7,9 +8,6 @@
   - id: detect-private-key
     name: Check for existence of private key in repo
     description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/detect_private_key.py
-  - id: detect-AWS-credentials
-    name: Check for existence of AWS credentials in repo
-    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/detect-aws-credentials.py
   - id: trailing-whitespace
     name: Remove trailing whitespace in YAML,Python,Bash files
     description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/trailing_whitespace_fixer.py
@@ -24,7 +22,7 @@
     files: \.(py|sh|yaml|yml)$
 
 - repo: https://github.com/willthames/ansible-lint.git
-  sha: v3.3.1
+  rev: v3.4.20
   hooks:
     - id: ansible-lint
       files: \.(yaml|yml)$
