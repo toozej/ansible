@@ -61,6 +61,8 @@
            HostKeyAlgorithms ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,ssh-rsa
            Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-cbc,aes192-cbc,rijndael-cbc@lysator.liu.se
            MACs umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512
+    validate: /usr/sbin/sshd -t -f %s
+    backup: yes
 
 - name: secure sshd config
   blockinfile:
@@ -72,7 +74,8 @@
       # HostKeyAlgorithms ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,ssh-rsa
       Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-cbc,aes192-cbc,rijndael-cbc@lysator.liu.se
       MACs umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512
-
+    validate: /usr/sbin/sshd -t -f %s
+    backup: yes
 
 - name: install the latest versions of shells
   package:
@@ -94,14 +97,14 @@
   when: ansible_os_family == 'Debian'
 
 - name: create ~/.gnupg directory
-  file: path=~/.gnupg state=directory
+  file: path=/home/.gnupg state=directory
 
 - name: Setup config file for gnupg-agent
   template:
     src: gpg-agent.conf.j2
-    dest: ~/.gnupg/gpg-agent.conf
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    dest: /home/james/.gnupg/gpg-agent.conf
+    owner: james
+    group: james
     mode: 0664
 
 - name: install the latest version of pip2
@@ -152,4 +155,3 @@
 - name: Install latest version of Neofetch using DNF
   include: neofetch-dnf.yml
   when: ansible_pkg_mgr == 'dnf'
-
