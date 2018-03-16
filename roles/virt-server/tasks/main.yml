@@ -46,5 +46,12 @@
 - name: add user "james" to libvirt+KVM groups
   user:
     name: james
-    groups: kvm,libvirt,libvirt-qemu
+    groups: kvm,libvirt
     append: yes
+
+- name: add user "james" to libvirt-qemu group on Debian only
+  user:
+    name: james
+    groups: libvirt-qemu
+    append: yes
+  when: ansible_distribution == 'Debian'
