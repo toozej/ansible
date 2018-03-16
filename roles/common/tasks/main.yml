@@ -6,7 +6,7 @@
     - "../vars/{{ ansible_distribution }}.yml"
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/default.yml"
-  when: (ssh_client_package is not defined) or (ag_package_name is not defined) or (pip2_package_name is not defined) or (gnupg_package_name is not defined)
+  when: (ssh_client_package is not defined) or (ag_package_name is not defined) or (pip2_package_name is not defined) or (gnupg_package_name is not defined) or (ripgrep_release is not defined)
 
 - name: Install EPEL repo on RedHat-based systems
   yum:
@@ -137,6 +137,20 @@
   package:
     name: "{{ ag_package_name }}"
     state: latest
+
+- name: Install latest version of ripgrep on Debian-based
+  include: ripgrep-debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Install latest version of ripgrep using YUM
+  include: ripgrep-yum.yml
+  when: ansible_pkg_mgr == 'yum'
+
+- name: Install latest version of ripgrep using DNF
+  package:
+    name: ripgrep
+    state: latest
+  when: ansible_pkg_mgr == 'dnf'
 
 - name: Install latest version of Neofetch on Debian
   include: neofetch-debian.yml

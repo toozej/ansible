@@ -1,0 +1,7 @@
+---
+- name: "apt | download ripgrep deb package"
+  shell: curl -LO https://github.com/BurntSushi/ripgrep/releases/download/{{ ripgrep_release }}/ripgrep_{{ ripgrep_release }}_amd64.deb /tmp/ripgrep.deb
+
+- name: "apt | ensure ripgrep installed"
+  apt:
+    deb: /tmp/ripgrep.deb
