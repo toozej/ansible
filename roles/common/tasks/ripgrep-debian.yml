@@ -1,7 +1,8 @@
 ---
 - name: "apt | download ripgrep deb package"
-  get_url: https://github.com/BurntSushi/ripgrep/releases/download/{{ ripgrep_release }}/ripgrep_{{ ripgrep_release }}_amd64.deb
-  dest: /tmp/ripgrep.deb
+  get_url:
+    url: https://github.com/BurntSushi/ripgrep/releases/download/{{ ripgrep_release }}/ripgrep_{{ ripgrep_release }}_amd64.deb
+    dest: /tmp/ripgrep.deb
 
 - name: "apt | ensure ripgrep installed"
   apt:
