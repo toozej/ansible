@@ -26,7 +26,6 @@
     owner: james
     group: james
     mode: 0644
-    validate: /usr/bin/i3 -c %s -C
 
 - name: Ensures ~/.config/dunst exists
   file: path=/home/james/.config/dunst/ state=directory recurse=yes
