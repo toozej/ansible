@@ -25,4 +25,5 @@ repos:
   rev: v3.4.20
   hooks:
     - id: ansible-lint
+      exclude: .travis.yml
       files: \.(yaml|yml)$

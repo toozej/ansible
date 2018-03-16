@@ -34,7 +34,7 @@ before_install:
   # combat not having CA Certs installed
   - sudo apt-get install -y python-urllib3 python-openssl python-pyasn1
   - sudo pip install pyopenssl ndg-httpsclient
-
+  - sudo useradd -m -c "james" james -s /bin/bash
 
 install:
   # Install Ansible.

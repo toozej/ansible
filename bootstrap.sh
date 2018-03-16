@@ -96,11 +96,14 @@ fi
 # if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
 if [[ $CHECK == "true" ]]; then
-  ansible-playbook --check /tmp/ansible/playbooks/$2
+  ANSIBLE_OUTPUT=$(ansible-playbook --check /tmp/ansible/playbooks/$2)
 elif [[ $RUN == "true" ]]; then
-  ansible-playbook /tmp/ansible/playbooks/$2
+  ANSIBLE_OUTPUT=$(ansible-playbook /tmp/ansible/playbooks/$2)
 fi
 
 echo -e "\n\n"
-echo -e "all finished bootstrapping"
-
+if [[ $ANSIBLE_OUTPUT == 0 ]]; then
+  echo "all finished bootstrapping"
+else
+  echo "ansible failed, output: $ANSIBLE_OUTPUT"
+fi
