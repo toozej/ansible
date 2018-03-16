@@ -43,3 +43,8 @@
     name: virt-manager
     state: latest
 
+- name: add user "james" to libvirt+KVM groups
+  user:
+    name: james
+    groups: kvm,libvirt,libvirt-qemu
+    append: yes
