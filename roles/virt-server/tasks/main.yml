@@ -43,15 +43,29 @@
     name: virt-manager
     state: latest
 
-- name: add user "james" to libvirt+KVM groups
+- name: add user "james" to KVM group
   user:
     name: james
-    groups: kvm,libvirt
+    groups: kvm
     append: yes
 
-- name: add user "james" to libvirt-qemu group on Debian only
+- name: add user "james" to libvirt,libvirt-qemu groups on Debian only
   user:
     name: james
-    groups: libvirt-qemu
+    groups: libvirt,libvirt-qemu
     append: yes
   when: ansible_distribution == 'Debian'
+
+- name: add user "james" to libvirtd group on Ubuntu <16.10 only
+  user:
+    name: james
+    groups: libvirtd
+    append: yes
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version < 16.10
+
+- name: add user "james" to libvirt group on Ubuntu >= 16.10 only
+  user:
+    name: james
+    groups: libvirt
+    append: yes
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version >= 16.10
