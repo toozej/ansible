@@ -1,10 +1,7 @@
 ---
-- name: Add ripgrep repository
-  yum_repository:
-    name: ripgrep
-    description: "ripgrep repository"
-    baseurl: https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-{{ ansible_distribution_major_version|int }}/carlwgeorge-ripgrep-epel-{{ ansible_distribution_major_version|int }}.repo
-    gpgcheck: no
+- name: "yum | Add ripgrep repository"
+  command: "yum copr enable -y carlwgeorge/ripgrep"
+  creates: /etc/yum.repos.d/_copr_carlwgeorge_ripgrep.repo
 
 - name: "yum | ensure ripgrep present"
   yum:

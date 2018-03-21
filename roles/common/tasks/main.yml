@@ -12,20 +12,26 @@
   yum:
     name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
     state: present
-  when: (ansible_os_family == 'RedHat')
+  when: ansible_os_family == 'RedHat'
 
 
 - name: Import EPEL GPG key on RedHat-based systems
   rpm_key:
     key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}
     state: present
-  when: (ansible_os_family == 'RedHat')
+  when: ansible_os_family == 'RedHat'
 
 - name: install the latest version of libselinux-python package on RedHat-based systems
   package:
     name: libselinux-python
     state: latest
-  when: (ansible_os_family == 'RedHat')
+  when: ansible_os_family == 'RedHat'
+
+- name: install the latest version of yum-plugin-copr package on systems using YUM
+  package:
+    name: yum-plugin-copr
+    state: latest
+  when: ansible_pkg_mgr == 'yum'
 
 - name: install the latest version of VIM
   package:
