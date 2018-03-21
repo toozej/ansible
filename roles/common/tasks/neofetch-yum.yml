@@ -1,13 +1,10 @@
 ---
 - name: Add NeoFetch repository
-  yum_repository:
-    name: neofetch
-    description: "NeoFetch repository"
-    baseurl: https://copr.epelinfracloud.org/coprs/konimex/neofetch/repo/epel-{{ ansible_distribution_major_version|int }}/konimex-neofetch-epel-{{ ansible_distribution_major_version|int }}.repo
-    gpgcheck: no
+  get_url:
+    url: https://copr.epelinfracloud.org/coprs/konimex/neofetch/repo/epel-{{ ansible_distribution_major_version|int }}/konimex-neofetch-epel-{{ ansible_distribution_major_version|int }}.repo
+    dest: /etc/yum.repos.d/copr_konimex_neofetch.repo
 
 - name: "yum | ensure NeoFetch present"
   yum:
     name: neofetch
     state: latest
-
