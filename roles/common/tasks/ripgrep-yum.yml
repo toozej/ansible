@@ -1,7 +1,8 @@
 ---
 - name: "yum | Add ripgrep repository"
-  command: "yum copr enable -y carlwgeorge/ripgrep"
-  creates: /etc/yum.repos.d/_copr_carlwgeorge_ripgrep.repo
+  command: yum copr enable -y carlwgeorge/ripgrep
+  args:
+    creates: /etc/yum.repos.d/_copr_carlwgeorge_ripgrep.repo
 
 - name: "yum | ensure ripgrep present"
   yum:
