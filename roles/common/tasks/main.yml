@@ -130,6 +130,11 @@
     name: zip
     state: latest
 
+- name: install the latest version of tree
+  package:
+    name: tree
+    state: latest
+
 - name: install the latest version of ag
   package:
     name: "{{ ag_package_name }}"

@@ -25,7 +25,9 @@
   notify: Restart ssh
 
 - name: Ensure iptables is installed.
-  package: name=iptables state=installed
+  package:
+    name: iptables
+    state: latest
 
 - name: Flush iptables the first time playbook runs.
   command: >
