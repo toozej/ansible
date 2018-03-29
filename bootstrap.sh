@@ -13,10 +13,12 @@ function usage {
     echo "  PLAYBOOK            Filename of the Ansible playbook to run."
     echo "                        For example, web-server.yml."
     echo ""
+    echo "  -d                  Run Ansible Playbook ouputting to a debug textfile."
+    echo ""
 }
 
 # get user input
-while getopts ":hc:r:" option
+while getopts ":hc:d:r:" option
 do
   case $option in
     h)
@@ -28,6 +30,9 @@ do
       ;;
     r)
       RUN=true
+      ;;
+    d)
+      DEBUG=true
       ;;
     ?)
       usage
@@ -95,10 +100,14 @@ fi
 
 # if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
-if [[ $CHECK == "true" ]]; then
+if [[ $CHECK == "true" && $DEBUG == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook --check /tmp/ansible/playbooks/$2)
-elif [[ $RUN == "true" ]]; then
+elif [[ $CHECK == "true" && $DEBUG == "true" ]]; then
+  ANSIBLE_OUTPUT=$(ansible-playbook --check /tmp/ansible/playbooks/$2 | tee /tmp/ansible/playbook_check.out)
+elif [[ $RUN == "true" && $DEBUG == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook /tmp/ansible/playbooks/$2)
+elif [[ $RUN == "true" && $DEBUG == "true" ]]; then
+  ANSIBLE_OUTPUT=$(ansible-playbook /tmp/ansible/playbooks/$2 | tee /tmp/ansible/playbook_run.out)
 fi
 
 echo -e "\n\n"
