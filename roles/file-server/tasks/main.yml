@@ -44,3 +44,11 @@
 
 - name: start Dropbox Headless daemon
   raw: "{{ dropbox_headless_dir|quote }}/dropboxd &"
+
+- name: install latest versions of disk wiping and filesystem recovery tools
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - nwipe
+    - testdisk
