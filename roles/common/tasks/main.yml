@@ -125,10 +125,14 @@
     name: tmux
     state: latest
 
-- name: install the latest version of zip
+- name: install the latest version of archiving tools
   package:
-    name: zip
+    name: "{{item}}"
     state: latest
+  with_items:
+    - zip
+    - unrar
+    - p7zip
 
 - name: install the latest version of tree
   package:
