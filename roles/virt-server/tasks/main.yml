@@ -8,6 +8,11 @@
     - "../vars/default.yml"
   when: (libvirt_package_name is not defined) or (ovmf_package_name is not defined)
 
+- name: install latest version of ethtool package
+  package:
+    name: ethtool
+    state: latest
+
 - name: install latest versions of libvirt packages
   package:
     name: "{{ libvirt_package_name }}"
