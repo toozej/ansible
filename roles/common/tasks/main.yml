@@ -41,6 +41,7 @@
     - powertop
     - bwm-ng
     - ncdu
+    - lshw
 
 - name: install the latest version of smb client
   package:
