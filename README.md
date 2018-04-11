@@ -48,19 +48,3 @@ Or if you want to run a playbook stand-alone skipping tags:
     - ops: chrome, GUI, common, docker, k8s, dev-base
     - all
 
-### Roles
-- VM: openvm tools
-- Chrome: os specific, only 64-bit stable
-- audio: spotify, audio codecs (gstreamer),  ffmpeg, mkvtools
-- fileserver: smbd
-- GUI: xfce, i3, and custom configs for both, simplenote, atom (sync-settings:restore)
-- office: libreoffice, lyx, tex, dropbox
-- dev-common: dbeaver, devtools, make, automake, git, git-review, git-flow
-- dev-python: pycharms CE, virtualenv, python-pip, python2 and dev, python3 and dev, ipython
-- dev-ruby: ruby, gem
-- dev-go: golang
-- common: VIM, htop, bwm-ng, smb client, ssh and configs, dotfiles, bash, zsh, wget, curl, powerline, vim config from github, the\_silver\_searcher, tmux and configs, tree, screen
-- db: postgresql, mysql, db clients, sqlite
-- docker: docker engine, docker compose, docker swarm
-- k8s: minikube, kubernetes-cli, kubectl, terraform, chtf, awscli
-- web server: apache, php
