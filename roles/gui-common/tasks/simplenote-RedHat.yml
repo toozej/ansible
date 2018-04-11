@@ -9,15 +9,15 @@
 
 - name: Download Simplenote archive for RedHat-based systems
   get_url:
-    url: "https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-x64.{{ simplenote_version }}.tar.gz"
-    dest: "{{ simplenote_downloads_path }}/Simplenote-linux-x64.{{ simplenote_version }}.tar.gz"
+    url: "https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}.tar.gz"
+    dest: "{{ simplenote_downloads_path }}/Simplenote-linux-{{ simplenote_version }}.tar.gz"
     owner: root
     group: root
     mode: 0644
 
 - name: Extract Simplenote archive for RedHat-based systems
   unarchive:
-    src: "{{ simplenote_downloads_path }}/Simplenote-linux-x64.{{ simplenote_version }}.tar.gz"
+    src: "{{ simplenote_downloads_path }}/Simplenote-linux-{{ simplenote_version }}.tar.gz"
     dest: "{{ simplenote_install_prefix }}"
-    creates: "{{ simplenote_install_prefix }}/Simplenote-linux-x64"
+    creates: "{{ simplenote_install_prefix }}/Simplenote-linux"
     copy: false
