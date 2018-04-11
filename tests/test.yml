@@ -18,6 +18,7 @@
     - {role: ../roles/docker}
     - {role: ../roles/file-server}
     - {role: ../roles/gui-common}
+    - {role: ../roles/gui-i3}
     - {role: ../roles/gui-xfce}
     - {role: ../roles/monitoring}
     - {role: ../roles/office}
@@ -27,4 +28,3 @@
     - {role: ../roles/unattended-upgrades}
     - {role: ../roles/vm}
     - {role: ../roles/hardening}
-

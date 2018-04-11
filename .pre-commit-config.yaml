@@ -27,3 +27,5 @@ repos:
     - id: ansible-lint
       exclude: .travis.yml
       files: \.(yaml|yml)$
+      skip_list:
+        - ANSIBLE0010

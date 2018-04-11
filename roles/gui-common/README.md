@@ -1,5 +1,5 @@
 # GUI Ansible role
 
-Installs GUI desktop environment and other commonly used GUI packages:
-i3, Atom, and their relevant configs
+Installs GUI tools and packages. Note it does not include a GUI DE itself.
+Simplenote, Atom, and their relevant configs
 Is not a git submodule and doesn't auto-update

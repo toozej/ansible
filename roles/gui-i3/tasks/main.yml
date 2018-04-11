@@ -1,0 +1,39 @@
+---
+- name: install latest version of i3 window manager
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - i3
+    - i3lock
+    - i3status
+    - dmenu
+    - dunst
+
+- name: Ensures ~/.config/i3 exists
+  file: path=/home/james/.config/i3/ state=directory recurse=yes
+- name: Setup i3 config
+  template:
+    src: i3_config.j2
+    dest: /home/james/.config/i3/config
+    owner: james
+    group: james
+    mode: 0644
+
+- name: Ensures ~/.config/dunst exists
+  file: path=/home/james/.config/dunst/ state=directory recurse=yes
+- name: Setup dunst config
+  template:
+    src: dunstrc.j2
+    dest: /home/james/.config/dunst/dunstrc
+    owner: james
+    group: james
+    mode: 0644
+
+- name: Setup Xdefaults config
+  template:
+    src: Xdefaults.j2
+    dest: /home/james/.Xdefaults
+    owner: james
+    group: james
+    mode: 0644
