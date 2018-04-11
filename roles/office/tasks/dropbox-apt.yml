@@ -1,6 +1,6 @@
 ---
 - name: Add Dropbox KeyServer
-  apt_key: keyserver=pgp.mit.edu id=5044912E state=present
+  apt_key: keyserver=keyserver.ubuntu.com id=5044912E state=present
 
 - name: Add Dropbox PPA Repo
   apt_repository:
@@ -14,4 +14,3 @@
   with_items:
     - dropbox
     - python-gpgme
-
