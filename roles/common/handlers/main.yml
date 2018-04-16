@@ -1,0 +1,12 @@
+---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "../vars/{{ ansible_distribution }}.yml"
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/default.yml"
+  when: (sshd_service_name is not defined)
+
+- name: Restart ssh
+  service: name={{ sshd_service_name }} state=restarted
