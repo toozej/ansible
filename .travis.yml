@@ -33,9 +33,9 @@ before_install:
   # list out apt sources
   - grep "" /etc/apt/sources.list.d/*
   # combat not having CA Certs installed
-  - sudo apt-get install python-openssl python-pyasn1
-  - sudo pip install pyopenssl ndg-httpsclient
-  - sudo pip install urllib3 urllib3[secure]
+  #- sudo apt-get install python-openssl python-pyasn1
+  #- sudo pip install pyopenssl ndg-httpsclient
+  #- sudo pip install urllib3 urllib3[secure]
   - sudo useradd -m -c "james" james -s /bin/bash
 
 install:
