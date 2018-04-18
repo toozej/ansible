@@ -1,0 +1,36 @@
+---
+- name: install latest version of gnome desktop environment via APT
+  apt:
+    name: "gnome"
+    state: latest
+  when: ansible_pkg_mgr == 'apt'
+
+- name: install latest version of gnome desktop environment via DNF
+  dnf:
+    name: "@gnome"
+    state: latest
+  when: ansible_pkg_mgr == 'dnf'
+
+- name: install latest version of gnome desktop environment via YUM
+  yum:
+    name: "@gnome"
+    state: latest
+  when: ansible_pkg_mgr == 'yum'
+
+- name: install gnome-tweak-tool
+  package:
+    name: gnome-tweak-tool
+    state: latest
+
+- name: Ensures ~/.config exists
+  file: path=/home/james/.config/ state=directory recurse=yes
+- name: Temporarily store Gnome settings in ~/.config/
+  template:
+    src: gnome_settings.j2
+    dest: /home/james/.config/gnome_settings.conf
+    owner: james
+    group: james
+    mode: 0644
+
+- name: Configure keyboard shortcuts in Gnome
+  command: dconf load /org/gnome/ < /home/james/.config/gnome_settings.conf

@@ -21,11 +21,11 @@ repos:
     description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/mixed_line_ending.py
     files: \.(py|sh|yaml|yml)$
 
-- repo: https://github.com/willthames/ansible-lint.git
-  rev: v3.4.20
-  hooks:
-    - id: ansible-lint
-      exclude: .travis.yml
-      files: \.(yaml|yml)$
-      skip_list:
-        - ANSIBLE0010
+    #- repo: https://github.com/willthames/ansible-lint.git
+    #  rev: v3.5.0rc1
+    #  hooks:
+    #    - id: ansible-lint
+    #      exclude: .travis.yml
+    #      files: \.(yaml|yml)$
+    #      skip_list:
+    #        - ANSIBLE0010
