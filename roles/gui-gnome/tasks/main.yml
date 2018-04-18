@@ -1,26 +1,12 @@
 ---
-- name: install latest version of gnome desktop environment via APT
-  apt:
-    name: "gnome"
-    state: latest
-  when: ansible_pkg_mgr == 'apt'
-
-- name: install latest version of gnome desktop environment via DNF
-  dnf:
-    name: "@gnome"
-    state: latest
-  when: ansible_pkg_mgr == 'dnf'
-
-- name: install latest version of gnome desktop environment via YUM
-  yum:
-    name: "@gnome"
-    state: latest
-  when: ansible_pkg_mgr == 'yum'
-
 - name: install gnome-tweak-tool
   package:
     name: gnome-tweak-tool
     state: latest
+
+- name: Install latest version of Fedy on Fedora using DNF
+  include: fedy.yml
+  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
 
 - name: Ensures ~/.config exists
   file: path=/home/james/.config/ state=directory recurse=yes
