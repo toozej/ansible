@@ -8,6 +8,11 @@
   include: fedy.yml
   when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
 
+- name: Install Gnome Shell Extensions installer/integration for web browsers
+  package:
+    name: chrome-gnome-shell
+    state: latest
+
 - name: Ensures ~/.config exists
   file: path=/home/james/.config/ state=directory recurse=yes
 - name: Temporarily store Gnome settings in ~/.config/

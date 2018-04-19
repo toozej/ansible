@@ -1,0 +1,9 @@
+---
+- name: install openvpn client
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - openvpn
+    - NetworkManager-openvpn
+    - NetworkManager-openvpn-gnome
