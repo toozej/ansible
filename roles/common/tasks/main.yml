@@ -31,6 +31,28 @@
     name: vim
     state: latest
 
+- name: clone vimfiles from github
+  git:
+    repo: 'https://github.com/toozej/vimfiles.git'
+    accept_hostkey: yes
+    dest: /home/james/.vim
+    recursive: yes
+  register: clone_or_pull
+
+- name: set correct permissions on vimfiles
+  file:
+    path: /home/james/.vim
+    recurse: yes
+    owner: james
+    group: james
+  when: clone_or_pull.changed == True
+
+- name: initialize vimfiles
+  shell: vim +PlugInstall +qall
+  become: yes
+  become_user: james
+  when: clone_or_pull.changed == True
+
 - name: install the latest versions of system monitoring utilities
   package:
     name: "{{item}}"
@@ -139,6 +161,14 @@
   package:
     name: tmux
     state: latest
+
+- name: Setup config file for tmux
+  template:
+    src: tmux.conf.j2
+    dest: /home/james/.tmux.conf
+    owner: james
+    group: james
+    mode: 0664
 
 - name: install the latest version of archiving tools
   package:

@@ -1,0 +1,71 @@
+# hotkeys
+## keep ctrl-b as prefix so that ctrl-a goes to start of line
+## make alt (meta key) also send the prefix
+bind-key M send-prefix
+# Enter scroll with meta-[
+bind-key -n M-[ copy-mode
+
+
+# window management
+## window renumbering
+set -g renumber-windows on
+
+## don't change window titles
+set -g allow-rename off
+
+## Number windows and panes starting at 1
+set -g base-index 1
+set -g pane-base-index 1
+
+## Aggressive window resize
+setw -g aggressive-resize on
+
+## split window hotkeys
+bind-key -n M-\ split-window -h
+bind-key -n M-- split-window -v
+
+## VIM movement
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+bind -n M-h select-pane -L
+bind -n M-j select-pane -D
+bind -n M-k select-pane -U
+bind -n M-l select-pane -R
+bind -n M-z resize-pane -Z
+
+## iterm meta+number to swap tabs
+bind-key -n M-1 select-window -t 1
+bind-key -n M-2 select-window -t 2
+bind-key -n M-3 select-window -t 3
+bind-key -n M-4 select-window -t 4
+bind-key -n M-5 select-window -t 5
+bind-key -n M-6 select-window -t 6
+bind-key -n M-7 select-window -t 7
+bind-key -n M-8 select-window -t 8
+bind-key -n M-9 select-window -t 9
+
+
+# general / other
+## Escape delay timing = 0
+set -sg escape-time 0
+
+## lots of history
+set -g history-limit 20000
+
+# Turn on mouse support
+setw -g mouse on
+
+
+# colourschemes
+## truecolour support
+set-option -ga terminal-overrides ",*256col*:Tc"
+
+## Status bar colors
+set -g status-bg "#282c34"
+set -g status-fg "#61afef"
+
+## Pane border colors
+set -g pane-active-border-fg "#61afef" 
+set -g pane-border-fg "#98c379"
