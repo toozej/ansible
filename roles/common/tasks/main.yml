@@ -44,8 +44,16 @@
     recursive: yes
   register: clone_or_pull
 
+- name: link ~/.vimrc
+  file:
+    src: /home/james/.vim/vimrc
+    dest: /home/james/.vimrc
+    state: link
+
 - name: initialize vimfiles
-  shell: vim +PlugInstall +qall
+  raw: vim +PlugInstall +qall
+  become: yes
+  become_user: james
   when: clone_or_pull.changed == True
 
 - name: set correct permissions on vimfiles
