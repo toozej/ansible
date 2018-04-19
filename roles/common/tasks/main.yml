@@ -26,6 +26,11 @@
     state: latest
   when: ansible_os_family == 'RedHat'
 
+- name: install acl package needed for ansible become_user to work correctly
+  package:
+    name: acl
+    state: latest
+
 - name: install the latest version of VIM
   package:
     name: vim
