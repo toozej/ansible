@@ -44,18 +44,16 @@
     recursive: yes
   register: clone_or_pull
 
+- name: initialize vimfiles
+  shell: vim +PlugInstall +qall
+  when: clone_or_pull.changed == True
+
 - name: set correct permissions on vimfiles
   file:
     path: /home/james/.vim
     recurse: yes
     owner: james
     group: james
-  when: clone_or_pull.changed == True
-
-- name: initialize vimfiles
-  shell: vim +PlugInstall +qall
-  become: yes
-  become_user: james
   when: clone_or_pull.changed == True
 
 - name: install the latest versions of system monitoring utilities
