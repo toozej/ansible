@@ -50,18 +50,16 @@
     dest: /home/james/.vimrc
     state: link
 
-- name: initialize vimfiles
-  raw: vim +PlugInstall +qall
-  become: yes
-  become_user: james
-  when: clone_or_pull.changed == True
-
 - name: set correct permissions on vimfiles
   file:
     path: /home/james/.vim
     recurse: yes
     owner: james
     group: james
+  when: clone_or_pull.changed == True
+
+- name: initialize vimfiles
+  raw: sudo -u james vim +PlugInstall +qall
   when: clone_or_pull.changed == True
 
 - name: install the latest versions of system monitoring utilities
