@@ -1,0 +1,7 @@
+---
+vagrant_version: "2.0.3"
+vagrant_tmp_dir: "/tmp/ansible_downloads/"
+vagrant_tmp_deb: "{{vagrant_tmp_dir}}/vagrant_{{vagrant_version}}.deb"
+vagrant_tmp_rpm: "{{vagrant_tmp_dir}}/vagrant_{{vagrant_version}}.rpm"
+vagrant_virtualbox_install: True
+vagrant_virtualbox_ver: "virtualbox"

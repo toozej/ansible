@@ -23,6 +23,7 @@
     - {role: ../roles/monitoring}
     - {role: ../roles/office}
     - {role: ../roles/web-server}
+    - {role: ../roles/vagrant}
     - {role: ../roles/virt-server}
     - {role: ../roles/repo-extra}
     - {role: ../roles/unattended-upgrades}
