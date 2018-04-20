@@ -58,9 +58,10 @@
     group: james
   when: clone_or_pull.changed == True
 
-- name: initialize vimfiles
-  raw: sudo -u james vim +PlugInstall +qall
-  when: clone_or_pull.changed == True
+  # TODO: run vimfiles initialize as user "james", probably needs testing locally in a VM
+  #- name: initialize vimfiles
+  # raw: sudo -u james vim +PlugInstall +qall
+  # when: clone_or_pull.changed == True
 
 - name: install the latest versions of system monitoring utilities
   package:
