@@ -1,0 +1,5 @@
+---
+- name: install vagrant plugins
+  package:
+    name: vagrant-sshfs
+    state: latest

@@ -1,10 +1,17 @@
 ---
- - name: Ensure temp download directory exist
-   file: state=directory path={{vagrant_tmp_dir}}
-   tags: ["packages","vagrant"]
- - include: Debian.yml
-   when: ansible_os_family == 'Debian'
-   tags: ["packages","vagrant"]
- - include: RedHat.yml
-   when: ansible_os_family == 'RedHat'
-   tags: ["packages","vagrant"]
+- name: install vagrant
+  package:
+    name: vagrant
+    state: latest
+
+- name: Install vagrant libvirt provider on semi-modern distros
+  include: vagrant_providers_libvirt.yml
+  when: (ansible_distribution == 'Debian' and ansible_distribution_version|version_compare(8,'>=')) or (ansible_distribution == 'Fedora' and ansible_distribution_version|version_compare(27,'>=')) or (ansible_distribution == 'Ubuntu' and ansible_distribution_version|version_compare(16.04,'>='))
+
+- name: Install vagrant libvirt provider on modern distros
+  include: vagrant_providers_libvirt.yml
+  when: (ansible_distribution == 'Debian' and ansible_distribution_version|version_compare(8,'>')) or (ansible_distribution == 'Fedora' and ansible_distribution_version|version_compare(27,'>'))
+
+- name: Install vagrant plugins on modern distros
+  include: vagrant_plugins.yml
+  when: (ansible_distribution == 'Debian' and ansible_distribution_version|version_compare(8,'>')) or (ansible_distribution == 'Fedora' and ansible_distribution_version|version_compare(27,'>'))

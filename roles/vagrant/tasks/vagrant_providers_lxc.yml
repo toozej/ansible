@@ -1,0 +1,5 @@
+---
+- name: install vagrant lxc provider
+  package:
+    name: vagrant-lxc
+    state: latest

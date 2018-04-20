@@ -1,0 +1,5 @@
+---
+- name: install vagrant libvirt provider
+  package:
+    name: vagrant-libvirt
+    state: latest
