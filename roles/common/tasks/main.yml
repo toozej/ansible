@@ -48,6 +48,8 @@
   file:
     src: /home/james/.vim/vimrc
     dest: /home/james/.vimrc
+    owner: james
+    group: james
     state: link
 
 - name: set correct permissions on vimfiles
