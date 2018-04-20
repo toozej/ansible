@@ -35,7 +35,7 @@ before_install:
   # list out apt sources
   - grep "" /etc/apt/sources.list.d/*
   # combat not having CA Certs installed
-  - sudo pip install pyopenssl ndg-httpsclient urllib3 pyasn1
+  - sudo pip install pyopenssl ndg-httpsclient urllib3 pyasn1 requests
   # setup the james user
   - sudo useradd -m -c "james" james -s /bin/bash
 
