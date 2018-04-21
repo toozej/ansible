@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "fgrehm/trusty64-lxc"
+  # config.vm.hostname = 'rails-dev-box'
+  # config.vm.forward_port 3000, 3000
+
+  config.vm.provider :lxc do |lxc|
+    # more info at https://github.com/fgrehm/vagrant-lxc/wiki/FAQ
+
+    # Same effect as 'customize ["modifyvm", :id, "--memory", "1024"]' for VirtualBox
+    # vagrant-lxc writes out cgroup.memory.limit_in_bytes to /var/lib/lxc/<container>/config before starting it
+    lxc.customize 'cgroup.memory.limit_in_bytes', '1024M'
+
+    # Limits swap size
+    # lxc.customize 'cgroup.memory.memsw.limit_in_bytes', '512M'
+    
+    # set static IP address for container
+    # lxc.customize 'network.ipv4', '10.0.3.15/24'
+  end
+end

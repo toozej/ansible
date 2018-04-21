@@ -3,3 +3,17 @@
   package:
     name: vagrant-lxc
     state: latest
+
+- name: create ~/VMs/vagrant/lxc_template/ directory
+  file:
+    dest: /home/james/VMs/vagrant/lxc_template/
+    state: directory
+    recurse: yes
+
+- name: lay out lxc Vagrantfile template
+  template:
+    src: Vagrantfile_lxc
+    dest: /home/james/VMs/vagrant/lxc_template/Vagranfile
+    owner: james
+    group: james
+    mode: 0644

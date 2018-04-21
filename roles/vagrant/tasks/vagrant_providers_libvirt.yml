@@ -3,3 +3,17 @@
   package:
     name: vagrant-libvirt
     state: latest
+
+- name: create ~/VMs/vagrant/libvirt_template/ directory
+  file:
+    dest: /home/james/VMs/vagrant/libvirt_template/
+    state: directory
+    recurse: yes
+
+- name: lay out libvirt Vagrantfile template
+  template:
+    src: Vagrantfile_libvirt
+    dest: /home/james/VMs/vagrant/libvirt_template/Vagranfile
+    owner: james
+    group: james
+    mode: 0644
