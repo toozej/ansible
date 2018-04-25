@@ -17,6 +17,15 @@ function usage {
     echo ""
 }
 
+set_defaults {
+	CHECK=false
+	RUN=false
+	DEBUG=false
+}
+
+# set defaults before getting user input
+set_defaults
+
 # get user input
 while getopts ":hc:d:r:" option
 do
