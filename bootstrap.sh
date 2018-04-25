@@ -91,7 +91,8 @@ fi
 # download and configure ansible on localhost
 # trash /tmp/ansible if it already exists
 if  [ -d /tmp/ansible ]; then
-  rm -rf /tmp/ansible
+	echo -e "pre-existing /tmp/ansible directory found, removing it before pulling down fresh from Github"
+	rm -rf /tmp/ansible
 fi
 echo -e "pulling down ansible repo from github"
 git clone https://github.com/toozej/ansible.git /tmp/ansible

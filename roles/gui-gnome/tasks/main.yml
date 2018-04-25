@@ -5,8 +5,8 @@
     state: latest
 
 - name: Include repo-extra for Fedora as pre-requisite for Fedy
-  dependencies:
-    - { role: repo-extra }
+  include_role:
+    name: repo-extra
   when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
 
 - name: Install latest version of Fedy on Fedora using DNF
