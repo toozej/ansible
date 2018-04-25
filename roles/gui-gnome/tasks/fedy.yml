@@ -1,7 +1,4 @@
 ---
-dependencies:
-- { role: repo-extra  }
-
 - name: install fedy repo package
   dnf:
     name: https://dl.folkswithhats.org/fedora/{{ ansible_distribution_major_version|int }}/RPMS/folkswithhats-release.noarch.rpm
