@@ -65,10 +65,14 @@ elif [ -f /etc/debian_version ]; then
         apt-get update
         apt-get install -y ansible
 
-## if RedHat-based
+# if Fedora
+elif [ -f /etc/fedora-release ]; then
+        os=`cat /etc/fedora-release`
+        dnf install -y git python2 ansible python2-dnf
+
+# if RedHat-based
 elif [ -f /etc/redhat-release ]; then
         os=`cat /etc/redhat-release`
-        yum update
         if [[ $os == *"release 7."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
           yum install -y python-dnf
@@ -83,7 +87,7 @@ elif [ -f /etc/arch-release ]; then
         os="archlinux"
         pacman -S ansible git python2
 
-## otherwise...
+# otherwise...
 else
         os="$(uname -s) $(uname -r)"
 fi
