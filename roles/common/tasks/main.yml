@@ -26,11 +26,6 @@
     state: latest
   when: ansible_os_family == 'RedHat'
 
-- name: install acl package needed for ansible become_user to work correctly
-  package:
-    name: acl
-    state: latest
-
 - name: install the latest version of VIM
   package:
     name: vim
@@ -43,6 +38,7 @@
     dest: /home/james/.vim
     recursive: yes
   register: clone_or_pull
+  when: not ansible_check_mode
 
 - name: link ~/.vimrc
   file:
@@ -51,6 +47,7 @@
     owner: james
     group: james
     state: link
+  when: not ansible_check_mode
 
 - name: set correct permissions on vimfiles
   file:
@@ -58,7 +55,7 @@
     recurse: yes
     owner: james
     group: james
-  when: clone_or_pull.changed == True
+  when: (clone_or_pull.changed == True) and (not ansible_check_mode)
 
   # TODO: run vimfiles initialize as user "james", probably needs testing locally in a VM
   #- name: initialize vimfiles
