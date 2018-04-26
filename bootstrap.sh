@@ -17,7 +17,7 @@ function usage {
     echo ""
 }
 
-set_defaults {
+function set_defaults {
 	CHECK=false
 	RUN=false
 	DEBUG=false
