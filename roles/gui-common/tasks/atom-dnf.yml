@@ -1,6 +1,13 @@
 ---
-- name: install latest version of Atom editor via RPM
-  dnf:
-    name: https://atom.io/download/rpm
-    state: present
+- name: add Atom repository
+  yum_repository:
+    name: atom
+    description: Atom.io editor repository
+    baseurl: https://packagecloud.io/AtomEditor/atom/el/7/$basearch/
+    gpgcheck: yes
+    gpgkey: https://packagecloud.io/AtomEditor/atom/gpgkey
 
+- name: install latest version of Atom editor via DNF
+  dnf:
+    name: atom
+    state: present
