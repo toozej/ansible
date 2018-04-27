@@ -52,6 +52,7 @@
     owner: james
     group: james
     state: link
+    force: true
   when: not ansible_check_mode
 
 - name: set correct permissions on vimfiles
