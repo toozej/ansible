@@ -31,6 +31,11 @@
     name: vim
     state: latest
 
+- name: clear any pre-existing vimfiles
+  file:
+    path: /home/james/.vim/
+    state: absent
+
 - name: clone vimfiles from github
   git:
     repo: 'https://github.com/toozej/vimfiles.git'
