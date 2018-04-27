@@ -1,8 +1,17 @@
 ---
-- name: "yum | ensure Negativo17.org repo present"
+- name: "yum | ensure Negativo17.org Spotify repo present for Fedora"
   yum_repository:
     name: negativo17
+    description: Negativo17 Spotify Repository for Fedora
     baseurl: http://negativo17.org/repos/fedora-spotify.repo
+  when: ansible_distribution == 'Fedora'
+
+- name: "yum | ensure Negativo17.org Spotify repo present for RHEL"
+  yum_repository:
+    name: negativo17
+    description: Negativo17 Spotify Repository for RHEL
+    baseurl: http://negativo17.org/repos/epel-spotify.repo
+  when: (ansible_distribution == 'Red Hat Enterprise Linux') or (ansible_distribution == 'CentOS')
 
 - name: "dnf | install latest version of Spotify"
   dnf:
