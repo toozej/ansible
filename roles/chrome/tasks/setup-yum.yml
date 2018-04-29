@@ -7,9 +7,9 @@
     baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
     gpgkey: https://dl-ssl.google.com/linux/linux_signing_key.pub
     gpgcheck: yes
+    enabled: yes
 
 - name: "yum | ensure Google chrome present"
   yum:
     name: google-chrome-stable
     state: latest
-

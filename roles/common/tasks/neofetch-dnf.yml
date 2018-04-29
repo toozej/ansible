@@ -5,9 +5,9 @@
     description: "NeoFetch repository"
     baseurl: https://copr.fedorainfracloud.org/coprs/konimex/neofetch/repo/fedora-{{ ansible_distribution_major_version|int }}/konimex-neofetch-fedora-{{ ansible_distribution_major_version|int }}.repo
     gpgcheck: no
+    enabled: yes
 
 - name: "dnf | ensure NeoFetch present"
   dnf:
     name: neofetch
     state: latest
-

@@ -6,6 +6,7 @@
     baseurl: https://packagecloud.io/AtomEditor/atom/el/7/$basearch/
     gpgcheck: yes
     gpgkey: https://packagecloud.io/AtomEditor/atom/gpgkey
+    enabled: yes
 
 - name: install latest version of Atom editor via DNF
   dnf:
