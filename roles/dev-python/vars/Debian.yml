@@ -3,4 +3,5 @@ pip3_package_name: python3-pip
 python3_package_name: python3
 python3_devtools_package_name: python3-dev
 python3_setuptools_package_name: python3-setuptools
+python_virtualenv_package_name: python-virtualenv
 ipython_package_name: ipython3
