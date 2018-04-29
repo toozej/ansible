@@ -1,21 +1,7 @@
 ---
-- name: "yum | ensure Negativo17.org Spotify repo present for Fedora"
-  yum_repository:
-    name: negativo17
-    description: Negativo17 Spotify Repository for Fedora
-    baseurl: https://negativo17.org/repos/fedora-spotify.repo
-    gpgcheck: no
-    enabled: yes
+- name: "dnf | ensure Negativo17.org Spotify repo present for Fedora"
+  command: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
   when: ansible_distribution == 'Fedora'
-
-- name: "yum | ensure Negativo17.org Spotify repo present for RHEL"
-  yum_repository:
-    name: negativo17
-    description: Negativo17 Spotify Repository for RHEL
-    baseurl: https://negativo17.org/repos/epel-spotify.repo
-    gpgcheck: no
-    enabled: yes
-  when: (ansible_distribution == 'Red Hat Enterprise Linux') or (ansible_distribution == 'CentOS')
 
 - name: "dnf | install latest version of Spotify"
   dnf:

@@ -1,11 +1,6 @@
 ---
 - name: "yum | ensure Negativo17.org Spotify repo present for RHEL"
-  yum_repository:
-    name: negativo17
-    description: Negativo17 Spotify Repository for RHEL
-    baseurl: https://negativo17.org/repos/epel-spotify.repo
-    gpgcheck: no
-    enabled: yes
+  command: yum-config-manager --add-repo=https://negativo17.org/repos/epel-spotify.repo
   when: (ansible_distribution == 'Red Hat Enterprise Linux') or (ansible_distribution == 'CentOS')
 
 - name: "yum | install latest version of Spotify"
