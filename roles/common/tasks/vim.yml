@@ -1,0 +1,42 @@
+---
+- name: install the latest version of VIM
+  package:
+    name: vim
+    state: latest
+
+- name: clear any pre-existing vimfiles
+  file:
+    path: /home/james/.vim/
+    state: absent
+
+- name: clone vimfiles from github
+  git:
+    repo: 'https://github.com/toozej/vimfiles.git'
+    accept_hostkey: yes
+    dest: /home/james/.vim
+    recursive: yes
+  register: clone_or_pull
+  when: not ansible_check_mode
+
+- name: link ~/.vimrc
+  file:
+    src: /home/james/.vim/vimrc
+    dest: /home/james/.vimrc
+    owner: james
+    group: james
+    state: link
+    force: true
+  when: not ansible_check_mode
+
+- name: set correct permissions on vimfiles
+  file:
+    path: /home/james/.vim
+    recurse: yes
+    owner: james
+    group: james
+  when: (clone_or_pull.changed == True) and (not ansible_check_mode)
+
+  # TODO: run vimfiles initialize as user "james", probably needs testing locally in a VM
+  #- name: initialize vimfiles
+  # raw: sudo -u james vim +PlugInstall +qall
+  # when: clone_or_pull.changed == True

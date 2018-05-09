@@ -1,0 +1,13 @@
+---
+- name: install the latest version of tmux
+  package:
+    name: tmux
+    state: latest
+
+- name: Setup config file for tmux
+  template:
+    src: tmux.conf.j2
+    dest: /home/james/.tmux.conf
+    owner: james
+    group: james
+    mode: 0664

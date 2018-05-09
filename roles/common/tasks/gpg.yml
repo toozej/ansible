@@ -1,0 +1,31 @@
+---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "../vars/{{ ansible_distribution }}.yml"
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/default.yml"
+  when: (gnupg_package_name is not defined)
+
+- name: install the latest version of gnupg (GPG)
+  package:
+    name: "{{ gnupg_package_name }}"
+    state: latest
+
+- name: install the latest version of gnupg-agent (gpg-agent)
+  package:
+    name: gnupg-agent
+    state: latest
+  when: ansible_os_family == 'Debian'
+
+- name: create ~/.gnupg directory
+  file: path=/home/james/.gnupg state=directory
+
+- name: Setup config file for gnupg-agent
+  template:
+    src: gpg-agent.conf.j2
+    dest: /home/james/.gnupg/gpg-agent.conf
+    owner: james
+    group: james
+    mode: 0664
