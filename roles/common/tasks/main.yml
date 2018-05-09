@@ -11,6 +11,9 @@
 - name: Install and configure GPG
   include: gpg.yml
 
+- name: Install and configure tmux
+  include: tmux.yml
+
 - name: Install EPEL repo on RHEL-based systems
   yum:
     name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
