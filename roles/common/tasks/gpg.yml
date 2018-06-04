@@ -29,3 +29,11 @@
     owner: james
     group: james
     mode: 0664
+
+- name: install the latest version of rng-tools
+  package:
+    name: rng-tools
+    state: latest
+
+- name: run rng-tools to generate entropy in /dev/urandom
+  command: rngd -r /dev/urandom
