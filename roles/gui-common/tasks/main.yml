@@ -16,18 +16,6 @@
     name: ca-certificates
     state: latest
 
-- name: Install latest version of Atom editor using APT
-  include: atom-apt.yml
-  when: ansible_pkg_mgr == 'apt'
-
-- name: Install latest version of Atom editor using DNF
-  include: atom-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
-
-- name: Install latest version of Atom editor using YUM
-  include: atom-yum.yml
-  when: ansible_pkg_mgr == 'yum'
-
 - name: Install latest version of Simplenote for Debian-based systems
   apt:
     deb:  https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}.deb

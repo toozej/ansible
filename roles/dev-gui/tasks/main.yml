@@ -1,0 +1,27 @@
+---
+- name: Install latest version of DBeaver using APT
+  include: dbeaver-apt.yml
+  when: ansible_pkg_mgr == 'apt'
+  tags: gui
+
+- name: Install latest version of DBeaver using DNF
+  include: dbeaver-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+  tags: gui
+
+- name: Install latest version of DBeaver using YUM
+  include: dbeaver-yum.yml
+  when: ansible_pkg_mgr == 'yum'
+  tags: gui
+
+- name: Install latest version of Atom editor using APT
+  include: atom-apt.yml
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Install latest version of Atom editor using DNF
+  include: atom-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+
+- name: Install latest version of Atom editor using YUM
+  include: atom-yum.yml
+  when: ansible_pkg_mgr == 'yum'
