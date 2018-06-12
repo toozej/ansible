@@ -10,6 +10,7 @@
     - {role: ../roles/chrome}
     - {role: ../roles/db-server}
     - {role: ../roles/dev-common}
+    - {role: ../roles/dev-gui}
     - {role: ../roles/dev-ansible}
     - {role: ../roles/dev-go}
     - {role: ../roles/dev-kubernetes}
