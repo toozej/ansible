@@ -22,6 +22,20 @@
     group: root
     mode: 0644
 
+- name: find previous versions to delete
+  find:
+    paths: "{{ pycharm_install_prefix }}"
+    file_type: directory
+    recurse: no
+    patterns: pycharm*
+  register: files_to_delete
+
+- name: delete previous versions
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ files_to_delete.files }}"
+
 - name: install
   unarchive:
     src: "{{ pycharm_downloads_path }}/pycharm-{{ pycharm_edition }}-{{ pycharm_version }}.tar.gz"
