@@ -4,6 +4,6 @@
     name: "{{item}}"
     state: present
   with_items:
-    - http://download1.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_version_major }}.noarch.rpm
+    - http://download1.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version|int }}.noarch.rpm
     - http://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version|int }}.noarch.rpm
   when: (ansible_distribution == 'RedHat') or (ansible_distribution == 'CentOS')
