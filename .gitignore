@@ -1,1 +1,4 @@
 *.retry
+ansible.cfg
+roles/test/
+playbooks/test.yml
