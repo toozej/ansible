@@ -4,6 +4,11 @@
     name: vagrant
     state: latest
 
+- name: Install latest version of virt-manager
+  package:
+    name: virt-manager
+    state: latest
+
 - name: install bridge-utils networking
   package:
     name: bridge-utils
