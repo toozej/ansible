@@ -17,7 +17,8 @@
     - {role: ../roles/dev-python}
     - {role: ../roles/dev-ruby}
     - {role: ../roles/docker}
-    - {role: ../roles/file-server}
+    # excluding file-server role for now as downloading Dropbox Headless fails frequently due to issue on Dropbox side
+    #- {role: ../roles/file-server}
     - {role: ../roles/gui-common}
     - {role: ../roles/gui-i3}
     - {role: ../roles/gui-xfce}
