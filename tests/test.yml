@@ -30,3 +30,4 @@
     - {role: ../roles/unattended-upgrades}
     - {role: ../roles/vm}
     - {role: ../roles/hardening}
+    - {role: ../roles/hp-spectre-13}
