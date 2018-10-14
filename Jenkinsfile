@@ -11,7 +11,7 @@ pipeline {
       steps {
         sh '''# update apt and ensure pip is latest version
 sudo apt-get update -qq
-sudo apt-get install python-pip
+sudo apt-get install python-pip -y
 sudo pip install --upgrade --force pip
 
 # combat not having CA Certs installed
