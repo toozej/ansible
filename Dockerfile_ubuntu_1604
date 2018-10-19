@@ -1,0 +1,15 @@
+FROM ubuntu:16.04
+
+# update apt and ensure pip is latest version
+RUN sudo apt-get update -qq && sudo apt-get install python-pip git -y && sudo pip install --upgrade --force pip
+
+# combat not having CA Certs installed
+RUN sudo pip install pyopenssl ndg-httpsclient urllib3 pyasn1 requests
+
+# setup the james user
+RUN sudo useradd -m -c "james" james -s /bin/bash
+
+# install pre-reqs
+ENV ANSIBLE_VERSION=latest
+RUN if [ "$ANSIBLE_VERSION" = "latest" ]; then sudo pip install ansible ansible-lint; else sudo pip install ansible==$ANSIBLE_VERSION; fi
+
