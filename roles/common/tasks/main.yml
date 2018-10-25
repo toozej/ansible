@@ -17,7 +17,7 @@
     state: latest
   when: ansible_os_family == 'RedHat'
 
-  - name: include RPMFusion repo as pre-requisite for unrar on RedHat-based systems
+- name: include RPMFusion repo as pre-requisite for unrar on RedHat-based systems
   include_role:
     name: repo-extra
   when: ansible_os_family == 'RedHat'
