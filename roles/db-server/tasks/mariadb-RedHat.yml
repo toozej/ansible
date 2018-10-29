@@ -21,3 +21,9 @@
   yum:
     name: mariadb-server
     state: latest
+
+- name: "yum | install MySQL Python libraries"
+  yum:
+    name: MySQL-python
+    state: latest
+

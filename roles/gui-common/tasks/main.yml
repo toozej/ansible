@@ -1,10 +1,7 @@
 ---
-- name: include simplenote variables and defaults
+- name: include simplenote defaults
   include_vars:
-    file: "{{ item }}"
-  with_items:
-    - ../vars/simplenote.yml
-    - ../defaults/simplenote.yml
+    file: ../defaults/simplenote.yml
 
 - name: Install latest version of remmina RDP client
   package:
@@ -18,26 +15,18 @@
 
 - name: Install latest version of Simplenote for Debian-based systems
   apt:
-    deb:  https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/simplenote_{{ simplenote_version }}_amd64.deb
-    state: present
+    deb:  https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}_amd64.deb
+    state: latest
   when: ansible_os_family == 'Debian'
 
-- name: Install latest version of Simplenote for RedHat-based systems
-  include: simplenote-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+- name: Install latest version of Simplenote using DNF
+  dnf:
+    name: https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}-x86_64.rpm
+    state: latest
+  when: ansible_pkg_mgr == 'dnf'
 
-- name: Setup shortcut for Simplenote
-  template:
-    src: simplenote_shortcut.j2
-    dest: /usr/share/applications/Simplenote.desktop
-    owner: root
-    group: root
-    mode: 0744
-
-- name: Setup path for Simplenote
-  blockinfile:
-    path: /usr/local/bin/simplenote
-    create: yes
-    state: present
-    content: |
-      /opt/Simplenote-linux-x64/Simplenote $@ > /dev/null 2>&1 &
+- name: Install latest version of Simplenote using YUM
+  yum:
+    name: https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}-x86_64.rpm
+    state: latest
+  when: ansible_pkg_mgr == 'yum'
