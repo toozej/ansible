@@ -21,16 +21,12 @@
     name: python-psycopg2
     state: latest
 
-- name: Install latest version of MariaDB on Debian
-  include: mariadb-debian.yml
-  when: ansible_distribution == 'Debian'
-
-- name: Install latest version of MariaDB on Ubuntu
-  include: mariadb-ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+- name: Install latest version of MariaDB on Debian-based
+  include: mariadb-Debian.yml
+  when: ansible_distribution_family == 'Debian'
 
 - name: Install latest version of MariaDB on CentOS/RedHat
-  include: mariadb-centos.yml
+  include: mariadb-RedHat.yml
   when: (ansible_distribution == 'CentOS') or (ansible_distribution == 'RedHat')
 
 - name: install latest version of MariaDB on Fedora
@@ -41,14 +37,4 @@
     - mariadb
     - mariadb-server
   when: (ansible_distribution == 'Fedora') and (ansible_distribution_version >= 19)
-
-- name: ensure old versions of MySQL Python Connector are uninstalled
-  pip:
-    name: mysql-connector-python
-    state: absent
-
-- name: install the latest version of MySQL Python connector from mysql dev website
-  pip:
-    name: https://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python-2.1.6.zip
-    state: latest
 
