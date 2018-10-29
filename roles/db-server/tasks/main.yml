@@ -23,7 +23,7 @@
 
 - name: Install latest version of MariaDB on Debian-based
   include: mariadb-Debian.yml
-  when: ansible_distribution_family == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: Install latest version of MariaDB on CentOS/RedHat
   include: mariadb-RedHat.yml
