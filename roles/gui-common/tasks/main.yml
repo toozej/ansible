@@ -16,17 +16,17 @@
 - name: Install latest version of Simplenote for Debian-based systems
   apt:
     deb:  https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}_amd64.deb
-    state: latest
+    state: present
   when: ansible_os_family == 'Debian'
 
 - name: Install latest version of Simplenote using DNF
   dnf:
     name: https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}-x86_64.rpm
-    state: latest
+    state: present
   when: ansible_pkg_mgr == 'dnf'
 
 - name: Install latest version of Simplenote using YUM
   yum:
     name: https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}-x86_64.rpm
-    state: latest
+    state: present
   when: ansible_pkg_mgr == 'yum'
