@@ -1,0 +1,5 @@
+---
+- name: enable non-free main repo for Debian
+  - apt_repository:
+    repo: deb http://debian.osuosl.org/debian/ {{ ansible_distribution_release }} main non-free
+    state: present
