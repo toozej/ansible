@@ -1,6 +1,6 @@
 ---
 - name: "apt | ensure BinTray signing keys present"
-  raw: curl -L "https://bintray.com/user/downloadSubjectPublicKey?username=bintray" -o Release-neofetch.key && sudo apt-key add Release-neofetch.key && rm Release-neofetch.key
+  raw: curl -L "https://bintray.com/user/downloadSubjectPublicKey?username=bintray" -o Release-neofetch.key && apt-key add Release-neofetch.key && rm Release-neofetch.key
 
 - name: "apt | ensure BinTray repo present"
   apt_repository:
