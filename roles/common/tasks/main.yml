@@ -19,9 +19,9 @@
 
 - name: include RPMFusion repo as pre-requisite for unrar on RedHat-based systems
   include_role:
-    name: repo-extra
+    name: 'repo-extra'
   when: ansible_os_family == 'RedHat'
-  
+
 - name: include main non-free apt source as pre-requisite for unrar on Debian systems
   include: non-free-debian.yml
   when: ansible_distribution == 'Debian'
