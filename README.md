@@ -23,6 +23,14 @@ Or if you want to run a playbook stand-alone skipping tags:
 ## Useful info for developing Ansible
 [Ansible Porting Guides](https://github.com/ansible/ansible/tree/devel/docs/docsite/rst/porting_guides)
 
+### Setting up Pre-commit hooks
+From the root of this repo, run the following commands:
+- `sudo pip install pre-commit`
+- `pre-commit install`
+- `pre-commit autoupdate`
+- commit any changes made, and ensure that pre-commit functions as expected
+- push like usual
+
 ## Overview of parts of this repo
 (Note below might be out of date, as it's a pain to keep up with the README while developing this repo)
 
