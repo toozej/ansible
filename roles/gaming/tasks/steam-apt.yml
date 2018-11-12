@@ -1,0 +1,26 @@
+---
+- name: "remove pre-existing non-free in sources list for Debian"
+  apt_repository:
+    repo: deb http://debian.osuosl.org/debian/ {{ ansible_lsb.release }} main non-free
+    state: absent
+  when: ansible_distribution == 'Debian'
+
+- name: "enable non-free and contrib in sources list for Debian"
+  apt_repository:
+    repo: deb http://debian.osuosl.org/debian/ {{ ansible_lsb.release }} main non-free contrib
+    state: present
+  when: ansible_distribution == 'Debian'
+
+- name: Check if i386 is enabled
+  shell: dpkg --print-foreign-architectures | grep i386
+  register: result_i386_check
+  changed_when: result_i386_check.rc == 1
+  failed_when: result_i386_check.rc > 1
+
+- name: Enable i386 architecture
+  command: dpkg --add-architecture i386
+  when: result_i386_check.rc == 1
+
+- name: Ensure apt cache is up to date
+  apt: update_cache=yes
+  when: result_i386_check.rc == 1
