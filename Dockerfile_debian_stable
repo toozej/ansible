@@ -1,7 +1,7 @@
 FROM debian:stable
 
 # update apt and ensure pip is latest version
-RUN apt-get update -qq && apt-get install python-pip git apt-transport-https -y && pip install --upgrade --force pip
+RUN apt-get update -qq && apt-get install python-pip git apt-transport-https lsb-release -y && pip install --upgrade --force pip
 
 # combat not having CA Certs installed
 RUN pip install pyopenssl ndg-httpsclient urllib3 pyasn1 requests

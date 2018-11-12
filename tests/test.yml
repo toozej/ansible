@@ -31,4 +31,5 @@
     - {role: ../roles/repo-extra}
     - {role: ../roles/unattended-upgrades}
     - {role: ../roles/vm}
+    - {role: ../roles/gaming}
     - {role: ../roles/hardening}
