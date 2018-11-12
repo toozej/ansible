@@ -1,0 +1,3 @@
+---
+postgresql_client_package_name: postgresql-client-10
+postgresql_server_package_name: postgresql-10
