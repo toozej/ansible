@@ -6,13 +6,6 @@
     value: 'I AGREE'
     vtype: select
 
-- name: "set blank steam license note"
-  debconf:
-    name: steam
-    question: steam/license
-    value: ''
-    vtype: note
-
 - name: "remove pre-existing non-free in sources list for Debian"
   apt_repository:
     repo: deb http://debian.osuosl.org/debian/ {{ ansible_lsb.release }} main non-free
