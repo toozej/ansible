@@ -20,3 +20,10 @@
   become_user: root
   roles:
     - role: monitoring
+
+- name: Setup Backup and Restore tools
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: backup-restore

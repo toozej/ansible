@@ -7,6 +7,7 @@
     - {role: ../roles/common}
     - {role: ../roles/audio-cli}
     - {role: ../roles/audio-gui}
+    - {role: ../roles/backup-restore}
     - {role: ../roles/chrome}
     - {role: ../roles/db-server}
     - {role: ../roles/dev-common}
@@ -19,17 +20,18 @@
     - {role: ../roles/docker}
     # excluding file-server role for now as downloading Dropbox Headless fails frequently due to issue on Dropbox side
     #- {role: ../roles/file-server}
+    - {role: ../roles/gaming}
     # exlucing gui-common role for now as downloading Simplenote fails frequently due to "error 104 connection reset by peer"
     #- {role: ../roles/gui-common}
     - {role: ../roles/gui-i3}
     - {role: ../roles/gui-xfce}
     - {role: ../roles/monitoring}
     - {role: ../roles/office}
+    - {role: ../roles/repo-extra}
     - {role: ../roles/web-server}
+    - {role: ../roles/unattended-upgrades}
     - {role: ../roles/vagrant}
     - {role: ../roles/virt-server}
-    - {role: ../roles/repo-extra}
-    - {role: ../roles/unattended-upgrades}
     - {role: ../roles/vm}
-    - {role: ../roles/gaming}
+    # explicitly including hardening last since its a WIP and might screw up connectivity to the test box
     - {role: ../roles/hardening}

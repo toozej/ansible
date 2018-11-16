@@ -1,0 +1,6 @@
+---
+- name: install the latest versions of aws cli tools
+  pip:
+    name: aws
+    state: latest
+  become: yes
