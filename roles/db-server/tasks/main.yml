@@ -30,11 +30,5 @@
   when: (ansible_distribution == 'CentOS') or (ansible_distribution == 'RedHat')
 
 - name: install latest version of MariaDB on Fedora
-  package:
-    name: "{{item}}"
-    state: latest
-  with_items:
-    - mariadb
-    - mariadb-server
+  include: mariadb-Fedora.yml
   when: (ansible_distribution == 'Fedora') and (ansible_distribution_version >= 19)
-
