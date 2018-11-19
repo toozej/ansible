@@ -1,12 +1,17 @@
 ---
-- name: accept steams licencing agreement - purge
-  command: 'echo "steam steam/purge note" | debconf-set-selections'
+- name: "accept Steam license question"
+  debconf:
+    name: steam
+    question: steam/question
+    value: "I AGREE"
+    vtype: "select"
 
-- name: accept steams licencing agreement - licence
-  command: 'echo "steam steam/license note" | debconf-set-selections'
-
-- name: accept steams licencing agreement - question
-  command: 'echo "steam steam/question select I AGREE" | debconf-set-selections'
+- name: "set blank steam license note"
+  debconf:
+    name: steam
+    question: steam/license
+    value: ""
+    vtype: "note"
 
 - name: "remove pre-existing non-free in sources list for Debian"
   apt_repository:
