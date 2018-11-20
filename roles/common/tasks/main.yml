@@ -17,6 +17,12 @@
     state: latest
   when: ansible_os_family == 'RedHat'
 
+- name: install latest version of dnf-utils on DNF systems
+  package:
+    name: dnf-utils
+    state: latest
+  when: ansible_pkg_mgr == 'dnf'
+
 - name: include RPMFusion repo as pre-requisite for unrar on RedHat-based systems
   include_role:
     name: 'repo-extra'
