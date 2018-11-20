@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 # update apt and ensure pip is latest version
-RUN sudo apt-get update -qq && sudo apt-get install python-pip git apt-transport-https software-properties-common -y && sudo pip install --upgrade --force pip
+RUN sudo apt-get update -qq && sudo apt-get install python-pip git apt-transport-https software-properties-common debconf-utils -y && sudo pip install --upgrade --force pip
 
 # combat not having CA Certs installed
 RUN sudo pip install pyopenssl ndg-httpsclient urllib3 pyasn1 requests

@@ -13,6 +13,13 @@
     value: ""
     vtype: "note"
 
+- name: "set steam purge note"
+  debconf:
+    name: steam
+    question: steam/purge
+    value: ""
+    vtype: "note"
+
 - name: "remove pre-existing non-free in sources list for Debian"
   apt_repository:
     repo: deb http://debian.osuosl.org/debian/ {{ ansible_lsb.release }} main non-free
