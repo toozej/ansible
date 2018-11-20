@@ -1,6 +1,6 @@
 ---
-- name: "dnf | ensure Negativo17.org Spotify repo present for Fedora"
-  command: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
+- name: "yum | ensure Negativo17.org Spotify repo present for Fedora"
+  command: yum-config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
   when: ansible_distribution == 'Fedora'
 
 - name: "dnf | install latest version of Spotify"

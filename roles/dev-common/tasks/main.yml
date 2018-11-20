@@ -13,13 +13,10 @@
     name: "{{ dev_tools_package_name }}"
     state: latest
 
-- name: install the latest versions of Git tools
+- name: install the latest versions of Git Review
   package:
-    name: "{{ item }}"
+    name: git-review
     state: latest
-  with_items:
-    - git-review
-    - git-flow
 
 - name: Install pre-commit and pre-commit hooks using Pip
   pip:
