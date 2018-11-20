@@ -1,9 +1,9 @@
 pipeline {
   agent none
   stages {
-    stage('Check Test (14.04)') {
+    stage('Syntax Check') {
       parallel {
-        stage('Check Test (14.04)') {
+        stage('Syntax Check (14.04)') {
           agent {
             dockerfile {
               filename 'Dockerfile_ubuntu_1404'
@@ -18,7 +18,7 @@ pipeline {
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
-        stage('Check Test (18.04)') {
+        stage('Syntax Check (18.04)') {
           agent {
             dockerfile {
               filename 'Dockerfile_ubuntu_1804'
@@ -33,7 +33,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
-        stage('Check Test (Debian Stable)') {
+        stage('Syntax Check (Debian Stable)') {
           agent {
             dockerfile {
               filename 'Dockerfile_debian_stable'
@@ -48,7 +48,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
-        stage('Check Test (Debian Testing)') {
+        stage('Syntax Check (Debian Testing)') {
           agent {
             dockerfile {
               filename 'Dockerfile_debian_testing'
@@ -63,7 +63,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
-        stage('Check Test (Fedora Latest)') {
+        stage('Syntax Check (Fedora Latest)') {
           agent {
             dockerfile {
               filename 'Dockerfile_fedora_latest'
@@ -78,7 +78,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
-        stage('Check Test (CentOS 7)') {
+        stage('Syntax Check (CentOS 7)') {
           agent {
             dockerfile {
               filename 'Dockerfile_centos_7'
@@ -95,7 +95,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         }
       }
     }
-    stage('Run Test (14.04)') {
+    stage('Run Tests') {
       parallel {
         stage('Run Test (14.04)') {
           agent {
