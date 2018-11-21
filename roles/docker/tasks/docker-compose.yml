@@ -12,7 +12,6 @@
   when: >
     docker_compose_current_version.stdout is defined
     and docker_compose_version not in docker_compose_current_version.stdout
-
 - name: Install Docker Compose (if configured).
   get_url:
     url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
