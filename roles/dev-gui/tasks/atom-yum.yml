@@ -8,7 +8,7 @@
     gpgkey: https://packagecloud.io/AtomEditor/atom/gpgkey
     enabled: yes
 
-- name: install latest version of Atom editor via DNF
-  dnf:
+- name: install latest version of Atom editor via YUM
+  yum:
     name: atom
     state: present
