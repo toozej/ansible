@@ -8,9 +8,6 @@
     - "../vars/default.yml"
   when: (mariadb_signing_key is not defined) or (mariadb_version is not defined)
 
-# include overall MariaDB variables
-- include_vars: "../vars/mariadb.yml"
-
 - name: "apt | ensure MariaDB signing key present"
   apt_key:
     keyserver: keyserver.ubuntu.com

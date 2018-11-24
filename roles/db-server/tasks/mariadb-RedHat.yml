@@ -1,7 +1,7 @@
 ---
 - name: include mariadb variables
   include_vars:
-    file: ../vars/mariadb.yml
+    file: ../vars/RedHat.yml
 
 - name: Add MariaDB repository
   yum_repository:
@@ -26,4 +26,3 @@
   yum:
     name: MySQL-python
     state: latest
-
