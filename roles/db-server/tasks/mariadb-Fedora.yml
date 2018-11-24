@@ -6,3 +6,4 @@
   with_items:
     - mariadb
     - mariadb-server
+    - python2-mysql
