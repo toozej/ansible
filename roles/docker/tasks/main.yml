@@ -8,7 +8,7 @@
 - name: Install Docker.
   package:
     name: "{{ docker_package }}"
-    state: "{{ docker_package_state }}"
+    state: latest
   notify: restart docker
 
 # TODO: Remove this shim once 18.09.1 or later is released.
