@@ -3,9 +3,6 @@
 - hosts: localhost
   connection: local
   become: true
-  vars:
-    docker_service_state: stopped
-    docker_service_enabled: false
   roles:
     - {role: ../roles/common}
     - {role: ../roles/audio-cli}

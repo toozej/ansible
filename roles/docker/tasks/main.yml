@@ -21,6 +21,7 @@
     name: docker
     state: "{{ docker_service_state }}"
     enabled: "{{ docker_service_enabled }}"
+  when: ansible_service_mgr == 'systemd'
 
 - name: Ensure handlers are notified now to avoid firewall conflicts.
   meta: flush_handlers
