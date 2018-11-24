@@ -1,2 +1,3 @@
 ---
 mariadb_version: 10.3
+mariadb_signing_key: F1656F24C74CD1D8
