@@ -2,4 +2,4 @@
 postgresql_client_package_name: postgresql-client-10
 postgresql_server_package_name: postgresql-10
 mariadb_version: 10.3
-mariadb_signing_key: 0xF1656F24C74CD1D8
+mariadb_signing_key: F1656F24C74CD1D8
