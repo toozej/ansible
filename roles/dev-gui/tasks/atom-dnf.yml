@@ -4,6 +4,7 @@
     name: atom
     description: Atom.io editor repository
     baseurl: https://packagecloud.io/AtomEditor/atom/el/7/$basearch/
+    gpgcheck: no
     repo_gpgcheck: yes
     gpgkey: https://packagecloud.io/AtomEditor/atom/gpgkey
     enabled: yes
