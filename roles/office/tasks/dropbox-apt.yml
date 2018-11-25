@@ -1,6 +1,13 @@
 ---
+# include Debian vars so that ansible_dsitribution_release is properly set for Debian Testing Buster/Sid
+- include_vars: "../vars/Debian.yml"
+  when: ansible_distribution == 'Debian'
+
 - name: Add Dropbox KeyServer
-  apt_key: keyserver=keyserver.ubuntu.com id=5044912E state=present
+  apt_key:
+    keyserver: pgp.mit.edu
+    id: 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+    state: present
 
 - name: Add Dropbox PPA Repo
   apt_repository:
