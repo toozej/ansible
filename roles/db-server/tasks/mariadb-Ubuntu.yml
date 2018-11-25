@@ -10,8 +10,8 @@
 
 - name: "apt | ensure MariaDB signing key present"
   apt_key:
-    - id: "0x{{ mariadb_signing_key }}"
-    - keyserver: "hkp://keyserver.ubuntu.com:80"
+    - id: "{{ mariadb_id }}"
+    - url: "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x{{ mariadb_signing_key }}"
     - state: present
 
 - name: "apt | ensure MariaDB repo present"
