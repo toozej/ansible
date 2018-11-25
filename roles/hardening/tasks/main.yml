@@ -8,6 +8,7 @@
   command: >
     iptables -F
     creates=/etc/firewall.bash
+  when: (ansible_service_mgr == 'systemd') or (ansible_service_mgr == 'upstart')
 
 - name: Copy firewall script into place.
   template:
@@ -25,7 +26,7 @@
     owner: root
     group: root
     mode: 0755
-  when: "ansible_service_mgr != 'systemd'"
+  when: (ansible_service_mgr != 'systemd')
 
 - name: Copy firewall systemd unit file into place (for systemd systems).
   template:
@@ -34,13 +35,14 @@
     owner: root
     group: root
     mode: 0644
-  when: "ansible_service_mgr == 'systemd'"
+  when: (ansible_service_mgr == 'systemd')
 
 - name: Configure the firewall service.
   service:
     name: firewall
     state: "{{ firewall_state }}"
     enabled: "{{ firewall_enabled_at_boot }}"
+  when: (ansible_service_mgr == 'systemd') or (ansible_service_mgr == 'upstart')
 
 - include: disable-other-firewalls.yml
-  when: firewall_disable_firewalld or firewall_disable_ufw
+  when: (firewall_disable_firewalld or firewall_disable_ufw) and (ansible_service_mgr == 'systemd' or ansible_service_mgr == 'upstart')
