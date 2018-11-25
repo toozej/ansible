@@ -10,9 +10,9 @@
 
 - name: "apt | ensure MariaDB signing key present"
   apt_key:
-    - id: "0x{{ mariadb_signing_key }}"
-    - url: "http://keyserver.ubuntu.com"
-    - state: present
+    id: "0x{{ mariadb_signing_key }}"
+    url: "http://keyserver.ubuntu.com"
+    state: present
 
 - name: "apt | ensure MariaDB repo present"
   copy:
