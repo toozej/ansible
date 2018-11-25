@@ -18,8 +18,11 @@
 
 - name: install 32-bit drivers for RHEL
   package:
-    name: "libtxc_dxtn.x86_64"
+    name: "{{item}}"
     state: latest
+  with_items:
+    - libtxc
+    - dxtn.x86_64
   when: ansible_os_family == 'RedHat'
 
 - name: "apt | pre-requisites for installing Steam"
