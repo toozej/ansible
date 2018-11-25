@@ -6,7 +6,7 @@
     - "../vars/{{ ansible_distribution }}.yml"
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/default.yml"
-  when: (mariadb_signing_key is not defined) or (mariadb_version is not defined)
+  when: (mariadb_signing_key is not defined) or (mariadb_version is not defined) or (mariadb_id is not defined)
 
 - name: "apt | ensure MariaDB signing key present"
   apt_key:
