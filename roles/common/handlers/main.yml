@@ -10,3 +10,4 @@
 
 - name: Restart ssh
   service: name={{ sshd_service_name }} state=restarted
+  when: (ansible_service_mgr == "systemd") or (ansible_service_mgr == "upstart")
