@@ -1,7 +1,12 @@
 ---
-# include Debian vars so that ansible_dsitribution_release is properly set for Debian Testing Buster/Sid
-- include_vars: "../vars/Debian.yml"
-  when: ansible_distribution == 'Debian'
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "../vars/{{ ansible_distribution }}.yml"
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/default.yml"
+  when: (python_gpg_package_name is not defined)
 
 - name: Add Dropbox KeyServer
   apt_key:
@@ -13,11 +18,13 @@
   apt_repository:
     repo: 'deb http://linux.dropbox.com/{{ansible_distribution|lower}} {{ansible_distribution_release}} main'
 
-- name: Install Dropbox
+- name: Install Python GPG
   apt:
-    name: "{{item}}"
+    name: "{{ python_gpg_package_name }}"
     state: latest
     update_cache: yes
-  with_items:
-    - dropbox
-    - python-gpgme
+
+- name: Install Dropbox
+  apt:
+    name: dropbox
+    state: latest
