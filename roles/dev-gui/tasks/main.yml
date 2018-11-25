@@ -1,4 +1,15 @@
 ---
+- name: Setup OpenJDK PPA repo for Ubuntu 14.04
+  apt_repository:
+    repo: ppa:openjdk-r/ppa
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('14.04', '==')
+
+- name: Install OpenJDK 8 JRE Headless on Ubuntu 14.04
+  package:
+    name: openjdk-8-jre-headless
+    state: latest
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('14.04', '==')
+
 - name: Install latest version of DBeaver using APT
   include: dbeaver-apt.yml
   when: ansible_pkg_mgr == 'apt'
