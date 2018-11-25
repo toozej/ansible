@@ -16,15 +16,6 @@
   include: steam-yum.yml
   when: ansible_pkg_mgr == 'yum'
 
-- name: install 32-bit drivers for RHEL
-  package:
-    name: "{{item}}"
-    state: latest
-  with_items:
-    - libtxc
-    - dxtn.x86_64
-  when: ansible_os_family == 'RedHat'
-
 - name: "apt | pre-requisites for installing Steam"
   include: steam-apt.yml
   when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
