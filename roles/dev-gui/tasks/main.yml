@@ -28,11 +28,14 @@
 - name: Install latest version of Atom editor using APT
   include: atom-apt.yml
   when: ansible_pkg_mgr == 'apt'
+  tags: gui
 
 - name: Install latest version of Atom editor using DNF
   include: atom-dnf.yml
   when: ansible_pkg_mgr == 'dnf'
+  tags: gui
 
 - name: Install latest version of Atom editor using YUM
   include: atom-yum.yml
   when: ansible_pkg_mgr == 'yum'
+  tags: gui

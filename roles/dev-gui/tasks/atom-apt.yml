@@ -1,11 +1,10 @@
 ---
 - name: Add repository for Atom editor
   apt_repository:
-    repo: 'ppa:webupd8team/atom'
-
-- name: "apt | update cache"
-  apt:
-    update_cache: yes
+    repo: "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
+    state: present
+    filename: atom
+    validate_certs: no
 
 - name: install latest version of Atom editor via APT
   apt:
