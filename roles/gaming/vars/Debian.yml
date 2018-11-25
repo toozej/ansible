@@ -1,2 +1,5 @@
 ---
+ansible_distribution_release: '{{ "testing"
+                                      if ansible_facts["distribution_major_version"] == "buster/sid"
+                                      else ansible_facts["distribution_release"] }}'
 steam_package_name: steam-installer

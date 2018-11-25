@@ -22,13 +22,13 @@
 
 - name: "remove pre-existing non-free in sources list for Debian"
   apt_repository:
-    repo: deb http://debian.osuosl.org/debian/ {{ ansible_lsb.release }} main non-free
+    repo: deb http://debian.osuosl.org/debian/ {{ ansible_distribution_release }} main non-free
     state: absent
   when: ansible_distribution == 'Debian'
 
 - name: "enable non-free and contrib in sources list for Debian"
   apt_repository:
-    repo: deb http://debian.osuosl.org/debian/ {{ ansible_lsb.release }} main non-free contrib
+    repo: deb http://debian.osuosl.org/debian/ {{ ansible_distribution_release }} main non-free contrib
     state: present
   when: ansible_distribution == 'Debian'
 
