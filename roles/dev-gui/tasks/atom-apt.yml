@@ -12,7 +12,7 @@
   when: add_repository_key is failed
 
 - name: Add Atom apt key (alternative for older systems without SNI).
-  shell: "curl -sSL https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -"
+  shell: "curl -sSL https://packagecloud.io/AtomEditor/atom/gpgkey | apt-key add -"
   args:
     warn: false
   when: add_repository_key is failed
