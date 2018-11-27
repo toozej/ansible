@@ -52,3 +52,4 @@
     - role: dev-ansible
     - role: dev-python
     - role: vagrant
+    - role: virt-server
