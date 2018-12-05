@@ -1,0 +1,26 @@
+---
+- name: pull latest kcli docker image
+  docker_image:
+    name: karmab/kcli
+    tag: latest
+
+- name: create ~/.kcli
+  file:
+    path: /home/james/.kcli
+    state: directory
+    mode: 0740
+
+- name: copy in config template
+  template:
+    src: config.yml.j2
+    dest: /home/james/.kcli/config.yml
+
+- name: copy in profiles template
+  template:
+    src: profiles.yml.j2
+    dest: /home/james/.kcli/profiles.yml
+
+- name: hard-link lab SSH keys
+
+
+- name: download commonly used base images (in qcow2)

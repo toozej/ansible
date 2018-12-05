@@ -73,4 +73,7 @@
     name: james
     groups: libvirt
     append: yes
-  when: ansible_distribution == 'Ubuntu' and (ansible_distribution_version is version_compare(16.10, '>='))
+    when: ansible_distribution == 'Ubuntu' and (ansible_distribution_version is version_compare(16.10, '>='))
+
+- name: include kcli tool
+  include: kcli.yml
