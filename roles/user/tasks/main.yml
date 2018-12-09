@@ -1,0 +1,14 @@
+---
+- name: create "james" user
+  user:
+    name: james
+    comment: "James"
+    shell: /bin/bash
+    state: present
+
+- name: Set authorized key
+  authorized_key:
+    user: james
+    state: present
+    key: https://github.com/toozej.keys
+    validate_certs: True
