@@ -1,0 +1,18 @@
+default:
+  client: local
+  cloudinit: true
+  enableroot: true
+  insecure: true
+  nested: true
+  reservedns: false
+  reservehost: false
+  reserveip: false
+  dns: 192.168.1.1
+  domain: toozej.com
+  start: true
+  tunnel: false
+local:
+  diskthin: true
+  nets:
+  - default
+  pool: default

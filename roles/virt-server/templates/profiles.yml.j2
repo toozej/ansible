@@ -1,0 +1,39 @@
+centos:
+ template: CentOS-7-x86_64-GenericCloud.qcow2
+ numcpus: 2
+ memory: 2048
+ disks:
+  - size: 40
+ cmds:
+  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+  - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
+
+fedora:
+ template: Fedora-Cloud-Base-29-1.2.x86_64.qcow2
+ numcpus: 2
+ memory: 2048
+ disks:
+  - size: 40
+ cmds:
+  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+  - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
+
+debian:
+ template: debian-9-openstack-amd64.qcow2
+ numcpus: 2
+ memory: 2048
+ disks:
+  - size: 40
+ cmds: 
+  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+  - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
+
+ubuntu:
+ template: bionic-server-cloudimg-amd64-disk1.img
+ numcpus: 2
+ memory: 2048
+ disks:
+  - size: 40
+ cmds: 
+  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+  - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
