@@ -31,6 +31,10 @@
     warn: false
   when: add_repository_key is failed
 
+- name: include Debian ansible_distribution_release for Buster/Sid
+  include_vars: "../vars/Debian.yml"
+  when: ansible_distrubtion == 'Debian'
+
 - name: Add Docker repository.
   apt_repository:
     repo: "{{ docker_apt_repository }}"
