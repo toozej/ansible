@@ -20,7 +20,7 @@
     src: profiles.yml.j2
     dest: /home/james/.kcli/profiles.yml
 
-- name: hard-link lab SSH keys
+    #- name: hard-link lab SSH keys
 
 
-- name: download commonly used base images (in qcow2)
+    #- name: download commonly used base images (in qcow2)
