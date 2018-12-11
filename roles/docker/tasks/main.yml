@@ -15,6 +15,11 @@
 - import_tasks: docker-1809-shim.yml
   when: ansible_service_mgr == "systemd"
 
+- name: Install docker-py lib
+  pip:
+    name: docker-py
+    state: latest
+
 # Docker must be stopped to work Docker in Docker (testing with Jenkins)
 - name: Ensure Docker is stopped and enabled at boot.
   service:
