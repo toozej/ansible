@@ -4,6 +4,7 @@
   connection: local
   become: true
   roles:
+    - {role: ../roles/ansible-enablement}
     - {role: ../roles/user}
     - {role: ../roles/common}
     - {role: ../roles/audio-cli}

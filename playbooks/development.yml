@@ -5,6 +5,8 @@
   become: true
   become_user: root
   roles:
+    - role: ansible-enablement
+    - role: user
     - role: common
     - role: dev-common
 
@@ -32,4 +34,3 @@
     - role: dev-kubernetes
     - role: dev-python
     - role: dev-ruby
-
