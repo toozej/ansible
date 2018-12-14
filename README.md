@@ -30,4 +30,3 @@ From the root of this repo, run the following commands:
 - `pre-commit autoupdate`
 - commit any changes made, and ensure that pre-commit functions as expected
 - push like usual
-
