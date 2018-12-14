@@ -24,7 +24,8 @@ debian:
  memory: 2048
  disks:
   - size: 40
- cmds: 
+ cmds:
+  - sudo apt-get update -qq && apt-get install -y curl
   - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
 
@@ -35,5 +36,6 @@ ubuntu:
  disks:
   - size: 40
  cmds: 
+  - sudo apt-get update -qq && apt-get install -y curl
   - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
