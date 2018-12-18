@@ -4,7 +4,7 @@ FROM ubuntu:14.04
 RUN sudo apt-get update -qq && sudo apt-get install python-pip git apt-transport-https software-properties-common debconf-utils -y && sudo pip install --upgrade --force-reinstall pip==9.0.3
 
 # specific version of urllib3 required by docker-py, then latest pip
-RUN pip install 'urllib3<1.25,>=1.21.1' --disable-pip-version-check && sudo pip install --upgrade pip
+RUN pip install 'urllib3<1.25,>=1.21.1' --disable-pip-version-check && pip install 'chardet<3.1.0,>=3.0.2' --disable-pip-version-check && sudo pip install --upgrade pip
 # combat not having CA Certs installed
 RUN pip install pyopenssl ndg-httpsclient pyasn1 requests
 
