@@ -24,7 +24,7 @@ before_install:
   - sudo apt-get update -qq
   - sudo pip install --upgrade --force-reinstall pip==9.0.3
   # specific version of urllib3 required by docker-py
-  - sudo pip install 'urllib3<1.25,>=1.21.1'--disable-pip-version-check
+  - sudo pip install 'urllib3<1.25,>=1.21.1' --disable-pip-version-check
   - sudo pip install --upgrade pip
   # combat downgrading MySQL on Debian-based distro
   - sudo apt list --installed | grep mysql
