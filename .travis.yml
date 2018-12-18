@@ -36,7 +36,8 @@ before_install:
   - grep "" /etc/apt/sources.list.d/*
   # combat not having CA Certs installed
   # specific version of urllib3 required by docker-py
-  - sudo pip install pyopenssl ndg-httpsclient 'urllib3<1.25,>=1.21.1' pyasn1 requests
+  - sudo pip install 'urllib3<1.25,>=1.21.1' --upgrade
+  - sudo pip install pyopenssl ndg-httpsclient pyasn1 requests
   # setup the james user
   - sudo useradd -m -c "james" james -s /bin/bash
 
