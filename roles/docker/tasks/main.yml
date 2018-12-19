@@ -16,7 +16,12 @@
   when: ansible_service_mgr == "systemd"
 
 # docker-py from https://github.com/docker/docker-py renamed to docker on PyPi https://pypi.org/project/docker/
-- name: Install docker-py lib
+- name: ensure deprecated docker-py lib is absent
+  pip:
+    name: docker-py
+    state: absent
+
+- name: Install latest docker-py lib
   pip:
     name: docker
     state: latest
