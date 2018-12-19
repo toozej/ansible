@@ -15,9 +15,10 @@
 - import_tasks: docker-1809-shim.yml
   when: ansible_service_mgr == "systemd"
 
+# docker-py from https://github.com/docker/docker-py renamed to docker on PyPi https://pypi.org/project/docker/
 - name: Install docker-py lib
   pip:
-    name: docker-py
+    name: docker
     state: latest
 
 # Docker must be stopped to work Docker in Docker (testing with Jenkins)
