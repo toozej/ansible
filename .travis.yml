@@ -22,7 +22,12 @@ before_install:
   - free -m
   # update apt and ensure pip is latest version
   - sudo apt-get update -qq
-  - sudo pip install --upgrade --force pip
+  - sudo pip install --upgrade --force-reinstall pip==9.0.3
+  # specific version of urllib3 required by docker-py
+  - sudo pip install 'urllib3<1.25,>=1.21.1' --disable-pip-version-check
+  - sudo pip install 'chardet<3.1.0,>=3.0.2' --disable-pip-version-check
+  - sudo pip install 'requests!=2.18.0,>=2.14.2' --disable-pip-version-check
+  - sudo pip install --upgrade pip
   # combat downgrading MySQL on Debian-based distro
   - sudo apt list --installed | grep mysql
   - sudo apt-get remove mysql-*
@@ -35,7 +40,8 @@ before_install:
   # list out apt sources
   - grep "" /etc/apt/sources.list.d/*
   # combat not having CA Certs installed
-  - sudo pip install pyopenssl ndg-httpsclient urllib3 pyasn1 requests
+  - sudo pip install pyopenssl ndg-httpsclient pyasn1
+  - sudo pip list
   # setup the james user
   - sudo useradd -m -c "james" james -s /bin/bash
 

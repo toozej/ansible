@@ -1,10 +1,15 @@
 FROM ubuntu:14.04
 
-# update apt and ensure pip is latest version
-RUN sudo apt-get update -qq && sudo apt-get install python-pip git apt-transport-https software-properties-common debconf-utils -y && sudo pip install --upgrade --force pip
+# update apt and ensure pip is specific version for urllib3
+RUN sudo apt-get update -qq && sudo apt-get install python-pip git apt-transport-https software-properties-common debconf-utils -y && sudo pip install --upgrade --force-reinstall pip==9.0.3
 
+# specific version of urllib3 required by docker-py, then latest pip
+RUN pip install 'urllib3<1.25,>=1.21.1' --disable-pip-version-check && \
+    pip install 'chardet<3.1.0,>=3.0.2' --disable-pip-version-check && \
+    pip install 'requests!=2.18.0,>=2.14.2' --disable-pip-version-check && \
+    sudo pip install --upgrade pip
 # combat not having CA Certs installed
-RUN sudo pip install pyopenssl ndg-httpsclient urllib3 pyasn1 requests
+RUN pip install pyopenssl ndg-httpsclient pyasn1
 
 # setup the james user
 RUN sudo useradd -m -c "james" james -s /bin/bash
