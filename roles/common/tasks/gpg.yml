@@ -27,6 +27,14 @@
     group: james
     mode: 0700
 
+- name: create ~/.gnupg/private-keys-v1.d directory
+  file:
+    path: /home/james/.gnupg/private-keys-v1.d
+    state: directory
+    owner: james
+    group: james
+    mode: 0700
+
 - name: Setup config file for gnupg-agent
   template:
     src: gpg-agent.conf.j2
