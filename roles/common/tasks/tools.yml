@@ -20,10 +20,13 @@
     - ncdu
     - lshw
 
-- name: install the latest version of smb client
+- name: install the latest version of Samba client and tools
   package:
-    name: samba-client
+    name: "{{item}}"
     state: latest
+  with_items:
+    - samba-client
+    - cifs-utils
 
 - name: install the latest version of pip2
   package:
