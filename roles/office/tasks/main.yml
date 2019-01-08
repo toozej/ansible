@@ -16,8 +16,9 @@
 
 - name: install moderncv package for LaTeX
   package:
-    name: texlive-moderncv.noarch
+    name: texlive-moderncv
     state: latest
+  when: ansible_distribution == 'Fedora'
 
 - name: Install latest version of Dropbox using APT
   include: dropbox-apt.yml
