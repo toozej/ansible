@@ -14,6 +14,11 @@
     name: texlive
     state: latest
 
+- name: install moderncv package for LaTeX
+  package:
+    name: texlive-moderncv.noarch
+    state: latest
+
 - name: Install latest version of Dropbox using APT
   include: dropbox-apt.yml
   when: ansible_pkg_mgr == 'apt'
