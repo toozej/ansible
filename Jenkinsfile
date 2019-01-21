@@ -3,10 +3,10 @@ pipeline {
   stages {
     stage('Syntax Check') {
       parallel {
-        stage('Syntax Check (14.04)') {
+        stage('Syntax Check (16.04)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_ubuntu_1404'
+              filename 'Dockerfile_ubuntu_1604'
             }
 
           }
@@ -112,10 +112,10 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
     }
     stage('Run Tests') {
       parallel {
-        stage('Run Test (14.04)') {
+        stage('Run Test (16.04)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_ubuntu_1404'
+              filename 'Dockerfile_ubuntu_1604'
             }
 
           }

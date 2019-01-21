@@ -24,7 +24,7 @@
     #- {role: ../roles/file-server}
     # excluding gaming role for now until I can fix the Steam license acceptance
     #- {role: ../roles/gaming}
-    # exlucing gui-common role for now as downloading Simplenote fails frequently due to "error 104 connection reset by peer"
+    # exclucing gui-common role for now as downloading Simplenote fails frequently due to "error 104 connection reset by peer"
     #- {role: ../roles/gui-common}
     - {role: ../roles/gui-i3}
     - {role: ../roles/gui-xfce}
