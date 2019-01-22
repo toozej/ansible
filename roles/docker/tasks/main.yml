@@ -26,6 +26,12 @@
     name: docker
     state: latest
 
+- name: Install docker python library
+  package:
+    name: python-docker
+    state: present
+  when: ansible_distribution_release == "buster"
+
 # Docker must be stopped to work Docker in Docker (testing with Jenkins)
 - name: Ensure Docker is stopped and enabled at boot.
   service:
