@@ -66,14 +66,14 @@
     name: james
     groups: libvirtd
     append: yes
-  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version_compare(16.10, '<'))
+  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.10, 'lt'))
 
 - name: add user "james" to libvirt group on Ubuntu >= 16.10 only
   user:
     name: james
     groups: libvirt
     append: yes
-  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version_compare(16.10, '>='))
+  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.10, 'ge'))
 
 - name: include kcli tool
   include: kcli.yml
