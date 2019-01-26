@@ -27,8 +27,7 @@
 
 - name: Install latest version of Dropbox using APT
   include: dropbox-apt.yml
-  # bug when using Fedora, Ansible think its pkg_mgr is apt, so explicitly skip if distribution is Fedora
-  when: (ansible_pkg_mgr == 'apt') and (ansible_distribution != 'Fedora')
+  when: (ansible_pkg_mgr == 'apt')
 
 - name: Install latest version of Dropbox using DNF
   include: dropbox-dnf.yml
