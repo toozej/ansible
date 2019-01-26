@@ -55,12 +55,12 @@
     append: yes
   when: ansible_distribution == 'Debian'
 
-- name: add user "james" to libvirtd group on Ubuntu <16.10 only
+- name: add user "james" to libvirtd group on Ubuntu 16.04 only
   user:
     name: james
     groups: libvirtd
     append: yes
-  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.10, 'lt'))
+  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.04, 'eq'))
 
 - name: add user "james" to libvirt group on Ubuntu >= 16.10 only
   user:
