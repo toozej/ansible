@@ -27,7 +27,7 @@
 
 - name: Install latest version of Dropbox using APT
   include: dropbox-apt.yml
-  when: (ansible_pkg_mgr == 'apt')
+  when: (ansible_os_family == 'Debian')
 
 - name: Install latest version of Dropbox using DNF
   include: dropbox-dnf.yml

@@ -1,79 +1,11 @@
 ---
-# Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
-  with_first_found:
-    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-    - "../vars/{{ ansible_distribution }}.yml"
-    - "../vars/{{ ansible_os_family }}.yml"
-    - "../vars/default.yml"
-  when: (libvirt_package_name is not defined) or (ovmf_package_name is not defined)
-
 - name: install latest version of ethtool package
   package:
     name: ethtool
     state: latest
 
-- name: install latest versions of libvirt packages
-  package:
-    name: "{{ libvirt_package_name }}"
-    state: latest
-
-- name: install latest version of libvirt-daemon on RedHat-based only
-  package:
-    name: libvirt-daemon
-    state: latest
-  when: ansible_os_family == 'RedHat'
-
-- name: install latest version of libvirt-clients on Debian-based only
-  package:
-    name: libvirt-clients
-    state: latest
-  when: ansible_distribution == 'Debian'
-
-- name: install latest versions of emulation tools
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - qemu-kvm
-    - seabios
-
-- name: install latest version of qemu
-  package:
-    name: "{{ ovmf_package_name }}"
-    state: latest
-
-- name: install the latest version of virt-manager
-  package:
-    name: virt-manager
-    state: latest
-
-- name: add user "james" to KVM group
-  user:
-    name: james
-    groups: kvm
-    append: yes
-
-- name: add user "james" to libvirt,libvirt-qemu groups on Debian only
-  user:
-    name: james
-    groups: libvirt,libvirt-qemu
-    append: yes
-  when: ansible_distribution == 'Debian'
-
-- name: add user "james" to libvirtd group on Ubuntu <16.10 only
-  user:
-    name: james
-    groups: libvirtd
-    append: yes
-  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.10, 'lt'))
-
-- name: add user "james" to libvirt group on Ubuntu >= 16.10 only
-  user:
-    name: james
-    groups: libvirt
-    append: yes
-  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.10, 'ge'))
+- name: include libvirt and KVM
+  include: libvirt.yml
 
 - name: include kcli tool
   include: kcli.yml
