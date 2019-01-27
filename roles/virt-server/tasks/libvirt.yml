@@ -42,6 +42,11 @@
     name: virt-manager
     state: latest
 
+- name: install bridge-utils networking
+  package:
+    name: bridge-utils
+    state: latest
+
 - name: add user "james" to KVM group
   user:
     name: james
@@ -62,9 +67,9 @@
     append: yes
   when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.04, 'eq'))
 
-- name: add user "james" to libvirt group on Ubuntu >= 16.10 only
+- name: add user "james" to libvirt group on Ubuntu >= 17.04 only
   user:
     name: james
     groups: libvirt
     append: yes
-  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.10, 'ge'))
+  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_major_version is version(17, 'ge'))
