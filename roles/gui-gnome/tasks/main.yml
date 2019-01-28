@@ -19,7 +19,11 @@
     state: latest
 
 - name: Ensures ~/.config exists
-  file: path=/home/james/.config/ state=directory recurse=yes
+  file:
+    path: /home/james/.config/
+    state: directory
+    recurse: yes
+
 - name: Temporarily store Gnome settings in ~/.config/
   template:
     src: gnome_settings.j2

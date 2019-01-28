@@ -1,5 +1,5 @@
 ---
-- name: install unattended-upgrades for Debian-based systems
+- name: install unattended-upgrades package for Debian-based systems
   package:
     name: unattended-upgrades
     state: latest
@@ -23,7 +23,7 @@
     mode: 0644
   when: ansible_distribution == "Ubuntu"
 
-- name: install yum-cron for RHEL-based systems
+- name: install yum-cron package for RHEL-based systems
   package:
     name: yum-cron
     state: latest
