@@ -1,2 +1,3 @@
 ---
 dev_tools_package_name: "build-essential"
+nss_tools_package_name: "libnss3-tools"
