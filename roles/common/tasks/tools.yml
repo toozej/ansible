@@ -49,6 +49,7 @@
     - zip
     - unrar
     - p7zip
+    - pigz
 
 - name: install the latest version of tree
   package:
