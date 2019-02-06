@@ -19,6 +19,7 @@
     - bwm-ng
     - ncdu
     - lshw
+    - net-tools
 
 - name: install the latest version of Samba client and tools
   package:
@@ -61,7 +62,7 @@
     name: "{{ ag_package_name }}"
     state: latest
 
-- name: install the latest version of net-tools for netstat
+- name: install the latest version of strace
   package:
-    name: net-tools
+    name: strace
     state: latest
