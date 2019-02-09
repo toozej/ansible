@@ -1,4 +1,4 @@
-FROM fedora:28
+FROM fedora:29
 
 # update dnf and ensure pip is latest version
 RUN dnf install -y python2 git python-dnf && pip install --upgrade --force pip
