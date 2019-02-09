@@ -49,6 +49,17 @@
   command: perl -0777 -i.original -pe 's/[health]*enabled = yes/\n\t enabled = no/' {{ netdata_install_dir }}/netdata/etc/netdata/netdata.conf
   become: yes
 
+- name: setup config directory
+  file:
+    path: /etc/netdata
+    state: directory
+    mode: 744
+
+- name: disable email alerts using managed health_alarm_notify.conf
+  template:
+    src: health_alarm_notify.conf.j2
+    dest: /etc/netdata/health_alarm_notify.conf
+
 - name: Copy service file
   command: cp {{ netdata_install_dir }}/system/netdata.service /etc/systemd/system/netdata.service
   when: clone_or_pull.changed == True and ansible_service_mgr == "systemd"

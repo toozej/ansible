@@ -25,3 +25,13 @@
   with_items:
     - pre-commit
     - pre-commit-hooks
+
+- name: include wuzz defaults
+  include_vars:
+    file: ../defaults/wuzz.yml
+
+- name: install the latest version of Wuzz
+  get_url:
+    url:  https://github.com/asciimoo/wuzz/releases/download/v{{ wuzz_version }}/wuzz_linux_amd64
+    dest: /usr/local/bin/wuzz
+    force: yes
