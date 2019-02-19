@@ -93,7 +93,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
-        stage('Syntax Check (OpenSUSE Leap Latest)') {
+        stage('Syntax Check (OpenSUSE Leap)') {
           agent {
             dockerfile {
               filename 'Dockerfile_opensuse_leap'
@@ -108,7 +108,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
-        stage('Syntax Check (OpenSUSE Tumbleweed Latest)') {
+        stage('Syntax Check (OpenSUSE Tumbleweed)') {
           agent {
             dockerfile {
               filename 'Dockerfile_opensuse_tumbleweed'
@@ -233,7 +233,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id'''
           }
         }
-        stage('Run Test (OpenSUSE Leap Latest)') {
+        stage('Run Test (OpenSUSE Leap)') {
           agent {
             dockerfile {
               filename 'Dockerfile_opensuse_leap'
@@ -248,7 +248,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id'''
           }
         }
-        stage('Run Test (OpenSUSE Tumbleweed Latest)') {
+        stage('Run Test (OpenSUSE Tumbleweed)') {
           agent {
             dockerfile {
               filename 'Dockerfile_opensuse_tumbleweed'
