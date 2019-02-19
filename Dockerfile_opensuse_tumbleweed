@@ -8,7 +8,7 @@ RUN zypper install -y git python-pip && pip install --upgrade --force pip
 RUN pip install pyopenssl ndg-httpsclient 'urllib3<1.25,>=1.21.1' pyasn1 requests
 
 # setup the james user
-RUN useradd -m -c "james" james -s /bin/bash
+RUN groupadd james && useradd -m -c "james" james -s /bin/bash && usermod -a -G james james
 
 # install pre-reqs
 ENV ANSIBLE_VERSION=latest
