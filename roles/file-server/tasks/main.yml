@@ -53,3 +53,13 @@
     - nwipe
     - testdisk
     - smartmontools
+
+- name: install latest version of clamscan anti-virus tools
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - clamav
+    - clamav-daemon
+    - clamav-freshclam
+    - clamdscan
