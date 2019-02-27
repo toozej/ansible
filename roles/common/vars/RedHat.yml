@@ -2,5 +2,6 @@
 ssh_client_package_name: openssh-clients
 sshd_service_name: sshd
 ag_package_name: the_silver_searcher
+p7zip_package_name: p7zip
 pip2_package_name: python2-pip
 gnupg_package_name: gnupg2

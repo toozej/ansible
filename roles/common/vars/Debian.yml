@@ -6,5 +6,6 @@ ssh_client_package_name: openssh-client
 sshd_service_name: ssh
 ag_package_name: silversearcher-ag
 pip2_package_name: python-pip
+p7zip_package_name: p7zip-full
 gnupg_package_name: gnupg2
 ripgrep_release: 0.8.1
