@@ -3,7 +3,7 @@
   include: non-free-debian.yml
   when: ansible_distribution == 'Debian'
 
-- name: Install VIM and vimfiles
+- name: Install VIM
   include: vim.yml
 
 - name: Install and configure SSH
