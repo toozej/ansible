@@ -30,6 +30,7 @@
     group: james
   when: (clone_or_pull.changed == True) and (not ansible_check_mode)
 
-- name: setup dotfiles
-  raw: sudo -u james /home/james/dotfiles/setup.sh
-  when: (clone_or_pull.changed == True) and (not ansible_check_mode)
+# TODO: fix this for Travis runs, works great with KCLI
+#- name: setup dotfiles
+#  raw: sudo -u james /home/james/dotfiles/setup.sh
+#  when: (clone_or_pull.changed == True) and (not ansible_check_mode)
