@@ -30,3 +30,11 @@
 - name: install latest version of Spotify client yum
   include: spotify-yum.yml
   when: ansible_pkg_mgr == 'yum'
+
+- name: install latest version of Plex media player dnf
+  include: plexmediaplayer-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+
+- name: install latest version of Plex media player yum
+  include: plexmediaplayer-yum.yml
+  when: ansible_pkg_mgr == 'yum'
