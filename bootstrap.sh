@@ -68,24 +68,24 @@ elif [ -f /etc/debian_version ]; then
 # if Fedora
 elif [ -f /etc/fedora-release ]; then
         os=`cat /etc/fedora-release`
-        dnf install -y git python2 ansible python2-dnf
+        dnf install -y git python3 ansible python3-dnf
 
 # if RedHat-based
 elif [ -f /etc/redhat-release ]; then
         os=`cat /etc/redhat-release`
         if [[ $os == *"release 7."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-          yum install -y python-dnf
+          yum install -y python3-dnf
         elif [[ $os == *"release 6."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm"
         fi
         yum install -y $epel_rpm
-        yum install -y git python2 ansible
+        yum install -y git python3 ansible
 
 # if ArchLinux-based
 elif [ -f /etc/arch-release ]; then
         os="archlinux"
-        pacman -S ansible git python2
+        pacman -S ansible git python3
 
 # otherwise...
 else
