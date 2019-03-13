@@ -44,6 +44,7 @@
     - role: office
     - role: openvpn-client
     - role: backup-restore
+    - role: photography
 
 - name: Setup minimal dev environment
   hosts: all

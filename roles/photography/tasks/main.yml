@@ -1,0 +1,35 @@
+---
+- name: install latest versions of raw libraries
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - LibRaw
+    - dcraw
+
+- name: install latest version of darktable
+  package:
+    name: darktable
+    state: latest
+
+- name: install latest version of rawtherapee
+  package:
+    name: rawtherapee
+    state: latest
+
+- name: install latest version of gthumb
+  package:
+    name: gthumb
+    state: latest
+
+- name: install latest version of gimp and plugins
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - gimp
+    - gimp-lensfun
+    - gimp-dbp
+    - GREYCstoration-gimp
+    - gimp-heif-plugin
+    - gimp-focusblur-plugin
