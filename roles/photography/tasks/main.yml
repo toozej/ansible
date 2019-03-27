@@ -8,7 +8,7 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: True
-      when: (libraw_package_name is not defined) or (gimp-gdp_package_name is not defined) or (greycstoration-gimp_package_name is not defined) or (gimp-heif-plugin_package_name is not defined) or (gimp-focusblur-plugin_package_name is not defined)
+      when: (libraw_package_name is not defined) or (greycstoration-gimp_package_name is not defined)
 
 - name: install latest versions of raw libraries
   package:
