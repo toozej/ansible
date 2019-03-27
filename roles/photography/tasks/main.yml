@@ -8,7 +8,7 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: True
-      when: (libraw_package_name is not defined) or (greycstoration-gimp_package_name is not defined)
+      when: (libraw_package_name is not defined) or (greycstoration_gimp_package_name is not defined)
 
 - name: install latest versions of raw libraries
   package:
@@ -40,9 +40,9 @@
   with_items:
     - gimp
     - gimp-lensfun
-    - "{{ greycstoration-gimp_package_name }}"
+    - "{{ greycstoration_gimp_package_name }}"
 
-- name: install latest version of gimp plugins on Fedora only
+- name: install latest version of gimp plugins for Fedora only
   package:
     name: "{{ item }}"
     state: latest
