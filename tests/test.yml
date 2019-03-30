@@ -7,7 +7,7 @@
     - {role: ../roles/ansible-enablement}
     - {role: ../roles/user}
     - {role: ../roles/common}
-    - {role: ../roles/3d-printing}
+    - {role: ../roles/modeling}
     - {role: ../roles/audio-cli}
     - {role: ../roles/audio-gui}
     - {role: ../roles/backup-restore}

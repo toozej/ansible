@@ -45,7 +45,7 @@
     - role: openvpn-client
     - role: backup-restore
     - role: photography
-    - role: 3d-printing
+    - role: modeling
 
 - name: Setup minimal dev environment
   hosts: all
