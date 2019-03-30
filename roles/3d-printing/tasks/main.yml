@@ -1,0 +1,5 @@
+---
+- name: install latest version of blender
+  package:
+    name: blender
+    state: latest
