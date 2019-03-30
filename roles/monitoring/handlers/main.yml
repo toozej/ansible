@@ -1,12 +1,12 @@
 ---
 # handlers file for monitoring
-- name: stop service
+- name: stop netdata service
   service:
     name: netdata
     state: stopped
   when: netdata_present.stat.exists == True
 
-- name: start and enable systemd
+- name: start and enable netdata systemd
   systemd:
     name: netdata
     state: started
@@ -14,9 +14,16 @@
     daemon_reload: yes
   become: true
 
-- name: start and enable service
+- name: start and enable netdata service
   service:
     name: netdata
     state: started
     enabled: yes
-  become: true
+    become: true
+
+- name: start and enable zabbix-agent service
+  service:
+    name: zabbix-agent
+    state: started
+    enabled: yes
+    become: true

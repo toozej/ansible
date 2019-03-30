@@ -1,0 +1,73 @@
+---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: True
+  when: (netdata_binary is not defined) or (netdata_install_dir is not defined)
+
+- name: Check if present
+  stat:
+    path: "{{ netdata_binary }}"
+  register: netdata_present
+- debug: msg="netdata not installed"
+  when: netdata_present.stat.exists == False
+- debug: msg="netdata installed"
+  when: netdata_present.stat.exists == True
+
+- name: Install package dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ netdata_deps }}"
+  when: netdata_present.stat.exists == False
+  become: yes
+
+- name: Clone or Pull for Install or Update
+  git:
+    repo: https://github.com/firehol/netdata.git
+    dest: "{{ netdata_install_dir }}"
+    version: "{{ netdata_version }}"
+  register: clone_or_pull
+
+- debug: var=clone_or_pull
+
+- name: Build and install
+  shell: "./netdata-installer.sh --install {{ netdata_install_dir }} --dont-wait"
+  args:
+    chdir: "{{ netdata_install_dir }}"
+  when: clone_or_pull.changed == True
+  become: yes
+
+  notify: stop netdata service
+
+- meta: flush_handlers
+
+- name: Disable health alerting
+  command: perl -0777 -i.original -pe 's/[health]*enabled = yes/\n\t enabled = no/' {{ netdata_install_dir }}/netdata/etc/netdata/netdata.conf
+  become: yes
+
+- name: setup config directory
+  file:
+    path: /etc/netdata
+    state: directory
+    mode: 744
+
+- name: disable email alerts using managed health_alarm_notify.conf
+  template:
+    src: health_alarm_notify.conf.j2
+    dest: /etc/netdata/health_alarm_notify.conf
+
+- name: Copy service file
+  command: cp {{ netdata_install_dir }}/system/netdata.service /etc/systemd/system/netdata.service
+  when: clone_or_pull.changed == True and ansible_service_mgr == "systemd"
+  notify: start and enable netdata systemd
+
+- name: Copy service file
+  command: cp {{ netdata_install_dir }}/system/netdata-lsb /etc/init.d/netdata
+  when: clone_or_pull.changed == True and ansible_service_mgr == "init"
+  notify: start and enable netdata service
