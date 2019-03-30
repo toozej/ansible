@@ -1,5 +1,30 @@
 ---
-- name: install latest version of blender
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: True
+      when: (kicad_doc_package_name is not defined)
+
+- name: install latest version of Blender
   package:
     name: blender
     state: latest
+
+- name: install latest version of KiCAD
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - kicad
+    - "{{ kicad_doc_package_name }}"
+
+- name: install latest version of KiCAD 3D models
+  package:
+    name: kicad-packages3d
+    state: latest
+  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
