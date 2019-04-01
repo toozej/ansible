@@ -22,4 +22,4 @@
     owner: root
     group: root
     mode: 0644
-    notify: start and enable zabbix-agent service
+  notify: start and enable zabbix-agent service
