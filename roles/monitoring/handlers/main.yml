@@ -19,11 +19,11 @@
     name: netdata
     state: started
     enabled: yes
-    become: true
+  become: true
 
 - name: start and enable zabbix-agent service
   service:
     name: zabbix-agent
     state: started
     enabled: yes
-    become: true
+  become: true
