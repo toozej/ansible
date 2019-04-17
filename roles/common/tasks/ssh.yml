@@ -36,6 +36,14 @@
     state: present
   notify: Restart ssh
 
+- name: Disallow agent forwarding
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^AllowAgentForwarding"
+    line: "AllowAgentForwarding no"
+    state: present
+  notify: Restart ssh
+
 
 - name: set allowed algorithms, ciphers and MACs in ssh config
   blockinfile:
