@@ -1,4 +1,4 @@
-FROM fedora:29
+FROM fedora:30
 
 # update dnf and ensure pip is latest version
 RUN dnf install -y python3 git python3-dnf && pip3 install --upgrade --force pip3
