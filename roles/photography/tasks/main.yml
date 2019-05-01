@@ -1,0 +1,53 @@
+---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: True
+      when: (libraw_package_name is not defined) or (greycstoration_gimp_package_name is not defined)
+
+- name: install latest versions of raw libraries
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "{{ libraw_package_name }}"
+    - dcraw
+
+- name: install latest version of darktable
+  package:
+    name: darktable
+    state: latest
+
+- name: install latest version of rawtherapee
+  package:
+    name: rawtherapee
+    state: latest
+
+- name: install latest version of gthumb
+  package:
+    name: gthumb
+    state: latest
+
+- name: install latest version of gimp and plugins
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - gimp
+    - gimp-lensfun
+    - "{{ greycstoration_gimp_package_name }}"
+
+- name: install latest version of gimp plugins for Fedora only
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - gimp-dbp
+    - gimp-heif-plugin
+    - gimp-focusblur-plugin
+  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')

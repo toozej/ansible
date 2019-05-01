@@ -12,3 +12,5 @@ netdata_deps:
   - autogen
   - automake
   - pkg-config
+
+zabbix_agent_package_name: zabbix-agent

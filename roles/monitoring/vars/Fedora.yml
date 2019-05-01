@@ -18,4 +18,4 @@ netdata_deps:
   - PyYAML
   - zlib-devel
 
-zabbix_agent_package_name: zabbix40-agent
+zabbix_agent_package_name: zabbix-agent

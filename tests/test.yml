@@ -7,6 +7,7 @@
     - {role: ../roles/ansible-enablement}
     - {role: ../roles/user}
     - {role: ../roles/common}
+    - {role: ../roles/modeling}
     - {role: ../roles/audio-cli}
     - {role: ../roles/audio-gui}
     - {role: ../roles/backup-restore}
@@ -30,6 +31,7 @@
     - {role: ../roles/gui-xfce}
     - {role: ../roles/monitoring}
     - {role: ../roles/office}
+    - {role: ../roles/photography}
     - {role: ../roles/repo-extra}
     - {role: ../roles/web-server}
     - {role: ../roles/unattended-upgrades}
