@@ -1,7 +1,7 @@
 FROM opensuse/tumbleweed:latest
 
 # update zypper and ensure pip is latest version
-RUN zypper install -y git python3-pip && pip3 install --upgrade --force pip3
+RUN zypper install -y git python3-pip && pip3 install --upgrade --force pip
 
 # combat not having CA Certs installed
 # specific version of urllib3 required by docker-py
