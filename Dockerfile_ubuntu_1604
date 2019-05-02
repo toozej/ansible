@@ -1,13 +1,12 @@
 FROM ubuntu:16.04
 
 # update apt and ensure pip is specific version for urllib3
-RUN apt-get update -qq && apt-get install python3-pip git apt-transport-https software-properties-common debconf-utils -y && pip3 install --upgrade --force-reinstall pip3==9.0.3
+RUN apt-get update -qq && apt-get install python3-pip git apt-transport-https software-properties-common debconf-utils -y && pip3 install --upgrade --force-reinstall pip3
 
 # specific version of urllib3 required by docker-py, then latest pip
 RUN pip3 install 'urllib3<1.25,>=1.21.1' --disable-pip-version-check && \
     pip3 install 'chardet<3.1.0,>=3.0.2' --disable-pip-version-check && \
-    pip3 install 'requests!=2.18.0,>=2.14.2' --disable-pip-version-check && \
-    pip3 install --upgrade pip3
+    pip3 install 'requests!=2.18.0,>=2.14.2' --disable-pip-version-check
 # combat not having CA Certs installed
 RUN pip3 install pyopenssl ndg-httpsclient pyasn1
 
