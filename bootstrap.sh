@@ -59,7 +59,7 @@ if [ -f /etc/lsb-release ]; then
 elif [ -f /etc/debian_version ]; then
         os="Debian $(cat /etc/debian_version)"
         apt-get update
-        apt-get install -y git python-apt
+        apt-get install -y git python3-apt
         echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main" > /etc/apt/sources.list.d/ansible.list
         apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
         apt-get update
@@ -68,7 +68,7 @@ elif [ -f /etc/debian_version ]; then
 # if Fedora
 elif [ -f /etc/fedora-release ]; then
         os=`cat /etc/fedora-release`
-        dnf install -y git python3 ansible python3-dnf
+        dnf install -y git ansible python3-dnf
 
 # if RedHat-based
 elif [ -f /etc/redhat-release ]; then
@@ -80,7 +80,7 @@ elif [ -f /etc/redhat-release ]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm"
         fi
         yum install -y $epel_rpm
-        yum install -y git python3 ansible
+        yum install -y git python36 ansible
 
 # if ArchLinux-based
 elif [ -f /etc/arch-release ]; then
@@ -104,7 +104,7 @@ cd /tmp/ansible
 echo -e "setting up default ansible.cfg"
 cp ansible.cfg.example ansible.cfg
 echo -e "setting up localhost in the ansible inventory\n"
-echo "localhost ansible_connection=local" >> /etc/ansible/hosts
+echo "localhost ansible_connection=local ansible_python_interpreter=python3" >> /etc/ansible/hosts
 
 # check if github SSH key is configured, and if it's not request user to place it there
 if [ -z /home/james/.ssh/id_rsa_github ]; then
