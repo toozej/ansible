@@ -1,9 +1,8 @@
 ---
 - name: install rpmfusion yum repo for RedHat
   yum:
-    name: "{{item}}"
+    name: ['http://download1.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version|int }}.noarch.rpm', 'http://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version|int }}.noarch.rpm']
     state: present
-  with_items:
-    - http://download1.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version|int }}.noarch.rpm
-    - http://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version|int }}.noarch.rpm
+    enablerepo: True
+    update_cache: True
   when: (ansible_distribution == 'RedHat') or (ansible_distribution == 'CentOS')
