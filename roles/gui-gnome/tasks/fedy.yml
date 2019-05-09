@@ -2,6 +2,8 @@
 - name: install fedy repo package
   dnf:
     name: https://dl.folkswithhats.org/fedora/28/RPMS/fedy-release.noarch.rpm
+    enablerepo: True
+    update_cache: True
     state: latest
 
 - name: install fedy

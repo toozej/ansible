@@ -1,6 +1,10 @@
 ---
 - name: "dnf | ensure Negativo17.org multimedia repo present for Fedora"
-  command: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-multimedia.repo
+  dnf:
+    name: https://negativo17.org/repos/fedora-multimedia.repo
+    state: present
+    enablerepo: True
+    update_cache: True
   when: ansible_distribution == 'Fedora'
 
 - name: "dnf | install latest version of Plex Media Player"
