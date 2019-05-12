@@ -40,7 +40,7 @@
     path: "{{ home_dir_path }}/dotfiles"
     recurse: yes
     owner: james
-    group: james
+    group: "{{ james_group }}"
   when: (clone_or_pull.changed == True) and (not ansible_check_mode)
 
 # TODO: fix this for Travis runs, works great with KCLI
