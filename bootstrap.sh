@@ -73,19 +73,27 @@ elif [ -f /etc/fedora-release ]; then
 # if RedHat-based
 elif [ -f /etc/redhat-release ]; then
         os=`cat /etc/redhat-release`
-        if [[ $os == *"release 7."* ]]; then
+        if [[ $os == *"release 8."* ]]; then
+          epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+        elif [[ $os == *"release 7."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-          yum install -y python3-dnf
         elif [[ $os == *"release 6."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm"
         fi
         yum install -y $epel_rpm
         yum install -y git python36 ansible
+        yum install -y python36-dnf
 
 # if ArchLinux-based
 elif [ -f /etc/arch-release ]; then
         os="archlinux"
         pacman -S ansible git python3
+
+# if MacOS-based
+elif [ "$(uname)" == "Darwin" ]; then
+        os="mac"
+        easy_install pip
+        pip install -y ansible
 
 # otherwise...
 else
@@ -104,7 +112,11 @@ cd /tmp/ansible
 echo -e "setting up default ansible.cfg"
 cp ansible.cfg.example ansible.cfg
 echo -e "setting up localhost in the ansible inventory\n"
-echo "localhost ansible_connection=local ansible_python_interpreter=python3" >> /etc/ansible/hosts
+if [ "$(uname)" == "Darwin" ]; then
+    echo "localhost ansible_connection=local" >> /etc/ansible/hosts
+else
+    echo "localhost ansible_connection=local ansible_python_interpreter=python3" >> /etc/ansible/hosts
+fi
 
 # check if github SSH key is configured, and if it's not request user to place it there
 if [ -z /home/james/.ssh/id_rsa_github ]; then

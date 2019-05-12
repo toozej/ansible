@@ -1,0 +1,17 @@
+---
+# Playbook to setup a mac
+- name: Setup common environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: ansible-enablement
+    - role: user
+    - role: common
+
+- name: Setup Mac software
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: mac

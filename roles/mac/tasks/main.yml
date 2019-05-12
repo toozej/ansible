@@ -1,0 +1,71 @@
+---
+- name: Install homebrew
+  include: homebrew.yml
+
+- name: Install MacOS Packages
+  hosts: localhost
+  become: false
+  vars:
+    brew_cask_packages:
+      - 'atom'
+      - 'beardedspice'
+      - 'docker'
+      - 'firefox'
+      - 'gimp'
+      - 'google-chrome'
+      - 'google-drive'
+      - 'gpg-suite'
+      - 'istumbler'
+      - 'iterm2'
+      - 'keepingyouawake'
+      - 'macdown'
+      - 'muzzle'
+      - 'postman'
+      - 'sequel-pro'
+      - 'simplenote'
+      - 'speedcrunch'
+      - 'slack'
+      - 'spotify'
+      - 'teamviewer'
+      - 'tunnelblick'
+      - 'vagrant'
+      - 'virtualbox'
+      - 'virtualbox-extension-pack'
+      - 'vlc'
+    brew_packages:
+      - 'autoconf'
+      - 'awscli'
+      - 'bash-completion'
+      - 'chtf'
+      - 'docker-compose'
+      - 'fzf'
+      - 'git'
+      - 'go'
+      - 'graphviz'
+      - 'htop'
+      - 'jq'
+      - 'nmap'
+      - 'openssl'
+      - 'p7zip'
+      - 'packer'
+      - 'pyenv'
+      - 'python'
+      - 'rbenv'
+      - 'ssh-copy-id'
+      - 'sqlite'
+      - 'terraform'
+      - 'terraform-inventory'
+      - 'terraform-provisioner-ansible'
+      - 'the_silver_searcher'
+      - 'tmux'
+      - 'tree'
+      - 'vault'
+      - 'vssh'
+      - 'watch'
+      - 'wget'
+      - 'zsh'
+      - 'zsh-syntax-highlighting'
+    install_homebrew_if_missing: false
+    python_modules:
+      - 'virtualenv'
+    upgrade_homebrew_packages: false
