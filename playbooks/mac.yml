@@ -6,7 +6,6 @@
   become_user: root
   roles:
     - role: user
-    - role: common
 
 - name: Setup Mac software
   hosts: all

@@ -17,6 +17,7 @@ homebrew_installed_packages:
   - graphviz
   - htop
   - jq
+  - neofetch
   - nmap
   - openssl
   - p7zip
