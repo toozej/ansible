@@ -21,6 +21,7 @@ function set_defaults {
 	CHECK=false
 	RUN=false
 	DEBUG=false
+    ANSIBLE_REPO_DIR=/tmp/ansible
 }
 
 # set defaults before getting user input
@@ -92,8 +93,10 @@ elif [ -f /etc/arch-release ]; then
 # if MacOS-based
 elif [ "$(uname)" == "Darwin" ]; then
         os="mac"
+        # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
+        ANSIBLE_REPO_DIR=~/tmp/ansible
         easy_install pip
-        pip install -y ansible
+        pip install ansible
 
 # otherwise...
 else
@@ -101,14 +104,14 @@ else
 fi
 
 # download and configure ansible on localhost
-# trash /tmp/ansible if it already exists
-if  [ -d /tmp/ansible ]; then
-	echo -e "pre-existing /tmp/ansible directory found, removing it before pulling down fresh from Github"
-	rm -rf /tmp/ansible
+# trash ANSIBLE_REPO_DIR if it already exists
+if  [ -d $ANSIBLE_REPO_DIR ]; then
+	echo -e "pre-existing $ANSIBLE_REPO_DIR directory found, removing it before pulling down fresh from Github"
+	rm -rf $ANSIBLE_REPO_DIR
 fi
 echo -e "pulling down ansible repo from github"
-git clone https://github.com/toozej/ansible.git /tmp/ansible
-cd /tmp/ansible
+git clone https://github.com/toozej/ansible.git $ANSIBLE_REPO_DIR
+cd $ANSIBLE_REPO_DIR
 echo -e "setting up default ansible.cfg"
 cp ansible.cfg.example ansible.cfg
 echo -e "setting up localhost in the ansible inventory\n"
@@ -127,13 +130,13 @@ fi
 # if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
 if [[ $CHECK == "true" && $DEBUG == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check /tmp/ansible/playbooks/$2)
+  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2)
 elif [[ $CHECK == "true" && $DEBUG == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check /tmp/ansible/playbooks/$2 | tee /tmp/ansible/playbook_check.out)
+  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 | tee $ANSIBLE_REPO_DIR/playbook_check.out)
 elif [[ $RUN == "true" && $DEBUG == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook /tmp/ansible/playbooks/$2)
+  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2)
 elif [[ $RUN == "true" && $DEBUG == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook /tmp/ansible/playbooks/$2 | tee /tmp/ansible/playbook_run.out)
+  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 | tee $ANSIBLE_REPO_DIR/playbook_run.out)
 fi
 
 echo -e "\n\n"
