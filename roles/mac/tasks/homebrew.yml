@@ -6,7 +6,7 @@
 
 # Homebrew setup
 - name: install homebrew
-  raw: yes '' | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  raw: echo | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   become_user: james
 
 
