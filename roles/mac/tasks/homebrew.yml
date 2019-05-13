@@ -21,11 +21,6 @@
     become_user: james
 
   # Cask.
-  - name: Ensure blacklisted cask applications are not installed.
-    homebrew_cask: "name={{ item }} state=absent"
-    loop: "{{ homebrew_cask_uninstalled_apps }}"
-    become_user: james
-
   - name: Install configured cask applications.
     homebrew_cask:
       name: "{{ item.name | default(item) }}"
