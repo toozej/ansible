@@ -46,6 +46,8 @@ homebrew_upgrade_all_packages: no
 homebrew_taps:
   - homebrew/core
   - homebrew/cask
+  - Yleisradio/terraforms
+  - shkm/brew
 
 homebrew_cask_apps:
   - atom
