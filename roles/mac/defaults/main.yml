@@ -51,21 +51,25 @@ homebrew_cask_apps:
   - atom
   - beardedspice
   - docker
+  - etcher
   - firefox
   - gimp
   - google-chrome
   - google-drive
   - gpg-suite
+  - hyperdock
   - istumbler
   - iterm2
   - keepingyouawake
   - macdown
   - muzzle
+  - plex-media-player
   - postman
   - sequel-pro
   - simplenote
-  - speedcrunch
   - slack
+  - smcfancontrol
+  - speedcrunch
   - spotify
   - teamviewer
   - tunnelblick
