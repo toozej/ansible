@@ -14,11 +14,15 @@
   template:
     src: config.yml.j2
     dest: /home/james/.kcli/config.yml
+    owner: james
+    group: james
 
 - name: copy in profiles template
   template:
     src: profiles.yml.j2
     dest: /home/james/.kcli/profiles.yml
+    owner: james
+    group: james
 
     #- name: hard-link lab SSH keys
 

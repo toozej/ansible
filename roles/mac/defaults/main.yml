@@ -1,0 +1,84 @@
+---
+homebrew_user: james
+homebrew_group: staff
+
+homebrew_repo: https://github.com/Homebrew/brew
+
+homebrew_prefix: /usr/local
+homebrew_install_path: "{{ homebrew_prefix }}/Homebrew"
+homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
+
+homebrew_installed_packages:
+  - autoconf
+  - awscli
+  - bash-completion
+  - chtf
+  - docker-compose
+  - fzf
+  - git
+  - go
+  - graphviz
+  - htop
+  - jq
+  - neofetch
+  - nmap
+  - openssl
+  - p7zip
+  - packer
+  - pyenv
+  - python
+  - rbenv
+  - ssh-copy-id
+  - sqlite
+  - terraform
+  - terraform-inventory
+  - terraform-provisioner-ansible
+  - the_silver_searcher
+  - tmux
+  - tree
+  - vault
+  - vssh
+  - watch
+  - wget
+
+homebrew_upgrade_all_packages: no
+
+homebrew_taps:
+  - homebrew/core
+  - homebrew/cask
+  - Yleisradio/terraforms
+  - shkm/brew
+
+homebrew_cask_apps:
+  - atom
+  - beardedspice
+  - docker
+  - etcher
+  - firefox
+  - gimp
+  - google-chrome
+  - google-drive
+  - gpg-suite
+  - hyperdock
+  - istumbler
+  - iterm2
+  - keepingyouawake
+  - macdown
+  - muzzle
+  - plex-media-player
+  - postman
+  - sequel-pro
+  - simplenote
+  - slack
+  - smcfancontrol
+  - speedcrunch
+  - spotify
+  - teamviewer
+  - tunnelblick
+  - vagrant
+  - virtualbox
+  - virtualbox-extension-pack
+  - vlc
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_accept_external_apps: false

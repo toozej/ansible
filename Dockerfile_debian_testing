@@ -1,16 +1,16 @@
 FROM debian:testing
 
 # update apt and ensure pip is latest version
-RUN apt-get update -qq && apt-get install python-pip git apt-transport-https lsb-release debconf-utils -y && pip install --upgrade --force pip
+RUN apt-get update -qq && apt-get install python3-pip git apt-transport-https lsb-release debconf-utils -y && pip3 install --upgrade --force pip
 
 # combat not having CA Certs installed
 # specific version of urllib3 required by docker-py
-RUN pip install pyopenssl ndg-httpsclient 'urllib3<1.25,>=1.21.1' pyasn1 requests
+RUN pip3 install pyopenssl ndg-httpsclient 'urllib3<1.25,>=1.21.1' pyasn1 requests
 
 # setup the james user
 RUN useradd -m -c "james" james -s /bin/bash
 
 # install pre-reqs
 ENV ANSIBLE_VERSION=latest
-RUN if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible ansible-lint; else pip install ansible==$ANSIBLE_VERSION; fi
+RUN if [ "$ANSIBLE_VERSION" = "latest" ]; then pip3 install ansible ansible-lint; else pip3 install ansible==$ANSIBLE_VERSION; fi
 

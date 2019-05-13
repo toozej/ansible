@@ -1,16 +1,16 @@
 FROM opensuse/leap:latest
 
 # update zypper and ensure pip is latest version
-RUN zypper install -y git python-pip && pip install --upgrade --force pip
+RUN zypper install -y git python3-pip && pip3 install --upgrade --force pip
 
 # combat not having CA Certs installed
 # specific version of urllib3 required by docker-py
-RUN pip install pyopenssl ndg-httpsclient 'urllib3<1.25,>=1.21.1' pyasn1 requests
+RUN pip3 install pyopenssl ndg-httpsclient 'urllib3<1.25,>=1.21.1' pyasn1 requests
 
 # setup the james user
 RUN groupadd james && useradd -m -c "james" james -s /bin/bash && usermod -a -G james james
 
 # install pre-reqs
 ENV ANSIBLE_VERSION=latest
-RUN if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible ansible-lint; else pip install ansible==$ANSIBLE_VERSION; fi
+RUN if [ "$ANSIBLE_VERSION" = "latest" ]; then pip3 install ansible ansible-lint; else pip3 install ansible==$ANSIBLE_VERSION; fi
 

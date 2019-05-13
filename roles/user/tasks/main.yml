@@ -1,10 +1,22 @@
 ---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: True
+  when: (home_dir_path is not defined)
+
 - name: create "james" user
   user:
     name: james
     comment: "James"
     shell: /bin/bash
     state: present
+  when: ansible_os_family != 'Darwin'
 
 - name: Set authorized key
   authorized_key:
@@ -12,25 +24,26 @@
     state: present
     key: https://github.com/toozej.keys
     validate_certs: True
+  when: ansible_os_family != 'Darwin'
 
 - name: clone dotfiles from github
   git:
     repo: 'https://github.com/toozej/dotfiles.git'
     accept_hostkey: yes
-    dest: /home/james/dotfiles
+    dest: "{{ home_dir_path }}/dotfiles"
     recursive: yes
   register: clone_or_pull
   when: not ansible_check_mode
 
 - name: set correct permissions on dotfiles
   file:
-    path: /home/james/dotfiles
+    path: "{{ home_dir_path }}/dotfiles"
     recurse: yes
     owner: james
-    group: james
+    group: "{{ james_group }}"
   when: (clone_or_pull.changed == True) and (not ansible_check_mode)
 
 # TODO: fix this for Travis runs, works great with KCLI
-#- name: setup dotfiles
-#  raw: sudo -u james /home/james/dotfiles/setup.sh
-#  when: (clone_or_pull.changed == True) and (not ansible_check_mode)
+- name: setup dotfiles
+  raw: "sudo -u james {{ home_dir_path|quote }}/dotfiles/setup.sh"
+  when: (clone_or_pull.changed == True) and (not ansible_check_mode)

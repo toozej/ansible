@@ -1,0 +1,8 @@
+---
+- name: Install homebrew
+  include: homebrew.yml
+
+- name: Install MacOS Packages via Pip
+  pip:
+    name: virtualenv
+    state: latest

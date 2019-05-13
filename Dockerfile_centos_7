@@ -1,7 +1,9 @@
 FROM centos:7
 
 # update yum and ensure pip is latest version
-RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && yum install -y python2 git python-pip python-dnf && pip install --upgrade --force pip
+RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    yum install -y python36 python36-pip git && \
+    pip3 install --upgrade --force pip
 
 # combat not having CA Certs installed
 # specific version of urllib3 required by docker-py

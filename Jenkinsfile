@@ -78,10 +78,10 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
-        stage('Syntax Check (Fedora 29)') {
+        stage('Syntax Check (Fedora 30)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_fedora_29'
+              filename 'Dockerfile_fedora_30'
             }
 
           }
@@ -218,10 +218,10 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id'''
           }
         }
-        stage('Run Test (Fedora 29)') {
+        stage('Run Test (Fedora 30)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_fedora_29'
+              filename 'Dockerfile_fedora_30'
             }
 
           }
