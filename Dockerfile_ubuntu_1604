@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 # update apt and ensure pip is specific version for urllib3
-RUN apt-get update -qq && apt-get install python3-pip git apt-transport-https software-properties-common debconf-utils -y && pip3 install --upgrade --force-reinstall pip
+RUN apt-get update -qq && apt-get install python3-pip git apt-transport-https software-properties-common debconf-utils sudo -y && pip3 install --upgrade --force-reinstall pip
 
 # specific version of urllib3 required by docker-py, then latest pip
 RUN pip3 install 'urllib3<1.25,>=1.21.1' --disable-pip-version-check && \
