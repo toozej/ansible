@@ -1,5 +1,6 @@
 ---
 ssh_client_package_name: openssh-clients
+ssh_daemon_package_name: openssh-server
 sshd_service_name: sshd
 ag_package_name: the_silver_searcher
 p7zip_package_name: p7zip

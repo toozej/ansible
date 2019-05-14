@@ -8,11 +8,11 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: True
-  when: (ssh_client_package is not defined) or (sshd_service_name is not defined)
+  when: (ssh_client_package_name is not defined) (ssh_daemon_package_name is not defined) or (sshd_service_name is not defined)
 
 - name: install the latest version of sshd
   package:
-    name: openssh-server
+    name: "{{ ssh_daemon_package_name }}"
     state: latest
 
 - name: install the latest version of ssh client

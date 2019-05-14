@@ -3,6 +3,7 @@ ansible_distribution_release: '{{ "testing"
                                       if ansible_facts["distribution_major_version"] == "buster/sid"
                                       else ansible_facts["distribution_release"] }}'
 ssh_client_package_name: openssh-client
+ssh_daemon_package_name: openssh-server
 sshd_service_name: ssh
 ag_package_name: silversearcher-ag
 pip2_package_name: python-pip
