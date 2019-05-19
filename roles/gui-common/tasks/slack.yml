@@ -28,7 +28,7 @@
     name: slacktechnologies_slack
     description: "Slack Repository from packagecloud.io"
     baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
-    gpg_key: https://packagecloud.io/slacktechnologies/slack/gpgkey
+    gpgkey: https://packagecloud.io/slacktechnologies/slack/gpgkey
     gpgcheck: no
     repo_gpgcheck: yes
     enabled: yes
