@@ -47,3 +47,4 @@
 - name: setup dotfiles
   raw: "sudo -u james {{ home_dir_path|quote }}/dotfiles/setup.sh"
   when: (clone_or_pull.changed == True) and (not ansible_check_mode)
+  tags: ci
