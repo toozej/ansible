@@ -23,6 +23,11 @@
     name: darktable
     state: latest
 
+- name: install latest version of shotwell
+  package:
+    name: shotwell
+    state: latest
+
 - name: install latest version of rawtherapee
   package:
     name: rawtherapee
