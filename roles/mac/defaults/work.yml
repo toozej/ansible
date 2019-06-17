@@ -1,0 +1,14 @@
+---
+homebrew_installed_packages_work:
+  - autoconf
+  - chtf
+  - graphviz
+  - kpcli
+  - pipenv
+
+homebrew_cask_apps_work:
+  - apache-directory-studio
+  - keepassxc
+  - postman
+  - sequel-pro
+  - utc-menu-clock

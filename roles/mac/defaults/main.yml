@@ -9,15 +9,12 @@ homebrew_install_path: "{{ homebrew_prefix }}/Homebrew"
 homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
 
 homebrew_installed_packages:
-  - autoconf
   - awscli
   - bash-completion
-  - chtf
   - docker-compose
   - fzf
   - git
   - go
-  - graphviz
   - htop
   - jq
   - neofetch
@@ -37,6 +34,7 @@ homebrew_installed_packages:
   - tmux
   - tree
   - vault
+  - vim
   - vssh
   - watch
   - wget
@@ -65,8 +63,9 @@ homebrew_cask_apps:
   - keepingyouawake
   - macdown
   - muzzle
+  - plexamp
   - plex-media-player
-  - postman
+  - scroll-reverser
   - sequel-pro
   - simplenote
   - slack
