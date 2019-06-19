@@ -18,20 +18,6 @@
 - name: Install and configure tmux
   include: tmux.yml
 
-- name: Install latest version of ripgrep on Debian-based
-  include: ripgrep-debian.yml
-  when: ansible_os_family == 'Debian'
-
-- name: Install latest version of ripgrep using YUM
-  include: ripgrep-yum.yml
-  when: ansible_pkg_mgr == 'yum'
-
-- name: Install latest version of ripgrep using DNF
-  package:
-    name: ripgrep
-    state: latest
-  when: ansible_pkg_mgr == 'dnf'
-
 - name: Install latest version of Neofetch on Debian
   include: neofetch-debian.yml
   when: ansible_distribution == 'Debian'

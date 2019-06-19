@@ -5,5 +5,5 @@ sshd_service_name: sshd
 ag_package_name: the_silver_searcher
 p7zip_package_name: p7zip
 pip2_package_name: python2-pip
-pip3_package_name: python36-pip
+pip3_package_name: python3-pip
 gnupg_package_name: gnupg2
