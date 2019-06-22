@@ -1,0 +1,59 @@
+---
+- name: install
+  package:
+    name: fail2ban
+    state: latest
+
+- name: update configuration file - /etc/fail2ban/fail2ban.local
+  template:
+    src: fail2ban.local.j2
+    dest: /etc/fail2ban/fail2ban.local
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: update configuration file - /etc/fail2ban/jail.local
+  template:
+    src: jail.local.j2
+    dest: /etc/fail2ban/jail.local
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: copy filters
+  copy:
+    src: "{{ fail2ban_filterd_path }}"
+    dest: /etc/fail2ban/filter.d/
+    owner: root
+    group: root
+    mode: 0644
+  when: fail2ban_filterd_path is defined
+  notify: restart fail2ban
+
+- name: copy actions
+  copy:
+    src: "{{ fail2ban_actiond_path }}"
+    dest: /etc/fail2ban/action.d/
+    owner: root
+    group: root
+    mode: 0644
+  when: fail2ban_actiond_path is defined
+  notify: restart fail2ban
+
+- name: copy jails
+  copy:
+    src: "{{ fail2ban_jaild_path }}"
+    dest: /etc/fail2ban/jail.d/
+    owner: root
+    group: root
+    mode: 0644
+  when: fail2ban_jaild_path is defined
+  notify: restart fail2ban
+
+- name: start and enable service
+  service:
+    name: fail2ban
+    state: start
+    enabled: true

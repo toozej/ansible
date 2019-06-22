@@ -1,0 +1,18 @@
+---
+# Playbook to setup a SSH bastion server
+- name: Setup common environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: ansible-enablement
+    - role: user
+    - role: common
+    - role: unattended-upgrades
+
+- name: Setup bastion
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: hardening
