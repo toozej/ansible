@@ -60,7 +60,7 @@ if [ -f /etc/lsb-release ]; then
 elif [ -f /etc/debian_version ]; then
         os="Debian $(cat /etc/debian_version)"
         apt-get update
-        apt-get install -y git python3-apt
+        apt-get install -y git python3-apt dirmngr --install-recommends
         echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main" > /etc/apt/sources.list.d/ansible.list
         apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
         apt-get update
