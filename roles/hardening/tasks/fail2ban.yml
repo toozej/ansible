@@ -55,5 +55,5 @@
 - name: start and enable service
   service:
     name: fail2ban
-    state: start
+    state: started
     enabled: true
