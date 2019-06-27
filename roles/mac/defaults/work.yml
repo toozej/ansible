@@ -5,6 +5,10 @@ homebrew_installed_packages_work:
   - graphviz
   - kpcli
   - pipenv
+  - terraform
+  - terraform-inventory
+  - terraform-provisioner-ansible
+  - vault
 
 homebrew_cask_apps_work:
   - apache-directory-studio

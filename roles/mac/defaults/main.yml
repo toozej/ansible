@@ -27,13 +27,9 @@ homebrew_installed_packages:
   - rbenv
   - ssh-copy-id
   - sqlite
-  - terraform
-  - terraform-inventory
-  - terraform-provisioner-ansible
   - the_silver_searcher
   - tmux
   - tree
-  - vault
   - vim
   - vssh
   - watch
@@ -48,6 +44,7 @@ homebrew_taps:
   - shkm/brew
 
 homebrew_cask_apps:
+  - alfred
   - atom
   - beardedspice
   - docker
@@ -60,13 +57,13 @@ homebrew_cask_apps:
   - hyperdock
   - istumbler
   - iterm2
+  - karabiner-elements
   - keepingyouawake
   - macdown
   - muzzle
   - plexamp
   - plex-media-player
   - scroll-reverser
-  - sequel-pro
   - simplenote
   - slack
   - smcfancontrol
