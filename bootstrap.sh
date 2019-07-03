@@ -82,8 +82,7 @@ elif [ -f /etc/redhat-release ]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm"
         fi
         yum install -y $epel_rpm
-        yum install -y git python36 ansible
-        yum install -y python36-dnf
+        yum install -y git ansible
 
 # if ArchLinux-based
 elif [ -f /etc/arch-release ]; then
@@ -112,10 +111,16 @@ fi
 echo -e "pulling down ansible repo from github"
 git clone https://github.com/toozej/ansible.git $ANSIBLE_REPO_DIR
 cd $ANSIBLE_REPO_DIR
+
 echo -e "setting up default ansible.cfg"
-cp ansible.cfg.example ansible.cfg
+if [ -f /etc/redhat-release ]; then
+    cp ansible.cfg.example_centos_7 ansible.cfg
+else
+    cp ansible.cfg.example ansible.cfg
+fi
+
 echo -e "setting up localhost in the ansible inventory\n"
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" == "Darwin" ] || [ -f /etc/redhat-release ]; then
     mkdir /etc/ansible
     echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 else

@@ -21,30 +21,6 @@
     state: latest
   when: ansible_os_family == 'Debian'
 
-- name: create ~/.gnupg directory
-  file:
-    path: /home/james/.gnupg
-    state: directory
-    owner: james
-    group: james
-    mode: 0700
-
-- name: create ~/.gnupg/private-keys-v1.d directory
-  file:
-    path: /home/james/.gnupg/private-keys-v1.d
-    state: directory
-    owner: james
-    group: james
-    mode: 0700
-
-- name: Setup config file for gnupg-agent
-  template:
-    src: gpg-agent.conf.j2
-    dest: /home/james/.gnupg/gpg-agent.conf
-    owner: james
-    group: james
-    mode: 0664
-
 - name: install the latest version of rng-tools
   package:
     name: rng-tools

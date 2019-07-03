@@ -1,0 +1,6 @@
+[ssh_connection]
+pipelining=True
+
+[defaults]
+host_key_checking = false
+roles_path = /etc/ansible/roles:/tmp/ansible/roles:${PWD}/roles

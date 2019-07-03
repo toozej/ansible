@@ -55,9 +55,14 @@
     state: latest
   with_items:
     - zip
-    - unrar
     - "{{ p7zip_package_name }}"
     - pigz
+
+- name: install the latest version of unrar except on CentOS
+  package:
+    name: unrar
+    state: latest
+  when: ansible_distribution != 'CentOS'
 
 - name: install the latest version of tree
   package:
