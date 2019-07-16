@@ -19,7 +19,7 @@ firewall_disable_firewalld: false
 firewall_disable_ufw: false
 
 # defaults for fail2ban
-fail2ban_loglevel: "{{ 'INFO' if (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('16.04', '>=') or ansible_distribution == 'Debian' and ansible_distribution_version is version('9', '>=')) else 3 }}"
+fail2ban_loglevel: "{{ 'INFO' if (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('16.04', '>=') or ansible_distribution == 'Debian' and (ansible_distribution_version is version('9', '>=')) or (ansible_os_family == 'RedHat')) else 3 }}"
 fail2ban_logtarget: /var/log/fail2ban.log
 fail2ban_syslog_target: /var/log/fail2ban.log
 fail2ban_syslog_facility: 1
@@ -43,4 +43,4 @@ fail2ban_chain: INPUT
 fail2ban_action: '%(action_)s'
 
 fail2ban_services:
-  - name: "{{ 'sshd' if (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('16.04', '>=') or ansible_distribution == 'Debian' and ansible_distribution_version is version('9', '>=')) else 'ssh' }}"
+  - name: "{{ 'sshd' if (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('16.04', '>=') or (ansible_distribution == 'Debian' and ansible_distribution_version is version('9', '>=')) or (ansible_os_family == 'RedHat')) else 'ssh' }}"
