@@ -1,0 +1,16 @@
+# Fail2Ban filter file for country blocking
+#
+
+# This filter blocks SSH traffic from specific countries.
+#
+
+[Definition]
+
+# This will filter all 'query' requests.
+failregex = query\[.*\].* from <HOST>$
+
+# This will filter all 'query[ANY]' requests.
+#failregex = query\[ANY\].* from <HOST>$
+
+#
+# Original Author: Flemming@MunkJensen.net https://munkjensen.net/wiki/index.php/Access_control_using_Fail2Ban_and_geoip

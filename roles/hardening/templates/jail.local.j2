@@ -97,3 +97,14 @@ enabled = {{ service.enabled | default(true) | bool | to_json }}
 {% endfor %}
 
 {% endfor %}
+
+[geo-ssh-deny]
+enabled  = true
+port     = 22
+protocol = all
+banaction = geosshdeny
+filter   = geosshdeny
+logpath  = /var/log/fail2ban_geosshdeny.log
+bantime  = 604800  ; 1 week
+findtime = 86400   ; 1 day
+maxretry = 1

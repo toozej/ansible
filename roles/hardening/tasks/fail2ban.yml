@@ -1,5 +1,5 @@
 ---
-- name: install
+- name: install fail2ban
   package:
     name: fail2ban
     state: latest
@@ -22,24 +22,22 @@
     mode: 0644
   notify: restart fail2ban
 
-- name: copy filters
+- name: copy geosshdeny filter
   copy:
-    src: "{{ fail2ban_filterd_path }}"
-    dest: /etc/fail2ban/filter.d/
+    src: geosshdeny_filter.conf.j2
+    dest: /etc/fail2ban/filter.d/geosshdeny.conf
     owner: root
     group: root
     mode: 0644
-  when: fail2ban_filterd_path is defined
   notify: restart fail2ban
 
-- name: copy actions
+- name: copy geosshdeny action
   copy:
-    src: "{{ fail2ban_actiond_path }}"
-    dest: /etc/fail2ban/action.d/
+    src: geosshdeny_action.conf.j2
+    dest: /etc/fail2ban/action.d/geosshdeny.conf
     owner: root
     group: root
     mode: 0644
-  when: fail2ban_actiond_path is defined
   notify: restart fail2ban
 
 - name: copy jails
@@ -51,6 +49,11 @@
     mode: 0644
   when: fail2ban_jaild_path is defined
   notify: restart fail2ban
+
+- name: install geoip
+  package:
+    name: geoip
+    state: latest
 
 - name: start and enable service
   service:
