@@ -22,8 +22,8 @@
     mode: 0644
   notify: restart fail2ban
 
-- name: copy geosshdeny filter
-  copy:
+- name: setup geosshdeny filter
+  template:
     src: geosshdeny_filter.conf.j2
     dest: /etc/fail2ban/filter.d/geosshdeny.conf
     owner: root
@@ -31,8 +31,8 @@
     mode: 0644
   notify: restart fail2ban
 
-- name: copy geosshdeny action
-  copy:
+- name: setup geosshdeny action
+  template:
     src: geosshdeny_action.conf.j2
     dest: /etc/fail2ban/action.d/geosshdeny.conf
     owner: root
