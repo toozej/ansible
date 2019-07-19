@@ -46,9 +46,9 @@ homebrew_taps:
 homebrew_cask_apps:
   - alfred
   - atom
+  - balenaetcher
   - beardedspice
   - docker
-  - etcher
   - firefox
   - gimp
   - google-chrome
