@@ -71,3 +71,4 @@
     name: fail2ban
     state: started
     enabled: true
+  notify: fail2ban status

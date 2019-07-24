@@ -8,3 +8,7 @@
     name: fail2ban
     state: restarted
   when: service_default_state | default('started') == 'started'
+
+# temporary for debugging failing Travis build #513
+- name: fail2ban status
+  shell: systemctl status fail2ban.service -l --no-pager
