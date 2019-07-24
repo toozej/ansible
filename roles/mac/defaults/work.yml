@@ -12,6 +12,7 @@ homebrew_installed_packages_work:
 
 homebrew_cask_apps_work:
   - apache-directory-studio
+  - beyond-compare
   - keepassxc
   - postman
   - sequel-pro

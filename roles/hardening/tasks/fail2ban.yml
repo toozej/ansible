@@ -1,4 +1,15 @@
 ---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: True
+  when: (geoip_package_name is not defined)
+
 - name: install fail2ban
   package:
     name: fail2ban
@@ -52,7 +63,7 @@
 
 - name: install geoip
   package:
-    name: geoip
+    name: "{{ geoip_package_name }}"
     state: latest
 
 - name: start and enable service
