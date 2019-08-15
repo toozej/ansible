@@ -3,8 +3,10 @@ homebrew_installed_packages_work:
   - autoconf
   - chtf
   - graphviz
+  - gnu-sed
   - kpcli
   - pipenv
+  - prettier
   - terraform
   - terraform-inventory
   - terraform-provisioner-ansible
