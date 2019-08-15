@@ -1,6 +1,6 @@
 ---
-- name: Add Apt Keys (2018-07)
-  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 state=present
+- name: Add Apt Keys (2019-08-15)
+  apt_key: url=https://download.spotify.com/debian/pubkey.gpg id=130D1D45 state=present
 
 - name: Add repository
   apt_repository: repo='deb http://repository.spotify.com stable non-free'
