@@ -39,4 +39,4 @@
     - {role: ../roles/virt-server}
     - {role: ../roles/vm}
     # explicitly including hardening last since its a WIP and might screw up connectivity to the test box
-    - {role: ../roles/hardening}
+    #- {role: ../roles/hardening}
