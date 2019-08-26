@@ -3,3 +3,9 @@
   package:
     name: vim
     state: latest
+
+# yamllint package required by ALE vim plugin
+- name: install the latest version of yamllint
+  package:
+    name: yamllint
+    state: latest
