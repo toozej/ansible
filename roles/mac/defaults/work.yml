@@ -2,14 +2,18 @@
 homebrew_installed_packages_work:
   - autoconf
   - chtf
+  - coreutils
+  - dive
   - graphviz
   - gnu-sed
   - kpcli
   - pipenv
+  - pre-commit
   - prettier
   - terraform
   - terraform-inventory
   - terraform-provisioner-ansible
+  - tflint
   - vault
 
 homebrew_cask_apps_work:
