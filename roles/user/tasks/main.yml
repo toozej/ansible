@@ -18,6 +18,13 @@
     state: present
   when: ansible_os_family != 'Darwin'
 
+- name: allow "james" as sudoer
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '^james'
+    insertafter: "^root	ALL=(ALL:ALL) ALL"
+    line: 'james	ALL=(ALL:ALL) ALL'
+
 - name: Set authorized key
   authorized_key:
     user: james

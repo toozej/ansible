@@ -1,0 +1,11 @@
+---
+- name: include hub defaults
+  include_vars:
+    file: ../defaults/hub.yml
+
+- name: Download and extract latest version of hub
+  unarchive:
+    url:  https://github.com/github/hub/releases/download/v{{ hub_version }}/hub-linux-amd64-{{ hub_version }}.tgz
+    dest: /usr/local/bin/hub
+    remote_src: true
+    force: true
