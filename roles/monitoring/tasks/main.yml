@@ -1,6 +1,0 @@
----
-- name: include netdata
-  include: netdata.yml
-
-- name: include zabbix agent
-  include: zabbix_agent.yml

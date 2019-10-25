@@ -33,4 +33,3 @@
     - role: audio-cli
     - role: audio-gui
     - role: office
-    - role: backup-restore

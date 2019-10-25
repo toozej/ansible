@@ -1,9 +1,0 @@
----
-ansible_distribution_release: '{{ "sid"
-                                      if ansible_facts["distribution_major_version"] == "buster/sid"
-                                      else ansible_facts["distribution_release"] }}'
-postgresql_client_package_name: postgresql-client-11
-postgresql_server_package_name: postgresql-11
-mariadb_version: 10.3
-mariadb_id: C74CD1D8
-mariadb_signing_key: F1656F24C74CD1D8

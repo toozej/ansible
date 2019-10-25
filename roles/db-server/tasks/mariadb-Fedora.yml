@@ -1,9 +1,0 @@
----
-- name: install latest version of MariaDB on Fedora
-  package:
-    name: "{{item}}"
-    state: latest
-  with_items:
-    - mariadb
-    - mariadb-server
-    - python2-mysql

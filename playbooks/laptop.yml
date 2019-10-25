@@ -43,9 +43,7 @@
     - role: audio-gui
     - role: office
     - role: openvpn-client
-    - role: backup-restore
     - role: photography
-    - role: modeling
 
 - name: Setup minimal dev environment
   hosts: all

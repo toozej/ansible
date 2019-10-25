@@ -6,9 +6,8 @@ pipeline {
         stage('Syntax Check (16.04)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_ubuntu_1604'
+              filename './dockerfiles/Dockerfile_ubuntu_1604'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -21,9 +20,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Syntax Check (18.04)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_ubuntu_1804'
+              filename './dockerfiles/Dockerfile_ubuntu_1804'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -36,9 +34,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Syntax Check (Debian Stable)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_debian_stable'
+              filename './dockerfiles/Dockerfile_debian_stable'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -51,9 +48,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Syntax Check (Debian Testing)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_debian_testing'
+              filename './dockerfiles/Dockerfile_debian_testing'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -66,9 +62,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Syntax Check (Fedora Latest)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_fedora_latest'
+              filename './dockerfiles/Dockerfile_fedora_latest'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -81,39 +76,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Syntax Check (Fedora 30)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_fedora_30'
+              filename './dockerfiles/Dockerfile_fedora_30'
             }
-
-          }
-          environment {
-            ANSIBLE_VERSION = 'latest'
-          }
-          steps {
-            sh '''# Check the role/playbook\'s syntax.
-ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
-          }
-        }
-        stage('Syntax Check (OpenSUSE Leap)') {
-          agent {
-            dockerfile {
-              filename 'Dockerfile_opensuse_leap'
-            }
-
-          }
-          environment {
-            ANSIBLE_VERSION = 'latest'
-          }
-          steps {
-            sh '''# Check the role/playbook\'s syntax.
-ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
-          }
-        }
-        stage('Syntax Check (OpenSUSE Tumbleweed)') {
-          agent {
-            dockerfile {
-              filename 'Dockerfile_opensuse_tumbleweed'
-            }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -126,24 +90,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Syntax Check (CentOS 7)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_centos_7'
+              filename './dockerfiles/Dockerfile_centos_7'
             }
-
-          }
-          environment {
-            ANSIBLE_VERSION = 'latest'
-          }
-          steps {
-            sh '''# Check the role/playbook\'s syntax.
-ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
-          }
-        }
-        stage('Syntax Check (CentOS 8)') {
-          agent {
-            dockerfile {
-              filename 'Dockerfile_centos_8'
-            }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -160,9 +108,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Run Test (16.04)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_ubuntu_1604'
+              filename './dockerfiles/Dockerfile_ubuntu_1604'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -175,9 +122,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Run Test (18.04)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_ubuntu_1804'
+              filename './dockerfiles/Dockerfile_ubuntu_1804'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -190,9 +136,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Run Test (Debian Stable)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_debian_stable'
+              filename './dockerfiles/Dockerfile_debian_stable'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -205,9 +150,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Run Test (Debian Testing)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_debian_testing'
+              filename './dockerfiles/Dockerfile_debian_testing'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -220,9 +164,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Run Test (Fedora Latest)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_fedora_latest'
+              filename './dockerfiles/Dockerfile_fedora_latest'
             }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -235,39 +178,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Run Test (Fedora 30)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_fedora_30'
+              filename './dockerfiles/Dockerfile_fedora_30'
             }
-
-          }
-          environment {
-            ANSIBLE_VERSION = 'latest'
-          }
-          steps {
-            sh '''# Run the role/playbook with ansible-playbook.
-ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id'''
-          }
-        }
-        stage('Run Test (OpenSUSE Leap)') {
-          agent {
-            dockerfile {
-              filename 'Dockerfile_opensuse_leap'
-            }
-
-          }
-          environment {
-            ANSIBLE_VERSION = 'latest'
-          }
-          steps {
-            sh '''# Run the role/playbook with ansible-playbook.
-ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id'''
-          }
-        }
-        stage('Run Test (OpenSUSE Tumbleweed)') {
-          agent {
-            dockerfile {
-              filename 'Dockerfile_opensuse_tumbleweed'
-            }
-
           }
           environment {
             ANSIBLE_VERSION = 'latest'
@@ -280,25 +192,8 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
         stage('Run Test (CentOS 7)') {
           agent {
             dockerfile {
-              filename 'Dockerfile_centos_7'
+              filename './dockerfiles/Dockerfile_centos_7'
             }
-
-          }
-          environment {
-            ANSIBLE_VERSION = 'latest'
-          }
-          steps {
-            sh '''# Run the role/playbook with ansible-playbook.
-ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id'''
-          }
-        }
-        stage('Run Test (CentOS 8)') {
-          agent {
-            dockerfile {
-              filename 'Dockerfile_centos_8'
-            }
-
-          }
           environment {
             ANSIBLE_VERSION = 'latest'
           }

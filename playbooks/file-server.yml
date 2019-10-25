@@ -6,17 +6,3 @@
   become_user: root
   roles:
     - role: file-server
-
-- name: Setup server monitoring via Netdata
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: monitoring
-
-- name: Setup Backup and Restore tools
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: backup-restore
