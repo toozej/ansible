@@ -22,6 +22,9 @@ Or if you want to run a playbook stand-alone skipping tags:
 
 ## Useful info for developing Ansible
 [Ansible Porting Guides](https://github.com/ansible/ansible/tree/devel/docs/docsite/rst/porting_guides)
+- validate Jenkinsfile using:
+  `curl --user username:password -X POST -F "jenkinsfile=<Jenkinsfile" https://jenkins.example.com/pipeline-model-converter/validate` 
+
 
 ### Setting up Pre-commit hooks
 From the root of this repo, run the following commands:
