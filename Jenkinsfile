@@ -194,6 +194,7 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
             dockerfile {
               filename './dockerfiles/Dockerfile_centos_7'
             }
+          }
           environment {
             ANSIBLE_VERSION = 'latest'
           }
@@ -205,5 +206,4 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
       }
     }
   }
-}
 }
