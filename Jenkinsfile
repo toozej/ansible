@@ -206,3 +206,4 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
     }
   }
 }
+}
