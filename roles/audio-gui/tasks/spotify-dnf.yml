@@ -4,7 +4,6 @@
     name: https://negativo17.org/repos/fedora-spotify.repo
     state: present
     enabled: True
-    keepcache: 0
   when: ansible_distribution == 'Fedora'
 
   #- name: "dnf | ensure Negativo17.org Spotify repo present for Fedora"
