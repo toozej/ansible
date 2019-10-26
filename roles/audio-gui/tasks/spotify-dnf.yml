@@ -1,7 +1,9 @@
 ---
 - name: "yum repo | ensure Negativo17.org Spotify repo present for Fedora"
   yum_repository:
-    name: https://negativo17.org/repos/fedora-spotify.repo
+    name: spotify
+    description: "Negativo17.org's Spotify Repo for Fedora"
+    baseurl: https://negativo17.org/repos/fedora-spotify.repo
     state: present
     enabled: True
   when: ansible_distribution == 'Fedora'
