@@ -3,8 +3,8 @@
   yum_repository:
     name: https://negativo17.org/repos/fedora-spotify.repo
     state: present
-    enablerepo: True
-    update_cache: True
+    enabled: True
+    keepcache: 0
   when: ansible_distribution == 'Fedora'
 
   #- name: "dnf | ensure Negativo17.org Spotify repo present for Fedora"
