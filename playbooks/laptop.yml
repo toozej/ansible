@@ -50,6 +50,9 @@
   become: true
   become_user: root
   roles:
+    - role: java
+    - role: dev-common
+    - role: dev-gui
     - role: dev-ansible
     - role: dev-python
     - role: vagrant

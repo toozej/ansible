@@ -1,0 +1,3 @@
+---
+openjdk_package_name: openjdk-11-jdk
+openjre_package_name: openjdk-11-jre
