@@ -1,4 +1,4 @@
 ---
-ansible_distribution_release: '{{ "buster"
-                                      if ansible_facts["distribution_major_version"] == "buster/sid"
+ansible_distribution_release: '{{ "bullseye"
+                                      if ansible_facts["distribution_major_version"] == "bullseye/sid"
                                       else ansible_facts["distribution_release"] }}'

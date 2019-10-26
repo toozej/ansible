@@ -11,10 +11,6 @@
     state: latest
   notify: restart docker
 
-# TODO: Remove this shim once 18.09.1 or later is released.
-- import_tasks: docker-1809-shim.yml
-  when: ansible_service_mgr == "systemd"
-
 # docker-py from https://github.com/docker/docker-py renamed to docker on PyPi https://pypi.org/project/docker/
 - name: ensure deprecated docker-py lib is absent
   pip:
@@ -30,7 +26,7 @@
   package:
     name: python-docker
     state: present
-  when: ansible_distribution_release == "buster"
+  when: ansible_distribution_release == "buster" or ansible_distribution_release == "bullseye"
 
 # Docker must be stopped to work Docker in Docker (testing with Jenkins)
 - name: Ensure Docker is stopped and enabled at boot.
