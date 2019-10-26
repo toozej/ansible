@@ -29,7 +29,3 @@
 - name: Install latest version of Neofetch using YUM
   include: neofetch-yum.yml
   when: ansible_pkg_mgr == 'yum'
-
-- name: Install latest version of Neofetch using DNF
-  include: neofetch-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
