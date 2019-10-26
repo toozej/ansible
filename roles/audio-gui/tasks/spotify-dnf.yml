@@ -1,13 +1,22 @@
 ---
-- name: "dnf | ensure Negativo17.org Spotify repo present for Fedora"
-  dnf:
+- name: "yum repo | ensure Negativo17.org Spotify repo present for Fedora"
+  yum_repository:
     name: https://negativo17.org/repos/fedora-spotify.repo
     state: present
     enablerepo: True
     update_cache: True
   when: ansible_distribution == 'Fedora'
 
+  #- name: "dnf | ensure Negativo17.org Spotify repo present for Fedora"
+  #  dnf:
+  #    name: https://negativo17.org/repos/fedora-spotify.repo
+  #    state: present
+  #    enablerepo: True
+  #    update_cache: True
+  #  when: ansible_distribution == 'Fedora'
+
 - name: "dnf | install latest version of Spotify"
   dnf:
     name: spotify-client
     state: latest
+  when: ansible_distribution == 'Fedora'
