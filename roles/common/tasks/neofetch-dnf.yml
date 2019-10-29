@@ -1,0 +1,5 @@
+---
+- name: "dnf | ensure NeoFetch present"
+  dnf:
+    name: neofetch
+    state: latest

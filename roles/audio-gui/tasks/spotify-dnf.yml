@@ -3,7 +3,9 @@
   yum_repository:
     name: spotify
     description: "Negativo17.org's Spotify Repo for Fedora"
-    baseurl: https://negativo17.org/repos/fedora-spotify.repo
+    baseurl: https://negativo17.org/repos/spotify/fedora-$releasever/$basearch/
+    gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-slaanesh
+    gpgcheck: True
     state: present
     enabled: True
   when: ansible_distribution == 'Fedora'
