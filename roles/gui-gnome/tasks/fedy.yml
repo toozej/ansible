@@ -1,7 +1,7 @@
 ---
 - name: install fedy repo package
   dnf:
-    name: "https://copr.fedorainfracloud.org/coprs/kwizart/fedy/repo/fedora-{{ ansible_distribution_major_version|int }}/kwizart-fedy-fedora-{{ ansible_distribution_major_version|int }}.repo"
+    name: "https://copr.fedorainfracloud.org/coprs/kwizart/fedy/repo/fedora-{{ ansible_distribution_version }}/kwizart-fedy-fedora-{{ ansible_distribution_version }}.repo"
     enablerepo: True
     update_cache: True
     state: latest

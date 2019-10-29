@@ -31,10 +31,8 @@
   include: spotify-yum.yml
   when: ansible_pkg_mgr == 'yum'
 
-- name: install latest version of Plex media player dnf
-  include: plexmediaplayer-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
-
-- name: install latest version of Plex media player yum
-  include: plexmediaplayer-yum.yml
-  when: ansible_pkg_mgr == 'yum'
+- name: install latest version of Plex media player
+  package:
+    name: plex-media-player
+    state: latest
+  when: ansible_os_family == "RedHat"
