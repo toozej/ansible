@@ -5,8 +5,8 @@
   become: true
   roles:
     - {role: ../roles/ansible-enablement}
-    - {role: ../roles/user}
     - {role: ../roles/common}
+    - {role: ../roles/user}
     - {role: ../roles/audio-cli}
     - {role: ../roles/audio-gui}
     - {role: ../roles/chrome}
@@ -19,14 +19,13 @@
     - {role: ../roles/dev-python}
     - {role: ../roles/dev-ruby}
     - {role: ../roles/docker}
-    # excluding file-server role for now as downloading Dropbox Headless fails frequently due to issue on Dropbox side
-    #- {role: ../roles/file-server}
+    - {role: ../roles/file-server}
     # excluding gaming role for now until I can fix the Steam license acceptance
     #- {role: ../roles/gaming}
     # exclucing gui-common role for now as downloading Simplenote fails frequently due to "error 104 connection reset by peer"
     #- {role: ../roles/gui-common}
     - {role: ../roles/gui-i3}
-    - {role: ../roles/gui-xfce}
+    - {role: ../roles/gui-gnome}
     - {role: ../roles/office}
     - {role: ../roles/photography}
     - {role: ../roles/repo-extra}

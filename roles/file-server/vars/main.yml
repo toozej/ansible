@@ -1,6 +1,0 @@
-# vars file for Dropbox in file-server role
----
-user_home_dir: /home/james
-dropbox_headless_dir: /home/james/.dropbox-dist
-dot_dropbox_dir: /home/james/.dropbox
-user_bin_dir: /home/james/bin

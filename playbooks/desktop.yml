@@ -22,7 +22,7 @@
   become_user: root
   roles:
     - role: gui-common
-    - role: gui-xfce
+    - role: gui-gnome
 
 - name: Setup programs and tools
   hosts: all

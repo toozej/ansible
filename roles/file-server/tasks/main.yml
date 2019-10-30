@@ -4,47 +4,6 @@
     name: samba
     state: latest
 
-- name: create user home directory
-  file:
-    dest: "{{ user_home_dir }}"
-    state: directory
-    mode: 0755
-
-- name: download latest version of Dropbox Headless
-  get_url:
-    url: https://www.dropbox.com/download?plat=lnx.x86_64
-    dest: "{{ user_home_dir }}/dropbox.tgz"
-
-- name: create Dropbox Headless directory
-  file:
-    dest: "{{ dropbox_headless_dir }}"
-    state: directory
-    mode: 0755
-
-- name: create .dropbox directory
-  file:
-    dest: "{{ dot_dropbox_dir }}"
-    state: directory
-    mode: 0700
-
-- name: extract Dropbox Headless
-  unarchive:
-    src: "{{ user_home_dir }}/dropbox.tgz"
-    dest: "{{ dropbox_headless_dir }}"
-    remote_src: yes
-
-- name: create user bin directory for Dropbox Python Helper Script
-  file:
-    dest: "{{ user_bin_dir }}"
-    state: directory
-    mode: 0755
-
-- name: download latest version of Dropbox Python Helper Script
-  raw: "wget -o {{ user_bin_dir|quote }}/dropbox.py https://www.dropbox.com/download?dl=packages/dropbox.py"
-
-- name: start Dropbox Headless daemon
-  raw: "{{ dropbox_headless_dir|quote }}/dropboxd &"
-
 - name: install latest versions of disk wiping and filesystem recovery tools
   package:
     name: "{{item}}"
