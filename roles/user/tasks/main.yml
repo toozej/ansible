@@ -33,6 +33,11 @@
     validate_certs: True
   when: ansible_os_family != 'Darwin'
 
+- name: confirm dotfiles repo exists
+  stat:
+    path: "{{ home_dir_path }}/dotfiles"
+  register: dotfiles_repo
+
 - name: clone dotfiles from github
   git:
     repo: 'https://github.com/toozej/dotfiles.git'
@@ -40,7 +45,7 @@
     dest: "{{ home_dir_path }}/dotfiles"
     recursive: yes
   register: clone_or_pull
-  when: not ansible_check_mode
+  when: (not ansible_check_mode) or (not dotfiles_repo.stat.exists)
 
 - name: set correct permissions on dotfiles
   file:
