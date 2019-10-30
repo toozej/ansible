@@ -32,5 +32,5 @@
     group: james
     mode: 0644
 
-- name: Configure keyboard shortcuts in Gnome
-  command: dconf load /org/gnome/ < /home/james/.config/gnome_settings.conf
+#- name: Configure keyboard shortcuts in Gnome
+#  command: dconf load /org/gnome/ < /home/james/.config/gnome_settings.conf
