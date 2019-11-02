@@ -3,8 +3,6 @@
   package:
     name: vagrant-libvirt
     state: latest
-  when: (ansible_distribution_version != "16.04")
-  # package not available in 16.04, use https://github.com/vagrant-libvirt/vagrant-libvirt/issues/891 as a workaround
 
 - name: create ~/VMs/vagrant/libvirt_template/ directory
   file:

@@ -14,14 +14,10 @@
     name: bridge-utils
     state: latest
 
-- name: Install vagrant libvirt provider on semi-modern distros
-  include: vagrant_providers_libvirt.yml
-  when: (ansible_distribution == 'Debian' and ansible_distribution_version is version_compare(8,'>=')) or (ansible_distribution == 'Fedora' and ansible_distribution_version is version_compare(27,'>=')) or (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare(16.04,'>='))
-
 - name: Install vagrant libvirt provider on modern distros
   include: vagrant_providers_libvirt.yml
-  when: (ansible_distribution == 'Debian' and ansible_distribution_version is version_compare(8,'>')) or (ansible_distribution == 'Fedora' and ansible_distribution_version is version_compare(27,'>'))
+  when: not (ansible_distribution == 'CentOS' and ansible_distribution_version is version_compare(7,'>='))
 
 - name: Install vagrant plugins on modern distros
   include: vagrant_plugins.yml
-  when: (ansible_distribution == 'Debian' and ansible_distribution_version is version_compare(8,'>=')) or (ansible_distribution == 'Fedora' and ansible_distribution_version is version_compare(27,'>='))
+  when: not (ansible_distribution == 'CentOS' and ansible_distribution_version is version_compare(7,'>='))

@@ -22,3 +22,11 @@
     - clamav-daemon
     - clamav-freshclam
     - clamdscan
+
+- name: lay out copy-from-time-machine script to /usr/local/bin
+  copy:
+    src: copy-from-time-machine
+    dest: /usr/local/bin/copy-from-time-machine
+    owner: root
+    group: root
+    mode: 0744
