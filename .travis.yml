@@ -3,13 +3,13 @@ sudo: required
 dist: bionic
 
 language: python
-python: "2.7"
+python: "3.6"
 
 # Doc: https://docs.travis-ci.com/user/customizing-the-build#Build-Matrix
 env:
   - ANSIBLE_VERSION=latest
-  - ANSIBLE_VERSION=2.7.11
-  - ANSIBLE_VERSION=2.6.17
+  - ANSIBLE_VERSION=2.8.6
+  - ANSIBLE_VERSION=2.7.14
 
 branches:
   only:
@@ -21,22 +21,13 @@ before_install:
   - cat /proc/meminfo
   - free -m
   # update apt and ensure pip is latest version
-  - sudo apt-get update -qq
-  - sudo apt-get install python3 python3-setuptools python3-pip
+  - sudo apt update -qq
+  - sudo apt install python3-setuptools python3-pip
   - sudo pip3 install --upgrade --force-reinstall pip
   # specific version of urllib3 required by docker-py
   - sudo pip3 install 'urllib3<1.25,>=1.21.1' --disable-pip-version-check
   - sudo pip3 install 'chardet<3.1.0,>=3.0.2' --disable-pip-version-check
   - sudo pip3 install 'requests!=2.18.0,>=2.14.2' --disable-pip-version-check
-  # combat downgrading MySQL on Debian-based distro
-  - sudo apt list --installed | grep mysql
-  - sudo apt-get remove mysql-*
-  - sudo rm -rf /var/lib/mysql/debian-*.flag
-  # combat upgrading to PostgreSQL 10 when 9.x is running
-  - sudo apt list --installed | grep postgresql
-  - sudo ps aux | grep postgresql
-  - sudo service postgresql stop
-  - sudo ps aux | grep postgresql
   # list out apt sources
   - grep "" /etc/apt/sources.list.d/*
   # combat not having CA Certs installed
