@@ -19,6 +19,8 @@ homebrew_installed_packages_work:
 homebrew_cask_apps_work:
   - apache-directory-studio
   - beyond-compare
+  - homebrew/cask-drivers/logitech-gaming-software
+  - homebrew/cask-drivers/logitech-options
   - keepassxc
   - postman
   - sequel-pro
