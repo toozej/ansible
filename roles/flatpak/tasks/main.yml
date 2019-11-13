@@ -1,0 +1,11 @@
+---
+- name: install latest version of flatpak package
+  package:
+    name: flatpak
+    state: latest
+
+- name: Add the flathub flatpak repository remote
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
