@@ -7,6 +7,7 @@
     - {role: ../roles/ansible-enablement}
     - {role: ../roles/common}
     - {role: ../roles/user}
+    - {role: ../roles/flatpak}
     - {role: ../roles/audio-cli}
     - {role: ../roles/audio-gui}
     - {role: ../roles/chrome}
