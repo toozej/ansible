@@ -8,6 +8,7 @@
     - role: ansible-enablement
     - role: user
     - role: common
+    - role: flatpak
 
 - name: Setup laptop-specific fixes
   hosts: all
@@ -55,5 +56,6 @@
     - role: dev-gui
     - role: dev-ansible
     - role: dev-python
+    - role: dev-terraform
     - role: vagrant
     - role: virt-server

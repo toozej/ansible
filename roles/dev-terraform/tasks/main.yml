@@ -1,0 +1,24 @@
+---
+- name: Download the Terraform tarball
+  get_url:
+    url: "{{ terraform_download_location }}"
+    dest: "/usr/local/src/{{ terraform_archive }}"
+
+- name: Register the current Terraform version (if any)
+  command: /usr/local/bin/terraform --version | head -n1
+  ignore_errors: yes
+  register: terraform_version_current
+  changed_when: false
+
+- name: Remove old installation of Terraform
+  file:
+    path: /usr/local/bin/terraform
+    state: absent
+  when: terraform_version_current is failed or terraform_version_current.stdout != terraform_version_target
+
+- name: Extract the Terraform archive if Terraform is not yet installed or not the desired version
+  unarchive:
+    src: /usr/local/src/{{ terraform_archive }}
+    dest: /usr/local/bin
+    copy: no
+  when: terraform_version_current is failed or terraform_version_current.stdout != terraform_version_target

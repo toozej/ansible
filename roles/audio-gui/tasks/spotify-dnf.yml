@@ -1,18 +1,6 @@
 ---
-- name: "yum repo | ensure Negativo17.org Spotify repo present for Fedora"
-  yum_repository:
-    name: spotify
-    description: "Negativo17.org's Spotify Repo for Fedora"
-    baseurl: https://negativo17.org/repos/spotify/fedora-$releasever/$basearch/
-    gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-slaanesh
-    gpgcheck: True
+- name: "flatpak | install latest version of Spotify installer"
+  flatpak:
+    name: com.spotify.Client
     state: present
-    enabled: True
-  when: ansible_distribution == 'Fedora'
-
-- name: "dnf | install latest version of Spotify"
-  dnf:
-    name: spotify-client
-    state: latest
-    update_cache: True
   when: ansible_distribution == 'Fedora'

@@ -3,7 +3,6 @@
   get_url:
     url: "{{ go_download_location }}"
     dest: /usr/local/src/{{ go_tarball }}
-    checksum: "{{ go_tarball_checksum }}"
 
 - name: Register the current Go version (if any)
   command: /usr/local/go/bin/go version

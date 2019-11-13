@@ -45,7 +45,7 @@
     dest: "{{ home_dir_path }}/dotfiles"
     recursive: yes
   register: clone_or_pull
-  when: (not ansible_check_mode) or (not dotfiles_repo.stat.exists)
+  when: (not ansible_check_mode) and (not dotfiles_repo.stat.exists)
 
 - name: set correct permissions on dotfiles
   file:
