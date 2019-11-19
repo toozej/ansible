@@ -6,6 +6,7 @@ homebrew_installed_packages_work:
   - dive
   - graphviz
   - gnu-sed
+  - ipcalc
   - kpcli
   - pipenv
   - pre-commit
