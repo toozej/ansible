@@ -1,0 +1,6 @@
+
+- name: add Lutris repository for Ubuntu
+  apt_repository:
+    repo: ppa:lutris-team/lutris
+    state: present
+    update_cache: true

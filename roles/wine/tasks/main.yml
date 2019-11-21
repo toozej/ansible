@@ -1,0 +1,5 @@
+---
+- name: install latest version of Wine
+  package:
+    name: wine
+    state: latest

@@ -1,8 +1,0 @@
----
-- name: "dnf | ensure Negativo17.org Steam repo present for Fedora"
-  dnf:
-    name: https://negativo17.org/repos/fedora-steam.repo
-    state: present
-    enablerepo: True
-    update_cache: True
-  when: ansible_distribution == 'Fedora'

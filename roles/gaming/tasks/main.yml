@@ -1,28 +1,19 @@
 ---
-# Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
-  with_first_found:
-    - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
-      skip: True
-  when: (steam_package_name is not defined)
+- name: "flatpak | install the latest version of Steam"
+  flatpak:
+    name: com.valvesoftware.Steam
+    state: present
 
-- name: "dnf | setup Negativo Steam repo"
-  include: steam-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
+- name: "apt | pre-requisites for installing Lutris on Debian"
+  include: lutris-debian.yml
+  when: (ansible_distribution == 'Debian')
 
-- name: "yum | setup Negativo Steam repo"
-  include: steam-yum.yml
-  when: ansible_pkg_mgr == 'yum'
+- name: "apt | pre-requisites for installing Lutris on Ubuntu "
+  include: lutris-ubuntu.yml
+  when: (ansible_distribution == 'Ubuntu')
 
-- name: "apt | pre-requisites for installing Steam"
-  include: steam-apt.yml
-  when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
-
-- name: install the latest version of Steam
+- name: install latest version of Lutris
   package:
-    name: "{{steam_package_name}}"
+    name: lutris
     state: latest
+  when: (ansible_distribution != 'CentOS')

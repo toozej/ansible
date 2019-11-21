@@ -35,3 +35,5 @@
     - role: audio-gui
     - role: office
     - role: photography
+    - role: wine
+    - role: gaming

@@ -1,0 +1,12 @@
+---
+- name: add Lutris repository key for Debian
+  apt_key:
+    url: https://download.opensuse.org/repositories/home:/strycore/Debian_9.0/Release.key
+    state: present
+
+- name: add Lutris repository for Debian
+  apt_repository:
+    repo: deb http://download.opensuse.org/repositories/home:/strycore/Debian_9.0 ./
+    filename: lutris
+    state: present
+    update_cache: true
