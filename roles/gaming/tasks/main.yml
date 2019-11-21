@@ -17,3 +17,13 @@
     name: lutris
     state: latest
   when: (ansible_distribution != 'CentOS')
+
+- name: "flatpak | install latest version of RetroArch"
+  flatpak:
+    name: org.libretro.RetroArch
+    state: present
+
+- name: "flatpak | install latest version of Athenaeum"
+  flatpak:
+    name: com.gitlab.librebob.Athenaeum
+    state: present
