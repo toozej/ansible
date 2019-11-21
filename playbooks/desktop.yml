@@ -8,6 +8,7 @@
     - role: ansible-enablement
     - role: user
     - role: common
+    - role: flatpak
 
 - name: Setup Docker environment
   hosts: all
@@ -33,3 +34,4 @@
     - role: audio-cli
     - role: audio-gui
     - role: office
+    - role: photography
