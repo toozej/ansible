@@ -3,4 +3,3 @@
   flatpak:
     name: com.spotify.Client
     state: present
-  when: ansible_distribution == 'Fedora'
