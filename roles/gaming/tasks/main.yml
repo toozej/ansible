@@ -1,4 +1,21 @@
 ---
+- name: disable enhanced retransmission mode (ERTM) for bluetooth xbox controller
+  copy:
+    src: "files/xbox_bt.conf"
+    dest: "/etc/modprobe.d/xbox_bt.conf"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: set selinux context for xbox_bt.conf if using selinux
+  file:
+    path: "/etc/modprobe.d/xbox_bt.conf"
+    seuser: "system_u"
+    serole: "object_r"
+    setype: "modules_conf_t"
+    selevel: "s0"
+  when: (ansible_selinux is defined and ansible_selinux != false and ansible_selinux.status == 'enabled')
+
 - name: "flatpak | install the latest version of Steam"
   flatpak:
     name: com.valvesoftware.Steam
