@@ -6,11 +6,15 @@
     remote_src: true
     follow: true
 
+- name: Populate service facts
+  service_facts:
+
 - name: stop and disable NetworkManager service
   systemd:
     name: NetworkManager
     state: stopped
     enabled: false
+  when: "'NetworkManager' in services"
 
 - name: unlink NetworkManager-created /etc/resolv.conf
   file:
