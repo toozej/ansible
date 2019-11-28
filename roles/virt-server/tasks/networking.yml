@@ -1,9 +1,10 @@
 ---
-- name: grab contents of current /etc/resolv.conf and store temporarily
-  file:
+- name: make backup of current /etc/resolv.conf and store temporarily
+  copy:
     src: /etc/resolv.conf
     dest: /tmp/resolv.conf
-    state: file
+    remote_src: true
+    follow: true
 
 - name: stop and disable NetworkManager service
   systemd:
@@ -13,11 +14,11 @@
 
 - name: unlink NetworkManager-created /etc/resolv.conf
   file:
-    src: /etc/resolv.conf
+    path: /etc/resolv.conf
     state: absent
 
 - name: restore /etc/resolv.conf
-  file:
+  copy:
     src: /tmp/resolv.conf
     dest: /etc/resolv.conf
-    state: file
+    remote_src: true
