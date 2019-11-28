@@ -1,4 +1,7 @@
 ---
+- name: disable NetworkManager
+  include: networking.yml
+
 - name: install latest version of ethtool package
   package:
     name: ethtool

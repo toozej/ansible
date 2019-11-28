@@ -58,4 +58,3 @@
     - role: dev-python
     - role: dev-terraform
     - role: vagrant
-    - role: virt-server
