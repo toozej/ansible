@@ -55,6 +55,7 @@
     - role: dev-common
     - role: dev-gui
     - role: dev-ansible
+    - role: dev-go
     - role: dev-python
     - role: dev-terraform
     - role: vagrant
