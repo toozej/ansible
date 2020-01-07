@@ -87,6 +87,20 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
 ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
           }
         }
+        stage('Syntax Check (CentOS 8)') {
+          agent {
+            dockerfile {
+              filename './dockerfiles/Dockerfile_centos_8'
+            }
+          }
+          environment {
+            ANSIBLE_VERSION = 'latest'
+          }
+          steps {
+            sh '''# Check the role/playbook\'s syntax.
+ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml --syntax-check'''
+          }
+        }
       }
     }
     stage('Run Tests') {
@@ -165,6 +179,20 @@ ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tes
           agent {
             dockerfile {
               filename './dockerfiles/Dockerfile_centos_7'
+            }
+          }
+          environment {
+            ANSIBLE_VERSION = 'latest'
+          }
+          steps {
+            sh '''# Run the role/playbook with ansible-playbook.
+ANSIBLE_ROLES_PATH=roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id'''
+          }
+        }
+        stage('Run Test (CentOS 8)') {
+          agent {
+            dockerfile {
+              filename './dockerfiles/Dockerfile_centos_8'
             }
           }
           environment {

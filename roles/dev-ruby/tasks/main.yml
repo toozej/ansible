@@ -15,6 +15,11 @@
     name: ruby
     state: latest
 
+- name: install the latest dev package for ruby
+  package:
+    name: ruby-dev
+    state: latest
+
 - name: install the latest version of ruby gems
   package:
     name: rubygems

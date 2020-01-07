@@ -113,14 +113,14 @@ git clone https://github.com/toozej/ansible.git $ANSIBLE_REPO_DIR
 cd $ANSIBLE_REPO_DIR
 
 echo -e "setting up default ansible.cfg"
-if [ -f /etc/redhat-release ]; then
+if [ -f /etc/redhat-release ] && grep -q "release 7." /etc/redhat-release; then
     cp ansible.cfg.example_centos_7 ansible.cfg
 else
     cp ansible.cfg.example ansible.cfg
 fi
 
 echo -e "setting up localhost in the ansible inventory\n"
-if [ "$(uname)" == "Darwin" ] || [ -f /etc/redhat-release ]; then
+if [ "$(uname)" == "Darwin" ] || [ -f /etc/redhat-release ] && grep -q "release 7." /etc/redhat-release; then
     mkdir /etc/ansible
     echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 else
