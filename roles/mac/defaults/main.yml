@@ -71,6 +71,7 @@ homebrew_cask_apps:
   - spotify
   - teamviewer
   - tunnelblick
+  - turbo-boost-switcher
   - vagrant
   - virtualbox
   - virtualbox-extension-pack
