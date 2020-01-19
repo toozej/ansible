@@ -1,4 +1,15 @@
 ---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: True
+  when: (libselinux_package_name is not defined)
+
 - name: include RPMFusion repo on RedHat-based systems
   include_role:
     name: 'repo-extra'
@@ -12,7 +23,7 @@
 
 - name: install the latest version of libselinux-python package on RedHat-based systems
   package:
-    name: libselinux-python
+    name: "{{ libselinux_package_name }}"
     state: latest
   when: (ansible_distribution == 'Red Hat Enterprise Linux') or (ansible_distribution == 'CentOS')
 
