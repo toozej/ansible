@@ -76,6 +76,7 @@ elif [ -f /etc/redhat-release ]; then
         os=`cat /etc/redhat-release`
         if [[ $os == *"release 8."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+          yum install -y python3
         elif [[ $os == *"release 7."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
         elif [[ $os == *"release 6."* ]]; then
