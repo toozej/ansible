@@ -6,7 +6,6 @@ ssh_client_package_name: openssh-client
 ssh_daemon_package_name: openssh-server
 sshd_service_name: ssh
 ag_package_name: silversearcher-ag
-pip2_package_name: python-pip
 pip3_package_name: python3-pip
 p7zip_package_name: p7zip-full
 gnupg_package_name: gnupg2
