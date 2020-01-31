@@ -66,6 +66,22 @@
     name: "{{ geoip_package_name }}"
     state: latest
 
+- name: make logging directory
+  file:
+    state: directory
+    path: /var/log/fail2ban
+    owner: root
+    group: root
+    mode: 0750
+
+- name: touch log file
+  file:
+    state: touch
+    path: "{{ fail2ban_log_target }}"
+    owner: root
+    group: root
+    mode: 0744
+
 - name: start and enable service
   service:
     name: fail2ban
