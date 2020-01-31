@@ -12,20 +12,25 @@
 
 - name: install the latest versions of system monitoring utilities
   package:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: latest
   with_items:
     - htop
     - iotop
     - powertop
-    - bwm-ng
     - ncdu
     - lshw
     - net-tools
 
+- name: install bwm-ng except on CentOS
+  package:
+    name: bwm-ng
+    state: latest
+  when: ansible_distribution != 'CentOS'
+
 - name: install the latest version of Samba client and tools
   package:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: latest
   with_items:
     - samba-client
@@ -38,7 +43,7 @@
 
 - name: install the latest versions of download tools
   package:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: latest
   with_items:
     - wget
@@ -46,7 +51,7 @@
 
 - name: install the latest version of archiving tools
   package:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: latest
   with_items:
     - zip
