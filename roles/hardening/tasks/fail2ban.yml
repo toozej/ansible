@@ -77,7 +77,7 @@
 - name: touch log file
   file:
     state: touch
-    path: "{{ fail2ban_log_target }}"
+    path: "{{ fail2ban_logtarget }}"
     owner: root
     group: root
     mode: 0744
