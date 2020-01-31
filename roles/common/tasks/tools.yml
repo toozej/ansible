@@ -23,10 +23,14 @@
     - lshw
     - net-tools
 
-- name: install bwm-ng except on CentOS
+- name: install packages except on CentOS
   package:
-    name: bwm-ng
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - bwm-ng
+    - "{{ ag_package_name }}"
+    - unrar
   when: ansible_distribution != 'CentOS'
 
 - name: install the latest version of Samba client and tools
@@ -59,20 +63,9 @@
     - "{{ p7zip_package_name }}"
     - pigz
 
-- name: install the latest version of unrar except on CentOS
-  package:
-    name: unrar
-    state: latest
-  when: ansible_distribution != 'CentOS'
-
 - name: install the latest version of tree
   package:
     name: tree
-    state: latest
-
-- name: install the latest version of ag
-  package:
-    name: "{{ ag_package_name }}"
     state: latest
 
 - name: install the latest version of strace
