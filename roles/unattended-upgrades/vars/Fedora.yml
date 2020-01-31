@@ -1,0 +1,3 @@
+---
+automatic_updater_package_name: dnf-automatic
+automatic_updater_config_path: /etc/dnf/automatic.conf
