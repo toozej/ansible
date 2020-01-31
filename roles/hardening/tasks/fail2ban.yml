@@ -81,7 +81,7 @@
     owner: root
     group: root
     mode: 0744
-    with_items:
+  with_items:
     - fail2ban_logtarget
     - fail2ban_geosshdeny_jail_log_target
 
