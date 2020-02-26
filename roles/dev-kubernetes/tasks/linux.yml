@@ -1,0 +1,17 @@
+---
+- name: download the latest version of Minikube on Linux
+  raw: curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube
+
+- name: ensure $USER in libvirt groups
+  user:
+    name: james
+    groups: libvirt,kvm
+
+- name: install Minikube
+  shell: install minikube /usr/local/bin/
+
+- name: setup Minikube with kvm driver
+  shell: minikube config set vm-driver kvm2
+
+- name: download the latest version of Kubectl on Linux
+  raw:  curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl

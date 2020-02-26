@@ -1,0 +1,9 @@
+---
+- name: install the latest version of Minikube and Kubectl on Mac OS X
+  homebrew:
+    name: "{{item}}"
+    state: latest
+    update_homebrew: yes
+  with_items:
+    - kubectl
+    - minikube
