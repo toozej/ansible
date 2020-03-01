@@ -28,3 +28,18 @@
   include: atom-yum.yml
   when: ansible_pkg_mgr == 'yum'
   tags: gui
+
+- name: Install latest version of vscode editor using APT
+  include: vscode-apt.yml
+  when: ansible_pkg_mgr == 'apt'
+  tags: gui
+
+- name: Install latest version of vscode editor using DNF
+  include: vscode-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+  tags: gui
+
+- name: Install latest version of vscode editor using YUM
+  include: vscode-yum.yml
+  when: ansible_pkg_mgr == 'yum'
+  tags: gui
