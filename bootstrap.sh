@@ -76,14 +76,10 @@ elif [ -f /etc/redhat-release ]; then
         os=`cat /etc/redhat-release`
         if [[ $os == *"release 8."* ]]; then
           epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-          yum install -y python3
-        elif [[ $os == *"release 7."* ]]; then
-          epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-        elif [[ $os == *"release 6."* ]]; then
-          epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm"
+          dnf install -y python3
         fi
-        yum install -y $epel_rpm
-        yum install -y git ansible
+        dnf install -y $epel_rpm
+        dnf install -y git ansible
 
 # if ArchLinux-based
 elif [ -f /etc/arch-release ]; then
@@ -114,14 +110,10 @@ git clone https://github.com/toozej/ansible.git $ANSIBLE_REPO_DIR
 cd $ANSIBLE_REPO_DIR
 
 echo -e "setting up default ansible.cfg"
-if [ -f /etc/redhat-release ] && grep -q "release 7." /etc/redhat-release; then
-    cp ansible.cfg.example_centos_7 ansible.cfg
-else
-    cp ansible.cfg.example ansible.cfg
-fi
+cp ansible.cfg.example ansible.cfg
 
 echo -e "setting up localhost in the ansible inventory\n"
-if [ "$(uname)" == "Darwin" ] || [ -f /etc/redhat-release ] && grep -q "release 7." /etc/redhat-release; then
+if [ "$(uname)" == "Darwin" ]; then
     mkdir /etc/ansible
     echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 else
