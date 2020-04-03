@@ -19,6 +19,11 @@
     - "{{ gstreamer1_plugins_base_package_name }}"
     - "{{ gstreamer1_plugins_good_package_name }}"
 
+- name: install latest version of VLC
+  package:
+    name: vlc
+    state: latest
+
 - name: install latest version of Spotify client apt
   include: spotify-apt.yml
   when: ansible_pkg_mgr == 'apt'
