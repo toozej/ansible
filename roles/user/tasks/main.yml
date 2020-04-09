@@ -69,6 +69,23 @@
   when: (clone_or_pull.changed == True) and (not ansible_check_mode)
   tags: ci
 
+- name: confirm user bin files exist
+  find:
+    paths: "{{ home_dir_path }}/dotfiles/bin/"
+    file_type: file
+    recurse: yes
+  register: user_bin_files
+
+- name: setup user bin files
+  copy:
+    src: "{{ item.path }}"
+    dest: "/usr/local/bin/{{ item.path | basename }}"
+    remote_src: yes
+    mode: 0755
+  loop: "{{ user_bin_files.files }}"
+  when: not ansible_check_mode
+  tags: ci
+
 - name: set git config URL on vimfiles
   lineinfile:
     path: "{{ home_dir_path }}/.vim/.git/config"
