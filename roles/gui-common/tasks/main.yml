@@ -15,6 +15,12 @@
     name: terminator
     state: latest
 
+- name: Ensures ~/.config/terminator exists
+  file:
+    path: /home/james/.config/terminator
+    state: directory
+    recurse: yes
+
 - name: lay out Terminator config file
   template:
     src: terminator.conf.j2
