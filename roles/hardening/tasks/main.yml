@@ -1,6 +1,6 @@
 ---
 - name: setup fail2ban
-  include: fail2ban.yml
+  include_tasks: fail2ban.yml
 
 - name: setup firewall
-  include: firewall.yml
+  include_tasks: firewall.yml
