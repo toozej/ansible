@@ -1,0 +1,9 @@
+---
+gnome_user: james
+gnome_extension_ids:
+  # caffeine
+  - 517
+  # dash-to-dock
+  - 307
+  # hide-top-bar
+  - 545

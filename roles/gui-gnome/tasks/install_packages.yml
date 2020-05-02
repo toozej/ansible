@@ -1,0 +1,24 @@
+---
+- name: install gnome-tweak-tool
+  package:
+    name: gnome-tweak-tool
+    state: latest
+
+- name: install Terminator
+  package:
+    name: terminator
+    state: latest
+
+- name: Include repo-extra for Fedora as pre-requisite for Fedy
+  include_role:
+    name: repo-extra
+  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
+
+- name: Install latest version of Fedy on Fedora using DNF
+  include: fedy.yml
+  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
+
+- name: Install Gnome Shell Extensions installer/integration for web browsers
+  package:
+    name: chrome-gnome-shell
+    state: latest

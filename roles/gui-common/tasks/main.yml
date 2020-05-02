@@ -1,8 +1,27 @@
 ---
+- name: Ensures ~/.config exists
+  file:
+    path: /home/james/.config/
+    state: directory
+    recurse: yes
+
 - name: Install latest version of remmina RDP client
   package:
     name: remmina
     state: latest
+
+- name: Install latest version of Terminator
+  package:
+    name: terminator
+    state: latest
+
+- name: lay out Terminator config file
+  template:
+    src: terminator.conf.j2
+    dest: /home/james/.config/terminator/config
+    owner: james
+    group: james
+    mode: 0644
 
 - name: Install latest version of CA certificates
   package:

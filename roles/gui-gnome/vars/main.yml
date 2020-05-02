@@ -1,0 +1,80 @@
+---
+gnome_dconf:
+  - key: /org/gnome/settings-daemon/plugins/media-keys/
+    value: |
+      custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+      www='<Primary><Alt>w'
+      home='<Primary><Alt>e'
+  - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1
+    value: |
+      binding='<Primary><Alt>r'
+      command='remmina'
+      name='Remmina'
+  - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0
+    value: |
+      binding='<Primary><Alt>t'
+      command='terminator'
+      name='Terminal'
+  - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2
+    value: |
+      binding='<Primary><Alt>s'
+      command='gnome-terminal -- vim ~/tmp/scratch && exit 0'
+      name='Scratch'
+  - key: /org/settings-daemon/plugins/power
+    value: |
+      sleep-inactive-ac-timeout=3600
+      sleep-inactive-ac-type='nothing'
+  - key: /org/gnome/settings-daemon/plugins/color
+    value: |
+      night-light-enabled=true
+      night-light-last-coordinates=(45.48675973988481, -122.63784080000001)
+  - key: /org/gnome/desktop/peripherals/touchpad
+    value: "two-finger-scrolling-enabled=true"
+  - key: /org/gnome/desktop/background/show-desktop-icons
+    value: "false"
+  - key: /org/gnome/desktop/background
+    value: |
+      color-shading-type='solid'
+      picture-options='zoom'
+      picture-uri='file:///home/james/.local/share/backgrounds/2019-10-29-11-03-21-tokyo_street_sunset_by_arsenixc_db9abol.jpg'
+      primary-color='#000000000000'
+      secondary-color='#000000000000'
+  - key: /org/gnome/desktop/screensaver
+    value: |
+      color-shading-type='solid'
+      picture-options='zoom'
+      picture-uri='file:///home/james/.local/share/backgrounds/2019-10-29-11-03-25-tokyo_street_night_by_arsenixc_dbbpqj5.jpg'
+      primary-color='#000000000000'
+      secondary-color='#000000000000'
+  - key: /org/gnome/desktop/wm/preferences
+    value: "button-layout='appmenu:minimize,close'"
+  - key: /org/gnome/shell
+    value: |
+      app-picker-view=uint32 1
+      enabled-extensions=['background-logo@fedorahosted.org', 'dash-to-dock@micxgx.gmail.com', 'caffeine@patapon.info', 'hidetopbar@mathieu.bidon.ca']
+      favorite-apps=['google-chrome.desktop', 'firefox.desktop', 'slack.desktop', 'org.gnome.Nautilus.desktop', 'terminator.desktop', 'simplenote.desktop', 'com.spotify.Client.desktop', 'org.remmina.Remmina.desktop']
+  - key: /org/gnome/shell/extensions/caffeine
+    value: |
+      show-notifications=false
+      user-enabled=false
+  - key: /org/gnome/shell/extensions/dash-to-dock
+    value: |
+      show-mounts=false
+      show-trash=false
+  - key: /org/gnome/shell/extensions/hidetopbar
+    value: |
+      enable-active-window=false
+      enable-intellihide=true
+      hot-corner=true
+      mouse-sensitive=true
+  - key: /org/gnome/shell/weather
+    value: |
+      automatic-location=true
+      locations=@av []
+  - key: /org/gnome/nautilus/preferences
+    value: |
+      default-folder-viewer='icon-view'
+      search-filter-time-type='last_modified'
+      search-view='list-view'
+  - key: /org/gnome/system/location
+    value: "enabled=true"

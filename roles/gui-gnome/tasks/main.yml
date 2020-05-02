@@ -1,41 +1,29 @@
 ---
-- name: install gnome-tweak-tool
-  package:
-    name: gnome-tweak-tool
-    state: latest
+- include_tasks: install_packages.yml
+- include_tasks: gnome_extensions.yml
 
-- name: install Terminator
-  package:
-    name: terminator
-    state: latest
-
-- name: Include repo-extra for Fedora as pre-requisite for Fedy
-  include_role:
-    name: repo-extra
-  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
-
-- name: Install latest version of Fedy on Fedora using DNF
-  include: fedy.yml
-  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
-
-- name: Install Gnome Shell Extensions installer/integration for web browsers
-  package:
-    name: chrome-gnome-shell
-    state: latest
-
-- name: Ensures ~/.config exists
-  file:
-    path: /home/james/.config/
-    state: directory
-    recurse: yes
-
-- name: Temporarily store Gnome settings in ~/.config/
-  template:
-    src: gnome_settings.j2
-    dest: /home/james/.config/gnome_settings.conf
+# from https://www.deviantart.com/arsenixc/art/Tokyo-Street-Sunset-680726181
+- name: lay out wallpaper
+  copy:
+    src: 2019-10-29-11-03-21-tokyo_street_sunset_by_arsenixc_db9abol.jpg
+    dest: /home/james/.local/share/backgrounds/2019-10-29-11-03-21-tokyo_street_sunset_by_arsenixc_db9abol.jpg
     owner: james
     group: james
     mode: 0644
 
-#- name: Configure keyboard shortcuts in Gnome
-#  command: dconf load /org/gnome/ < /home/james/.config/gnome_settings.conf
+# from https://www.deviantart.com/arsenixc/art/Tokyo-Street-Night-684804497
+- name: lay out "screensaver" (lock-screen wallpaper)
+  copy:
+    src: 2019-10-29-11-03-25-tokyo_street_night_by_arsenixc_dbbpqj5.jpg
+    dest: /home/james/.local/share/backgrounds/2019-10-29-11-03-25-tokyo_street_night_by_arsenixc_dbbpqj5.jpg
+    owner: james
+    group: james
+    mode: 0644
+
+- name: include application settings vars
+  include_vars: "../vars/main.yml"
+
+- name: Modify application settings using dconf
+  shell: dconf write {{ item.key }} {{ item.value }}
+  become_user: "{{ gnome_user }}"
+  with_items: "{{ gnome_dconf|default([]) }}"

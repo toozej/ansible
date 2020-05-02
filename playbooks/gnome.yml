@@ -1,0 +1,8 @@
+---
+- name: test gnome configs
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: gui-common
+    - role: gui-gnome
