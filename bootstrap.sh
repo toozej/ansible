@@ -131,11 +131,11 @@ echo -e "running ansible playbook based on user input\n"
 if [[ $CHECK == "true" && $DEBUG == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2)
 elif [[ $CHECK == "true" && $DEBUG == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 | tee $ANSIBLE_REPO_DIR/playbook_check.out)
+  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 -vvv | tee $ANSIBLE_REPO_DIR/playbook_check.out)
 elif [[ $RUN == "true" && $DEBUG == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2)
 elif [[ $RUN == "true" && $DEBUG == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 | tee $ANSIBLE_REPO_DIR/playbook_run.out)
+  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 -vvv | tee $ANSIBLE_REPO_DIR/playbook_run.out)
 fi
 
 echo -e "\n\n"

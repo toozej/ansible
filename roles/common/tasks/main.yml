@@ -1,35 +1,38 @@
 ---
 - name: include main non-free apt source as pre-requisite for unrar on Debian systems
-  include: non-free-debian.yml
+  include_tasks: non-free-debian.yml
   when: ansible_distribution == 'Debian'
 
 - name: Install VIM
-  include: vim.yml
+  include_tasks: vim.yml
 
 - name: Install and configure SSH
-  include: ssh.yml
+  include_tasks: ssh.yml
 
 - name: Install tools and utilities
-  include: tools.yml
+  include_tasks: tools.yml
 
 - name: Install and configure GPG
-  include: gpg.yml
+  include_tasks: gpg.yml
 
 - name: Install and configure tmux
-  include: tmux.yml
+  include_tasks: tmux.yml
+
+- name: Remove default /etc/issue.d/*
+  include_tasks: issue.yml
 
 - name: Install latest version of Neofetch on Debian
-  include: neofetch-debian.yml
+  include_tasks: neofetch-debian.yml
   when: ansible_distribution == 'Debian'
 
 - name: Install latest version of Neofetch on Ubuntu
-  include: neofetch-ubuntu.yml
+  include_tasks: neofetch-ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install latest version of Neofetch using YUM
-  include: neofetch-yum.yml
+  include_tasks: neofetch-yum.yml
   when: ansible_pkg_mgr == 'yum'
 
 - name: Install latest version of Neofetch using DNF
-  include: neofetch-dnf.yml
+  include_tasks: neofetch-dnf.yml
   when: ansible_pkg_mgr == 'dnf'
