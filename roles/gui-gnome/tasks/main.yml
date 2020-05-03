@@ -30,6 +30,11 @@
     group: james
     mode: 0644
 
+- name: install psutil Python package
+  package:
+    name: python3-psutil
+    state: latest
+
 - name: include application settings vars
   include_vars: "../vars/main.yml"
 
