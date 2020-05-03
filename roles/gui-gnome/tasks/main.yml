@@ -34,7 +34,10 @@
   include_vars: "../vars/main.yml"
 
 - name: Modify application settings using dconf
-  shell: "dconf write {{ item.key }} {{ item.value }}"
+  dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
   become: yes
   become_user: "{{ gnome_user }}"
-  with_items: "{{ gnome_dconf|default([]) }}"
+  loop: "{{ gnome_dconf }}"
