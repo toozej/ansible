@@ -36,12 +36,8 @@
     enabled: "{{ docker_service_enabled }}"
   when: (ansible_service_mgr == "systemd") or (ansible_service_mgr == "upstart")
 
-# https://github.com/docker/for-linux/issues/955#issuecomment-620932240
-- name: add Docker interface to trusted firewall zone
-  shell: |
-    firewall-cmd --permanent --zone=trusted --add-interface=docker0
-    firewall-cmd --reload
-  when: ansible_distribution == "Fedora"
+- include_tasks: setup-Fedora.yml
+  when: ansible_distribution == 'Fedora'
 
 - name: Ensure handlers are notified now to avoid firewall conflicts.
   meta: flush_handlers

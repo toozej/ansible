@@ -1,0 +1,16 @@
+---
+- name: ensure Grubby utility is installed
+  package:
+    name: grubby
+    state: latest
+
+- name: disable cgroups v2
+  shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+  become: yes
+
+# https://github.com/docker/for-linux/issues/955#issuecomment-620932240
+- name: add Docker interface to trusted firewall zone
+  shell: |
+    firewall-cmd --permanent --zone=trusted --add-interface=docker0
+    firewall-cmd --reload
+  when: ansible_distribution == "Fedora"
