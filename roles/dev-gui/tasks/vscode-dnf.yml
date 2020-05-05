@@ -11,5 +11,5 @@
 
 - name: install latest version of vscode editor via DNF
   dnf:
-    name: vscode
+    name: code
     state: present

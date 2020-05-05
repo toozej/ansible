@@ -11,5 +11,5 @@
 
 - name: install latest version of vscode editor via Yum
   yum:
-    name: vscode
+    name: code
     state: present
