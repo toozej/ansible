@@ -1,0 +1,17 @@
+---
+# Playbook to setup a vpn server
+- name: Setup minimum environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: ansible-enablement
+    - role: user
+    - role: unattended-upgrades
+
+- name: Setup vpn server
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: wireguard

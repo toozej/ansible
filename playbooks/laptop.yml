@@ -44,6 +44,7 @@
     - role: audio-gui
     - role: office
     - role: openvpn-client
+    - role: wireguard
     - role: photography
 
 - name: Setup minimal dev environment
