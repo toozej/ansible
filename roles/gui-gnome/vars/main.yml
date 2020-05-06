@@ -2,9 +2,9 @@
 gnome_dconf:
   - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']"
-  - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/www
+  - key: /org/gnome/settings-daemon/plugins/media-keys/www
     value: "['<Primary><Alt>w']"
-  - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/home
+  - key: /org/gnome/settings-daemon/plugins/media-keys/home
     value: "['<Primary><Alt>e']"
   - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding
     value: "'<Primary><Alt>t'"
