@@ -20,6 +20,9 @@
   flatpak:
     name: com.valvesoftware.Steam
     state: present
+  register: install_steam
+  until: install_steam is not failed
+  retries: 5
 
 - name: "apt | pre-requisites for installing Lutris on Debian"
   include: lutris-debian.yml
@@ -39,8 +42,14 @@
   flatpak:
     name: org.libretro.RetroArch
     state: present
+  register: install_retroarch
+  until: install_retroarch is not failed
+  retries: 5
 
 - name: "flatpak | install latest version of Athenaeum"
   flatpak:
     name: com.gitlab.librebob.Athenaeum
     state: present
+  register: install_athenaeum
+  until: install_athenaeum is not failed
+  retries: 5

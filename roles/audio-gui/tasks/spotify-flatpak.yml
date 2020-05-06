@@ -3,3 +3,6 @@
   flatpak:
     name: com.spotify.Client
     state: present
+  register: install_spotify
+  until: install_spotify is not failed
+  retries: 5
