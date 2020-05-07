@@ -91,6 +91,6 @@
     path: "{{ home_dir_path }}/.vim/.git/config"
     regexp: '^\t url = https://github.com/toozej/vimfiles.git'
     insertafter: '^[remote "origin"]'
-    line: '\t url = git@github.com:toozej/vimfiles.git'
+    line: "\turl = git@github.com:toozej/vimfiles.git"
   when: (clone_or_pull.changed == True) and (not ansible_check_mode)
   tags: ci
