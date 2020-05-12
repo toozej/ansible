@@ -1,0 +1,50 @@
+---
+- name: Download Zoom gpg signing key
+  get_url:
+    url: https://zoom.us/linux/download/pubkey
+    dest: /tmp/zoom.pub
+    force: yes
+
+- name: Install Zoom gpg signing key for Debian-based systems
+  apt_key:
+    file: /tmp/zoom.pub
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Download latest version of Zoom for Debian-based systems
+  get_url:
+    url: https://zoom.us/client/latest/zoom_amd64.deb
+    dest: /tmp/zoom.deb
+    force: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Install latest version of Zoom for Debian-based systems
+  apt:
+    deb: /tmp/zoom.deb
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install Zoom gpg signing key for RedHat-based systems
+  rpm_key:
+    key: /tmp/zoom.pub
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Download latest version of Zoom for RedHat-based systems
+  get_url:
+    url: https://zoom.us/client/latest/zoom_x86_64.rpm
+    dest: /tmp/zoom.rpm
+    force: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Install latest version of Zoom using DNF
+  dnf:
+    name: /tmp/zoom.rpm
+    state: present
+  when: ansible_pkg_mgr == 'dnf'
+
+- name: Install latest version of Zoom using YUM
+  yum:
+    name: /tmp/zoom.rpm
+    state: present
+  when: ansible_pkg_mgr == 'yum'
