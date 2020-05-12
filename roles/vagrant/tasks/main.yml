@@ -16,8 +16,6 @@
 
 - name: Install vagrant libvirt provider on modern distros
   include: vagrant_providers_libvirt.yml
-  when: not (ansible_distribution == 'CentOS' and ansible_distribution_version is version_compare(7,'>='))
 
 - name: Install vagrant plugins on modern distros
   include: vagrant_plugins.yml
-  when: not (ansible_distribution == 'CentOS' and ansible_distribution_version is version_compare(7,'>='))
