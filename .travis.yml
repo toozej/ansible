@@ -35,6 +35,8 @@ before_install:
   - sudo pip3 list
   # setup the james user
   - sudo useradd -m -c "james" james -s /bin/bash
+  # install Gnome
+  - sudo apt-get install -y gnome-session gdm3
 
 install:
   # Install Ansible.
