@@ -20,14 +20,6 @@
     name: "{{ nss_tools_package_name }}"
     state: latest
 
-- name: Install pre-commit and pre-commit hooks using Pip
-  pip:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - pre-commit
-    - pre-commit-hooks
-
 - name: include wuzz defaults
   include_vars:
     file: ../defaults/wuzz.yml
