@@ -3,6 +3,7 @@
   docker_image:
     name: karmab/kcli
     tag: latest
+    source: pull
 
 - name: create ~/.kcli
   file:
