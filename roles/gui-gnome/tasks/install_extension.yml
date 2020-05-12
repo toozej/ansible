@@ -35,6 +35,7 @@
 
     - name: Enable Gnome Shell extension - {{ gnome_extension_info.name }}
       command: gnome-extensions enable {{ gnome_extension_info.uuid }}
+      when: gnome_shell_version.split(".")[0] | int == '3' && gnome_shell_version.split(".")[1] | int <= '36'
   always:
     - name: Delete temporary download directory
       file:
