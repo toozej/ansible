@@ -16,7 +16,6 @@
     - {role: ../roles/dev-gui}
     - {role: ../roles/dev-ansible}
     - {role: ../roles/dev-go}
-    - {role: ../roles/dev-kubernetes}
     - {role: ../roles/dev-python}
     - {role: ../roles/dev-ruby}
     - {role: ../roles/docker}
@@ -34,6 +33,8 @@
     - {role: ../roles/vagrant}
     - {role: ../roles/virt-server}
     - {role: ../roles/vm}
+    # dev-kubernetes requires kvm
+    - {role: ../roles/dev-kubernetes}
     - {role: ../roles/wireguard}
     - {role: ../roles/wine}
     # explicitly including hardening last since its a WIP and might screw up connectivity to the test box

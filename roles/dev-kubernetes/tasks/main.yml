@@ -1,6 +1,6 @@
 ---
 - name: install dev Kubernetes environment on Linux
-  include: mac.yml
+  include: linux.yml
   when: ansible_os_family != 'Darwin'
 
 - name: install dev Kubernetes environment on MacOS
