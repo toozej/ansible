@@ -10,6 +10,11 @@
       skip: True
   when: (wireguard_package_name is not defined)
 
+- name: install wireguard ppa repo on older Ubuntu versions
+  apt_repository:
+    repo: ppa:wireguard/wireguard
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version is version_compare(19,'>=')
+
 - name: install wireguard package
   package:
     name: "{{ wireguard_package_name }}"
