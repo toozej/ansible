@@ -38,6 +38,7 @@
 - name: include application settings vars
   include_vars: "../vars/main.yml"
 
+# dconf has issues with Travis' CI environment, so skip it there
 - name: Modify application settings using dconf
   dconf:
     key: "{{ item.key }}"
@@ -46,3 +47,4 @@
   become: yes
   become_user: "{{ gnome_user }}"
   loop: "{{ gnome_dconf }}"
+  tags: ci
