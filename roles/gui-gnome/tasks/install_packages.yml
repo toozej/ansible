@@ -17,3 +17,9 @@
   package:
     name: chrome-gnome-shell
     state: latest
+
+- name: Install dconf binary
+  package:
+    name: dconf-cli
+    state: latest
+  when: ansible_os_family == 'Debian'
