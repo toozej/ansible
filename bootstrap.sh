@@ -18,9 +18,9 @@ function usage {
 }
 
 function set_defaults {
-	CHECK=false
-	RUN=false
-	DEBUG=false
+    CHECK=false
+    RUN=false
+    DEBUG=false
     ANSIBLE_REPO_DIR=/tmp/ansible
 }
 
@@ -55,45 +55,45 @@ done
 echo -e "determining OS and distro, then installing python, git, and ansible packages\n"
 # if Debian-based
 if [ -f /etc/debian_version ]; then
-        os="Debian $(cat /etc/debian_version)"
-        apt-get update
-        apt-get install -y git python3-apt dirmngr --install-recommends
-        echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu bionic main" > /etc/apt/sources.list.d/ansible.list
-        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-        apt-get update
-        apt-get install -y ansible
+    os="Debian $(cat /etc/debian_version)"
+    apt-get update
+    apt-get install -y git python3-pip python3-apt dirmngr --install-recommends
+    echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu bionic main" > /etc/apt/sources.list.d/ansible.list
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+    apt-get update
+    apt-get install -y ansible
 
 # if Fedora
 elif [ -f /etc/fedora-release ]; then
-        os=`cat /etc/fedora-release`
-        dnf install -y git ansible python3-dnf
+    os=`cat /etc/fedora-release`
+    dnf install -y git ansible python3-dnf
 
 # if RedHat-based
 elif [ -f /etc/redhat-release ]; then
-        os=`cat /etc/redhat-release`
-        if [[ $os == *"release 8."* ]]; then
-          epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-          dnf install -y python3
-        fi
-        dnf install -y $epel_rpm
-        dnf install -y git ansible
+    os=`cat /etc/redhat-release`
+    if [[ $os == *"release 8."* ]]; then
+      epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+      dnf install -y python3
+    fi
+    dnf install -y $epel_rpm
+    dnf install -y git ansible
 
 # if ArchLinux-based
 elif [ -f /etc/arch-release ]; then
-        os="archlinux"
-        pacman -S ansible git python3
+    os="archlinux"
+    pacman -S ansible git python3
 
 # if MacOS-based
 elif [ "$(uname)" == "Darwin" ]; then
-        os="mac"
-        # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
-        ANSIBLE_REPO_DIR=~/tmp/ansible
-        easy_install pip
-        pip install ansible
+    os="mac"
+    # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
+    ANSIBLE_REPO_DIR=~/tmp/ansible
+    easy_install pip
+    pip install ansible
 
 # otherwise...
 else
-        os="$(uname -s) $(uname -r)"
+    os="$(uname -s) $(uname -r)"
 fi
 
 # download and configure ansible on localhost
