@@ -53,11 +53,8 @@ done
 
 
 echo -e "determining OS and distro, then installing python, git, and ansible packages\n"
-if [ -f /etc/lsb-release ]; then
-        os=$(lsb_release -s -d)
-
 # if Debian-based
-elif [ -f /etc/debian_version ]; then
+if [ -f /etc/debian_version ]; then
         os="Debian $(cat /etc/debian_version)"
         apt-get update
         apt-get install -y git python3-apt dirmngr --install-recommends
