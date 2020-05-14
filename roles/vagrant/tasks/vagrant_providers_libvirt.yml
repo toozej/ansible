@@ -9,11 +9,14 @@
     dest: /home/james/VMs/vagrant/libvirt_template/
     state: directory
     recurse: yes
+    owner: james
+    group: james
+    mode: 0644
 
 - name: lay out libvirt Vagrantfile template
   template:
     src: Vagrantfile_libvirt
-    dest: /home/james/VMs/vagrant/libvirt_template/Vagranfile
+    dest: /home/james/VMs/vagrant/libvirt_template/Vagrantfile
     owner: james
     group: james
     mode: 0644
