@@ -13,4 +13,5 @@
   shell: |
     firewall-cmd --permanent --zone=trusted --add-interface=docker0
     firewall-cmd --reload
+  become: yes
   when: ansible_distribution == "Fedora"
