@@ -29,6 +29,9 @@
     state: present
   when: ansible_distribution_release == "buster" or ansible_distribution_release == "bullseye"
 
+- include_tasks: setup-Fedora.yml
+  when: ansible_distribution == 'Fedora'
+
 # Docker must be stopped to work Docker in Docker (testing with Jenkins)
 - name: Ensure Docker is stopped and enabled at boot.
   service:
@@ -36,9 +39,6 @@
     state: "{{ docker_service_state }}"
     enabled: "{{ docker_service_enabled }}"
   when: (ansible_service_mgr == "systemd") or (ansible_service_mgr == "upstart")
-
-- include_tasks: setup-Fedora.yml
-  when: ansible_distribution == 'Fedora'
 
 - name: Ensure handlers are notified now to avoid firewall conflicts.
   meta: flush_handlers
