@@ -9,7 +9,7 @@
 
 - name: switch firewalld to iptables
   shell: sed -i 's/FirewallBackend=nftables/FirewallBackend=iptables/g' /etc/firewalld/firewalld.conf
-  notify: restart_firewalld
+  notify: restart firewalld
 
 # https://github.com/docker/for-linux/issues/955#issuecomment-620932240
 - name: add Docker interface to trusted firewall zone
