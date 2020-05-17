@@ -7,7 +7,8 @@
 - name: disable cgroups v2
   shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
 
-- name: switch firewalld to iptables
+# https://pastebin.com/Zq3Gev7w
+- name: switch firewalld to iptables to support Docker
   shell: sed -i 's/FirewallBackend=nftables/FirewallBackend=iptables/g' /etc/firewalld/firewalld.conf
   notify: restart firewalld
 
