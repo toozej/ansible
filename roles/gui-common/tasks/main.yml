@@ -10,6 +10,11 @@
     name: remmina
     state: latest
 
+- name: Install latest version of xournal PDF editor
+  package:
+    name: xournal
+    state: latest
+
 - name: Install latest version of Terminator
   package:
     name: terminator
