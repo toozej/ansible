@@ -1,0 +1,33 @@
+---
+# Playbook to setup a multi-purpose server
+- name: Setup common environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: ansible-enablement
+    - role: user
+    - role: common
+    - role: unattended-upgrades
+    - role: hardening
+
+- name: Setup file server
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: file-server
+
+- name: Setup Docker environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: docker
+
+- name: Setup virt server
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: virt-server
