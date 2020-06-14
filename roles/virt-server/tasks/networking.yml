@@ -14,7 +14,7 @@
     name: NetworkManager
     state: stopped
     enabled: false
-  when: "'NetworkManager' in services"
+  when: "'NetworkManager.service' in services"
 
 - name: unlink NetworkManager-created /etc/resolv.conf
   file:
