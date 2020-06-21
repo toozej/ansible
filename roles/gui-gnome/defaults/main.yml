@@ -7,3 +7,5 @@ gnome_extension_ids:
   - 307
   # hide-top-bar
   - 545
+  # lock screen background
+  - 1476

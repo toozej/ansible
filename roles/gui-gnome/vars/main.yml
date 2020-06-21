@@ -61,7 +61,7 @@ gnome_dconf:
   - key: /org/gnome/shell/app-picker-view
     value: "uint32 1"
   - key: /org/gnome/shell/enabled-extensions
-    value: "['background-logo@fedorahosted.org', 'dash-to-dock@micxgx.gmail.com', 'caffeine@patapon.info', 'hidetopbar@mathieu.bidon.ca']"
+    value: "['background-logo@fedorahosted.org', 'dash-to-dock@micxgx.gmail.com', 'caffeine@patapon.info', 'hidetopbar@mathieu.bidon.ca', 'unlockDialogBackground@sun.wxg@gmail.com']"
   - key: /org/gnome/shell/favorite-apps
     value: "['google-chrome.desktop', 'firefox.desktop', 'slack.desktop', 'org.gnome.Nautilus.desktop', 'terminator.desktop', 'simplenote.desktop', 'com.spotify.Client.desktop', 'org.remmina.Remmina.desktop']"
   - key: /org/gnome/shell/extensions/caffeine/show-notifications
@@ -80,6 +80,8 @@ gnome_dconf:
     value: "true"
   - key: /org/gnome/shell/extensions/hidetopbar/mouse-sensitive
     value: "true"
+  - key: /org/gnome/shell/extensions/unlock-dialog-background/picture-uri
+    value: "'/home/james/.local/share/backgrounds/2019-10-29-11-03-25-tokyo_street_night_by_arsenixc_dbbpqj5.jpg'"
   - key: /org/gnome/shell/weather/automatic-location
     value: "true"
   - key: /org/gnome/shell/weather/locations
