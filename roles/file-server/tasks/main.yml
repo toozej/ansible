@@ -30,3 +30,11 @@
     owner: root
     group: root
     mode: 0744
+
+- name: install latest versions of misc tools
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - rsync
+    - inotify-tools
