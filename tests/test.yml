@@ -15,6 +15,7 @@
     - {role: ../roles/dev-common}
     - {role: ../roles/dev-gui}
     - {role: ../roles/dev-ansible}
+    - {role: ../roles/dev-aws}
     - {role: ../roles/dev-go}
     - {role: ../roles/dev-python}
     - {role: ../roles/dev-ruby}

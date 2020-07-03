@@ -23,6 +23,7 @@
   become_user: root
   roles:
     - role: java
+    - role: dev-aws
     - role: dev-ansible
     - role: dev-go
     - role: dev-kubernetes
