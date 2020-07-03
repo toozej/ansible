@@ -1,1 +1,15 @@
 ---
+- name: download awscli
+  get_url:
+    src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp/awscli.zip
+    mode: '0644'
+
+- name: extract awscli zip
+  unarchive:
+    src: /tmp/awscli.zip
+    dest: /tmp/
+    remote_src: true
+
+- name: install awscli
+  shell: "/tmp/aws/install"
