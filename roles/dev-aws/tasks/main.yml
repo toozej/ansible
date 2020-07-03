@@ -1,7 +1,7 @@
 ---
 - name: download awscli
   get_url:
-    src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: /tmp/awscli.zip
     mode: '0644'
 
