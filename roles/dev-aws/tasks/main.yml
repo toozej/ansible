@@ -13,3 +13,39 @@
 
 - name: install awscli
   shell: "/tmp/aws/install"
+
+- name: make ~/.aws dir
+  file:
+    path: /home/james/.aws/
+    state: directory
+    owner: james
+    group: james
+    mode: '0644'
+
+- name: check for existence of ~/.aws/config
+  stat:
+    path: "/home/james/.aws/config"
+  register: aws_config
+
+- name: check for existence of ~/.aws/credentials
+  stat:
+    path: "/home/james/.aws/credentials"
+  register: aws_credentials
+
+- name: lay out localstack-compatible ~/.aws/config
+  copy:
+    src: config
+    dest: /home/james/.aws/config
+    owner: james
+    group: james
+    mode: '0600'
+  when: aws_config.stat.exists == False
+
+- name: lay out localstack-compatible ~/.aws/credentials
+  copy:
+    src: credentials
+    dest: /home/james/.aws/credentials
+    owner: james
+    group: james
+    mode: '0600'
+  when: aws_credentials.stat.exists == False
