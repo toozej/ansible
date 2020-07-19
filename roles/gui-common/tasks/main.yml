@@ -34,6 +34,11 @@
     group: james
     mode: 0644
 
+- name: Install latest version of Calibre
+  package:
+    name: calibre
+    state: latest
+
 - name: Install latest version of CA certificates
   package:
     name: ca-certificates
