@@ -6,3 +6,4 @@ ag_package_name: the_silver_searcher
 p7zip_package_name: p7zip
 pip3_package_name: python3-pip
 gnupg_package_name: gpg2
+dig_package_name: bind-utils

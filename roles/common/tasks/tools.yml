@@ -9,7 +9,7 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: True
-  when: (ag_package_name is not defined) or (pip3_package_name is not defined) or (p7zip_package_name is not defined)
+  when: (ag_package_name is not defined) or (pip3_package_name is not defined) or (p7zip_package_name is not defined) or (dig_package_name is not defined)
 
 - name: install the latest versions of system monitoring utilities
   package:
@@ -22,6 +22,7 @@
     - ncdu
     - lshw
     - net-tools
+    - "{{ dig_package_name }}"
 
 - name: install packages except on CentOS
   package:
