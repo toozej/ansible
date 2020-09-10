@@ -58,9 +58,9 @@
 - name: set git config URL on dotfiles
   lineinfile:
     path: "{{ home_dir_path }}/dotfiles/.git/config"
-    regexp: '^\t url = https://github.com/toozej/dotfiles.git'
+    regexp: "^\t url = https://github.com/toozej/dotfiles.git"
     insertafter: '^[remote "origin"]'
-    line: '\t url = git@github.com:toozej/dotfiles.git'
+    line: "\t url = git@github.com:toozej/dotfiles.git"
   when: (clone_or_pull.changed == True) and (not ansible_check_mode)
 
 # TODO: fix this for Travis runs, works great with KCLI
