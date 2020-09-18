@@ -45,7 +45,6 @@ homebrew_taps:
 
 homebrew_cask_apps:
   - alfred
-  - atom
   - balenaetcher
   - beardedspice
   - docker
@@ -64,6 +63,9 @@ homebrew_cask_apps:
   - muzzle
   - plexamp
   - plex-media-player
+  - pycharm-ce
+  - qmk-toolbox
+  - sensiblesidebuttons
   - scroll-reverser
   - simplenote
   - slack
@@ -73,6 +75,7 @@ homebrew_cask_apps:
   - tunnelblick
   - turbo-boost-switcher
   - vagrant
+  - visual-studio-code
   - virtualbox
   - virtualbox-extension-pack
   - vlc

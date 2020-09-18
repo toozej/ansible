@@ -74,9 +74,14 @@ elif [ -f /etc/redhat-release ]; then
     if [[ $os == *"release 8."* ]]; then
       epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
       dnf install -y python3
+      dnf install -y $epel_rpm
+      dnf install -y git ansible
+    elif [[ $os == *"release 7."* ]]; then
+      epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+      yum install -y python3
+      yum install -y $epel_rpm
+      yum install -y git ansible
     fi
-    dnf install -y $epel_rpm
-    dnf install -y git ansible
 
 # if ArchLinux-based
 elif [ -f /etc/arch-release ]; then
