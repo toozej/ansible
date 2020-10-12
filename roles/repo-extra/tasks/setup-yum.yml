@@ -1,4 +1,10 @@
 ---
+- name: import rpmfusion repo GPG keys for RedHat
+  rpm_key:
+    state: present
+    key: ['https://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-free-el-{{ ansible_distribution_major_version|int }}', 'https://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-nonfree-el-{{ ansible_distribution_major_version|int }}']
+  when: (ansible_distribution == 'RedHat') or (ansible_distribution == 'CentOS')
+
 - name: install rpmfusion yum repo for RedHat
   yum:
     name: ['http://download1.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version|int }}.noarch.rpm', 'http://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version|int }}.noarch.rpm']
