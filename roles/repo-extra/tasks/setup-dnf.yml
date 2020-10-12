@@ -1,11 +1,22 @@
 ---
+- name: upload rpmfusion repo GPG keys for Fedora
+  copy:
+    src: "files/{{ item }}"
+    dest: "/tmp/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - "RPM-GPG-KEY-rpmfusion-free-fedora-32"
+    - "RPM-GPG-KEY-rpmfusion-nonfree-fedora-32"
+
 - name: import rpmfusion repo GPG keys for Fedora
   rpm_key:
     state: present
     key: "{{ item }}"
   with_items:
-    - "7BDA98EF593050A34B1697ABA0EE9D83100BCD92"
-    - "FE5A9393CB6E271B5A90CC1B0D9A76996DC1BE18"
+    - "/tmp/RPM-GPG-KEY-rpmfusion-free-fedora-32"
+    - "/tmp/RPM-GPG-KEY-rpmfusion-nonfree-fedora-32"
   when: ansible_distribution == 'Fedora'
 
 - name: install rpmfusion repo using dnf for Fedora
@@ -16,13 +27,24 @@
     update_cache: True
   when: ansible_distribution == 'Fedora'
 
+- name: upload rpmfusion repo GPG keys for RedHat
+  copy:
+    src: "files/{{ item }}"
+    dest: "/tmp/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - "RPM-GPG-KEY-rpmfusion-free-el-8"
+    - "RPM-GPG-KEY-rpmfusion-nonfree-el-8"
+
 - name: import rpmfusion repo GPG keys for RedHat
   rpm_key:
     state: present
     key: "{{ item }}"
   with_items:
-    - "837935CD19E123AA7F8A8E69979F0C69158B3811"
-    - "CF9FD59F61D6612146CDAC8E14B6792DBDDA8475"
+    - "/tmp/RPM-GPG-KEY-rpmfusion-free-el-8"
+    - "/tmp/RPM-GPG-KEY-rpmfusion-nonfree-el-8"
   when: (ansible_distribution == 'RedHat') or (ansible_distribution == 'CentOS')
 
 - name: install rpmfusion repo using dnf for RedHat
