@@ -1,23 +1,11 @@
 ---
-- name: download rpmfusion repo GPG keys for Fedora
-  get_url:
-    url: "{{ item }}"
-    dest: "/tmp/"
-    force: true
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    - "https://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}"
-    - "https://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-{{ ansible_distribution_version }}"
-  register: rpmfusiongpgkeys
-
 - name: import rpmfusion repo GPG keys for Fedora
   rpm_key:
     state: present
     key: "{{ item }}"
   with_items:
-    - "{{ rpmfusiongpgkeys.dest }}"
+    - "7BDA98EF593050A34B1697ABA0EE9D83100BCD92"
+    - "FE5A9393CB6E271B5A90CC1B0D9A76996DC1BE18"
   when: ansible_distribution == 'Fedora'
 
 - name: install rpmfusion repo using dnf for Fedora
@@ -28,25 +16,13 @@
     update_cache: True
   when: ansible_distribution == 'Fedora'
 
-- name: download rpmfusion repo GPG keys for RedHat
-  get_url:
-    url: "{{ item }}"
-    dest: "/tmp/"
-    force: true
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    - "https://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-free-el-{{ ansible_distribution_major_version|int }}"
-    - "https://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-nonfree-el-{{ ansible_distribution_major_version|int }}"
-  register: rpmfusiongpgkeys
-
 - name: import rpmfusion repo GPG keys for RedHat
   rpm_key:
     state: present
     key: "{{ item }}"
   with_items:
-    - "{{ rpmfusiongpgkeys.dest }}"
+    - "837935CD19E123AA7F8A8E69979F0C69158B3811"
+    - "CF9FD59F61D6612146CDAC8E14B6792DBDDA8475"
   when: (ansible_distribution == 'RedHat') or (ansible_distribution == 'CentOS')
 
 - name: install rpmfusion repo using dnf for RedHat
