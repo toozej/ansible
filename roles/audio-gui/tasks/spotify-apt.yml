@@ -1,6 +1,6 @@
 ---
 - name: Add Apt Keys (2019-08-15)
-  apt_key: url=https://download.spotify.com/debian/pubkey.gpg id=130D1D45 state=present
+  apt_key: url=https://download.spotify.com/debian/pubkey_0D811D58.gpg id=0D811D58 state=present
 
 - name: Add repository
   apt_repository: repo='deb http://repository.spotify.com stable non-free'
