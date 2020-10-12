@@ -1,29 +1,15 @@
 ---
 # Playbook to setup a desktop system with full toolchain
-- name: Setup common environment
+- import_playbook: common.yml
+- import_playbook: virt-server.yml
+- import_playbook: gnome.yml
+
+- name: Setup desktop environment
   hosts: all
   become: true
   become_user: root
   roles:
-    - role: ansible-enablement
-    - role: user
-    - role: common
     - role: flatpak
-
-- name: Setup Docker environment
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: docker
-
-- name: Setup GUI
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: gui-common
-    - role: gui-gnome
 
 - name: Setup programs and tools
   hosts: all
