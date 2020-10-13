@@ -27,10 +27,12 @@
   dnf:
     name: /tmp/simplenote.rpm
     state: present
+    disable_gpg_check: true
   when: ansible_pkg_mgr == 'dnf'
 
 - name: Install latest version of Simplenote using YUM
   yum:
     name: /tmp/simplenote.rpm
     state: present
+    disable_gpg_check: true
   when: ansible_pkg_mgr == 'yum'
