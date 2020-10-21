@@ -39,6 +39,11 @@
     name: calibre
     state: latest
 
+- name: Install latest version of Speedcrunch
+  package:
+    name: speedcrunch
+    state: latest
+
 - name: Install latest version of CA certificates
   package:
     name: ca-certificates
