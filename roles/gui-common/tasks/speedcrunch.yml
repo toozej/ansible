@@ -1,0 +1,24 @@
+---
+- name: Install latest version of Speedcrunch
+  package:
+    name: speedcrunch
+    state: latest
+  failed_when: false
+  register: speedcrunch
+
+- name: install speedcrunch via generic deb when package not found in distro repos
+  apt:
+    deb: https://bitbucket.org/heldercorreia/speedcrunch/downloads/SpeedCrunch-0.12-linux64.deb
+  when: (ansible_pkg_mgr == 'apt') and (speedcrunch.rc != 0)
+
+- name: install speedcrunch with yum via generic rpm when package not found in distro repos
+  yum:
+    name: https://bitbucket.org/heldercorreia/speedcrunch/downloads/SpeedCrunch-0.12-linux64.rpm
+    state: present
+  when: (ansible_pkg_mgr == 'dnf') and (speedcrunch.rc != 0)
+
+- name: install speedcrunch with yum via generic rpm when package not found in distro repos
+  yum:
+    name: https://bitbucket.org/heldercorreia/speedcrunch/downloads/SpeedCrunch-0.12-linux64.rpm
+    state: present
+  when: (ansible_pkg_mgr == 'yum') and (speedcrunch.rc != 0)
