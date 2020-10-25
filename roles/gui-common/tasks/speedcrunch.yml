@@ -11,14 +11,16 @@
     deb: https://bitbucket.org/heldercorreia/speedcrunch/downloads/SpeedCrunch-0.12-linux64.deb
   when: (ansible_pkg_mgr == 'apt') and (speedcrunch.rc != 0)
 
-- name: install speedcrunch with yum via generic rpm when package not found in distro repos
-  yum:
+- name: install speedcrunch with dnf via generic rpm when package not found in distro repos
+  dnf:
     name: https://bitbucket.org/heldercorreia/speedcrunch/downloads/SpeedCrunch-0.12-linux64.rpm
     state: present
+    disable_gpg_check: true
   when: (ansible_pkg_mgr == 'dnf') and (speedcrunch.rc != 0)
 
 - name: install speedcrunch with yum via generic rpm when package not found in distro repos
   yum:
     name: https://bitbucket.org/heldercorreia/speedcrunch/downloads/SpeedCrunch-0.12-linux64.rpm
     state: present
+    disable_gpg_check: true
   when: (ansible_pkg_mgr == 'yum') and (speedcrunch.rc != 0)
