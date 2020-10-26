@@ -46,6 +46,7 @@
     - gimp
     - gimp-lensfun
     - "{{ greycstoration_gimp_package_name }}"
+  failed_when: false
 
 - name: install latest version of gimp plugins for Fedora only
   package:
@@ -55,4 +56,5 @@
     - gimp-dbp
     - gimp-heif-plugin
     - gimp-focusblur-plugin
+  failed_when: false
   when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
