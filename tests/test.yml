@@ -1,4 +1,11 @@
 # test playbook
+- hosts: localhost
+  connection: local
+  pre_tasks:
+    - name: Set BasePlaybook Fact
+      set_fact:
+        BasePlaybook: "{{ ansible_play_name }}"
+      when: BasePlaybook is not defined
 
 - hosts: localhost
   connection: local
