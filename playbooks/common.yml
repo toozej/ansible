@@ -1,5 +1,12 @@
 ---
 # Playbook to setup a common environment for system bootstrapping
+- hosts: all
+  pre_tasks:
+    - name: Set BasePlaybook Fact
+      set_fact:
+        BasePlaybook: "{{ ansible_play_name }}"
+      when: BasePlaybook is not defined
+
 - name: Setup common environment
   hosts: all
   become: true

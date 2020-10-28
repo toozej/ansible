@@ -1,5 +1,12 @@
 ---
 # Playbook to setup a desktop system with full toolchain
+- hosts: all
+  pre_tasks:
+    - name: Set BasePlaybook Fact
+      set_fact:
+        BasePlaybook: "{{ ansible_play_name }}"
+      when: BasePlaybook is not defined
+
 - import_playbook: common.yml
 - import_playbook: virt-server.yml
 - import_playbook: gnome.yml

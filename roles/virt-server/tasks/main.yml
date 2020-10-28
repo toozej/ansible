@@ -1,7 +1,7 @@
 ---
 - name: disable NetworkManager
   include: networking.yml
-  when: ansible_play_name != "laptop.yml"
+  when: BasePlaybook != "laptop.yml"
 
 - name: install latest version of ethtool package
   package:

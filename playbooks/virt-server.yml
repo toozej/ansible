@@ -1,5 +1,12 @@
 ---
 # Playbook to setup a KVM-QEMU virtualization host
+- hosts: all
+  pre_tasks:
+    - name: Set BasePlaybook Fact
+      set_fact:
+        BasePlaybook: "{{ ansible_play_name }}"
+      when: BasePlaybook is not defined
+
 - name: Setup Docker environment
   hosts: all
   become: true
