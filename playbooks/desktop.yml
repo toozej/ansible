@@ -4,7 +4,7 @@
   pre_tasks:
     - name: Set BasePlaybook Fact
       set_fact:
-        BasePlaybook: "{{ ansible_play_name }}"
+        BasePlaybook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
       when: BasePlaybook is not defined
 
 - import_playbook: common.yml
