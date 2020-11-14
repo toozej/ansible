@@ -38,6 +38,20 @@
     state: latest
   when: (ansible_distribution != 'CentOS')
 
+- name: install latest version of Mumble
+  package:
+    name: mumble
+    state: latest
+  when: (ansible_distribution != 'CentOS')
+
+- name: "flatpak | install latest version of Discord"
+  flatpak:
+    name: com.discordapp.Discord
+    state: present
+  register: install_discord
+  until: install_discord is not failed
+  retries: 5
+
 - name: "flatpak | install latest version of RetroArch"
   flatpak:
     name: org.libretro.RetroArch
