@@ -44,6 +44,12 @@
     state: latest
   when: (ansible_distribution != 'CentOS')
 
+- name: install latest version of Corectrl
+  package:
+    name: corectrl
+    state: latest
+  when: (ansible_distribution == 'Fedora')
+
 - name: "flatpak | install latest version of Discord"
   flatpak:
     name: com.discordapp.Discord
