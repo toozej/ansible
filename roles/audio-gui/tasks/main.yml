@@ -37,3 +37,13 @@
     name: plex-media-player
     state: latest
   when: ansible_os_family == "RedHat"
+
+- name: install openh264 from Fedora Cisco repo
+  dnf:
+    enablerepo: fedora-cisco-openh264
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "gstreamer1-plugin-openh264"
+    - "mozilla-openh264"
+  when: ansible_distribution == 'Fedora'
