@@ -1,7 +1,7 @@
 ---
 - name: pull latest kcli docker image
   docker_image:
-    name: karmab/kcli
+    name: quay.io/karmab/kcli
     tag: latest
     source: pull
 
