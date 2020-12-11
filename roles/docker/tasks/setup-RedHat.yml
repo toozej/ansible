@@ -22,18 +22,4 @@
 
 - name: if using unsupported distribution version for Docker, replace with working one
   shell: sed -i -e 's/$releasever/{{ docker_supported_distribution_version }}/g' /etc/yum.repos.d/docker-{{ docker_edition }}.repo
-  when: (ansible_distribution == "Fedora" and ansible_distribution_version == "32") or (ansible_distribution == "Fedora" and ansible_distribution_version == "33")
-
-- name: Configure Docker Edge repo.
-  ini_file:
-    dest: '/etc/yum.repos.d/docker-{{ docker_edition }}.repo'
-    section: 'docker-{{ docker_edition }}-edge'
-    option: enabled
-    value: '{{ docker_yum_repo_enable_edge }}'
-
-- name: Configure Docker Test repo.
-  ini_file:
-    dest: '/etc/yum.repos.d/docker-{{ docker_edition }}.repo'
-    section: 'docker-{{ docker_edition }}-test'
-    option: enabled
-    value: '{{ docker_yum_repo_enable_test }}'
+  when: (ansible_distribution == "Fedora" and ansible_distribution_version == "33")

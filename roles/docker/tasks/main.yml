@@ -29,9 +29,6 @@
     state: present
   when: ansible_distribution_release == "buster" or ansible_distribution_release == "bullseye"
 
-- include_tasks: setup-Fedora.yml
-  when: ansible_distribution == 'Fedora'
-
 # Docker must be stopped to work Docker in Docker (testing with Jenkins)
 - name: Ensure Docker is stopped and enabled at boot.
   service:
