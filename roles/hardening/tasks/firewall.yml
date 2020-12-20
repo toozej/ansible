@@ -4,6 +4,11 @@
     name: iptables
     state: latest
 
+- name: ensure iptables-persistent is installed
+  package:
+    name: iptables-persistent
+    state: latest
+
 - name: Flush iptables the first time playbook runs.
   command: >
     iptables -F
