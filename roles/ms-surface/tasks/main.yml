@@ -1,0 +1,6 @@
+---
+- name: install packages
+  include_tasks: install-packages.yml
+
+- name: setup systemd
+  include_tasks: setup-systemd.yml

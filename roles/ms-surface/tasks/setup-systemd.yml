@@ -1,0 +1,29 @@
+---
+- name: Enable systemd service for iptsd
+  systemd:
+    name: iptsd
+    enabled: True
+
+- name: Setup systemd service for setting default kernel path
+  copy:
+    src: default-kernel.path
+    dest: /etc/systemd/system/default-kernel.path
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Setup systemd service for setting default kernel service
+  copy:
+    src: default-kernel.service
+    dest: /etc/systemd/system/default-kernel.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: just force systemd to reread configs (2.4 and above)
+  systemd: daemon_reload=yes
+
+- name: enable default kernel path systemd service
+  systemd:
+    name: default-kernel.path
+    enabled: True
