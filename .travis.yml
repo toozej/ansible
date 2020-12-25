@@ -1,6 +1,6 @@
 ---
 sudo: required
-dist: bionic
+dist: focal
 
 language: python
 python: "3.6"
@@ -8,7 +8,7 @@ python: "3.6"
 # Doc: https://docs.travis-ci.com/user/customizing-the-build#Build-Matrix
 env:
   - ANSIBLE_VERSION=latest
-  - ANSIBLE_VERSION=2.9.9
+  - ANSIBLE_VERSION=2.9.16
   - ANSIBLE_VERSION=2.8.6
 
 branches:
