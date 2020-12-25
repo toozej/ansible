@@ -1,5 +1,5 @@
 # defaults file for pycharm
 ---
-pycharm_version: 2020.1
+pycharm_version: 2020.3.1
 pycharm_edition: community
 pycharm_install_prefix: /opt
