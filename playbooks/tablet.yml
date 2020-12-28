@@ -16,6 +16,7 @@
     - role: user
     - role: common
     - role: flatpak
+    - role: fs-common
 
 - name: Setup tablet-specific fixes
   hosts: all

@@ -8,6 +8,7 @@
       when: BasePlaybook is not defined
 
 - import_playbook: common.yml
+- import_playbook: file-server.yml
 - import_playbook: virt-server.yml
 - import_playbook: gnome.yml
 

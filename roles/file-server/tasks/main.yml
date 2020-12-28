@@ -4,16 +4,6 @@
     name: samba
     state: latest
 
-- name: install latest versions of disk wiping and filesystem recovery tools
-  package:
-    name: "{{item}}"
-    state: latest
-  with_items:
-    - nwipe
-    - testdisk
-    - smartmontools
-    - nvme-cli
-
 - name: install latest version of clamscan anti-virus tools
   package:
     name: "{{item}}"

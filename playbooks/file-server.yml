@@ -5,4 +5,5 @@
   become: true
   become_user: root
   roles:
+    - role: fs-common
     - role: file-server

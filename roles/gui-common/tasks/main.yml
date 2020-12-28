@@ -44,6 +44,9 @@
     name: ca-certificates
     state: latest
 
+- name: Install and configure Sensors
+  include: sensors.yml
+
 - name: Install Simplenote
   include: simplenote.yml
 

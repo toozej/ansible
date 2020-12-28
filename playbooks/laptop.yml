@@ -16,6 +16,7 @@
     - role: user
     - role: common
     - role: flatpak
+    - role: fs-common
 
 - name: Setup laptop-specific fixes
   hosts: all

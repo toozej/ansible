@@ -1,0 +1,14 @@
+---
+- name: Install latest version of sensors
+  package:
+    name: lm_sensors
+    state: latest
+
+- name: Run automatic sensor configuration
+  shell: "sensors-detect --auto"
+  handler: Restart sensors service
+
+- name: enable sensors systemd service
+  systemd:
+    name: lm_sensors
+    enabled: True

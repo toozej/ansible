@@ -27,6 +27,7 @@
     - {role: ../roles/dev-python}
     - {role: ../roles/dev-ruby}
     - {role: ../roles/docker}
+    - {role: ../roles/fs-common}
     - {role: ../roles/file-server}
     # excluding gaming role for now until I can fix the Steam license acceptance
     #- {role: ../roles/gaming}
