@@ -6,9 +6,11 @@
 
 - name: Run automatic sensor configuration
   shell: "sensors-detect --auto"
+  register: sensorsdetect
 
 - name: Restart sensors service
   service:
     name: lm_sensors
     state: restarted
     enabled: true
+  when: "'Sorry, no sensors were detected.' not in sensorsdetect.stdout"
