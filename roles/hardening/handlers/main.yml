@@ -1,6 +1,10 @@
 ---
-- name: Restart firewall
-  service: name=firewall state=restarted
+# handlers for firewall
+- name: reload firewalld
+  shell: firewall-cmd --reload
+
+- name: check firewalld config
+  shell: firewall-cmd --check-config
 
 # handlers for fail2ban
 - name: restart fail2ban
@@ -8,7 +12,3 @@
     name: fail2ban
     state: restarted
   when: service_default_state | default('started') == 'started'
-
-# temporary for debugging failing Travis build #513
-- name: fail2ban status
-  shell: systemctl status fail2ban.service -l --no-pager

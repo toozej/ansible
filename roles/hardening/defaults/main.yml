@@ -1,17 +1,16 @@
 ---
-firewall_state: started
-firewall_enabled_at_boot: true
+firewall_allowed_services:
+  - ssh
+  - ntp
+  - mdns
+  - samba-client
+  - dhcpv6-client
 
-firewall_allowed_tcp_ports:
-  - "22"
-  - "8903"
-  - "3031"
+# ports must NOT include protocol, should just be list of port numbers
+firewall_allowed_tcp_ports: []
 firewall_allowed_udp_ports: []
 firewall_forwarded_tcp_ports: []
 firewall_forwarded_udp_ports: []
-firewall_additional_rules: []
-firewall_ip6_additional_rules: []
-firewall_log_dropped_packets: true
 
 # Set to true to ensure other firewall management software is disabled.
 firewall_disable_firewalld: false

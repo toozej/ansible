@@ -1,53 +1,23 @@
 ---
-- name: Ensure iptables is installed.
+- name: Ensure firewalld is installed.
   package:
-    name: iptables
+    name: firewalld
     state: latest
 
-- name: ensure iptables-persistent is installed
+- name: Ensure firewalld Python 3 bindings are installed
   package:
-    name: iptables-persistent
+    name: python3-firewall
     state: latest
 
-- name: Flush iptables the first time playbook runs.
-  command: >
-    iptables -F
-    creates=/etc/firewall.bash
-  when: (ansible_service_mgr == 'systemd') or (ansible_service_mgr == 'upstart')
-
-- name: Copy firewall script into place.
-  template:
-    src: firewall.bash.j2
-    dest: /etc/firewall.bash
-    owner: root
-    group: root
-    mode: 0744
-  notify: Restart firewall
-
-- name: Copy firewall init script into place.
-  template:
-    src: firewall.init.j2
-    dest: /etc/init.d/firewall
-    owner: root
-    group: root
-    mode: 0755
-  when: (ansible_service_mgr != 'systemd')
-
-- name: Copy firewall systemd unit file into place (for systemd systems).
-  template:
-    src: firewall.unit.j2
-    dest: /etc/systemd/system/firewall.service
-    owner: root
-    group: root
-    mode: 0644
-  when: (ansible_service_mgr == 'systemd')
-
-- name: Configure the firewall service.
+- name: Start and enable firewalld
   service:
-    name: firewall
-    state: "{{ firewall_state }}"
-    enabled: "{{ firewall_enabled_at_boot }}"
-  when: (ansible_service_mgr == 'systemd') or (ansible_service_mgr == 'upstart')
+    name: firewalld
+    state: started
+    enabled: true
 
-- include: disable-other-firewalls.yml
-  when: (firewall_disable_firewalld or firewall_disable_ufw) and (ansible_service_mgr == 'systemd' or ansible_service_mgr == 'upstart')
+- name: configure common firewall rules
+  include_tasks: firewall-rules-common.yml
+
+- name: disable other firewalls
+  include_tasks: disable-other-firewalls.yml
+  when: (firewall_disable_iptables or firewall_disable_ufw)

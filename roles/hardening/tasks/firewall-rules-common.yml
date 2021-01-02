@@ -1,0 +1,83 @@
+---
+# explicitly excludes docker and libvirt zones as those are managed by their respective
+# parent tool
+- name: get default firewalld zone
+  shell: firewall-cmd --get-default-zone
+  register: default_zone
+
+- name: allow services
+  firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+  notify:
+    - reload firewalld
+    - check firewalld config
+  with_items: "{{ firewall_allowed_services }}"
+
+- name: allow local network traffic
+  firewalld:
+    source: 192.168.1.0/24
+    zone: "{{ default_zone }}"
+    permanent: true
+    state: enabled
+  notify:
+    - reload firewalld
+    - check firewalld config
+
+- name: allow Sensu Agent
+  firewalld:
+    port: "{{ item }}"
+    zone: "{{ default_zone }}"
+    permanent: true
+    state: enabled
+  notify:
+    - reload firewalld
+    - check firewalld config
+  with_items:
+    - 8903/tcp
+    - 8903/udp
+
+- name: allow TCP ports
+  firewalld:
+    port: "{{ item }}/tcp"
+    zone: "{{ default_zone }}"
+    permanent: true
+    state: enabled
+  notify:
+    - reload firewalld
+    - check firewalld config
+  with_items: "{{ firewall_allowed_tcp_ports }}"
+
+- name: allow UDP ports
+  firewalld:
+    port: "{{ item }}/udp"
+    zone: "{{ default_zone }}"
+    permanent: true
+    state: enabled
+  notify:
+    - reload firewalld
+    - check firewalld config
+  with_items: "{{ firewall_allowed_udp_ports }}"
+
+- name: forward TCP ports
+  firewalld:
+    rich_rule: rule family=ipv4 forward-port port="{{ item }}" protocol=tcp to-port="{{ item }}"
+    zone: "{{ default_zone }}"
+    permanent: true
+    state: enabled
+  notify:
+    - reload firewalld
+    - check firewalld config
+  with_items: "{{ firewall_forwarded_tcp_ports }}"
+
+- name: forward UDP ports
+  firewalld:
+    rich_rule: rule family=ipv4 forward-port port="{{ item }}" protocol=udp to-port="{{ item }}"
+    zone: "{{ default_zone }}"
+    permanent: true
+    state: enabled
+  notify:
+    - reload firewalld
+    - check firewalld config
+  with_items: "{{ firewall_forwarded_udp_ports }}"
