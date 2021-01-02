@@ -6,9 +6,9 @@
 
 - name: Run automatic sensor configuration
   shell: "sensors-detect --auto"
-  handler: Restart sensors service
 
-- name: enable sensors systemd service
-  systemd:
+- name: Restart sensors service
+  service:
     name: lm_sensors
-    enabled: True
+    state: restarted
+    enabled: true
