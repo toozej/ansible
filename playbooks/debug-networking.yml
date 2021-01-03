@@ -1,0 +1,8 @@
+---
+- name: test configs
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: docker
+    - role: hardening
