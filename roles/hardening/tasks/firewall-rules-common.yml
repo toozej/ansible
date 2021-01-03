@@ -5,9 +5,14 @@
   shell: firewall-cmd --get-default-zone
   register: default_zone
 
+- name: if default firewalld zone is public, set to home
+  shell: firewall-cmd --set-default-zone home
+  when: "default_zone.stdout == 'public'"
+
 - name: allow services
   firewalld:
     service: "{{ item }}"
+    zone: "{{ default_zone.stdout }}"
     permanent: true
     state: enabled
   notify:
@@ -18,7 +23,7 @@
 - name: allow local network traffic
   firewalld:
     source: 192.168.1.0/24
-    zone: "{{ default_zone }}"
+    zone: "{{ default_zone.stdout }}"
     permanent: true
     state: enabled
   notify:
@@ -28,7 +33,7 @@
 - name: allow Sensu Agent
   firewalld:
     port: "{{ item }}"
-    zone: "{{ default_zone }}"
+    zone: "{{ default_zone.stdout }}"
     permanent: true
     state: enabled
   notify:
@@ -41,7 +46,7 @@
 - name: allow TCP ports
   firewalld:
     port: "{{ item }}/tcp"
-    zone: "{{ default_zone }}"
+    zone: "{{ default_zone.stdout }}"
     permanent: true
     state: enabled
   notify:
@@ -52,7 +57,7 @@
 - name: allow UDP ports
   firewalld:
     port: "{{ item }}/udp"
-    zone: "{{ default_zone }}"
+    zone: "{{ default_zone.stdout }}"
     permanent: true
     state: enabled
   notify:
@@ -63,7 +68,7 @@
 - name: forward TCP ports
   firewalld:
     rich_rule: rule family=ipv4 forward-port port="{{ item }}" protocol=tcp to-port="{{ item }}"
-    zone: "{{ default_zone }}"
+    zone: "{{ default_zone.stdout }}"
     permanent: true
     state: enabled
   notify:
@@ -74,7 +79,7 @@
 - name: forward UDP ports
   firewalld:
     rich_rule: rule family=ipv4 forward-port port="{{ item }}" protocol=udp to-port="{{ item }}"
-    zone: "{{ default_zone }}"
+    zone: "{{ default_zone.stdout }}"
     permanent: true
     state: enabled
   notify:
