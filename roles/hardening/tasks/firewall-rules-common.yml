@@ -29,6 +29,7 @@
   notify:
     - reload firewalld
     - check firewalld config
+  when: "default_zone.stdout != 'home'"
 
 - name: allow Sensu Agent
   firewalld:
