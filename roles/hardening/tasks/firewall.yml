@@ -4,11 +4,20 @@
     name: firewalld
     state: latest
 
+# to work around bug https://github.com/saltstack/salt/issues/55110
+- name: Update the repository cache and update package "iptables" to latest version using default release buster-backports
+  apt:
+    name: iptables
+    state: latest
+    default_release: buster-backports
+    update_cache: true
+  when: (ansible_distribution == 'Debian' and ansible_distribution_major_version is version(10, 'eq'))
+
 - name: Ensure firewalld Python 3 bindings are installed
   package:
     name: python3-firewall
     state: latest
-  when: (ansible_distribution != 'Debian' and ansible_distribution_version is not version(10, 'eq'))
+  when: (ansible_distribution != 'Debian' and ansible_distribution_major_version is not version(10, 'eq'))
 
 - name: Start and enable firewalld
   service:

@@ -13,7 +13,7 @@ firewall_forwarded_tcp_ports: []
 firewall_forwarded_udp_ports: []
 
 # Set to true to ensure other firewall management software is disabled.
-firewall_disable_firewalld: false
+firewall_disable_iptables: false
 firewall_disable_ufw: false
 
 # defaults for fail2ban
