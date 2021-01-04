@@ -33,3 +33,10 @@
     name: dnf-utils
     state: latest
   when: ansible_pkg_mgr == 'dnf'
+
+- name: install Debian buster backports repo on Buster
+  apt_repository:
+    repo: deb http://deb.debian.org/debian buster-backports main
+    state: present
+    filename: buster-backports
+  when: (ansible_distribution == 'Debian' and ansible_distribution_major_version is version(10, 'eq'))
