@@ -1,0 +1,33 @@
+---
+# explicitly excludes docker and libvirt zones as those are managed by their respective
+# parent tool
+- name: reload firewalld to get latest information
+  shell: firewall-cmd --reload
+
+- name: get default firewalld zone
+  shell: firewall-cmd --get-default-zone
+  register: initial_default_zone
+
+- name: get interfaces for default firewalld zone
+  shell: "firewall-cmd --zone {{ initial_default_zone.stdout }} --list-interfaces"
+  register: initial_default_zone_interfaces
+
+- name: list existing firewalld zones
+  shell: firewall-cmd --get-zones
+  register: existing_zones
+
+- name: create new default zone
+  shell: "firewall-cmd --permanent --new-zone {{ default_zone }}"
+  when: "(initial_default_zone.stdout != default_zone) and (default_zone not in existing_zones.stdout)"
+
+- name: reload firewalld to pick up new default zone
+  shell: firewall-cmd --reload
+  when: "(initial_default_zone.stdout != default_zone) and (default_zone not in existing_zones.stdout)"
+
+- name: set new default zone as default
+  shell: "firewall-cmd --set-default-zone {{ default_zone }}"
+  when: "initial_default_zone.stdout != default_zone"
+
+- name: set interfaces on new default zone
+  shell: "firewall-cmd --permanent --zone {{ default_zone }} --add-interface {{ item }}"
+  with_items: "{{ initial_default_zone_interfaces.stdout.split() }}"

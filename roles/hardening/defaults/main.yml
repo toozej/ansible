@@ -1,4 +1,5 @@
 ---
+default_zone: myzone
 firewall_allowed_services:
   - ssh
   - ntp

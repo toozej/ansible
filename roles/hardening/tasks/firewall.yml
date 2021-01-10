@@ -25,6 +25,9 @@
     state: started
     enabled: true
 
+- name: configure firewall zones
+  include_tasks: firewall-zones.yml
+
 - name: configure common firewall rules
   include_tasks: firewall-rules-common.yml
 
