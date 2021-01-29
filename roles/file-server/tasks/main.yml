@@ -1,18 +1,35 @@
 ---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version | int }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: True
+  when: (clamav_daemon_package_name is not defined) or (clamav_freshclam_package_name is not defined)
+
 - name: install latest versions of Samba daemon
   package:
     name: samba
     state: latest
 
-- name: install latest version of clamscan anti-virus tools
+- name: install latest version of common clamscan anti-virus tools
   package:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: latest
   with_items:
     - clamav
-    - clamav-daemon
-    - clamav-freshclam
-    - clamdscan
+    - "{{ clamav_daemon_package_name }}"
+    - "{{ clamav_freshclam_package_name }}"
+
+- name: install latest version of clamdscan on Debian-based systems
+  package:
+    name: clamdscan
+    state: latest
+  when: ansible_os_family == 'Debian'
 
 - name: lay out copy-from-time-machine script to /usr/local/bin
   copy:
