@@ -1,4 +1,7 @@
 ---
+- name: reset SSH connection
+  meta: reset_connection
+
 - name: restart docker
   service: "name=docker state={{ docker_restart_handler_state }}"
   when: (ansible_service_mgr == "systemd") or (ansible_service_mgr == "upstart")

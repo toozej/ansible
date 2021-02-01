@@ -4,3 +4,4 @@
     name: james
     groups: docker
     append: true
+  notify: reset SSH connection
