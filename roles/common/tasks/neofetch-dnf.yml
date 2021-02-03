@@ -1,6 +1,0 @@
----
-- name: "dnf | ensure NeoFetch present"
-  dnf:
-    name: neofetch
-    state: latest
-  when: ansible_distribution != 'CentOS'

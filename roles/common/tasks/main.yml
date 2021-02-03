@@ -21,18 +21,6 @@
 - name: Remove default /etc/issue.d/*
   include_tasks: issue.yml
 
-- name: Install latest version of Neofetch on Debian
-  include_tasks: neofetch-debian.yml
-  when: ansible_distribution == 'Debian'
-
-- name: Install latest version of Neofetch on Ubuntu
-  include_tasks: neofetch-ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-
-- name: Install latest version of Neofetch using YUM
-  include_tasks: neofetch-yum.yml
-  when: ansible_pkg_mgr == 'yum'
-
-- name: Install latest version of Neofetch using DNF
-  include_tasks: neofetch-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
+- name: Install latest version of Neofetch
+  include_tasks: neofetch.yml
+  when: ansible_distribution != 'CentOS'
