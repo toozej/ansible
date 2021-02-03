@@ -1,0 +1,77 @@
+---
+name: CI
+'on':
+  pull_request:
+  push:
+    branches:
+      - master
+      - github_actions
+  schedule:
+    - cron: "0 1 * * 1"
+
+defaults:
+  run:
+    working-directory: 'ansible'
+
+jobs:
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: 'ansible'
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install yamllint ansible-lint
+
+      - name: Lint code.
+        run: |
+          # yamllint .
+          # ansible-lint
+          ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: false
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    #strategy:
+    #  matrix:
+    #    distro:
+    #      - centos
+    #      - fedora
+    #      - ubuntu
+    #      - debian
+    #  fail-fast: false
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: 'ansible'
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install ansible pyopenssl ndg-httpsclient pyasn1
+
+      - name: Set up James user
+        run: sudo useradd -m -c "james" james -s /bin/bash
+
+      - name: Run tests.
+        run: ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id,ci
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          ANSIBLE_HOST_KEY_CHECKING: false
