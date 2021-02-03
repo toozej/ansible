@@ -19,12 +19,10 @@
 
 - name: "apt | update cache"
   apt:
-    update_cache: yes
+    update_cache: true
   when: google_repo.changed
 
 - name: "apt | ensure Google chrome latest"
   apt:
     name: google-chrome-stable
-    update_cache: yes
     state: latest
-
