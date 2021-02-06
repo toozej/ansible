@@ -2,6 +2,7 @@
 - name: Install latest version of Google Chrome using APT
   include: setup-apt.yml
   when: ansible_pkg_mgr == 'apt'
+  tags: ci
 
 - name: Install latest version of Google Chrome using DNF
   include: setup-dnf.yml
@@ -10,4 +11,3 @@
 - name: Install latest version of Google Chrome using YUM
   include: setup-yum.yml
   when: ansible_pkg_mgr == 'yum'
-
