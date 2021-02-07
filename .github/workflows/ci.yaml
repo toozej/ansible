@@ -5,7 +5,7 @@ name: CI
   push:
     branches:
       - master
-      - github_actions
+      - github_actions_docker
   schedule:
     - cron: "0 1 * * 1"
 
@@ -42,15 +42,18 @@ jobs:
 
   test:
     name: Test
+    #needs: lint
     runs-on: ubuntu-20.04
-    #strategy:
-    #  matrix:
-    #    distro:
-    #      - centos
-    #      - fedora
-    #      - ubuntu
-    #      - debian
-    #  fail-fast: false
+    strategy:
+      matrix:
+        container:
+          - 'centos_8'
+          - 'debian_stable'
+          - 'debian_testing'
+          - 'fedora_latest'
+          - 'fedora_rawhide'
+          - 'ubuntu_2004'
+      fail-fast: false
 
     steps:
       - name: Check out the codebase.
@@ -58,25 +61,8 @@ jobs:
         with:
           path: 'ansible'
 
-      - name: Set up Python 3.
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+      - name: Build Dockerfiles.
+        run: docker build -t ${{ matrix.container }} -f dockerfiles/Dockerfile_${{ matrix.container }} .
 
-      - name: Install test dependencies.
-        run: pip3 install ansible pyopenssl ndg-httpsclient pyasn1
-
-      - name: Set up James user
-        run: sudo useradd -m -c "james" james -s /bin/bash
-
-      - name: Use more reliable Ubuntu apt mirror
-        run: |
-          sudo sed -i 's|http://azure.archive.ubuntu.com|https://ubuntu.osuosl.org|g' /etc/apt/sources.list && \
-          sudo apt-get update
-
-      - name: Run tests.
-        run: ansible-playbook -i tests/inventory tests/test.yml -vv --skip-tags github,copy_host_ssh_id,ci
-        env:
-          PY_COLORS: '1'
-          ANSIBLE_FORCE_COLOR: '1'
-          ANSIBLE_HOST_KEY_CHECKING: false
+      - name: Run tests in containers.
+        run: docker run --rm -v $(pwd):/ansible ${{ matrix.container }} sh -c "ANSIBLE_ROLES_PATH=/ansible/roles ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i /ansible/tests/inventory /ansible/tests/test.yml -vv --skip-tags github,copy_host_ssh_id,ci"
