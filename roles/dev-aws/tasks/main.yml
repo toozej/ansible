@@ -1,4 +1,13 @@
 ---
+- name: remove any pre-existing AWS CLI installation
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /usr/local/bin/aws
+    - /usr/local/bin/aws-completer
+    - /usr/local/aws-cli
+
 - name: download awscli
   get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
