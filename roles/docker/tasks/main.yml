@@ -44,3 +44,4 @@
 
 - name: Ensure handlers are notified now to avoid firewall conflicts.
   meta: flush_handlers
+  tags: ci

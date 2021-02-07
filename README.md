@@ -1,6 +1,5 @@
 # Home Ansible Setup
-
-[![Build Status](https://travis-ci.org/toozej/ansible.svg?branch=master)](https://travis-ci.org/toozej/ansible)
+[![CI](https://github.com/toozej/ansible/workflows/CI/badge.svg?event=push)](https://github.com/toozej/ansible/actions?query=workflow%3ACI)
 
 ## What is it
 Ansible is a fantastic configuration management system that I use to self-provision servers & VMs. 
@@ -24,7 +23,8 @@ Or if you want to run a playbook stand-alone skipping tags:
 [Ansible Porting Guides](https://github.com/ansible/ansible/tree/devel/docs/docsite/rst/porting_guides)
 - validate Jenkinsfile using:
   `curl --user username:password -X POST -F "jenkinsfile=<Jenkinsfile" https://jenkins.example.com/pipeline-model-converter/validate` 
-
+- GitHub Actions CI workflow based heavily off https://github.com/geerlingguy/ansible-role-firewall/blob/master/.github/workflows/ci.yml
+    - OS Distrubtion matrix from https://github.community/t/create-matrix-with-multiple-os-and-env-for-each-one/16895/6
 
 ### Setting up Pre-commit hooks
 From the root of this repo, run the following commands:

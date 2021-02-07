@@ -24,7 +24,7 @@
   package:
     name: libvirt-clients
     state: latest
-  when: ansible_distribution == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: install latest versions of emulation tools
   package:

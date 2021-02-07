@@ -1,0 +1,5 @@
+---
+- name: "ensure neofetch installed"
+  package:
+    name: neofetch
+    state: latest
