@@ -24,11 +24,9 @@
     name: vlc
     state: latest
 
-# TODO: fix this for CI runs, works great manually
 - name: install latest version of Spotify client apt
   include: spotify-apt.yml
   when: ansible_pkg_mgr == 'apt'
-  tags: ci
 
 - name: install latest version of Spotify client flatpak
   include: spotify-flatpak.yml
