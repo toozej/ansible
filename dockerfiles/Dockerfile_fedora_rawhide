@@ -1,7 +1,7 @@
 FROM fedora:rawhide
 
 # update dnf and ensure pip is latest version
-RUN dnf install -y python3 git python3-dnf sudo python3-pip && pip3 install --upgrade --force pip
+RUN dnf install -y --nogpg python3 git python3-dnf sudo python3-pip && pip3 install --upgrade --force pip
 
 # combat not having CA Certs installed
 # specific version of urllib3 required by docker-py
