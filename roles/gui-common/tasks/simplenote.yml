@@ -5,9 +5,9 @@
 
 - name: Download latest version of Simplenote for Debian-based systems
   get_url:
-    url:  https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}_amd64.deb
+    url: https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}_amd64.deb
     dest: /tmp/simplenote.deb
-    force: yes
+    force: true
   when: ansible_os_family == 'Debian'
 
 - name: Install latest version of Simplenote for Debian-based systems
@@ -20,7 +20,7 @@
   get_url:
     url: https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}-x86_64.rpm
     dest: /tmp/simplenote.rpm
-    force: yes
+    force: true
   when: ansible_os_family == 'RedHat'
 
 - name: Install latest version of Simplenote using DNF
