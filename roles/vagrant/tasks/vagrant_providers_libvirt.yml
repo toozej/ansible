@@ -11,7 +11,7 @@
     recurse: yes
     owner: james
     group: james
-    mode: 0644
+    mode: 0744
 
 - name: lay out libvirt Vagrantfile template
   template:
