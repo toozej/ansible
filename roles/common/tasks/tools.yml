@@ -73,3 +73,8 @@
   package:
     name: strace
     state: latest
+    
+- name: install the latest version of jq
+  package:
+    name: jq
+    state: latest
