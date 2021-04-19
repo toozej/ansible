@@ -8,16 +8,21 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: True
-  when: (gstreamer1_package_name is not defined) or (gstreamer1_plugins_base_package_name is not defined) or (gstreamer1_plugins_good_package_name is not defined)
+  when: (gstreamer1_package_name is not defined) or (gstreamer1_plugins_base_package_name is not defined) or (gstreamer1_plugins_good_package_name is not defined) or (gstreamer1_plugins_good_extras_package_name is not defined) or (gstreamer1_plugins_bad_package_name is not defined) or (gstreamer1_plugins_bad_free_package_name is not defined) or (gstreamer1_plugins_ugly_package_name is not defined) or (gstreamer1_plugins_ugly_free_package_name is not defined)
 
 - name: install latest versions of gstreamer plugins
   package:
     name: "{{ item }}"
     state: latest
   with_items:
-    - "{{ gstreamer1_package_name }}"
-    - "{{ gstreamer1_plugins_base_package_name }}"
-    - "{{ gstreamer1_plugins_good_package_name }}"
+    - "{{ gstreamer1_package_name | default(omit)}}"
+    - "{{ gstreamer1_plugins_base_package_name | default(omit) }}"
+    - "{{ gstreamer1_plugins_good_package_name | default(omit) }}"
+    - "{{ gstreamer1_plugins_good_extras_package_name | default(omit) }}"
+    - "{{ gstreamer1_plugins_bad_package_name | default(omit) }}"
+    - "{{ gstreamer1_plugins_bad_free_package_name | default(omit) }}"
+    - "{{ gstreamer1_plugins_ugly_package_name | default(omit) }}"
+    - "{{ gstreamer1_plugins_ugly_free_package_name | default(omit) }}"
 
 - name: install latest version of VLC
   package:
@@ -39,5 +44,6 @@
     state: latest
   with_items:
     - "gstreamer1-plugin-openh264"
+    - "gstreamer1-libav"
     - "mozilla-openh264"
   when: ansible_distribution == 'Fedora'

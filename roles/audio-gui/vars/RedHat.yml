@@ -2,3 +2,8 @@
 gstreamer1_package_name: gstreamer1
 gstreamer1_plugins_base_package_name: gstreamer1-plugins-base
 gstreamer1_plugins_good_package_name: gstreamer1-plugins-good
+gstreamer1_plugins_good_extras_package_name: gstreamer1-plugins-good-extras
+gstreamer1_plugins_bad_package_name: gstreamer1-plugins-bad-free-extras
+gstreamer1_plugins_bad_free_package_name: gstreamer1-plugins-bad-free
+gstreamer1_plugins_ugly_package_name: gstreamer1-plugins-ugly
+gstreamer1_plugins_ugly_free_package_name: gstreamer1-plugins-ugly-free
