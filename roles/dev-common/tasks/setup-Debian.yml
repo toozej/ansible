@@ -5,7 +5,7 @@
 
 - name: Add Github CLI repository.
   apt_repository:
-    repo: "https://cli.github.com/packages"
+    repo: "deb https://cli.github.com/packages focal main"
     state: present
     update_cache: true
 
