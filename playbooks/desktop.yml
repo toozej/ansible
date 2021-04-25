@@ -27,6 +27,7 @@
     - role: chrome
     - role: audio-cli
     - role: audio-gui
+    - role: dev-common
     - role: dev-gui
     - role: office
     - role: photography

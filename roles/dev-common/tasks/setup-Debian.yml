@@ -1,0 +1,16 @@
+- name: Add Github Hub apt key.
+  apt_key:
+    url: https://keyserver.ubuntu.com
+    id: C99B11DEB97541F0
+    state: present
+
+- name: Add Github Hub repository.
+  apt_repository:
+    repo: "https://cli.github.com/packages"
+    state: present
+    update_cache: true
+
+- name: install the latest verion of Github Hub
+  package:
+    name: gh
+    state: latest

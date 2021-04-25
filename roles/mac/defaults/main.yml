@@ -13,6 +13,7 @@ homebrew_installed_packages:
   - bash-completion
   - docker-compose
   - fzf
+  - gh
   - git
   - go
   - htop

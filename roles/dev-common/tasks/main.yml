@@ -30,5 +30,10 @@
     dest: /usr/local/bin/wuzz
     force: yes
 
-- name: install latest version of Github's hub tool
-  include: hub.yml
+- name: install latest version of Github's hub tool on Debian family
+  include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: install latest version of Github's hub tool on RedHat family
+  include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
