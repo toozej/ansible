@@ -1,12 +1,12 @@
 ---
-- name: Add Github Hub CLI repo with DNF
+- name: Add Github CLI repo with DNF
   command:
     cmd: dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
     warn: false
   args:
     creates: /etc/yum.repos.d/gh-cli.repo
 
-- name: install the latest version of Github Hub
+- name: install the latest version of Github CLI
   package:
     name: gh
     state: latest

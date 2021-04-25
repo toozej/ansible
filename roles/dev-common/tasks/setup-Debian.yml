@@ -4,13 +4,13 @@
     id: C99B11DEB97541F0
     state: present
 
-- name: Add Github Hub repository.
+- name: Add Github CLI repository.
   apt_repository:
     repo: "https://cli.github.com/packages"
     state: present
     update_cache: true
 
-- name: install the latest verion of Github Hub
+- name: install the latest verion of Github CLI
   package:
     name: gh
     state: latest
