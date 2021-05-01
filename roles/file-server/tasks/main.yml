@@ -41,6 +41,6 @@
 - name: install latest versions of misc tools
   package:
     name:
-      - sync
+      - rsync
       - inotify-tools
     state: latest
