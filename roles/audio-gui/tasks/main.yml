@@ -13,7 +13,7 @@
 - name: install latest versions of gstreamer plugins
   package:
     name:
-      - "{{ gstreamer1_package_name | default(omit)}}"
+      - "{{ gstreamer1_package_name | default(omit) }}"
       - "{{ gstreamer1_plugins_base_package_name | default(omit) }}"
       - "{{ gstreamer1_plugins_good_package_name | default(omit) }}"
       - "{{ gstreamer1_plugins_good_extras_package_name | default(omit) }}"
