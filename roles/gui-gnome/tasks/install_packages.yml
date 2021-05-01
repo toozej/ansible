@@ -1,8 +1,14 @@
 ---
-- name: install gnome-tweak-tool
-  package:
-    name: gnome-tweak-tool
-    state: latest
+- name: "flatpak | force repair"
+  shell: "/usr/bin/flatpak repair"
+
+- name: "flatpak | install latest version of Gnome Extensions"
+  flatpak:
+    name: org.gnome.Extensions
+    state: present
+  register: install_extensions
+  until: install_extensions is not failed
+  retries: 5
 
 - name: Include repo-extra for Fedora as pre-requisite for Fedy
   include_role:
