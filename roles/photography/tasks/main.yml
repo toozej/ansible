@@ -12,11 +12,10 @@
 
 - name: install latest versions of raw libraries
   package:
-    name: "{{ item }}"
+    name:
+      - "{{ libraw_package_name }}"
+      - dcraw
     state: latest
-  with_items:
-    - "{{ libraw_package_name }}"
-    - dcraw
 
 - name: install latest version of darktable
   package:
@@ -40,21 +39,19 @@
 
 - name: install latest version of gimp and plugins
   package:
-    name: "{{ item }}"
+    name:
+      - gimp
+      - gimp-lensfun
+      - "{{ greycstoration_gimp_package_name }}"
     state: latest
-  with_items:
-    - gimp
-    - gimp-lensfun
-    - "{{ greycstoration_gimp_package_name }}"
   failed_when: false
 
 - name: install latest version of gimp plugins for Fedora only
   package:
-    name: "{{ item }}"
+    name:
+      - gimp-dbp
+      - gimp-heif-plugin
+      - gimp-focusblur-plugin
     state: latest
-  with_items:
-    - gimp-dbp
-    - gimp-heif-plugin
-    - gimp-focusblur-plugin
   failed_when: false
   when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')

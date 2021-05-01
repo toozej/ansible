@@ -28,11 +28,10 @@
 
 - name: install latest versions of emulation tools
   package:
-    name: "{{ item }}"
+    name:
+      - qemu-kvm
+      - seabios
     state: latest
-  with_items:
-    - qemu-kvm
-    - seabios
 
 - name: install latest version of qemu
   package:

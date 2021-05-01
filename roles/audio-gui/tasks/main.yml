@@ -12,17 +12,16 @@
 
 - name: install latest versions of gstreamer plugins
   package:
-    name: "{{ item }}"
+    name:
+      - "{{ gstreamer1_package_name | default(omit)}}"
+      - "{{ gstreamer1_plugins_base_package_name | default(omit) }}"
+      - "{{ gstreamer1_plugins_good_package_name | default(omit) }}"
+      - "{{ gstreamer1_plugins_good_extras_package_name | default(omit) }}"
+      - "{{ gstreamer1_plugins_bad_package_name | default(omit) }}"
+      - "{{ gstreamer1_plugins_bad_free_package_name | default(omit) }}"
+      - "{{ gstreamer1_plugins_ugly_package_name | default(omit) }}"
+      - "{{ gstreamer1_plugins_ugly_free_package_name | default(omit) }}"
     state: latest
-  with_items:
-    - "{{ gstreamer1_package_name | default(omit)}}"
-    - "{{ gstreamer1_plugins_base_package_name | default(omit) }}"
-    - "{{ gstreamer1_plugins_good_package_name | default(omit) }}"
-    - "{{ gstreamer1_plugins_good_extras_package_name | default(omit) }}"
-    - "{{ gstreamer1_plugins_bad_package_name | default(omit) }}"
-    - "{{ gstreamer1_plugins_bad_free_package_name | default(omit) }}"
-    - "{{ gstreamer1_plugins_ugly_package_name | default(omit) }}"
-    - "{{ gstreamer1_plugins_ugly_free_package_name | default(omit) }}"
 
 - name: install latest version of VLC
   package:
@@ -40,10 +39,9 @@
 - name: install openh264 from Fedora Cisco repo
   dnf:
     enablerepo: fedora-cisco-openh264
-    name: "{{ item }}"
+    name:
+      - gstreamer1-plugin-openh264
+      - gstreamer1-libav
+      - mozilla-openh264
     state: latest
-  with_items:
-    - "gstreamer1-plugin-openh264"
-    - "gstreamer1-libav"
-    - "mozilla-openh264"
   when: ansible_distribution == 'Fedora'

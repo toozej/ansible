@@ -13,34 +13,31 @@
 
 - name: install the latest versions of system monitoring utilities
   package:
-    name: "{{ item }}"
+    name:
+      - htop
+      - iotop
+      - powertop
+      - ncdu
+      - lshw
+      - net-tools
+      - "{{ dig_package_name }}"
     state: latest
-  with_items:
-    - htop
-    - iotop
-    - powertop
-    - ncdu
-    - lshw
-    - net-tools
-    - "{{ dig_package_name }}"
 
 - name: install packages except on CentOS
   package:
-    name: "{{ item }}"
+    name:
+      - bwm-ng
+      - "{{ ag_package_name }}"
+      - unrar
     state: latest
-  with_items:
-    - bwm-ng
-    - "{{ ag_package_name }}"
-    - unrar
   when: ansible_distribution != 'CentOS'
 
 - name: install the latest version of Samba client and tools
   package:
-    name: "{{ item }}"
+    name:
+      - samba-client
+      - cifs-utils
     state: latest
-  with_items:
-    - samba-client
-    - cifs-utils
 
 - name: install the latest version of pip3
   package:
@@ -49,20 +46,18 @@
 
 - name: install the latest versions of download tools
   package:
-    name: "{{ item }}"
+    name:
+      - wget
+      - curl
     state: latest
-  with_items:
-    - wget
-    - curl
 
 - name: install the latest version of archiving tools
   package:
-    name: "{{ item }}"
+    name:
+      - zip
+      - "{{ p7zip_package_name }}"
+      - pigz
     state: latest
-  with_items:
-    - zip
-    - "{{ p7zip_package_name }}"
-    - pigz
 
 - name: install the latest version of tree
   package:
@@ -73,7 +68,7 @@
   package:
     name: strace
     state: latest
-    
+
 - name: install the latest version of jq
   package:
     name: jq

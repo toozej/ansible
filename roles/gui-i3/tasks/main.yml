@@ -1,14 +1,13 @@
 ---
 - name: install latest version of i3 window manager
   package:
-    name: "{{item}}"
+    name:
+      - i3
+      - i3lock
+      - i3status
+      - dmenu
+      - dunst
     state: latest
-  with_items:
-    - i3
-    - i3lock
-    - i3status
-    - dmenu
-    - dunst
 
 - name: Ensures ~/.config/i3 exists
   file: path=/home/james/.config/i3/ state=directory recurse=yes

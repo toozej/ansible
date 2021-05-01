@@ -18,12 +18,11 @@
 
 - name: install latest version of common clamscan anti-virus tools
   package:
-    name: "{{ item }}"
+    name:
+      - clamav
+      - "{{ clamav_daemon_package_name }}"
+      - "{{ clamav_freshclam_package_name }}"
     state: latest
-  with_items:
-    - clamav
-    - "{{ clamav_daemon_package_name }}"
-    - "{{ clamav_freshclam_package_name }}"
 
 - name: install latest version of clamdscan on Debian-based systems
   package:
@@ -41,8 +40,7 @@
 
 - name: install latest versions of misc tools
   package:
-    name: "{{item}}"
+    name:
+      - sync
+      - inotify-tools
     state: latest
-  with_items:
-    - rsync
-    - inotify-tools
