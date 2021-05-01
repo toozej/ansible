@@ -13,15 +13,16 @@
 - name: install latest versions of gstreamer plugins
   package:
     name:
-      - "{{ gstreamer1_package_name | default(omit) }}"
-      - "{{ gstreamer1_plugins_base_package_name | default(omit) }}"
-      - "{{ gstreamer1_plugins_good_package_name | default(omit) }}"
-      - "{{ gstreamer1_plugins_good_extras_package_name | default(omit) }}"
-      - "{{ gstreamer1_plugins_bad_package_name | default(omit) }}"
-      - "{{ gstreamer1_plugins_bad_free_package_name | default(omit) }}"
-      - "{{ gstreamer1_plugins_ugly_package_name | default(omit) }}"
-      - "{{ gstreamer1_plugins_ugly_free_package_name | default(omit) }}"
+      - "{{ gstreamer1_package_name }}"
+      - "{{ gstreamer1_plugins_base_package_name }}"
+      - "{{ gstreamer1_plugins_good_package_name }}"
+      - "{{ gstreamer1_plugins_good_extras_package_name }}"
+      - "{{ gstreamer1_plugins_bad_package_name }}"
+      - "{{ gstreamer1_plugins_bad_free_package_name }}"
+      - "{{ gstreamer1_plugins_ugly_package_name }}"
+      - "{{ gstreamer1_plugins_ugly_free_package_name }}"
     state: latest
+  ignore_errors: true
 
 - name: install latest version of VLC
   package:
