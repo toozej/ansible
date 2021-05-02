@@ -10,8 +10,8 @@
 - name: Add Hashicorp repo
   yum_repository:
     name: hashicorp
-    description: "Hashicorp repository"
-    baseurl: "https://rpm.releases.hashicorp.com/{{ ansible_distribution }}/hashicorp.repo"
+    description: "Hashicorp Stable repository"
+    baseurl: "https://rpm.releases.hashicorp.com/{{ ansible_distribution }}/{{ ansible_distribution_major_version }}/x86_64/stable"
     gpgkey: https://rpm.releases.hashicorp.com/gpg
     gpgcheck: yes
     enabled: yes
