@@ -1,0 +1,3 @@
+---
+ansible_distribution: '{{ "fedora"
+                                    if ansible_facts["distribution"] == "Fedora" }}'

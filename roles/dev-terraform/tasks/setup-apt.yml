@@ -1,0 +1,42 @@
+---
+- name: "apt | ensure Hashicorp Apt signing key present"
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+
+- name: "apt | ensure Hashicorp repo present"
+  copy:
+    content:  "deb [arch=amd64] https://apt.releases.hashicorp.com focal main"
+    dest: "/etc/apt/sources.list.d/hashicorp.list"
+  register: hashicorp_repo
+
+- name: "apt | update cache"
+  apt:
+    update_cache: true
+  when: hashicorp_repo.changed
+
+- name: "apt | ensure Terraform latest"
+  apt:
+    name: terraform
+    state: latest
+
+- name: "apt | ensure Terraform Libvirt Provider signing key present"
+  apt_key:
+    url: https://download.opensuse.org/repositories/systemsmanagement:terraform/Ubuntu_20.04/Release.key
+    state: present
+
+- name: "apt | ensure Terraform Libvirt Provider repo present"
+  copy:
+    content:  "deb http://download.opensuse.org/repositories/systemsmanagement:/terraform/Ubuntu_20.04/ /"
+    dest: "/etc/apt/sources.list.d/terraform-libvirt-provider.list"
+  register: libvirt_provider_repo
+
+- name: "apt | update cache"
+  apt:
+    update_cache: true
+  when: libvirt_provider_repo.changed
+
+- name: "apt | ensure Terraform Libvirt Provider latest"
+  apt:
+    name: terraform-provider-libvirt
+    state: latest

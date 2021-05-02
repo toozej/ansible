@@ -1,0 +1,24 @@
+---
+- name: Add your user to libvirt and qemu groups
+  user:
+    name: james
+    groups: libvirt,qemu
+    append: yes
+
+- name: create base VM directory
+  file:
+    path: "/VMs/"
+    state: directory
+    recurse: yes
+    owner: qemu
+    group: qemu
+    mode: 0775
+
+- name: create ssh directory
+  file:
+    path: "/VMs/.ssh/"
+    state: directory
+    recurse: yes
+    owner: qemu
+    group: qemu
+    mode: 0700

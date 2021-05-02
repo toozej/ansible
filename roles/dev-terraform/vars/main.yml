@@ -1,2 +1,0 @@
----
-terraform_download_location: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/{{ terraform_archive }}"

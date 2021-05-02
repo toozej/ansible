@@ -1,0 +1,3 @@
+---
+ansible_distribution: '{{ "RHEL"
+                                    if ansible_facts["distribution"] == "RedHat" or ansible_facts["distribution"] == "CentOS" }}'
