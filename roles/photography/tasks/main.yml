@@ -55,3 +55,8 @@
     state: latest
   failed_when: false
   when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
+
+- name: install latest version of exif data removal tool
+  package:
+    name: perl-Image-ExifTool
+    state: latest
