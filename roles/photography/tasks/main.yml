@@ -8,7 +8,7 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: True
-      when: (libraw_package_name is not defined) or (greycstoration_gimp_package_name is not defined)
+      when: (libraw_package_name is not defined) or (greycstoration_gimp_package_name is not defined) or (exiftool_package_name is not defined)
 
 - name: install latest versions of raw libraries
   package:
@@ -58,5 +58,5 @@
 
 - name: install latest version of exif data removal tool
   package:
-    name: perl-Image-ExifTool
+    name: "{{ exiftool_package_name }}"
     state: latest
