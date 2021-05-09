@@ -44,6 +44,13 @@
     name: ca-certificates
     state: latest
 
+# available in default Fedora repos
+- name: Install latest version of GPXSee
+  package:
+    name: gpxsee
+    state: latest
+  when: ansible_distribution == 'Fedora'
+
 - name: Install and configure Sensors
   include: sensors.yml
 
