@@ -1,11 +1,8 @@
 ---
 - name: Add Apt Keys
   apt_key:
-    url: "{{ item }}"
+    url: https://download.spotify.com/debian/pubkey_0D811D58.gpg
     state: present
-  with_items:
-    - https://download.spotify.com/debian/pubkey.gpg
-    - https://download.spotify.com/debian/pubkey_0D811D58.gpg
 
 - name: Add repository
   apt_repository:
