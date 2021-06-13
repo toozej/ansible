@@ -18,12 +18,13 @@
     - role: flatpak
     - role: fs-common
 
-- name: Setup laptop-specific fixes
+- name: Setup physical hardware fixes
   hosts: all
   become: true
   become_user: root
   roles:
     - role: hp-spectre-13
+    - role: physical
 
 - name: Setup Docker environment
   hosts: all

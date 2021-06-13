@@ -1,0 +1,15 @@
+- name: Setup systemd service for disabling wakeup on Logitech mouse event
+  template:
+    src: disable-mouse-wakeup.service.j2
+    dest: /etc/systemd/system/disable-mouse-wakeup.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: just force systemd to reread configs (2.4 and above)
+  systemd: daemon_reload=yes
+
+- name: enable disable-mouse-wakeup systemd service
+  systemd:
+    name: disable-mouse-wakeup
+    enabled: True
