@@ -1,4 +1,0 @@
----
-terraform_version: "0.12.13"
-terraform_archive: "terraform_{{ terraform_version }}_linux_amd64.zip"
-terraform_version_target: "Terraform v0.12.13"
