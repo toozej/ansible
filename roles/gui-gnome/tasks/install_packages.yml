@@ -2,6 +2,11 @@
 - name: "flatpak | force repair"
   shell: "/usr/bin/flatpak repair"
 
+- name: install gnome-tweak-tool
+  package:
+    name: gnome-tweak-tool
+    state: latest
+
 - name: "flatpak | install latest version of Gnome Extensions"
   flatpak:
     name: org.gnome.Extensions
