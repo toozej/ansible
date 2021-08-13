@@ -9,3 +9,7 @@ gnome_extension_ids:
   - 545
   # lock screen background
   - 1476
+  # spotify-artwork-fixer
+  - 4055
+  # just-perfection (additional Gnome tweaks)
+  - 3843
