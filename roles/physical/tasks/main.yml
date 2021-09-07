@@ -12,4 +12,4 @@
 - name: enable disable-mouse-wakeup systemd service
   systemd:
     name: disable-mouse-wakeup
-    enabled: True
+    enabled: true

@@ -7,7 +7,7 @@
       - "../vars/{{ ansible_distribution }}.yml"
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
-      skip: True
+      skip: true
   when: (wine_package_name is not defined)
 
 - name: install latest version of Wine

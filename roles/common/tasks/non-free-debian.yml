@@ -7,7 +7,7 @@
       - "../vars/{{ ansible_distribution }}.yml"
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
-      skip: True
+      skip: true
 
 - name: "apt | enable non-free main repo for Debian"
   apt_repository:

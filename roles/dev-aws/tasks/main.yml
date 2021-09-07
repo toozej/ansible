@@ -48,7 +48,7 @@
     owner: james
     group: james
     mode: '0600'
-  when: aws_config.stat.exists == False
+  when: aws_config.stat.exists == false
 
 - name: lay out localstack-compatible ~/.aws/credentials
   copy:
@@ -57,4 +57,4 @@
     owner: james
     group: james
     mode: '0600'
-  when: aws_credentials.stat.exists == False
+  when: aws_credentials.stat.exists == false

@@ -2,7 +2,7 @@
 - name: Enable systemd service for iptsd
   systemd:
     name: iptsd
-    enabled: True
+    enabled: true
 
 - name: Setup systemd service for setting default kernel path
   copy:
@@ -26,4 +26,4 @@
 - name: enable default kernel path systemd service
   systemd:
     name: default-kernel.path
-    enabled: True
+    enabled: true
