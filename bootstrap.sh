@@ -61,12 +61,12 @@ if [ -f /etc/debian_version ]; then
     echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu bionic main" > /etc/apt/sources.list.d/ansible.list
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
     apt-get update
-    apt-get install -y ansible
+    apt-get install -y ansible ansible-lint
 
 # if Fedora
 elif [ -f /etc/fedora-release ]; then
     os=`cat /etc/fedora-release`
-    dnf install -y git ansible python3-dnf
+    dnf install -y git ansible python3-ansible-lint python3-dnf
 
 # if RedHat-based
 elif [ -f /etc/redhat-release ]; then
@@ -76,17 +76,7 @@ elif [ -f /etc/redhat-release ]; then
       dnf install -y python3
       dnf install -y $epel_rpm
       dnf install -y git ansible
-    elif [[ $os == *"release 7."* ]]; then
-      epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-      yum install -y python3
-      yum install -y $epel_rpm
-      yum install -y git ansible
     fi
-
-# if ArchLinux-based
-elif [ -f /etc/arch-release ]; then
-    os="archlinux"
-    pacman -S ansible git python3
 
 # if MacOS-based
 elif [ "$(uname)" == "Darwin" ]; then
@@ -94,7 +84,7 @@ elif [ "$(uname)" == "Darwin" ]; then
     # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
     ANSIBLE_REPO_DIR=~/tmp/ansible
     easy_install pip
-    pip install ansible
+    pip install ansible ansible-lint
 
 # otherwise...
 else
