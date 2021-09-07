@@ -15,19 +15,15 @@ homebrew_installed_packages:
   - fzf
   - gh
   - git
-  - go
   - htop
   - jq
   - neofetch
   - nmap
   - openssl
   - p7zip
-  - packer
-  - pyenv
   - python
-  - rbenv
-  - ssh-copy-id
   - sqlite
+  - ssh-copy-id
   - the_silver_searcher
   - tmux
   - tree
@@ -64,7 +60,6 @@ homebrew_cask_apps:
   - muzzle
   - plexamp
   - plex-media-player
-  - pycharm-ce
   - qmk-toolbox
   - sensiblesidebuttons
   - scroll-reverser
@@ -72,7 +67,6 @@ homebrew_cask_apps:
   - slack
   - speedcrunch
   - spotify
-  - teamviewer
   - tunnelblick
   - turbo-boost-switcher
   - vagrant
@@ -80,6 +74,7 @@ homebrew_cask_apps:
   - virtualbox
   - virtualbox-extension-pack
   - vlc
+  - wireguard
 
 homebrew_cask_appdir: /Applications
 homebrew_cask_accept_external_apps: false

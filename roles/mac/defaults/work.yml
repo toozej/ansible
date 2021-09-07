@@ -1,29 +1,46 @@
 ---
 homebrew_installed_packages_work:
   - autoconf
-  - circleci
   - chtf
+  - circleci
   - coreutils
   - dive
-  - graphviz
   - gnu-sed
+  - go
+  - graphviz
+  - graphviz
+  - helm
   - ipcalc
+  - jfrog-cli
   - kpcli
+  - kubernetes-cli
+  - minikube
+  - node
+  - packer
   - pipenv
+  - plantuml
   - pre-commit
   - prettier
+  - pyenv
+  - rbenv
   - terraform
+  - terraform-docs
   - terraform-inventory
   - terraform-provisioner-ansible
+  - terragrunt
   - tflint
   - vault
+  - yamllint
+  - ytt
 
 homebrew_cask_apps_work:
   - apache-directory-studio
   - beyond-compare
-  - homebrew/cask-drivers/logitech-gaming-software
-  - homebrew/cask-drivers/logitech-options
+  - dbeaver-community
+  - logitech-g-hub
+  - logitech-options
   - keepassxc
   - postman
-  - sequel-pro
+  - pycharm-ce
   - utc-menu-clock
+  - xmind
