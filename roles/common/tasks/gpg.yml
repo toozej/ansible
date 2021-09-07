@@ -29,3 +29,4 @@
 
 - name: run rng-tools to generate entropy in /dev/urandom
   command: rngd -r /dev/urandom
+  when: ansible_os_family != 'Debian'
