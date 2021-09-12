@@ -2,10 +2,10 @@
 # Playbook to setup a KVM-QEMU virtualization host
 - hosts: all
   pre_tasks:
-    - name: Set BasePlaybook Fact
+    - name: Set base_playbook Fact
       set_fact:
-        BasePlaybook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
-      when: BasePlaybook is not defined
+        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      when: base_playbook is not defined
 
 - name: Setup Docker environment
   hosts: all

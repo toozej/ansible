@@ -1,7 +1,7 @@
 ---
 - name: disable NetworkManager
   include: networking.yml
-  when: BasePlaybook != "laptop.yml" and BasePlaybook != "tablet.yml"
+  when: base_playbook != "laptop.yml" and base_playbook != "tablet.yml"
 
 - name: install latest version of ethtool package
   package:
