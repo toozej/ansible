@@ -9,7 +9,7 @@
     state: directory
     suffix: ".gnome_extension_download"
   register: r_gnome_extension_download_dir
-  changed_when: no
+  changed_when: false
   when: r_gnome_extensions_check_existing.stat.exists == false
 
 - block:
@@ -41,5 +41,5 @@
       file:
         path: "{{ r_gnome_extension_download_dir.path }}"
         state: absent
-      changed_when: no
+      changed_when: false
   when: r_gnome_extensions_check_existing.stat.exists == false

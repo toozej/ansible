@@ -29,7 +29,7 @@
     description: "Slack Repository from packagecloud.io"
     baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
     gpgkey: https://packagecloud.io/slacktechnologies/slack/gpgkey
-    gpgcheck: no
+    gpgcheck: false
     repo_gpgcheck: true
     enabled: true
   when: ansible_os_family == 'RedHat'

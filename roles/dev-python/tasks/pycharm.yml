@@ -26,7 +26,7 @@
   find:
     paths: "{{ pycharm_install_prefix }}"
     file_type: directory
-    recurse: no
+    recurse: false
     patterns: pycharm*
   register: files_to_delete
 

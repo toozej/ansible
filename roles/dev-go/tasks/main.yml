@@ -20,7 +20,7 @@
   unarchive:
     src: /usr/local/src/{{ go_tarball }}
     dest: /usr/local
-    copy: no
+    copy: false
   when: go_version is failed or go_version.stdout != go_version_target
 
 - name: Add the Go bin directory to the PATH environment variable for all users
