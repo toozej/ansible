@@ -3,13 +3,13 @@
   user:
     name: james
     groups: libvirt,qemu
-    append: yes
+    append: true
 
 - name: create base VM directory
   file:
     path: "/VMs/"
     state: directory
-    recurse: yes
+    recurse: true
     owner: qemu
     group: qemu
     mode: 0775
@@ -18,7 +18,7 @@
   file:
     path: "/VMs/.ssh/"
     state: directory
-    recurse: yes
+    recurse: true
     owner: qemu
     group: qemu
     mode: 0700

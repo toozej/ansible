@@ -8,7 +8,7 @@
   file:
     dest: /home/james/VMs/vagrant/libvirt_template/
     state: directory
-    recurse: yes
+    recurse: true
     owner: james
     group: james
     mode: 0744

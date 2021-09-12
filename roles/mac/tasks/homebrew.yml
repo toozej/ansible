@@ -45,7 +45,7 @@
     become_user: "{{ homebrew_user }}"
 
   - name: Upgrade all homebrew packages (if configured).
-    homebrew: update_homebrew=yes upgrade_all=yes
+    homebrew: update_homebrew=true upgrade_all=true
     when: homebrew_upgrade_all_packages
     become_user: "{{ homebrew_user }}"
 

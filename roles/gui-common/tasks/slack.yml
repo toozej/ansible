@@ -15,7 +15,7 @@
     repo: "{{ apt_slack_repo }}"
     mode: 0644
     state: present
-    update_cache: yes
+    update_cache: true
   when: ansible_os_family == 'Debian'
 
 - name: include Slack defaults for RedHat-based
@@ -30,8 +30,8 @@
     baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
     gpgkey: https://packagecloud.io/slacktechnologies/slack/gpgkey
     gpgcheck: no
-    repo_gpgcheck: yes
-    enabled: yes
+    repo_gpgcheck: true
+    enabled: true
   when: ansible_os_family == 'RedHat'
 
 - name: install Slack package

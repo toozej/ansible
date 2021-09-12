@@ -3,14 +3,14 @@
 - include_tasks: gnome_extensions.yml
   args:
     apply:
-      become: yes
+      become: true
       become_user: james
 
 - name: Ensures ~/.local/share/backgrounds exists
   file:
     path: /home/james/.local/share/backgrounds
     state: directory
-    recurse: yes
+    recurse: true
 
 # from https://www.deviantart.com/arsenixc/art/Tokyo-Street-Sunset-680726181
 - name: lay out wallpaper
@@ -44,7 +44,7 @@
     key: "{{ item.key }}"
     value: "{{ item.value }}"
     state: present
-  become: yes
+  become: true
   become_user: "{{ gnome_user }}"
   loop: "{{ gnome_dconf }}"
   tags: ci

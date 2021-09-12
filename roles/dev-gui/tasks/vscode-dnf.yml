@@ -4,10 +4,10 @@
     name: vscode
     description: vscode repository
     baseurl: https://packages.microsoft.com/yumrepos/vscode
-    gpgcheck: yes
-    repo_gpgcheck: yes
+    gpgcheck: true
+    repo_gpgcheck: true
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-    enabled: yes
+    enabled: true
 
 - name: install latest version of vscode editor via DNF
   dnf:

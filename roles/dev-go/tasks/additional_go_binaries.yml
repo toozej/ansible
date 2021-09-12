@@ -1,7 +1,7 @@
 ---
 - name: Register the current Go Dep version (if any)
   command: /usr/local/go/bin/dep version
-  ignore_errors: yes
+  ignore_errors: true
   register: go_dep_version
   changed_when: false
 

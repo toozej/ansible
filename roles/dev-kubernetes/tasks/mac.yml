@@ -3,4 +3,4 @@
   homebrew:
     name: ['kubectl', 'minikube']
     state: latest
-    update_homebrew: yes
+    update_homebrew: true

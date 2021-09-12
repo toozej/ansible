@@ -6,8 +6,8 @@
     description: "Google Chrome Stable repository"
     baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
     gpgkey: https://dl-ssl.google.com/linux/linux_signing_key.pub
-    gpgcheck: yes
-    enabled: yes
+    gpgcheck: true
+    enabled: true
 
 - name: "dnf | ensure Google chrome present"
   dnf:
