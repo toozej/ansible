@@ -8,7 +8,6 @@ homebrew_installed_packages_work:
   - gnu-sed
   - go
   - graphviz
-  - graphviz
   - helm
   - ipcalc
   - jfrog-cli
