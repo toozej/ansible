@@ -10,12 +10,12 @@
   service:
     name: iptables
     state: stopped
-    enabled: no
+    enabled: false
   when: "firewall_disable_iptables and 'iptables' in ansible_facts.packages"
 
 - name: Disable the ufw firewall
   service:
     name: ufw
     state: stopped
-    enabled: no
+    enabled: false
   when: "firewall_disable_ufw and 'ufw' in ansible_facts.packages"

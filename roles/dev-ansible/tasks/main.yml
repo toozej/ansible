@@ -9,11 +9,11 @@
     name: ansible-lint
     state: latest
     extra_args: --trusted-host pypi.org --trusted-host files.pythonhosted.org
-  become: yes
+  become: true
 
 - name: install the latest version of Ansible-Review
   pip:
     name: ansible-review
     state: latest
     extra_args: --trusted-host pypi.org --trusted-host files.pythonhosted.org
-  become: yes
+  become: true

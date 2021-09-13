@@ -41,16 +41,16 @@
 - name: clone dotfiles from github
   git:
     repo: 'https://github.com/toozej/dotfiles.git'
-    accept_hostkey: yes
+    accept_hostkey: true
     dest: "{{ home_dir_path }}/dotfiles"
-    recursive: yes
+    recursive: true
   register: clone_or_pull
   when: (not ansible_check_mode) and (not dotfiles_repo.stat.exists)
 
 - name: set correct permissions on dotfiles
   file:
     path: "{{ home_dir_path }}/dotfiles"
-    recurse: yes
+    recurse: true
     owner: james
     group: "{{ james_group }}"
   when: (clone_or_pull.changed == true) and (not ansible_check_mode)
@@ -82,6 +82,6 @@
   file:
     path: "{{ home_dir_path }}/src/github/toozej/"
     state: directory
-    recurse: yes
+    recurse: true
     owner: james
     group: "{{ james_group }}"

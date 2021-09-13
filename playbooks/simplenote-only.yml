@@ -1,6 +1,7 @@
 - name: simplenote-only
   hosts: all
   tasks:
-    - include_role:
+    - name: Simplenote only
+      include_role:
         name: gui-common
         tasks_from: simplenote

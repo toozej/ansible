@@ -8,7 +8,7 @@
   file:
     dest: /home/james/VMs/vagrant/lxc_template/
     state: directory
-    recurse: yes
+    recurse: true
 
 - name: lay out lxc Vagrantfile template
   template:

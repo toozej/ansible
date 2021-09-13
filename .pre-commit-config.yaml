@@ -1,28 +1,29 @@
+---
 repos:
-- repo: git://github.com/pre-commit/pre-commit-hooks
-  rev: v2.3.0
-  hooks:
-  - id: check-yaml
-    name: Check for valid YAML syntax in repo
-    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_yaml.py
-  - id: detect-private-key
-    name: Check for existence of private key in repo
-    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/detect_private_key.py
-  - id: trailing-whitespace
-    name: Remove trailing whitespace in YAML,Python,Bash files
-    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/trailing_whitespace_fixer.py
-    files: \.(py|sh|yaml|yml)$
-  - id: end-of-file-fixer
-    name: Ensure EOF is consistently only a newline
-    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/end_of_file_fixer.py
-    files: \.(py|sh|yaml|yml)$
-  - id: mixed-line-ending
-    name: Ensure line-ending is consistent
-    description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/mixed_line_ending.py
-    files: \.(py|sh|yaml|yml)$
-- repo: https://github.com/ansible-community/ansible-lint.git
-  rev: v5.1.3
-  hooks:
-    - id: ansible-lint
-      exclude: .travis.yml
-      files: \.(yaml|yml)$
+  - repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-yaml
+        name: Check for valid YAML syntax in repo
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_yaml.py
+      - id: detect-private-key
+        name: Check for existence of private key in repo
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/detect_private_key.py
+      - id: trailing-whitespace
+        name: Remove trailing whitespace in YAML,Python,Bash files
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/trailing_whitespace_fixer.py
+        files: \.(py|sh|yaml|yml)$
+      - id: end-of-file-fixer
+        name: Ensure EOF is consistently only a newline
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/end_of_file_fixer.py
+        files: \.(py|sh|yaml|yml)$
+      - id: mixed-line-ending
+        name: Ensure line-ending is consistent
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/mixed_line_ending.py
+        files: \.(py|sh|yaml|yml)$
+  - repo: https://github.com/ansible-community/ansible-lint.git
+    rev: v5.1.3
+    hooks:
+      - id: ansible-lint
+        exclude: .travis.yml
+        files: \.(yaml|yml)$

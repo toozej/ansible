@@ -52,25 +52,25 @@
   user:
     name: james
     groups: kvm
-    append: yes
+    append: true
 
 - name: add user "james" to libvirt,libvirt-qemu groups on Debian only
   user:
     name: james
     groups: libvirt,libvirt-qemu
-    append: yes
+    append: true
   when: ansible_distribution == 'Debian'
 
 - name: add user "james" to libvirtd group on Ubuntu 16.04 only
   user:
     name: james
     groups: libvirtd
-    append: yes
+    append: true
   when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version is version(16.04, 'eq'))
 
 - name: add user "james" to libvirt group on Ubuntu >= 17.04 only
   user:
     name: james
     groups: libvirt
-    append: yes
+    append: true
   when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_major_version is version(17, 'ge'))

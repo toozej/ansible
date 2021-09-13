@@ -3,7 +3,7 @@
   file:
     path: /home/james/.config/
     state: directory
-    recurse: yes
+    recurse: true
 
 - name: Install latest version of remmina RDP client
   package:
@@ -24,7 +24,7 @@
   file:
     path: /home/james/.config/terminator
     state: directory
-    recurse: yes
+    recurse: true
 
 - name: lay out Terminator config file
   template:

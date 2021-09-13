@@ -1,4 +1,4 @@
-skip_list: 
+skip_list:
     - line-length
     - role-name
     - package-latest

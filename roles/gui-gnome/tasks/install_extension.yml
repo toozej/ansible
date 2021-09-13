@@ -9,7 +9,7 @@
     state: directory
     suffix: ".gnome_extension_download"
   register: r_gnome_extension_download_dir
-  changed_when: no
+  changed_when: false
   when: r_gnome_extensions_check_existing.stat.exists == false
 
 - block:
@@ -31,7 +31,7 @@
       unarchive:
         src: "{{ r_gnome_extension_download.dest }}"
         dest: "/home/{{ gnome_user }}/.local/share/gnome-shell/extensions/{{ gnome_extension_info.uuid }}"
-        remote_src: yes
+        remote_src: true
 
     - name: Enable Gnome Shell extension - {{ gnome_extension_info.name }}
       command: gnome-extensions enable {{ gnome_extension_info.uuid }}
@@ -41,5 +41,5 @@
       file:
         path: "{{ r_gnome_extension_download_dir.path }}"
         state: absent
-      changed_when: no
+      changed_when: false
   when: r_gnome_extensions_check_existing.stat.exists == false
