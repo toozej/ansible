@@ -12,7 +12,7 @@
 
 - name: create "james" user
   user:
-    name: james
+    name: "{{ james_user }}"
     comment: "James"
     shell: /bin/bash
     state: present
@@ -21,13 +21,13 @@
 - name: allow "james" as sudoer
   lineinfile:
     path: /etc/sudoers
-    regexp: '^james'
+    regexp: "^{{ james_user }}"
     insertafter: "^root	ALL=(ALL:ALL) ALL"
-    line: 'james	ALL=(ALL:ALL) ALL'
+    line: "{{ james_user }}	ALL=(ALL:ALL) ALL"
 
 - name: Set authorized key
   authorized_key:
-    user: james
+    user: "{{ james_user }}"
     state: present
     key: https://github.com/toozej.keys
     validate_certs: true
@@ -51,7 +51,7 @@
   file:
     path: "{{ home_dir_path }}/dotfiles"
     recurse: true
-    owner: james
+    owner: "{{ james_user }}"
     group: "{{ james_group }}"
   when: (clone_or_pull.changed == true) and (not ansible_check_mode)
 
@@ -65,7 +65,7 @@
 
 # TODO: fix this for Travis runs, works great with KCLI
 - name: setup dotfiles
-  raw: "sudo -u james {{ home_dir_path|quote }}/dotfiles/setup.sh"
+  raw: "sudo -u {{ james_user }} {{ home_dir_path|quote }}/dotfiles/setup.sh"
   when: (clone_or_pull.changed == true) and (not ansible_check_mode)
   tags: ci
 
@@ -83,5 +83,5 @@
     path: "{{ home_dir_path }}/src/github/toozej/"
     state: directory
     recurse: true
-    owner: james
+    owner: "{{ james_user }}"
     group: "{{ james_group }}"
