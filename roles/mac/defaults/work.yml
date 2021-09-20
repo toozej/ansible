@@ -25,12 +25,11 @@ homebrew_installed_packages_work:
   - terraform
   - terraform-docs
   - terraform-inventory
-  - terraform-provisioner-ansible
   - terragrunt
   - tflint
   - vault
+  - vmware-tanzu/varvel/ytt
   - yamllint
-  - ytt
 
 homebrew_cask_apps_work:
   - apache-directory-studio

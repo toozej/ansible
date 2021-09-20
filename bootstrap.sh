@@ -83,7 +83,9 @@ elif [ "$(uname)" == "Darwin" ]; then
     os="mac"
     # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
     ANSIBLE_REPO_DIR=~/tmp/ansible
-    easy_install pip
+
+    # for now, still using Python 2.7 for Ansible on MacOS, so force last version of pip that supports Python 2.7
+    easy_install pip==20.3.4
     pip install ansible ansible-lint
 
 # otherwise...

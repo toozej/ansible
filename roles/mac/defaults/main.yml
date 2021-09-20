@@ -60,7 +60,7 @@ homebrew_cask_apps:
   - muzzle
   - plexamp
   - plex-media-player
-  - qmk-toolbox
+  - homebrew/cask-drivers/qmk-toolbox
   - sensiblesidebuttons
   - scroll-reverser
   - simplenote
@@ -74,7 +74,7 @@ homebrew_cask_apps:
   - virtualbox
   - virtualbox-extension-pack
   - vlc
-  - wireguard
+  - wireguard-tools
 
 homebrew_cask_appdir: /Applications
 homebrew_cask_accept_external_apps: false
