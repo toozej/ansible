@@ -9,7 +9,6 @@ homebrew_install_path: "{{ homebrew_prefix }}/Homebrew"
 homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
 
 homebrew_installed_packages:
-  - awscli
   - bash-completion
   - docker-compose
   - fzf

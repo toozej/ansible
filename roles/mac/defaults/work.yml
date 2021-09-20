@@ -1,6 +1,7 @@
 ---
 homebrew_installed_packages_work:
   - autoconf
+  - awscli
   - chtf
   - circleci
   - coreutils

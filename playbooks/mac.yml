@@ -9,7 +9,5 @@
 
 - name: Setup Mac software
   hosts: all
-  become: true
-  become_user: root
   roles:
     - role: mac
