@@ -24,6 +24,14 @@
   until: install_steam is not failed
   retries: 5
 
+- name: "flatpak | install the latest version of Steam Link"
+  flatpak:
+    name: com.valvesoftware.SteamLink
+    state: present
+  register: install_steam_link
+  until: install_steam_link is not failed
+  retries: 5
+
 - name: "apt | pre-requisites for installing Lutris on Debian"
   include: lutris-debian.yml
   when: (ansible_distribution == 'Debian')
