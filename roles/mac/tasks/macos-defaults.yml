@@ -152,6 +152,18 @@
     - restart Dock
     - restart Finder
 
+# defaults write NSGlobalDomain _HIHideMenuBar -bool true
+- name: Auto-hide top menu bar
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: _HIHideMenuBar
+    type: bool
+    value: true
+    state: present
+  notify:
+    - restart Dock
+    - restart Finder
+
 # defaults write com.apple.dock wvous-tl-corner -int 5
 - name: Set Top Left screen corner - Start screen saver part 1
   community.general.osx_defaults:

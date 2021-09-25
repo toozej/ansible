@@ -9,4 +9,3 @@
 
 - name: Configure MacOS Defaults
   include: macos-defaults.yml
-  become: true
