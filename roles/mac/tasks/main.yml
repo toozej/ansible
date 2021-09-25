@@ -1,8 +1,12 @@
 ---
-- name: Install homebrew
-  include: homebrew.yml
+#- name: Install homebrew
+#  include: homebrew.yml
+#
+#- name: Install MacOS Packages via Pip
+#  pip:
+#    name: virtualenv
+#    state: latest
 
-- name: Install MacOS Packages via Pip
-  pip:
-    name: virtualenv
-    state: latest
+- name: Configure MacOS Defaults
+  include: macos-defaults.yml
+  become: true

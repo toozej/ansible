@@ -1,0 +1,6 @@
+---
+# Playbook to setup a mac
+- name: Setup Mac software
+  hosts: all
+  roles:
+    - role: mac
