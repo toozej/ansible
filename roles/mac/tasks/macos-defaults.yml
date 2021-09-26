@@ -105,7 +105,7 @@
     - restart Dock
     - restart Finder
 
-# defaults write -g AppleShowAllExtensions -bool true
+# defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 - name: Show all filename extensions.
   community.general.osx_defaults:
     key: AppleShowAllExtensions
@@ -198,7 +198,7 @@
   notify:
     - restart Dock
     - restart Finder
-    # defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+# defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 - name: Expand save panels by default part 2
   community.general.osx_defaults:
     domain: NSGlobalDomain
