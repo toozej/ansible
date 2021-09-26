@@ -6,3 +6,6 @@
   pip:
     name: virtualenv
     state: latest
+
+- name: Configure MacOS Defaults
+  include: macos-defaults.yml

@@ -1,0 +1,8 @@
+---
+# restart Dock
+- name: restart Dock
+  shell: killall Dock
+
+# restart Finder
+- name: restart Finder
+  shell: killall Finder
