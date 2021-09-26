@@ -20,6 +20,7 @@
       - ncdu
       - lshw
       - net-tools
+      - nmap
       - "{{ dig_package_name }}"
     state: latest
 
