@@ -43,4 +43,5 @@
     name:
       - rsync
       - inotify-tools
+      - gvfs-backends
     state: latest
