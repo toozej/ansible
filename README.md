@@ -19,6 +19,9 @@ Or if you would rather just run one playbook stand-alone:
 Or if you want to run a playbook stand-alone skipping tags:
 - cd /tmp/ansible; ansible-playbook $playbook\_name.yml --skip-tags $tag\_name,$tag\_name2
 
+Or if you want to run a playbook straight from the repo directory:
+- `sudo ANSIBLE_ROLES_PATH=/home/james/src/github/toozej/ansible/roles ansible-playbook playbooks/simplenote-only.yml`
+
 ## Useful info for developing Ansible
 [Ansible Porting Guides](https://github.com/ansible/ansible/tree/devel/docs/docsite/rst/porting_guides)
 - validate Jenkinsfile using:
