@@ -1,3 +1,4 @@
 ---
 clamav_daemon_package_name: clamd
 clamav_freshclam_package_name: clamav-update
+gvfs_backend_package_name: gvfs-client

@@ -1,3 +1,4 @@
 ---
 clamav_daemon_package_name: clamav-daemon
 clamav_freshclam_package_name: clamav-freshclam
+gvfs_backend_package_name: gvfs-backends
