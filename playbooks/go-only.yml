@@ -1,0 +1,8 @@
+---
+# execute this playbook `sudo ANSIBLE_ROLES_PATH=/home/james/src/github/toozej/ansible/roles ansible-playbook playbooks/go-only.yml`
+- name: go-only
+  hosts: all
+  tasks:
+    - name: Golang only
+      include_role:
+        name: dev-go
