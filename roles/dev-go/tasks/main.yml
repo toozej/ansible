@@ -28,11 +28,5 @@
     src: go-bin.sh
     dest: /etc/profile.d
 
-- name: Set GOPATH for all users
-  copy:
-    src: go-path.sh
-    dest: /etc/profile.d
-  when: set_go_path
-
 - name: include additional go binaries
   include: additional_go_binaries.yml

@@ -1,18 +1,4 @@
 ---
-- name: Register the current Go Dep version (if any)
-  command: /usr/local/go/bin/dep version
-  ignore_errors: true
-  register: go_dep_version
-  changed_when: false
-
-- name: Remove old installation of Go Dep
-  file:
-    path: /usr/local/go/bin/dep
-    state: absent
-  when: go_dep_version is failed or go_dep_version.stdout != go_dep_version_target
-
-- name: download go dep tool from Github
-  get_url:
-    url: "{{ go_dep_download_location }}"
-    dest: "/usr/local/go/bin/dep"
-    mode: "0755"
+- name: Install latest version of GoReleaser
+  command: go install github.com/goreleaser/goreleaser@latest
+  become_user: "james"
