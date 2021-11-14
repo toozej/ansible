@@ -5,11 +5,6 @@
     state: directory
     recurse: true
 
-- name: Install latest version of remmina RDP client
-  package:
-    name: remmina
-    state: latest
-
 - name: Install latest version of xournal PDF editor
   package:
     name: xournal
