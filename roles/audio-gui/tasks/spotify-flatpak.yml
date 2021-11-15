@@ -6,6 +6,7 @@
   flatpak:
     name: com.spotify.Client
     state: present
+    remote: flathub
   register: install_spotify
   until: install_spotify is not failed
   retries: 5
