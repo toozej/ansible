@@ -1,4 +1,8 @@
 ---
 - name: Install latest version of GoReleaser
-  command: go install github.com/goreleaser/goreleaser@latest
+  shell: |
+    go version
+    go install github.com/goreleaser/goreleaser@latest || go get github.com/goreleaser/goreleaser@latest
   become_user: "james"
+  environment:
+    GO111MODULE: "on"
