@@ -5,3 +5,4 @@ python3_devtools_package_name: python3-devel
 python3_setuptools_package_name: python3-setuptools
 python_virtualenv_package_name: python3-virtualenv
 ipython_package_name: python3-ipython
+pylint_package_name: python3-pylint

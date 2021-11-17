@@ -8,7 +8,7 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: true
-  when: (pip3_package_name is not defined) or (python3_devtools_package_name is not defined) or (python3_package_name is not defined) or (python3_setuptools_package_name is not defined) or (python_virtualenv_package_name is not defined) or (ipython_package_name is not defined)
+  when: (pip3_package_name is not defined) or (python3_devtools_package_name is not defined) or (python3_package_name is not defined) or (python3_setuptools_package_name is not defined) or (python_virtualenv_package_name is not defined) or (ipython_package_name is not defined) or (pylint_package_name is not defined)
 
 - name: install the latest version of python3
   package:
@@ -38,6 +38,11 @@
 - name: install the latest version of ipython
   package:
     name: "{{ ipython_package_name }}"
+    state: latest
+
+- name: install the latest version of pylint
+  package:
+    name: "{{ pylint_package_name }}"
     state: latest
 
 - include: "pycharm.yml"
