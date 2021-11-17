@@ -60,3 +60,33 @@
 
 - name: Install Speedcrunch
   include: speedcrunch.yml
+
+- name: "flatpak | force repair"
+  shell: "/usr/bin/flatpak repair"
+
+- name: "flatpak | install latest version of Kindle Comic Converter"
+  flatpak:
+    name: io.github.ciromattia.kcc
+    state: present
+    remote: flathub
+  register: install_kcc
+  until: install_kcc is not failed
+  retries: 5
+
+- name: "flatpak | install latest version of Anki"
+  flatpak:
+    name: net.ankiweb.Anki
+    state: present
+    remote: flathub
+  register: install_anki
+  until: install_anki is not failed
+  retries: 5
+
+- name: "flatpak | install latest version of Signal"
+  flatpak:
+    name: org.signal.Signal
+    state: present
+    remote: flathub
+  register: install_signal
+  until: install_signal is not failed
+  retries: 5
