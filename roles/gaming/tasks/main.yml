@@ -82,12 +82,10 @@
   until: install_athenaeum is not failed
   retries: 5
 
-- name: "appimage | download latest version of Yuzu"
-  shell: curl -s https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[] | select(.name | endswith(\"AppImage\")) | .browser_download_url" | wget -i - -O /home/james/bin/yuzu.AppImage
-
-- name: "set permissions on Yuzu"
-  file:
-    path: /home/james/bin/yuzu.AppImage
-    owner: james
-    group: james
-    mode: '0744'
+- name: "flatpak | install latest version of Yuzu"
+  flatpak:
+    name: org.yuzu_emu.yuzu
+    state: present
+  register: install_yuzu
+  until: install_yuzu is not failed
+  retries: 5
