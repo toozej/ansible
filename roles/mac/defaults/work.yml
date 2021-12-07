@@ -35,9 +35,8 @@ homebrew_installed_packages_work:
 homebrew_cask_apps_work:
   - apache-directory-studio
   - beyond-compare
+  - corsair-icue
   - dbeaver-community
-  - logitech-g-hub
-  - logitech-options
   - keepassxc
   - postman
   - pycharm-ce
