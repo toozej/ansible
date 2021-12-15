@@ -45,3 +45,21 @@
       - inotify-tools
       - "{{ gvfs_backend_package_name }}"
     state: latest
+
+# equivalent to sysctl -n -w fs.inotify.max_user_watches=16384
+- name: "increase inotify max_user_watches limit"
+  sysctl:
+    name: fs.inotify.max_user_watches
+    value: 16384
+    sysctl_set: true
+    state: present
+    reload: true
+
+# equivalent to sysctl -n -w fs.inotify.max_user_instances=512
+- name: "increase inotify max_user_instances limit"
+  sysctl:
+    name: fs.inotify.max_user_instances
+    value: 512
+    sysctl_set: true
+    state: present
+    reload: true
