@@ -45,6 +45,25 @@
     state: present
   notify: Restart ssh
 
+- name: regenerate RSA and ED25519 keys
+  shell: |
+    rm -f /etc/ssh/ssh_host_*
+    ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
+    ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
+  notify: Restart ssh
+
+- name: set permissions on regenerated RSA and ED25519 keys for RHEL family
+  shell: |
+    chgrp ssh_keys /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_rsa_key
+    chmod g+r /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_rsa_key
+  when: ansible_os_family == 'RedHat'
+
+- name: remove small diffie-hellman moduli
+  shell: |
+    awk '$5 >= 3071' /etc/ssh/moduli > /etc/ssh/moduli.safe
+    mv -f /etc/ssh/moduli.safe /etc/ssh/moduli
+  notify: Restart ssh
+
 - name: set allowed algorithms, ciphers and MACs in ssh client config
   blockinfile:
     path: /etc/ssh/ssh_config
