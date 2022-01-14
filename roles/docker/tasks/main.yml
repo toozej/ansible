@@ -25,7 +25,7 @@
 
 - name: Install docker python library
   package:
-    name: python-docker
+    name: python3-docker
     state: present
   when: ansible_distribution_release == "buster" or ansible_distribution_release == "bullseye"
 
