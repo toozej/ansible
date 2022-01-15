@@ -28,4 +28,3 @@
     - role: dev-go
     - role: dev-python
     - role: dev-ruby
-    - role: dev-terraform
