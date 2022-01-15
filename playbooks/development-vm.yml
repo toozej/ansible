@@ -1,0 +1,31 @@
+---
+# Playbook to setup a development environment
+- name: Setup common environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: ansible-enablement
+    - role: user
+    - role: common
+    - role: dev-common
+
+- name: Setup Docker environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: docker
+
+- name: Setup dev environment
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: java
+    - role: dev-aws
+    - role: dev-ansible
+    - role: dev-go
+    - role: dev-python
+    - role: dev-ruby
+    - role: dev-terraform
