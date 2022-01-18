@@ -68,15 +68,10 @@ elif [ -f /etc/fedora-release ]; then
     os=`cat /etc/fedora-release`
     dnf install -y git ansible python3-ansible-lint python3-dnf
 
-# if RedHat-based
+# if RedHat-based (but not Fedora)
 elif [ -f /etc/redhat-release ]; then
     os=`cat /etc/redhat-release`
-    if [[ $os == *"release 8."* ]]; then
-      epel_rpm="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-      dnf install -y python3
-      dnf install -y $epel_rpm
-      dnf install -y git ansible
-    fi
+    dnf install -y git ansible
 
 # if MacOS-based
 elif [ "$(uname)" == "Darwin" ]; then

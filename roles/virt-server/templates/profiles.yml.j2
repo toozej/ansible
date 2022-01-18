@@ -7,34 +7,6 @@ arch:
  cmds:
   - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
-
-centos:
-  image: CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2
-  numcpus: 2
-  memory: 2048
-  disks:
-  - size: 40
-  cmds:
-  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O &&
-    chmod +x bootstrap.sh
-  - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
-centos7:
-  template: CentOS-7-x86_64-GenericCloud.qcow2
-  numcpus: 2
-  memory: 2048
-  disks:
-  - size: 40
-  cmds:
-  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O &&
-    chmod +x bootstrap.sh
-  - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
-centos6:
-  template: CentOS-6-x86_64-GenericCloud.qcow2
-  numcpus: 2
-  memory: 2048
-  disks:
-  - size: 40
- 
 fedora:
  template: Fedora-Cloud-Base-31-1.9.x86_64.qcow2
  numcpus: 2
@@ -44,7 +16,6 @@ fedora:
  cmds:
   - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
-
 opensuse:
  template: openSUSE-Leap-42.3-OpenStack.x86_64.qcow2
  numcpus: 2
@@ -54,25 +25,25 @@ opensuse:
  cmds:
   - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
-
 debian:
- template: debian-10-openstack-amd64.qcow2
- numcpus: 2
- memory: 2048
- disks:
+  template: debian-11-generic-amd64.qcow2
+  numcpus: 2
+  memory: 2048
+  disks:
   - size: 40
- cmds:
+  cmds:
   - sudo apt-get update -qq && apt-get install -y curl
-  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O &&
+    chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
-
 ubuntu:
- template: focal-server-cloudimg-amd64.img
- numcpus: 2
- memory: 2048
- disks:
+  template: focal-server-cloudimg-amd64.img
+  numcpus: 2
+  memory: 2048
+  disks:
   - size: 40
- cmds: 
+  cmds:
   - sudo apt-get update -qq && apt-get install -y curl
-  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+  - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O &&
+    chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
