@@ -26,12 +26,11 @@
     name: "{{ nss_tools_package_name }}"
     state: latest
 
-# pre-commit package not yet available in Ubuntu and Debian default repos
 - name: install the latest version of pre-commit
   package:
     name: pre-commit
     state: latest
-  when: ansible_distribution == 'Fedora'
+  when: ansible_distribution != 'Ubuntu'
 
 - name: include wuzz defaults
   include_vars:
