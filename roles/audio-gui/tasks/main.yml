@@ -29,18 +29,6 @@
     name: vlc
     state: latest
 
-- name: install latest version of DeaDBeeF
-  package:
-    name: deadbeef
-    state: latest
-  when: ansible_distribution == 'Fedora'
-
-- name: install latest version of DeaDBeeF Plugins
-  package:
-    name: deadbeef-plugins
-    state: latest
-  when: ansible_distribution == 'Fedora'
-
 - name: install latest version of Spotify client apt
   include: spotify-apt.yml
   when: ansible_pkg_mgr == 'apt'
