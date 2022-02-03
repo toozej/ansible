@@ -22,6 +22,7 @@ homebrew_installed_packages:
   - p7zip
   - pylint
   - python
+  - shellcheck
   - sqlite
   - ssh-copy-id
   - the_silver_searcher

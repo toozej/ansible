@@ -8,7 +8,7 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: true
-  when: (dev_tools_package_name is not defined) or (nss_tools_package_name is not defined)
+  when: (dev_tools_package_name is not defined) or (nss_tools_package_name is not defined) or (shellcheck_package_name is not defined)
 
 - include_tasks: setup-Debian.yml
   when: ansible_os_family == 'Debian'
@@ -31,6 +31,11 @@
     name: pre-commit
     state: latest
   when: ansible_distribution != 'Ubuntu'
+
+- name: install the latest version of shellcheck
+  package:
+    name: "{{ shellcheck_package_name }}"
+    state: latest
 
 - name: include wuzz defaults
   include_vars:

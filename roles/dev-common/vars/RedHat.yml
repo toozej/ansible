@@ -1,3 +1,4 @@
 ---
 dev_tools_package_name: "@Development Tools"
 nss_tools_package_name: "nss-tools"
+shellcheck_package_name: "ShellCheck"
