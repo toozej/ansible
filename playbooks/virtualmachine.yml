@@ -1,8 +1,0 @@
----
-# Playbook to setup vm tools
-- name: Setup vm tools
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: vm
