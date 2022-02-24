@@ -8,7 +8,7 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: true
-  when: (powerline_fonts_package_name is not defined)
+  when: (powerline_fonts_package_name is not defined) or (sensors_package_name is not defined)
 
 - name: Ensures ~/.config exists
   file:
