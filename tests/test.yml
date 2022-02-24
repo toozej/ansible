@@ -40,8 +40,9 @@
     - {role: ../roles/unattended-upgrades}
     - {role: ../roles/vagrant}
     - {role: ../roles/virt-server}
-    # dev-kubernetes requires kvm
+    # dev-kubernetes and dev-terraform require kvm
     - {role: ../roles/dev-kubernetes}
+    - {role: ../roles/dev-terraform}
     - {role: ../roles/wireguard}
     - {role: ../roles/wine}
     # explicitly including hardening last since its a WIP and might screw up connectivity to the test box
