@@ -1,4 +1,15 @@
 ---
+- name: Create qemu group if doesn't already exist
+  group:
+    name: qemu
+    state: present
+
+- name: Create qemu user if doesn't already exist
+  user:
+    name: qemu
+    system: true
+    groups: qemu,kvm
+
 - name: Add your user to libvirt and qemu groups
   user:
     name: james
