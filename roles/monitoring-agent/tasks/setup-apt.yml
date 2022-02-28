@@ -11,7 +11,7 @@
 
 - name: "apt | ensure Sensu repo present"
   copy:
-    content: "deb [signed-by=/usr/share/keyrings/sensu_stable-archive-keyring.gpg] https://packagecloud.io/sensu/stable/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['distribution_release'] | lower }} main"
+    content: "deb [signed-by=/usr/share/keyrings/sensu_stable-archive-keyring.gpg] https://packagecloud.io/sensu/stable/{{ ansible_facts['distribution'] | lower }}/ {{ ansible_facts['distribution_release'] | lower }} main"
     dest: "/etc/apt/sources.list.d/sensu_stable.list"
   register: sensu_repo
 
