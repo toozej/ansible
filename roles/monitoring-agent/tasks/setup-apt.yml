@@ -7,7 +7,7 @@
     force: true
 
 - name: "apt | load Sensu linux signing key to keyring"
-  shell: gpg --dearmor /tmp/sensu_gpgkey > /usr/share/keyrings/sensu_stable-archive-keyring.gpg
+  shell: gpg --dearmor < /tmp/sensu_gpgkey > /usr/share/keyrings/sensu_stable-archive-keyring.gpg
 
 - name: "apt | ensure Sensu repo present"
   copy:
