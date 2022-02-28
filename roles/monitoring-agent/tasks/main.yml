@@ -1,0 +1,27 @@
+---
+- name: Install latest version of Sensu Agent using APT
+  include: setup-apt.yml
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Install latest version of Sensu Agent using DNF
+  include: setup-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+
+- name: "ensure Sensu Agent present"
+  package:
+    name: sensu-go-agent
+    state: latest
+
+- name: lay out base Sensu Agent config
+  template:
+    src: agent.yml.j2
+    dest: /etc/sensu/agent.yml
+    owner: root
+    group: root
+    mode: 0644
+
+# explicitly don't start the service since user will need to fill in "secure" portions of Sensu Agent config
+- name: enable Sensu Agent service
+  service:
+    name: sensu-agent
+    enabled: true

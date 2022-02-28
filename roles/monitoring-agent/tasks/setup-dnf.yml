@@ -1,0 +1,10 @@
+---
+- name: Add Sensu Agent repository
+  yum_repository:
+    name: sensu_stable
+    description: "Sensu Agent Stable repository"
+    baseurl: https://packagecloud.io/sensu/stable/fedora/35/$basearch
+    gpgkey: https://packagecloud.io/sensu/stable/gpgkey
+    gpgcheck: true
+    repo_gpgcheck: true
+    enabled: true

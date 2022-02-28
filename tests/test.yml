@@ -33,6 +33,7 @@
     - {role: ../roles/gui-common}
     - {role: ../roles/gui-i3}
     - {role: ../roles/gui-gnome}
+    - {role: ../roles/monitoring-agent}
     - {role: ../roles/office}
     - {role: ../roles/photography}
     - {role: ../roles/physical}
