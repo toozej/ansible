@@ -1,8 +1,8 @@
 ---
 - name: install dev Kubernetes environment on Linux
-  include: linux.yml
+  include_tasks: linux.yml
   when: ansible_os_family != 'Darwin'
 
 - name: install dev Kubernetes environment on MacOS
-  include: mac.yml
+  include_tasks: mac.yml
   when: ansible_os_family == 'Darwin'

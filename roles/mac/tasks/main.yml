@@ -1,6 +1,6 @@
 ---
 - name: Install homebrew
-  include: homebrew.yml
+  include_tasks: homebrew.yml
 
 - name: Install MacOS Packages via Pip
   pip:
@@ -8,4 +8,4 @@
     state: latest
 
 - name: Configure MacOS Defaults
-  include: macos-defaults.yml
+  include_tasks: macos-defaults.yml

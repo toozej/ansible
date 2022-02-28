@@ -1,6 +1,6 @@
 ---
 - name: disable NetworkManager
-  include: networking.yml
+  include_tasks: networking.yml
   when: base_playbook != "laptop.yml" and base_playbook != "tablet.yml"
 
 - name: install latest version of ethtool package
@@ -9,7 +9,7 @@
     state: latest
 
 - name: include libvirt and KVM
-  include: libvirt.yml
+  include_tasks: libvirt.yml
 
 - name: include kcli tool
-  include: kcli.yml
+  include_tasks: kcli.yml

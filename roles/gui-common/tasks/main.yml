@@ -68,19 +68,19 @@
   when: ansible_distribution == 'Fedora'
 
 - name: Install and configure Sensors
-  include: sensors.yml
+  include_tasks: sensors.yml
 
 - name: Install Simplenote
-  include: simplenote.yml
+  include_tasks: simplenote.yml
 
 - name: Install Slack
-  include: slack.yml
+  include_tasks: slack.yml
 
 - name: Install Zoom
-  include: zoom.yml
+  include_tasks: zoom.yml
 
 - name: Install Speedcrunch
-  include: speedcrunch.yml
+  include_tasks: speedcrunch.yml
 
 - name: "flatpak | force repair"
   shell: "/usr/bin/flatpak repair"

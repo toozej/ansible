@@ -30,11 +30,11 @@
     state: latest
 
 - name: install latest version of Spotify client apt
-  include: spotify-apt.yml
+  include_tasks: spotify-apt.yml
   when: ansible_pkg_mgr == 'apt'
 
 - name: install latest version of Spotify client flatpak
-  include: spotify-flatpak.yml
+  include_tasks: spotify-flatpak.yml
   when: ansible_pkg_mgr != 'apt'
 
 - name: install openh264 from Fedora Cisco repo

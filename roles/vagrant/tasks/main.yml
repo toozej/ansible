@@ -15,7 +15,7 @@
     state: latest
 
 - name: Install vagrant libvirt provider on modern distros
-  include: vagrant_providers_libvirt.yml
+  include_tasks: vagrant_providers_libvirt.yml
 
 - name: Install vagrant plugins on modern distros
-  include: vagrant_plugins.yml
+  include_tasks: vagrant_plugins.yml

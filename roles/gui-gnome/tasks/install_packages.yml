@@ -22,7 +22,7 @@
   when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
 
 - name: Install latest version of Fedy on Fedora using DNF
-  include: fedy.yml
+  include_tasks: fedy.yml
   when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
 
 - name: Install Gnome Shell Extensions installer/integration for web browsers

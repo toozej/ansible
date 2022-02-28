@@ -45,5 +45,5 @@
     name: "{{ pylint_package_name }}"
     state: latest
 
-- include: "pycharm.yml"
+- include_tasks: "pycharm.yml"
   tags: gui

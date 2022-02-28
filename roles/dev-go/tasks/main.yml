@@ -29,4 +29,4 @@
     dest: /etc/profile.d
 
 - name: include additional go binaries
-  include: additional_go_binaries.yml
+  include_tasks: additional_go_binaries.yml
