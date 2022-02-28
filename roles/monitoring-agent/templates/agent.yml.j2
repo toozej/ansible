@@ -8,19 +8,19 @@ name: "{{ inventory_hostname_short }}"
 namespace: "default"
 subscriptions:
   - system
-{% if base_playbook in ['docker-server', 'media-server', 'server', 'virt-server'] %}
+{% if ansible_facts['base_playbook'] in ['docker-server', 'media-server', 'server', 'virt-server'] %}
   - dockerhost
 {% endif %}
-{% if base_playbook in ['server', 'virt-server'] %}
+{% if ansible_facts['base_playbook'] in ['server', 'virt-server'] %}
   - vmhost
 {% endif %}
-{% if base_playbook in ['server', 'archive-server'] %}
+{% if ansible_facts['base_playbook'] in ['server', 'archive-server'] %}
   - projecthost
 {% endif %}
-{% if 'development' in base_playbook %}
+{% if 'development' in ansible_facts['base_playbook'] %}
   - dev
 {% endif %}
-{% if 'bastion' in base_playbook %}
+{% if 'bastion' in ansible_facts['base_playbook'] %}
   - bastion
 {% endif %}
 
