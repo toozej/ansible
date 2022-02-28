@@ -24,6 +24,7 @@
     - role: physical
 
 - import_playbook: file-server.yml
+- import_playbook: docker-server.yml
 - import_playbook: virt-server.yml
 - import_playbook: gnome.yml
 

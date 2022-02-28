@@ -6,3 +6,4 @@
   roles:
     - role: gui-common
     - role: gui-gnome
+    - role: flatpak

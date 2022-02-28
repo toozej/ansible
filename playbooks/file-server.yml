@@ -7,3 +7,4 @@
   roles:
     - role: fs-common
     - role: file-server
+    - role: monitoring-agent

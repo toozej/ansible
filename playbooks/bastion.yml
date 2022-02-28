@@ -7,15 +7,7 @@
         base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
       when: base_playbook is not defined
 
-- name: Setup common environment
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: ansible-enablement
-    - role: user
-    - role: common
-    - role: unattended-upgrades
+- import_playbook: common.yml
 
 - name: Setup bastion
   hosts: all
@@ -23,3 +15,4 @@
   become_user: root
   roles:
     - role: hardening
+    - role: monitoring-agent
