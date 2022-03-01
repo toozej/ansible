@@ -8,13 +8,13 @@ name: "{{ inventory_hostname_short }}"
 namespace: "default"
 subscriptions:
   - system
-{% if base_playbook in ['docker-server', 'server', 'virt-server'] %}
+{% if base_playbook|replace('.yml', '') in ['docker-server', 'server', 'virt-server'] %}
   - dockerhost
 {% endif %}
-{% if base_playbook in ['server', 'virt-server'] %}
+{% if base_playbook|replace('.yml', '') in ['server', 'virt-server'] %}
   - vmhost
 {% endif %}
-{% if base_playbook in ['server', 'archive-server'] %}
+{% if base_playbook|replace('.yml', '') in ['server', 'archive-server'] %}
   - projecthost
 {% endif %}
 {% if 'development' in base_playbook %}

@@ -5,6 +5,6 @@
     description: "Sensu Agent Stable repository"
     baseurl: https://packagecloud.io/sensu/stable/fedora/34/$basearch
     gpgkey: https://packagecloud.io/sensu/stable/gpgkey
-    gpgcheck: true
+    gpgcheck: false
     repo_gpgcheck: true
     enabled: true
