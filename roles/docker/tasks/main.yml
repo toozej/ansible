@@ -16,7 +16,7 @@
   pip:
     name: docker-py
     state: absent
-    when: (packages['pip'] is defined) or (packages['pip3'] is defined) or (packages['python-pip'] is defined) or (packages['python-pip3'] is defined)
+  when: (packages['pip'] is defined) or (packages['pip3'] is defined) or (packages['python-pip'] is defined) or (packages['python-pip3'] is defined)
 
 - name: Install latest docker-py lib
   pip:
