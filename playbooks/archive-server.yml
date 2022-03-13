@@ -1,0 +1,21 @@
+---
+# Playbook to setup an archive server system
+- hosts: all
+  pre_tasks:
+    - name: Set base_playbook Fact
+      set_fact:
+        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      when: base_playbook is not defined
+
+- import_playbook: common.yml
+- import_playbook: docker-server.yml
+- import_playbook: file-server.yml
+
+
+- name: Setup programs and tools
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - role: archive
+    - role: hardening
