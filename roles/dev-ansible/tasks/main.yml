@@ -12,9 +12,10 @@
 #     extra_args: --trusted-host pypi.org --trusted-host files.pythonhosted.org
 #   become: true
 
-- name: install the latest version of Ansible-Review
-  pip:
-    name: ansible-review
-    state: latest
-    extra_args: --trusted-host pypi.org --trusted-host files.pythonhosted.org
-  become: true
+# comment out until safe to use ansible-core and ansible-lint on all distros/versions
+#- name: install the latest version of Ansible-Review
+#  pip:
+#    name: ansible-review
+#    state: latest
+#    extra_args: --trusted-host pypi.org --trusted-host files.pythonhosted.org
+#  become: true
