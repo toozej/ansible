@@ -1,3 +1,0 @@
----
-automatic_updater_package_name: yum-cron
-automatic_updater_config_path: /etc/yum/yum-cron.conf
