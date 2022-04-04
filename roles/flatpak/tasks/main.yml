@@ -4,6 +4,11 @@
     name: flatpak
     state: latest
 
+- name: Remove Fedora third-party filtered flathub remote
+  flatpak_remote:
+    name: flathub
+    state: absent
+
 - name: Add the flathub flatpak repository remote
   flatpak_remote:
     name: flathub
