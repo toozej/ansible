@@ -9,13 +9,6 @@
 
 - import_playbook: common.yml
 
-- name: Setup desktop environment
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: flatpak
-
 - name: Setup physical hardware fixes
   hosts: all
   become: true

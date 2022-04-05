@@ -11,6 +11,6 @@
   become: true
   become_user: root
   roles:
+    - role: flatpak
     - role: gui-common
     - role: gui-gnome
-    - role: flatpak
