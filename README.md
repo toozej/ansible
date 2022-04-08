@@ -11,7 +11,7 @@ running against localhost periodically using Cron.
 - scp private SSH key into ~/.ssh/
 - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
 - check the playbook: sudo ./bootstrap.sh -c $playbook\_name.yml
-- run the playbook: sudo ./bootstrap.sh -r $playbook\_name.yml | tee /tmp/bootstrap.log
+- run the playbook: sudo ./bootstrap.sh -r $playbook\_name.yml
 
 Or if you would rather just run one playbook stand-alone:
 - cd /tmp/ansible; ansible-playbook $playbook\_name.yml

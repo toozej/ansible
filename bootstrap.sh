@@ -123,7 +123,7 @@ if [[ $CHECK == "true" && $DEBUG == "false" ]]; then
 elif [[ $CHECK == "true" && $DEBUG == "true" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 -vvv | tee $ANSIBLE_REPO_DIR/playbook_check.out)
 elif [[ $RUN == "true" && $DEBUG == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2)
+  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 | tee /tmp/bootstrap.log)
 elif [[ $RUN == "true" && $DEBUG == "true" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 -vvv | tee $ANSIBLE_REPO_DIR/playbook_run.out)
 fi
