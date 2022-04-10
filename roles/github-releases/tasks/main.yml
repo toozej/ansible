@@ -1,0 +1,101 @@
+---
+- name: get latest {{ repo }} version
+  uri:
+    url: "{{ project_url }}/{{ version }}"
+    return_content: true
+  register: latest_version
+
+- name: check if {{ repo }}-{{ version }} binary is already there
+  stat:
+    path: "{{ instpath }}/{{ repo }}-{{ latest_version.json.tag_name }}"
+  register: newestbinary
+  when: instpath is defined
+
+- name: check if {{ repo }}-{{ version }} package is already installed
+  package_facts:
+    manager: "auto"
+  ignore_errors: true
+  changed_when: false
+  when: (instpath is not defined)
+
+- name: setup temp directory
+  tempfile:
+    state: directory
+    suffix: dwnld
+  register: tempfolder_1
+
+- name: download latest version to specific install path
+  block:
+    - name: "check if {{ instpath }} exists"
+      file:
+        path: "{{ instpath }}"
+        state: directory
+        mode: '0755'
+
+    - name: "installing {{ repo }} {{ latest_version.json.tag_name }} from released binary"
+      # idea from: https://stackoverflow.com/a/62672308/886659
+      loop: "{{ latest_version.json.assets }}"
+      loop_control:
+        label: "{{ item.name }}"
+      when: (filename|string in item.name) and (arch|string in item.name)
+      unarchive:
+        remote_src: true
+        src: "{{ item.browser_download_url }}"
+        dest: "{{ tempfolder_1.path }}"
+        keep_newer: true
+        extra_opts:
+          - --strip=1
+          - --no-anchored
+          - "{{ repo }}"
+
+    - name: command because no mv available
+      command: mv "{{ tempfolder_1.path }}/{{ repo }}" "{{ instpath }}/{{ repo }}"
+      args:
+        creates: "{{ instpath }}/{{ repo }}"
+  when: (instpath is defined) and (not newestbinary.stat.exists)
+
+- name: apt | download latest version and install with package manager
+  block:
+    - name: "download deb package {{ repo }} {{ latest_version.json.tag_name }}"
+      # idea from: https://stackoverflow.com/a/62672308/886659
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: "{{ tempfolder_1.path }}/{{ filename }}.deb"
+        force: true
+      loop: "{{ latest_version.json.assets }}"
+      loop_control:
+        label: "{{ item.name }}"
+      when: (filename|string in item.name) and (arch|string in item.name) and ('.deb' in item.name)
+
+    - name: "installing deb {{ repo }} {{ latest_version.json.tag_name }}"
+      apt:
+        name: "{{ tempfolder_1.path }}/{{ filename }}.deb"
+        state: present
+  when: (instpath is not defined) and (ansible_pkg_mgr == 'apt') and "repo" not in ansible_facts.packages
+
+- name: dnf | download latest version and install with package manager
+  block:
+    - name: "download rpm package {{ repo }} {{ latest_version.json.tag_name }}"
+      # idea from: https://stackoverflow.com/a/62672308/886659
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: "{{ tempfolder_1.path }}/{{ filename }}.rpm"
+        force: true
+      loop: "{{ latest_version.json.assets }}"
+      loop_control:
+        label: "{{ item.name }}"
+      when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name)
+
+    - name: "installing rpm {{ repo }} {{ latest_version.json.tag_name }}"
+      dnf:
+        name: "{{ tempfolder_1.path }}/{{ filename }}.rpm"
+        state: present
+        disable_gpg_check: true
+  when: (instpath is not defined) and (ansible_pkg_mgr == 'dnf') and "repo" not in ansible_facts.packages
+  always:
+    - name: delete {{ tempfolder_1.path|default("tempfolder") }}
+      file:
+        path: "{{ tempfolder_1.path }}"
+        state: absent
+      when: tempfolder_1.path is defined
+      ignore_errors: true

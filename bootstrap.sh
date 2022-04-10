@@ -2,7 +2,7 @@
 
 # help/usage information
 function usage {
-    echo "Usage: bootstrap.sh [-c] [-r] PLAYBOOK"
+    echo "Usage: bootstrap.sh [-c] [-r] PLAYBOOK [-d] [-t] [TAGS]"
     echo ""
     echo "  -h                  Display usage."
     echo ""
@@ -13,6 +13,10 @@ function usage {
     echo "  PLAYBOOK            Filename of the Ansible playbook to run."
     echo "                        For example, web-server.yml."
     echo ""
+    echo "  -t                  Only run specific tags."
+    echo ""
+    echo "  TAGS                List of tags to run."
+    echo ""
     echo "  -d                  Run Ansible Playbook ouputting to a debug textfile."
     echo ""
 }
@@ -22,13 +26,14 @@ function set_defaults {
     RUN=false
     DEBUG=false
     ANSIBLE_REPO_DIR=/tmp/ansible
+    TAGS=false
 }
 
 # set defaults before getting user input
 set_defaults
 
 # get user input
-while getopts ":hc:d:r:" option
+while getopts ":hc:d:r:t:" option
 do
   case $option in
     h)
@@ -40,6 +45,9 @@ do
       ;;
     r)
       RUN=true
+      ;;
+    t)
+      TAGS=true
       ;;
     d)
       DEBUG=true
@@ -118,14 +126,22 @@ fi
 
 # if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
-if [[ $CHECK == "true" && $DEBUG == "false" ]]; then
+if [[ $CHECK == "true" && $DEBUG == "false" && $TAGS == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2)
-elif [[ $CHECK == "true" && $DEBUG == "true" ]]; then
+elif [[ $CHECK == "true" && $DEBUG == "true" && $TAGS == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 -vvv | tee $ANSIBLE_REPO_DIR/playbook_check.out)
-elif [[ $RUN == "true" && $DEBUG == "false" ]]; then
+elif [[ $CHECK == "true" && $DEBUG == "false" && $TAGS == "true" ]]; then
+  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4")
+elif [[ $CHECK == "true" && $DEBUG == "true" && $TAGS == "true" ]]; then
+  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 -vvv --tags "$4" | tee $ANSIBLE_REPO_DIR/playbook_check.out)
+elif [[ $RUN == "true" && $DEBUG == "false" && $TAGS == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 | tee /tmp/bootstrap.log)
-elif [[ $RUN == "true" && $DEBUG == "true" ]]; then
+elif [[ $RUN == "true" && $DEBUG == "true" && $TAGS == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 -vvv | tee $ANSIBLE_REPO_DIR/playbook_run.out)
+elif [[ $RUN == "true" && $DEBUG == "false" && $TAGS == "true" ]]; then
+  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4" | tee /tmp/bootstrap.log)
+elif [[ $RUN == "true" && $DEBUG == "true" && $TAGS == "true" ]]; then
+  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 -vvv --tags "$4"| tee $ANSIBLE_REPO_DIR/playbook_run.out)
 fi
 
 echo -e "\n\n"

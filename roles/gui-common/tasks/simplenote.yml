@@ -1,38 +1,12 @@
 ---
-- name: include simplenote defaults
-  include_vars:
-    file: ../defaults/simplenote.yml
-
-- name: Download latest version of Simplenote for Debian-based systems
-  get_url:
-    url: https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}-amd64.deb
-    dest: /tmp/simplenote.deb
-    force: true
-  when: ansible_os_family == 'Debian'
-
-- name: Install latest version of Simplenote for Debian-based systems
-  apt:
-    deb: /tmp/simplenote.deb
-    state: present
-  when: ansible_os_family == 'Debian'
-
-- name: Download latest version of Simplenote for RedHat-based systems
-  get_url:
-    url: https://github.com/Automattic/simplenote-electron/releases/download/v{{ simplenote_version }}/Simplenote-linux-{{ simplenote_version }}-x86_64.rpm
-    dest: /tmp/simplenote.rpm
-    force: true
-  when: ansible_os_family == 'RedHat'
-
-- name: Install latest version of Simplenote using DNF
-  dnf:
-    name: /tmp/simplenote.rpm
-    state: present
-    disable_gpg_check: true
-  when: ansible_pkg_mgr == 'dnf'
-
-- name: Install latest version of Simplenote using YUM
-  yum:
-    name: /tmp/simplenote.rpm
-    state: present
-    disable_gpg_check: true
-  when: ansible_pkg_mgr == 'yum'
+- name: install latest Simplenote from GitHub releases
+  import_role:
+    name: github-releases
+  vars:
+    org: Automattic
+    repo: simplenote-electron
+    filename: Simplenote-linux
+    arch: x86_64
+    version: latest
+    project_url: https://api.github.com/repos/{{ org }}/{{ repo }}/releases
+  tags: gh-releases
