@@ -37,6 +37,9 @@
   include_tasks: spotify-flatpak.yml
   when: ansible_pkg_mgr != 'apt'
 
+- name: install latest version of Strawberry
+  include_tasks: strawberry.yml
+
 - name: install openh264 from Fedora Cisco repo
   dnf:
     enablerepo: fedora-cisco-openh264

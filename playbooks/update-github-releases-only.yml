@@ -6,6 +6,7 @@
   roles:
     #- {role: ../roles/docker}
     - {role: ../roles/gui-common}
+    - {role: ../roles/audio-gui}
     #- {role: ../roles/dev-common}
   tags:
     - gh-releases

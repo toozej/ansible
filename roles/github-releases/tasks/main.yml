@@ -32,7 +32,7 @@
         state: directory
         mode: '0755'
 
-    - name: "installing {{ repo }} {{ latest_version.json.tag_name }} from released binary"
+    - name: "downloading {{ repo }} {{ latest_version.json.tag_name }} binary"
       # idea from: https://stackoverflow.com/a/62672308/886659
       loop: "{{ latest_version.json.assets }}"
       loop_control:
@@ -48,7 +48,7 @@
           - --no-anchored
           - "{{ repo }}"
 
-    - name: command because no mv available
+    - name: "installing {{ repo }} {{ latest_version.json.tag_name }} binary"
       command: mv "{{ tempfolder_1.path }}/{{ repo }}" "{{ instpath }}/{{ repo }}"
       args:
         creates: "{{ instpath }}/{{ repo }}"
@@ -65,7 +65,18 @@
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
-      when: (filename|string in item.name) and (arch|string in item.name) and ('.deb' in item.name)
+      when: (filename|string in item.name) and (arch|string in item.name) and ('.deb' in item.name) and (distro is not defined)
+
+    - name: "download deb package {{ repo }} {{ latest_version.json.tag_name }} for distro {{ distro }}"
+      # idea from: https://stackoverflow.com/a/62672308/886659
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: "{{ tempfolder_1.path }}/{{ filename }}.deb"
+        force: true
+      loop: "{{ latest_version.json.assets }}"
+      loop_control:
+        label: "{{ item.name }}"
+      when: (filename|string in item.name) and (arch|string in item.name) and ('.deb' in item.name) and (distro is defined and distro|string in item.name)
 
     - name: "installing deb {{ repo }} {{ latest_version.json.tag_name }}"
       apt:
@@ -84,7 +95,18 @@
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
-      when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name)
+      when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name) and (distro is not defined)
+    
+    - name: "download rpm package {{ repo }} {{ latest_version.json.tag_name }} for distro {{ distro }}"
+      # idea from: https://stackoverflow.com/a/62672308/886659
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: "{{ tempfolder_1.path }}/{{ filename }}.rpm"
+        force: true
+      loop: "{{ latest_version.json.assets }}"
+      loop_control:
+        label: "{{ item.name }}"
+      when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name) and (distro is defined and distro|string in item.name)
 
     - name: "installing rpm {{ repo }} {{ latest_version.json.tag_name }}"
       dnf:
