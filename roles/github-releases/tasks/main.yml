@@ -23,6 +23,15 @@
     state: directory
     suffix: dwnld
   register: tempfolder_1
+  when: base_playbook != "test.yml"
+
+- name: setup temp directory for GitHub Actions only
+  tempfile:
+    state: directory
+    path: "{{ lookup('env', 'RUNNER_TEMP') | default('/home/runner/work/ansible/ansible/ansible/', True) }}"
+    suffix: dwnld
+  register: tempfolder_1
+  when: base_playbook == "test.yml"
 
 - name: download latest version to specific install path
   block:
@@ -80,8 +89,7 @@
 
     - name: "installing deb {{ repo }} {{ latest_version.json.tag_name }}"
       apt:
-        name: "{{ tempfolder_1.path }}/{{ filename }}.deb"
-        state: present
+        deb: "{{ tempfolder_1.path }}/{{ filename }}.deb"
   when: (instpath is not defined) and (ansible_pkg_mgr == 'apt') and "repo" not in ansible_facts.packages
 
 - name: dnf | download latest version and install with package manager
