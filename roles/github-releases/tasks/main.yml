@@ -22,16 +22,26 @@
   tempfile:
     state: directory
     suffix: dwnld
-  register: tempfolder_1
+  register: tempfolder_results
   when: (base_playbook is not defined) or (base_playbook is defined and base_playbook != "test.yml")
+
+- name: set fact for temp directory
+  set_fact:
+    tempfolder: "{{ tempfolder_results }}"
+  when: (base_playbook is not defined) or (base_playbook is defined and base_playbook != "test.yml") and (tempfolder_results is defined)
 
 - name: setup temp directory for GitHub Actions only
   tempfile:
     state: directory
     path: "{{ lookup('env', 'RUNNER_TEMP') | default('/home/runner/work/ansible/ansible/ansible/', True) }}"
     suffix: dwnld
-  register: tempfolder_1
+  register: tempfolder_results
   when: (base_playbook is defined) and (base_playbook == "test.yml")
+
+- name: set fact for temp directory for GitHub Actions only
+  set_fact:
+    tempfolder: "{{ tempfolder_results }}"
+  when: (base_playbook is defined) and (base_playbook == "test.yml") and (tempfolder_results is defined)
 
 - name: download latest version to specific install path
   block:
@@ -50,7 +60,7 @@
       unarchive:
         remote_src: true
         src: "{{ item.browser_download_url }}"
-        dest: "{{ tempfolder_1.path }}"
+        dest: "{{ tempfolder.path }}"
         keep_newer: true
         extra_opts:
           - --strip=1
@@ -58,7 +68,7 @@
           - "{{ repo }}"
 
     - name: "installing {{ repo }} {{ latest_version.json.tag_name }} binary"
-      command: mv "{{ tempfolder_1.path }}/{{ repo }}" "{{ instpath }}/{{ repo }}"
+      command: mv "{{ tempfolder.path }}/{{ repo }}" "{{ instpath }}/{{ repo }}"
       args:
         creates: "{{ instpath }}/{{ repo }}"
   when: (instpath is defined) and (not newestbinary.stat.exists)
@@ -69,7 +79,7 @@
       # idea from: https://stackoverflow.com/a/62672308/886659
       get_url:
         url: "{{ item.browser_download_url }}"
-        dest: "{{ tempfolder_1.path }}/{{ filename }}.deb"
+        dest: "{{ tempfolder.path }}/{{ filename }}.deb"
         force: true
       loop: "{{ latest_version.json.assets }}"
       loop_control:
@@ -80,7 +90,7 @@
       # idea from: https://stackoverflow.com/a/62672308/886659
       get_url:
         url: "{{ item.browser_download_url }}"
-        dest: "{{ tempfolder_1.path }}/{{ filename }}.deb"
+        dest: "{{ tempfolder.path }}/{{ filename }}.deb"
         force: true
       loop: "{{ latest_version.json.assets }}"
       loop_control:
@@ -89,7 +99,7 @@
 
     - name: "installing deb {{ repo }} {{ latest_version.json.tag_name }}"
       apt:
-        deb: "{{ tempfolder_1.path }}/{{ filename }}.deb"
+        deb: "{{ tempfolder.path }}/{{ filename }}.deb"
   when: (instpath is not defined) and (ansible_pkg_mgr == 'apt') and "repo" not in ansible_facts.packages
 
 - name: dnf | download latest version and install with package manager
@@ -98,7 +108,7 @@
       # idea from: https://stackoverflow.com/a/62672308/886659
       get_url:
         url: "{{ item.browser_download_url }}"
-        dest: "{{ tempfolder_1.path }}/{{ filename }}.rpm"
+        dest: "{{ tempfolder.path }}/{{ filename }}.rpm"
         force: true
       loop: "{{ latest_version.json.assets }}"
       loop_control:
@@ -109,7 +119,7 @@
       # idea from: https://stackoverflow.com/a/62672308/886659
       get_url:
         url: "{{ item.browser_download_url }}"
-        dest: "{{ tempfolder_1.path }}/{{ filename }}.rpm"
+        dest: "{{ tempfolder.path }}/{{ filename }}.rpm"
         force: true
       loop: "{{ latest_version.json.assets }}"
       loop_control:
@@ -118,14 +128,14 @@
 
     - name: "installing rpm {{ repo }} {{ latest_version.json.tag_name }}"
       dnf:
-        name: "{{ tempfolder_1.path }}/{{ filename }}.rpm"
+        name: "{{ tempfolder.path }}/{{ filename }}.rpm"
         state: present
         disable_gpg_check: true
   when: (instpath is not defined) and (ansible_pkg_mgr == 'dnf') and "repo" not in ansible_facts.packages
   always:
-    - name: delete {{ tempfolder_1.path|default("tempfolder") }}
+    - name: delete {{ tempfolder.path|default("tempfolder") }}
       file:
-        path: "{{ tempfolder_1.path }}"
+        path: "{{ tempfolder.path }}"
         state: absent
-      when: tempfolder_1.path is defined
+      when: tempfolder.path is defined
       ignore_errors: true
