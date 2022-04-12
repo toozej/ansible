@@ -23,7 +23,7 @@
     state: directory
     suffix: dwnld
   register: tempfolder_1
-  when: base_playbook != "test.yml"
+  when: (base_playbook is not defined) or (base_playbook is defined and base_playbook != "test.yml")
 
 - name: setup temp directory for GitHub Actions only
   tempfile:
@@ -31,7 +31,7 @@
     path: "{{ lookup('env', 'RUNNER_TEMP') | default('/home/runner/work/ansible/ansible/ansible/', True) }}"
     suffix: dwnld
   register: tempfolder_1
-  when: base_playbook == "test.yml"
+  when: (base_playbook is defined) and (base_playbook == "test.yml")
 
 - name: download latest version to specific install path
   block:
