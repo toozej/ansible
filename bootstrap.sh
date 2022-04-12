@@ -129,19 +129,19 @@ echo -e "running ansible playbook based on user input\n"
 if [[ $CHECK == "true" && $DEBUG == "false" && $TAGS == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2)
 elif [[ $CHECK == "true" && $DEBUG == "true" && $TAGS == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 -vvv | tee $ANSIBLE_REPO_DIR/playbook_check.out)
+  ANSIBLE_OUTPUT=$(ansible-playbook --check -vvv $ANSIBLE_REPO_DIR/playbooks/$2 | tee $ANSIBLE_REPO_DIR/playbook_check.out)
 elif [[ $CHECK == "true" && $DEBUG == "false" && $TAGS == "true" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4")
 elif [[ $CHECK == "true" && $DEBUG == "true" && $TAGS == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 -vvv --tags "$4" | tee $ANSIBLE_REPO_DIR/playbook_check.out)
+  ANSIBLE_OUTPUT=$(ansible-playbook --check -vvv $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4" | tee $ANSIBLE_REPO_DIR/playbook_check.out)
 elif [[ $RUN == "true" && $DEBUG == "false" && $TAGS == "false" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 | tee /tmp/bootstrap.log)
 elif [[ $RUN == "true" && $DEBUG == "true" && $TAGS == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 -vvv | tee $ANSIBLE_REPO_DIR/playbook_run.out)
+  ANSIBLE_OUTPUT=$(ansible-playbook -vvv $ANSIBLE_REPO_DIR/playbooks/$2 | tee /tmp/bootstrap.log)
 elif [[ $RUN == "true" && $DEBUG == "false" && $TAGS == "true" ]]; then
   ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4" | tee /tmp/bootstrap.log)
 elif [[ $RUN == "true" && $DEBUG == "true" && $TAGS == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 -vvv --tags "$4"| tee $ANSIBLE_REPO_DIR/playbook_run.out)
+  ANSIBLE_OUTPUT=$(ansible-playbook -vvv $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4"| tee /tmp/bootstrap.log)
 fi
 
 echo -e "\n\n"
