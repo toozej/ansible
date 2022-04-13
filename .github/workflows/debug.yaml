@@ -1,14 +1,11 @@
 ---
-name: CI
+name: debug
 'on':
   pull_request:
   workflow_dispatch:
   push:
     branches:
       - master
-      - github_actions
-  schedule:
-    - cron: "0 1 * * 1"
 
 defaults:
   run:
@@ -16,42 +13,9 @@ defaults:
 
 jobs:
 
-  lint:
-    name: Lint
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v2
-        with:
-          path: 'ansible'
-
-      - name: Set up Python 3.
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install test dependencies.
-        run: pip3 install yamllint ansible-lint ansible
-
-      - name: Lint code.
-        run: |
-          # yamllint .
-          # ansible-lint
-          ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: false
-
   test:
     name: Test
     runs-on: ubuntu-20.04
-    #strategy:
-    #  matrix:
-    #    distro:
-    #      - centos
-    #      - fedora
-    #      - ubuntu
-    #      - debian
-    #  fail-fast: false
 
     steps:
       - name: Check out the codebase.
@@ -76,7 +40,7 @@ jobs:
           sudo apt-get update
 
       - name: Run tests.
-        run: ansible-playbook -vv --skip-tags github,copy_host_ssh_id,ci -i tests/inventory tests/test.yml 
+        run: ansible-playbook -vvv -i tests/inventory playbooks/simplenote-only.yml
         env:
           ANSIBLE_ROLES_PATH: '/home/runner/work/ansible/ansible/ansible/roles'
           PY_COLORS: '1'
