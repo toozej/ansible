@@ -1,7 +1,9 @@
 ---
 # execute this playbook `sudo ANSIBLE_ROLES_PATH=/home/james/src/github/toozej/ansible/roles ansible-playbook playbooks/simplenote-only.yml`
 - name: simplenote-only
-  hosts: all
+  hosts: localhost
+  connection: local
+  become: true
   tasks:
     - name: Simplenote only
       include_role:
