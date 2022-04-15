@@ -5,19 +5,6 @@
     return_content: true
   register: latest_version
 
-- name: check if {{ repo }}-{{ version }} binary is already there
-  stat:
-    path: "{{ instpath }}/{{ repo }}-{{ latest_version.json.tag_name }}"
-  register: newestbinary
-  when: instpath is defined
-
-- name: check if {{ repo }}-{{ version }} package is already installed
-  package_facts:
-    manager: "auto"
-  ignore_errors: true
-  changed_when: false
-  when: (instpath is not defined)
-
 - name: setup temp directory
   tempfile:
     state: directory
@@ -52,11 +39,26 @@
         mode: '0755'
 
     - name: "downloading {{ repo }} {{ latest_version.json.tag_name }} binary"
+      loop: "{{ latest_version.json.assets }}"
+      loop_control:
+        label: "{{ item.name }}"
+      when: |
+        (filename|string in item.name) and (arch|string in item.name) and
+        (".zip" not in item.name and ".tar" not in item.name and ".7z" not in item.name and ".rar" not in item.name) and
+        ("darwin" not in item.name and "win" not in item.name and "bsd" not in item.name)
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: "{{ tempfolder.path }}/{{ repo }}"
+
+    - name: "downloading and extracting {{ repo }} {{ latest_version.json.tag_name }} binary"
       # idea from: https://stackoverflow.com/a/62672308/886659
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
-      when: (filename|string in item.name) and (arch|string in item.name)
+      when: |
+        (filename|string in item.name) and (arch|string in item.name) and
+        (".zip" in item.name or ".tar" in item.name or ".7z" in item.name or ".rar" in item.name) and
+        ("darwin" not in item.name and "win" not in item.name and "bsd" not in item.name)
       unarchive:
         remote_src: true
         src: "{{ item.browser_download_url }}"
@@ -68,10 +70,21 @@
           - "{{ repo }}"
 
     - name: "installing {{ repo }} {{ latest_version.json.tag_name }} binary"
-      command: mv "{{ tempfolder.path }}/{{ repo }}" "{{ instpath }}/{{ repo }}"
+      command: |
+        mv "{{ tempfolder.path }}/{{ repo }}" "{{ instpath }}{{ repo }}"
+        chmod ug+x "{{ instpath }}{{ repo }}"
       args:
-        creates: "{{ instpath }}/{{ repo }}"
-  when: (instpath is defined) and (not newestbinary.stat.exists)
+        creates: "{{ instpath }}{{ repo }}"
+      when: final_filename is not defined
+
+    - name: "installing {{ final_filename }} {{ latest_version.json.tag_name }} binary"
+      command: |
+        mv "{{ tempfolder.path }}/{{ repo }}" "{{ instpath }}{{ final_filename }}"
+        chmod ugo+x "{{ instpath }}{{ final_filename }}"
+      args:
+        creates: "{{ instpath }}{{ final_filename }}"
+      when: final_filename is defined
+  when: instpath is defined
 
 - name: apt | download latest version and install with package manager
   block:
@@ -100,7 +113,7 @@
     - name: "installing deb {{ repo }} {{ latest_version.json.tag_name }}"
       apt:
         deb: "{{ tempfolder.path }}/{{ filename }}.deb"
-  when: (instpath is not defined) and (ansible_pkg_mgr == 'apt') and "repo" not in ansible_facts.packages
+  when: (instpath is not defined) and (ansible_pkg_mgr == 'apt')
 
 - name: dnf | download latest version and install with package manager
   block:
@@ -131,7 +144,7 @@
         name: "{{ tempfolder.path }}/{{ filename }}.rpm"
         state: present
         disable_gpg_check: true
-  when: (instpath is not defined) and (ansible_pkg_mgr == 'dnf') and "repo" not in ansible_facts.packages
+  when: (instpath is not defined) and (ansible_pkg_mgr == 'dnf')
   always:
     - name: delete {{ tempfolder.path|default("tempfolder") }}
       file:

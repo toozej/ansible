@@ -1,19 +1,24 @@
 ---
-- name: Check current docker-compose version.
-  command: docker-compose --version
-  register: docker_compose_current_version
-  changed_when: false
-  failed_when: false
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: true
 
-- name: Delete existing docker-compose version if it's different.
-  file:
-    path: "{{ docker_compose_path }}"
-    state: absent
-  when: >
-    docker_compose_current_version.stdout is defined
-    and docker_compose_version not in docker_compose_current_version.stdout
-- name: Install Docker Compose (if configured).
-  get_url:
-    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
-    dest: "{{ docker_compose_path }}"
-    mode: 0755
+- name: install latest docker-compose from GitHub releases
+  import_role:
+    name: github-releases
+  vars:
+    org: docker
+    repo: compose
+    filename: docker-compose
+    instpath: /usr/local/bin/
+    final_filename: docker-compose
+    arch: x86_64
+    version: latest
+    project_url: https://api.github.com/repos/{{ org }}/{{ repo }}/releases
+  tags: gh-releases

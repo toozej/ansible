@@ -40,7 +40,7 @@ jobs:
           sudo apt-get update
 
       - name: Run tests.
-        run: ansible-playbook -vvv -i tests/inventory playbooks/simplenote-only.yml
+        run: ansible-playbook -vvv -i tests/inventory playbooks/update-github-releases-only.yml
         env:
           ANSIBLE_ROLES_PATH: '/home/runner/work/ansible/ansible/ansible/roles'
           PY_COLORS: '1'

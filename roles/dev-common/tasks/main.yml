@@ -37,22 +37,7 @@
     name: "{{ shellcheck_package_name }}"
     state: latest
 
-- name: include wuzz defaults
-  include_vars:
-    file: ../defaults/wuzz.yml
-
-- name: install the latest version of Wuzz
-  get_url:
-    url: https://github.com/asciimoo/wuzz/releases/download/v{{ wuzz_version }}/wuzz_linux_amd64
-    dest: /usr/local/bin/wuzz
-    force: true
-
-- name: set Wuzz as executable
-  file:
-    path: /usr/local/bin/wuzz
-    owner: root
-    group: root
-    mode: 0755
+- include_tasks: wuzz.yml
 
 - name: include Tea defaults
   include_vars:
