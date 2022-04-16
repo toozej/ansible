@@ -7,7 +7,6 @@ pip3
 python-virtualenv
 ipython
 
-and Python IDE PyCharms CE using modified version of
-https://github.com/Oefenweb/ansible-pycharm
+and Python IDE PyCharms CE using flatpak
 
 Is not a git submodule and doesn't auto-update

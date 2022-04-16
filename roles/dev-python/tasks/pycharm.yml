@@ -1,44 +1,12 @@
 ---
-- name: include pycharm variables and defaults
-  include_vars:
-    file: "{{ item }}"
-  with_items:
-    - ../vars/pycharm.yml
-    - ../defaults/pycharm.yml
+- name: "flatpak | force repair"
+  shell: "/usr/bin/flatpak repair"
 
-- name: create download directory
-  file:
-    path: "{{ pycharm_downloads_path }}"
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-
-- name: download
-  get_url:
-    url: "http://download.jetbrains.com/python/pycharm-{{ pycharm_edition }}-{{ pycharm_version }}.tar.gz"
-    dest: "{{ pycharm_downloads_path }}/pycharm-{{ pycharm_edition }}-{{ pycharm_version }}.tar.gz"
-    owner: root
-    group: root
-    mode: 0644
-
-- name: find previous versions to delete
-  find:
-    paths: "{{ pycharm_install_prefix }}"
-    file_type: directory
-    recurse: false
-    patterns: pycharm*
-  register: files_to_delete
-
-- name: delete previous versions
-  file:
-    path: "{{ item.path }}"
-    state: absent
-  with_items: "{{ files_to_delete.files }}"
-
-- name: install
-  unarchive:
-    src: "{{ pycharm_downloads_path }}/pycharm-{{ pycharm_edition }}-{{ pycharm_version }}.tar.gz"
-    dest: "{{ pycharm_install_prefix }}"
-    creates: "{{ pycharm_install_prefix }}/pycharm-{{ pycharm_version }}"
-    copy: false
+- name: "flatpak | install latest version of Pycharm"
+  flatpak:
+    name: com.jetbrains.PyCharm-Community
+    state: present
+    remote: flathub
+  register: install_pycharm
+  until: install_pycharm is not failed
+  retries: 5
