@@ -1,0 +1,23 @@
+---
+# from repo created by "third party enabled" Fedora install
+# https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/
+
+- name: Add JetBrains PyCharm Community repository
+  yum_repository:
+    name: _copr_phracek-PyCharm
+    description: "Copr repo for PyCharm owned by phracek"
+    baseurl: https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/fedora-$releasever-$basearch/ 
+    gpgkey: https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/pubkey.gpg
+    skip_if_unavailable: true
+    gpgcheck: true
+    enabled: true
+
+- name: "dnf | ensure JetBrains PyCharm Community present"
+  dnf:
+    name: pycharm-community.x86_64
+    state: latest
+
+- name: "dnf | ensure JetBrains PyCharm Plugins present"
+  dnf:
+    name: pycharm-community-plugins.x86_64
+    state: latest

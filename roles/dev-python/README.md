@@ -7,6 +7,6 @@ pip3
 python-virtualenv
 ipython
 
-and Python IDE PyCharms CE using flatpak
+and Python IDE PyCharms CE using copr for dnf, or flatpak otherwise
 
 Is not a git submodule and doesn't auto-update
