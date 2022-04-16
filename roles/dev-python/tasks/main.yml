@@ -52,3 +52,5 @@
 - include_tasks: "pycharm-flatpak.yml"
   when: (ansible_pkg_mgr != "dnf")
   tags: gui
+
+- include_tasks: "poetry.yml"
