@@ -45,12 +45,16 @@
     name: "{{ pylint_package_name }}"
     state: latest
 
+- include_tasks: "pycharm-apt.yml"
+  when: (ansible_pkg_mgr == "apt")
+  tags: gui
+
 - include_tasks: "pycharm-dnf.yml"
   when: (ansible_pkg_mgr == "dnf")
   tags: gui
 
 - include_tasks: "pycharm-flatpak.yml"
-  when: (ansible_pkg_mgr != "dnf")
+  when: (ansible_pkg_mgr != "dnf" and ansible_pkg_mgr != "apt")
   tags: gui
 
 - include_tasks: "poetry.yml"

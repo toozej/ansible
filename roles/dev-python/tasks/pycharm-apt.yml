@@ -1,0 +1,24 @@
+---
+# https://wiki.debian.org/JetBrains
+
+- name: "apt | ensure JetBrains signing key present"
+  apt_key:
+    url: https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc
+    state: present
+
+- name: "apt | ensure JetBrains repo present"
+  copy:
+    content: "deb http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com {{ ansible_distribution_release }} main"
+    dest: "/etc/apt/sources.list.d/jetbrains-ppa.list"
+    mode: 0644
+  register: jetbrains_repo
+
+- name: "apt | update cache"
+  apt:
+    update_cache: true
+  when: jetbrains_.changed
+
+- name: "apt | ensure JetBrains PyCharm Community latest instaled"
+  apt:
+    name: pycharm-community
+    state: latest
