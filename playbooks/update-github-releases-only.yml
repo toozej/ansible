@@ -6,18 +6,18 @@
   become: true
   tasks:
     - name: update Simplenote
-      include_role:
+      import_role:
         name: gui-common
         tasks_from: simplenote
     - name: update Strawberry
-      include_role:
+      import_role:
         name: audio-gui
         tasks_from: strawberry
     - name: update Docker Compose
-      include_role:
+      import_role:
         name: docker
         tasks_from: docker-compose
     - name: update Wuzz
-      include_role:
+      import_role:
         name: dev-common
         tasks_from: wuzz
