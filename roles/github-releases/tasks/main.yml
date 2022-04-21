@@ -70,19 +70,23 @@
           - "{{ repo }}"
 
     - name: "installing {{ repo }} {{ latest_version.json.tag_name }} binary"
-      command: |
-        mv "{{ tempfolder.path }}/{{ repo }}" "{{ instpath }}{{ repo }}"
-        chmod ug+x "{{ instpath }}{{ repo }}"
-      args:
-        creates: "{{ instpath }}{{ repo }}"
+      copy:
+        src: "{{ tempfolder.path }}/{{ repo }}"
+        dest: "{{ instpath }}{{ repo }}"
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0755'
       when: final_filename is not defined
 
     - name: "installing {{ final_filename }} {{ latest_version.json.tag_name }} binary"
-      command: |
-        mv "{{ tempfolder.path }}/{{ repo }}" "{{ instpath }}{{ final_filename }}"
-        chmod ugo+x "{{ instpath }}{{ final_filename }}"
-      args:
-        creates: "{{ instpath }}{{ final_filename }}"
+      copy:
+        src: "{{ tempfolder.path }}/{{ repo }}"
+        dest: "{{ instpath }}{{ final_filename }}"
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0755'
       when: final_filename is defined
   when: instpath is defined
 
