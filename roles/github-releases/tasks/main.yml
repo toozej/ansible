@@ -157,14 +157,3 @@
     state: absent
   when: tempfolder.path is defined
   ignore_errors: true
-- name: clear defined vars to make way for next run
-  set_fact:
-    org:
-    repo:
-    filename:
-    instpath:
-    final_filename:
-    arch:
-    distro:
-    version:
-    project_url:
