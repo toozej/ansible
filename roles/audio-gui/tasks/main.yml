@@ -29,6 +29,11 @@
     name: vlc
     state: latest
 
+- name: install latest version of mediainfo-gui
+  package:
+    name: mediainfo-gui
+    state: latest
+
 - name: install latest version of Spotify client apt
   include_tasks: spotify-apt.yml
   when: ansible_pkg_mgr == 'apt'
