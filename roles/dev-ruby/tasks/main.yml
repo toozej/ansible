@@ -8,7 +8,7 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: true
-  when: (rake_package_name is not defined)
+  when: (rake_package_name is not defined) or (ruby_dev_package_name is not defined)
 
 - name: install the latest version of ruby
   package:
@@ -17,7 +17,7 @@
 
 - name: install the latest dev package for ruby
   package:
-    name: ruby-dev
+    name: "{{ ruby_dev_package_name }}"
     state: latest
 
 - name: install the latest version of ruby gems
