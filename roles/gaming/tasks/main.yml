@@ -32,6 +32,14 @@
   until: install_steam_link is not failed
   retries: 5
 
+- name: "flatpak | install the latest version of Heroic game launcher"
+  flatpak:
+    name: com.heroicgameslauncher.hgl
+    state: present
+  register: install_heroic
+  until: install_heroic is not failed
+  retries: 5
+
 - name: "apt | pre-requisites for installing Lutris on Debian"
   include_tasks: lutris-debian.yml
   when: (ansible_distribution == 'Debian')
