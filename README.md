@@ -13,6 +13,11 @@ running against localhost periodically using Cron.
 - check the playbook: sudo ./bootstrap.sh -c $playbook\_name.yml
 - run the playbook: sudo ./bootstrap.sh -r $playbook\_name.yml
 
+Or if you would rather just automatically run the common playbook as a minimal install:
+```bash
+curl https://raw.githubusercontent.com/toozej/ansible/master/minimal.sh -O && chmod +x minimal.sh && ./minimal.sh
+```
+
 Or if you would rather just run one playbook stand-alone:
 - cd /tmp/ansible; ansible-playbook $playbook\_name.yml
 
