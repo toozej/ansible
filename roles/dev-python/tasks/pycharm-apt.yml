@@ -16,7 +16,7 @@
 - name: "apt | update cache"
   apt:
     update_cache: true
-  when: jetbrains_.changed
+  when: jetbrains_repo.changed
 
 - name: "apt | ensure JetBrains PyCharm Community latest instaled"
   apt:
