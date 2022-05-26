@@ -82,6 +82,10 @@
 - name: Install Speedcrunch
   include_tasks: speedcrunch.yml
 
+- name: Install Firefox from .deb instead of Snap on Ubuntu
+  include_tasks: firefox.yml
+  when: (ansible_distribution == 'Ubuntu')
+
 - name: "flatpak | force repair"
   shell: "/usr/bin/flatpak repair"
 

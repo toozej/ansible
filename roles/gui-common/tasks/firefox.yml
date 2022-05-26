@@ -1,0 +1,38 @@
+---
+# instructions from https://balintreczey.hu/blog/firefox-on-ubuntu-22-04-from-deb-not-from-snap/
+- name: pin to no snap
+  copy:
+    content: |
+      Package: firefox*
+      Pin: release o=Ubuntu*
+      Pin-Priority: -1
+    dest: /etc/apt/preferences.d/firefox-no-snap
+    force: true
+    mode: 0644
+
+- name: remove Firefox package
+  package:
+    name: firefox
+    state: absent
+
+- name: remove Firefox snap
+  community.general.snap:
+    name: firefox
+    state: absent
+
+- name: Add Mozilla stable repository from PPA
+  ansible.builtin.apt_repository:
+    repo: ppa:mozillateam/ppa
+
+- name: install Firefox package from PPA
+  package:
+    name: firefox
+    state: latest
+
+- name: Allow upgrades via unattended-upgrades
+  blockinfile:
+    path: /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+    create: true
+    mode: 0644
+    block: |
+      Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";
