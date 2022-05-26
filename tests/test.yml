@@ -10,41 +10,42 @@
 - hosts: localhost
   connection: local
   become: true
+  become_user: root
   roles:
-    - {role: ../roles/ansible-enablement}
-    - {role: ../roles/common}
-    - {role: ../roles/user}
-    - {role: ../roles/flatpak}
-    - {role: ../roles/audio-cli}
-    - {role: ../roles/audio-gui}
-    - {role: ../roles/chrome}
-    - {role: ../roles/java}
-    - {role: ../roles/dev-common}
-    - {role: ../roles/dev-gui}
-    - {role: ../roles/dev-ansible}
-    - {role: ../roles/dev-aws}
-    - {role: ../roles/dev-go}
-    - {role: ../roles/dev-python}
-    - {role: ../roles/dev-ruby}
-    - {role: ../roles/docker}
-    - {role: ../roles/fs-common}
-    - {role: ../roles/file-server}
-    - {role: ../roles/gaming}
-    - {role: ../roles/gui-common}
-    - {role: ../roles/gui-i3}
-    - {role: ../roles/gui-gnome}
-    - {role: ../roles/monitoring-agent}
-    - {role: ../roles/office}
-    - {role: ../roles/photography}
-    - {role: ../roles/physical}
-    - {role: ../roles/repo-extra}
-    - {role: ../roles/unattended-upgrades}
-    - {role: ../roles/vagrant}
-    - {role: ../roles/virt-server}
+    - role: ansible-enablement
+    - role: common
+    - role: user
+    - role: flatpak
+    - role: audio-cli
+    - role: audio-gui
+    - role: chrome
+    - role: java
+    - role: dev-common
+    - role: dev-gui
+    - role: dev-ansible
+    - role: dev-aws
+    - role: dev-go
+    - role: dev-python
+    - role: dev-ruby
+    - role: docker
+    - role: fs-common
+    - role: file-server
+    - role: gaming
+    - role: gui-common
+    - role: gui-i3
+    - role: gui-gnome
+    - role: monitoring-agent
+    - role: office
+    - role: photography
+    - role: physical
+    - role: repo-extra
+    - role: unattended-upgrades
+    - role: vagrant
+    - role: virt-server
     # dev-kubernetes and dev-terraform require kvm
-    - {role: ../roles/dev-kubernetes}
-    - {role: ../roles/dev-terraform}
-    - {role: ../roles/wireguard}
-    - {role: ../roles/wine}
+    - role: dev-kubernetes
+    - role: dev-terraform
+    - role: wireguard
+    - role: wine
     # explicitly including hardening last since its a WIP and might screw up connectivity to the test box
-    #- {role: ../roles/hardening}
+    #- role: hardening

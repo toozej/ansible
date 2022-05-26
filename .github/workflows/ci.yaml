@@ -39,6 +39,7 @@ jobs:
           # ansible-lint
           ansible-playbook -i tests/inventory tests/test.yml --syntax-check
         env:
+          ANSIBLE_ROLES_PATH: '/home/runner/work/ansible/ansible/ansible/roles'
           ANSIBLE_HOST_KEY_CHECKING: false
 
   test:
