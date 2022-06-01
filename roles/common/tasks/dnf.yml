@@ -1,0 +1,8 @@
+---
+# from https://ostechnix.com/how-to-speed-up-dnf-package-manager-in-fedora/
+- name: performance tweaks for DNF
+  blockinfile:
+    path: /etc/dnf/dnf.conf
+    block: |
+      max_parallel_downloads=20
+      fastestmirror=True

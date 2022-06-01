@@ -1,4 +1,8 @@
 ---
+- name: Tweaks for DNF
+  include_tasks: dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
+
 - name: include main non-free apt source as pre-requisite for unrar on Debian systems
   include_tasks: non-free-debian.yml
   when: ansible_distribution == 'Debian'
