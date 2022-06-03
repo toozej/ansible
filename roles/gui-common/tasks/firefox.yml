@@ -25,9 +25,10 @@
     repo: ppa:mozillateam/ppa
 
 - name: install Firefox package from PPA
-  package:
+  apt:
     name: firefox
     state: latest
+    update_cache: true
 
 - name: Allow upgrades via unattended-upgrades
   blockinfile:
