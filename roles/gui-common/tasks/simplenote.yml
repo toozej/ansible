@@ -28,3 +28,4 @@
     path: /usr/share/applications/simplenote.desktop
     regexp: 'Exec=/opt/Simplenote/simplenote %U'
     replace: 'Exec=/opt/Simplenote/simplenote --no-sandbox %U'
+  tags: gh-releases
