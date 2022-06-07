@@ -1,0 +1,20 @@
+# https://help.vivaldi.com/desktop/install-update/manual-setup-vivaldi-linux-repositories/
+---
+- name: "apt | ensure Vivaldi linux signing key present"
+  shell: wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | dd of=/usr/share/keyrings/vivaldi-browser.gpg
+
+- name: "apt | ensure Vivaldi repo present"
+  copy:
+    content: "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=amd64 https://repo.vivaldi.com/archive/deb/ stable main"
+    dest: "/etc/apt/sources.list.d/vivaldi-archive.list"
+  register: vivaldi_repo
+
+- name: "apt | update cache"
+  apt:
+    update_cache: true
+  when: vivaldi_repo.changed
+
+- name: "apt | ensure Vivaldi latest"
+  apt:
+    name: vivaldi-stable
+    state: latest

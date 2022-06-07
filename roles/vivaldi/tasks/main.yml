@@ -1,0 +1,8 @@
+---
+- name: Install latest version of Vivaldi using APT
+  include_tasks: setup-apt.yml
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Install latest version of Vivaldi using DNF
+  include_tasks: setup-dnf.yml
+  when: ansible_pkg_mgr == 'dnf'
