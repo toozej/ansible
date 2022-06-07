@@ -5,7 +5,7 @@
 
 - name: "apt | ensure Vivaldi repo present"
   copy:
-    content: "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=amd64 https://repo.vivaldi.com/archive/deb/ stable main"
+    content: "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main"
     dest: "/etc/apt/sources.list.d/vivaldi-archive.list"
   register: vivaldi_repo
 
