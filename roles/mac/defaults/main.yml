@@ -74,6 +74,7 @@ homebrew_cask_apps:
   - visual-studio-code
   - virtualbox
   - virtualbox-extension-pack
+  - vivaldi
   - vlc
   - wireguard-tools
 
