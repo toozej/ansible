@@ -14,3 +14,11 @@
     name: flathub
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: "flatpak | install latest version of flatseal"
+  flatpak:
+    name: com.github.tchx84.Flatseal
+    state: present
+  register: install_flatseal
+  until: install_flatseal is not failed
+  retries: 5

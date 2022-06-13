@@ -32,6 +32,7 @@
     - role: audio-gui
     - role: dev-common
     - role: dev-gui
+    - role: dev-python
     - role: office
     - role: photography
     - role: wine
