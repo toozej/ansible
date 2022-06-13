@@ -118,9 +118,18 @@
 
 - name: "flatpak | install latest version of Plex"
   flatpak:
-    name: flathub tv.plex.PlexDesktop
+    name: tv.plex.PlexDesktop
     state: present
     remote: flathub
   register: install_plex
   until: install_plex is not failed
+  retries: 5
+
+- name: "flatpak | install latest version of Jellyfin"
+  flatpak:
+    name: com.github.iwalton3.jellyfin-media-player
+    state: present
+    remote: flathub
+  register: install_jellyfin
+  until: install_jellyfin is not failed
   retries: 5
