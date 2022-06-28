@@ -26,11 +26,15 @@
     name: "{{ nss_tools_package_name }}"
     state: latest
 
+- name: install the latest version of openssl tools
+  package:
+    name: openssl
+    state: latest
+
 - name: install the latest version of pre-commit
   package:
     name: pre-commit
     state: latest
-  when: ansible_distribution != 'Ubuntu'
 
 - name: install the latest version of shellcheck
   package:
