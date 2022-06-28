@@ -35,6 +35,7 @@
   package:
     name: pre-commit
     state: latest
+  when: ansible_distribution != 'Ubuntu'
 
 - name: install the latest version of shellcheck
   package:
