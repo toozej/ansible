@@ -67,6 +67,11 @@
     state: latest
   when: ansible_distribution == 'Fedora'
 
+- name: Install latest version of Solaar
+  package:
+    name: solaar
+    state: latest
+
 - name: Install and configure Sensors
   include_tasks: sensors.yml
 
