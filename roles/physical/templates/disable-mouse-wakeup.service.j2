@@ -6,7 +6,7 @@ After=network.target
 Type=oneshot
 User=root
 RemainAfterExit=yes
-ExecStart=/bin/bash -c 'echo "disabled" > /sys/bus/usb/devices/`grep "Logitech" /sys/bus/usb/devices/*/manufacturer | awk -F \/ \'{print $6}\'`/power/wakeup'
+ExecStart=/bin/bash -c "echo 'disabled' > /sys/bus/usb/devices/$(grep "Logitech" /sys/bus/usb/devices/*/manufacturer | awk -F / '{print $6}')/power/wakeup"
 
 [Install]
 WantedBy=multi-user.target
