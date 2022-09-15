@@ -6,7 +6,7 @@
   yum_repository:
     name: _copr_phracek-PyCharm
     description: "Copr repo for PyCharm owned by phracek"
-    baseurl: https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/fedora-$releasever-$basearch/ 
+    baseurl: https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/fedora-$releasever-$basearch/
     gpgkey: https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/pubkey.gpg
     skip_if_unavailable: true
     gpgcheck: true

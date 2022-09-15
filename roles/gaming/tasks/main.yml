@@ -97,3 +97,11 @@
   register: install_yuzu
   until: install_yuzu is not failed
   retries: 5
+
+- name: "flatpak | install latest version of Chiaki"
+  flatpak:
+    name: re.chiaki.Chiaki
+    state: present
+  register: install_chiaki
+  until: install_chiaki is not failed
+  retries: 5
