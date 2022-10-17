@@ -20,17 +20,3 @@
   dnf:
     name: terraform
     state: latest
-
-- name: Add Terraform Libvirt Provider repo
-  yum_repository:
-    name: terraform-libvirt-provider.repo
-    description: "Terraform Libvirt Provider"
-    baseurl: https://download.opensuse.org/repositories/systemsmanagement:/terraform/Fedora_32/
-    gpgkey: https://download.opensuse.org/repositories/systemsmanagement:/terraform/Fedora_32/repodata/repomd.xml.key
-    gpgcheck: true
-    enabled: true
-
-- name: "dnf | ensure Terraform Libvirt Provider present"
-  dnf:
-    name: terraform-provider-libvirt
-    state: latest
