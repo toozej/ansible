@@ -4,6 +4,8 @@
     name:
       - docker
       - docker-engine
+      - containerd
+      - moby-containerd
     state: absent
 
 - name: Ensure dependencies are installed.
