@@ -44,10 +44,6 @@
   include_tasks: lutris-debian.yml
   when: (ansible_distribution == 'Debian')
 
-- name: "apt | pre-requisites for installing Lutris on Ubuntu "
-  include_tasks: lutris-ubuntu.yml
-  when: (ansible_distribution == 'Ubuntu')
-
 - name: install latest version of Lutris
   package:
     name: lutris
