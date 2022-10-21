@@ -1,4 +1,16 @@
 ---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version | int }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: true
+  when: (gnome_browser_connector_package_name is not defined)
+
 - name: "flatpak | force repair"
   shell: "/usr/bin/flatpak repair"
 
@@ -25,9 +37,11 @@
   include_tasks: fedy.yml
   when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
 
-- name: Install Gnome Shell Extensions installer/integration for web browsers
+# eventually more distros will change package name, see
+# https://repology.org/project/gnome-browser-connector/versions
+- name: Install Gnome Shell Extensions integration for web browsers
   package:
-    name: chrome-gnome-shell
+    name: "{{ gnome_browser_connector_package_name }}"
     state: latest
 
 - name: Install dconf binary

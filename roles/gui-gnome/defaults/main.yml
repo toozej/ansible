@@ -11,3 +11,4 @@ gnome_extension_ids:
   - 1476
   # spotify-artwork-fixer
   - 4055
+gnome_browser_connector_package_name: chrome-gnome-shell
