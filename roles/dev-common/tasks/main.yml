@@ -31,6 +31,11 @@
     name: openssl
     state: latest
 
+- name: install the latest version of myrepos tool
+  package:
+    name: myrepos
+    state: latest
+
 - name: install the latest version of pre-commit
   package:
     name: pre-commit
