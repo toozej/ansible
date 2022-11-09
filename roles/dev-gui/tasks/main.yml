@@ -28,3 +28,8 @@
   include_tasks: vscode-yum.yml
   when: ansible_pkg_mgr == 'yum'
   tags: gui
+
+- name: Install Zeal docs tool
+  package:
+    name: zeal
+    state: latest
