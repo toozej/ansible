@@ -9,16 +9,12 @@
       - "../vars/default.yml"
       skip: true
 
-- name: install latest docker-compose from GitHub releases
-  import_role:
-    name: github-releases
-  vars:
-    org: docker
-    repo: compose
-    filename: docker-compose
-    instpath: /usr/local/bin/
-    final_filename: docker-compose
-    arch: x86_64
-    version: latest
-    project_url: https://api.github.com/repos/{{ org }}/{{ repo }}/releases
-  tags: gh-releases
+- name: ensure docker-compose v1 no longer installed
+  file:
+    state: absent
+    path: /usr/local/bin/docker-compose
+
+- name: install docker compose v2
+  package:
+    name: docker-compose-plugin
+    state: latest

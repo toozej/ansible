@@ -19,4 +19,4 @@ docker_apt_ignore_key_error: true
 
 # Used only for RedHat/CentOS/Fedora.
 docker_yum_repo_url: https://download.docker.com/linux/{{ (ansible_distribution == "Fedora") | ternary("fedora","centos") }}/docker-{{ docker_edition }}.repo
-docker_supported_distribution_version: 35
+docker_supported_distribution_version: 37
