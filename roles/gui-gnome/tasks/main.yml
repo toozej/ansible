@@ -35,10 +35,6 @@
     name: python3-psutil
     state: latest
 
-- name: include application settings vars
-  include_vars: "../vars/main.yml"
-
-# dconf has issues with Travis' CI environment, so skip it there
 - name: Modify application settings using dconf
   dconf:
     key: "{{ item.key }}"

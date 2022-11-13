@@ -131,7 +131,7 @@
       loop_control:
         label: "{{ item.name }}"
       when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name) and (distro is not defined)
-    
+
     - name: "download rpm package {{ repo }} {{ latest_version.json.tag_name }} for distro {{ distro }}"
       # idea from: https://stackoverflow.com/a/62672308/886659
       get_url:

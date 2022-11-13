@@ -11,26 +11,16 @@
   yum_repository:
     name: hashicorp
     description: "Hashicorp Stable repository"
-    baseurl: "https://rpm.releases.hashicorp.com/{{ ansible_distribution }}/{{ ansible_distribution_major_version }}/x86_64/stable"
+    baseurl: "https://rpm.releases.hashicorp.com/{{ ansible_distribution }}/$releasever/x86_64/stable"
     gpgkey: https://rpm.releases.hashicorp.com/gpg
     gpgcheck: true
     enabled: true
 
+- name: if using unsupported distribution version for Terraform, replace with working one
+  shell: sed -i -e 's/$releasever/{{ terraform_supported_distribution_version }}/g' /etc/yum.repos.d/hashicorp.repo
+  when: ansible_distribution == "fedora" and (ansible_distribution_version == "36" or ansible_distribution_version == "37")
+
 - name: "dnf | ensure Terraform present"
   dnf:
     name: terraform
-    state: latest
-
-- name: Add Terraform Libvirt Provider repo
-  yum_repository:
-    name: terraform-libvirt-provider.repo
-    description: "Terraform Libvirt Provider"
-    baseurl: https://download.opensuse.org/repositories/systemsmanagement:/terraform/Fedora_32/
-    gpgkey: https://download.opensuse.org/repositories/systemsmanagement:/terraform/Fedora_32/repodata/repomd.xml.key
-    gpgcheck: true
-    enabled: true
-
-- name: "dnf | ensure Terraform Libvirt Provider present"
-  dnf:
-    name: terraform-provider-libvirt
     state: latest

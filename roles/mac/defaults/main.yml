@@ -16,6 +16,7 @@ homebrew_installed_packages:
   - git
   - htop
   - jq
+  - mr
   - neofetch
   - nmap
   - openssl

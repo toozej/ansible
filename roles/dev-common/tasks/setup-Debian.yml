@@ -1,11 +1,11 @@
 - name: Add Github Hub apt key.
   apt_key:
     keyserver: keyserver.ubuntu.com
-    id: C99B11DEB97541F0
+    id: 23F3D4EA75716059
 
 - name: Add Github CLI repository.
   apt_repository:
-    repo: "deb https://cli.github.com/packages focal main"
+    repo: "deb https://cli.github.com/packages stable main"
     state: present
     update_cache: true
 

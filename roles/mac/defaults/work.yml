@@ -3,7 +3,6 @@ homebrew_installed_packages_work:
   - autoconf
   - awscli
   - bfg
-  - chtf
   - circleci
   - coreutils
   - dive
@@ -29,6 +28,7 @@ homebrew_installed_packages_work:
   - terraform-docs
   - terraform-inventory
   - terragrunt
+  - tfenv
   - tflint
   - vault
   - vmware-tanzu/varvel/ytt
