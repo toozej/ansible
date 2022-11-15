@@ -1,7 +1,7 @@
 ---
 - name: Download Zoom gpg signing key
   get_url:
-    url: https://zoom.us/linux/download/pubkey
+    url: https://zoom.us/linux/download/pubkey?version=5-12-6
     dest: /tmp/zoom.pub
     force: true
 
@@ -42,9 +42,3 @@
     name: /tmp/zoom.rpm
     state: present
   when: ansible_pkg_mgr == 'dnf'
-
-- name: Install latest version of Zoom using YUM
-  yum:
-    name: /tmp/zoom.rpm
-    state: present
-  when: ansible_pkg_mgr == 'yum'
