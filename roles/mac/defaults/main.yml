@@ -21,6 +21,7 @@ homebrew_installed_packages:
   - nmap
   - openssl
   - p7zip
+  - pigz
   - pylint
   - python
   - shellcheck
