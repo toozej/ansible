@@ -1,8 +1,28 @@
 ---
-- name: Install latest version of RPMFusion using DNF
-  include_tasks: setup-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
+- name: upload rpmfusion repo GPG keys for Fedora
+  copy:
+    src: "files/{{ item }}"
+    dest: "/tmp/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - "RPM-GPG-KEY-rpmfusion-free-fedora-2020"
+    - "RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020"
 
-- name: Install latest version of RPMFusion using YUM
-  include_tasks: setup-yum.yml
-  when: ansible_pkg_mgr == 'yum'
+- name: import rpmfusion repo GPG keys for Fedora
+  rpm_key:
+    state: present
+    key: "{{ item }}"
+  with_items:
+    - "/tmp/RPM-GPG-KEY-rpmfusion-free-fedora-2020"
+    - "/tmp/RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020"
+  when: ansible_distribution == 'Fedora'
+
+- name: install rpmfusion repo using dnf for Fedora
+  dnf:
+    name: ['https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm', 'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm']
+    state: present
+    enablerepo: true
+    update_cache: true
+  when: ansible_distribution == 'Fedora'
