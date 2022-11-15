@@ -28,9 +28,11 @@ Or if you want to run a playbook straight from the repo directory:
 - `sudo ANSIBLE_ROLES_PATH=/home/james/src/github/toozej/ansible/roles ansible-playbook playbooks/simplenote-only.yml`
 
 ## Useful info for developing Ansible
+- get localhost facts:
+    `sudo ansible localhost -m setup`
 [Ansible Porting Guides](https://github.com/ansible/ansible/tree/devel/docs/docsite/rst/porting_guides)
 - validate Jenkinsfile using:
-  `curl --user username:password -X POST -F "jenkinsfile=<Jenkinsfile" https://jenkins.example.com/pipeline-model-converter/validate` 
+    `curl --user username:password -X POST -F "jenkinsfile=<Jenkinsfile" https://jenkins.example.com/pipeline-model-converter/validate` 
 - GitHub Actions CI workflow based heavily off https://github.com/geerlingguy/ansible-role-firewall/blob/master/.github/workflows/ci.yml
     - OS Distrubtion matrix from https://github.community/t/create-matrix-with-multiple-os-and-env-for-each-one/16895/6
 

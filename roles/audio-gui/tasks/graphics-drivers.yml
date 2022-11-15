@@ -1,0 +1,17 @@
+---
+- name: swap out regular mesa drivers for freeworld equivalents
+  shell: |
+    dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+    dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+
+- name: register graphics card info
+  shell: lspci | grep -i VGA
+  register: graphics_info
+
+- name: install Intel drivers which include codecs
+  package:
+    name: 
+      - intel-media-driver
+      - libva-intel-driver
+    state: latest
+  when: "'Intel' in graphics_info.stdout"

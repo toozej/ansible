@@ -55,8 +55,6 @@
     state: latest
   when: ansible_distribution == 'Fedora'
 
-- name: swap out regular mesa drivers for freeworld equivalents on Fedora
-  shell: |
-    dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-    dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+- name: install graphics drivers for Fedora
+  include_tasks: graphics-drivers.yml
   when: ansible_distribution == 'Fedora'
