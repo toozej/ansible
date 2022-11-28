@@ -1,5 +1,3 @@
 ---
 - name: remove any default issue.d/* files
   shell: /bin/rm -rf /etc/issue.d/*
-  args:
-    warn: false
