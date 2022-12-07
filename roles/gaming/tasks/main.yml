@@ -101,3 +101,11 @@
   register: install_chiaki
   until: install_chiaki is not failed
   retries: 5
+
+- name: "flatpak | install latest version of Minetest"
+  flatpak:
+    name: net.minetest.Minetest
+    state: present
+  register: install_minetest
+  until: install_minetest is not failed
+  retries: 5
