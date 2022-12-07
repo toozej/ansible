@@ -1,0 +1,30 @@
+---
+# from https://rpmfusion.org/Howto/NVIDIA#Legacy_GeForce_600.2F700
+- name: install NVIDIA Legacy drivers
+  package:
+    name:
+      - xorg-x11-drv-nvidia-470xx
+      - akmod-nvidia-470xx
+      - xorg-x11-drv-nvidia-470xx-power
+    state: latest
+
+- name: install NVIDIA-centric codecs and other tools
+  package:
+    name:
+      - nvidia-settings-470xx
+      - vdpauinfo
+      - libva-vdpau-driver
+      - libva-utils
+    state: latest
+
+- name: configure suspend with NVIDIA drivers
+  systemd:
+    name:
+      - nvidia-suspend
+      - nvidia-resume
+      - nvidia-hibernate
+    enabled: true
+    state: started
+
+- name: configure kernel to use NVIDIA DRM options
+  shell: grubby --update-kernel=ALL --args='nvidia-drm.modeset=1'

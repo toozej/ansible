@@ -1,0 +1,20 @@
+---
+# info from https://www.schotty.com/EL_And_Fedora/amdgpu_Plus_Fedora/
+- name: install AMD drivers
+  package:
+    name:
+      - mesa-dri-drivers
+      - mesa-vulkan-drivers
+    state: latest
+
+- name: install AMD-centric codecs and other tools
+  package:
+    name:
+      - libva
+      - libva-utils
+      - vulkan-tools
+      - vulkan-loader
+    state: latest
+
+- name: Update kernel options
+  shell: grubby --update-kernel=ALL --args="amdgpu.dc=0 radeon.cik_support=0 amdgpu.cik_support=1"

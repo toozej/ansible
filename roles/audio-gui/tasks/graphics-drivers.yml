@@ -1,10 +1,4 @@
 ---
-# TODO not yet confirmed working for Intel, might not be needed at all
-#- name: swap out regular mesa drivers for freeworld equivalents
-#  shell: |
-#    dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-#    dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
-
 - name: register graphics card info
   shell: lspci | grep -i VGA
   register: graphics_info
@@ -12,3 +6,11 @@
 - name: Configure Intel graphics drivers and codecs
   include_tasks: intel-graphics-drivers.yml
   when: "'Intel' in graphics_info.stdout"
+
+- name: Configure Nvidia Legacy graphics drivers and codecs
+  include_tasks: nvidia-legacy-graphics-drivers.yml
+  when: "'NVIDIA' in graphics_info.stdout"
+
+- name: Configure AMD graphics drivers and codecs
+  include_tasks: amd-graphics-drivers.yml
+  when: "'AMD' in graphics_info.stdout"
