@@ -9,3 +9,11 @@
 
 - name: Configure MacOS Defaults
   include_tasks: macos-defaults.yml
+
+- name: setup PyCharm helper script
+  copy:
+    src: pycharm-helper
+    dest: /usr/local/bin/pycharm
+    owner: "{{ homebrew_user }}"
+    group: "{{ homebrew_group }}"
+    mode: 0644
