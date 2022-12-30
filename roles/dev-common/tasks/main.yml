@@ -65,3 +65,7 @@
     owner: root
     group: root
     mode: 0755
+
+- name: install flyctl as james
+  become_user: james
+  shell: curl -L https://fly.io/install.sh | sh
