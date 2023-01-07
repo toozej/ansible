@@ -74,3 +74,9 @@
   package:
     name: jq
     state: latest
+
+- name: install the latest version of cal binary
+  package:
+    name: ncal
+    state: latest
+  when: ansible_os_family == 'Debian'
