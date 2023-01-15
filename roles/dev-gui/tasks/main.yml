@@ -33,3 +33,11 @@
   package:
     name: zeal
     state: latest
+
+- name: "flatpak | install the latest version of Postman"
+  flatpak:
+    name: com.getpostman.Postman
+    state: present
+  register: install_postman
+  until: install_postman is not failed
+  retries: 5
