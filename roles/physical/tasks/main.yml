@@ -6,6 +6,15 @@
     group: root
     mode: 0644
 
+- name: Setup systemd service for dacmagic_pipewire_settings
+  template:
+    src: dacmagic_pipewire_settings.service.j2
+    dest: /etc/systemd/user/dacmagic_pipewire_settings.service
+    owner: root
+    group: root
+    mode: 0644
+  when: base_playbook == "desktop.yml"
+
 - name: just force systemd to reread configs (2.4 and above)
   systemd: daemon_reload=true
 
@@ -13,3 +22,29 @@
   systemd:
     name: disable-mouse-wakeup
     enabled: true
+
+- name: get my user id
+  become: true
+  become_user: james
+  command: id -u
+  register: myuid
+
+- name: just force systemd to reread user configs (2.4 and above)
+  systemd:
+    daemon_reload: true
+    scope: user
+  become: true
+  become_user: james
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ myuid.stdout }}"
+
+- name: enable dacmagic_pipewire_settings systemd service
+  systemd:
+    name: dacmagic_pipewire_settings
+    enabled: true
+    scope: user
+  become: true
+  become_user: james
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ myuid.stdout }}"
+  when: base_playbook == "desktop.yml"

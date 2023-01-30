@@ -1,0 +1,10 @@
+[Unit]
+Description=Set pipewire + pulseaudio allowed bitrates for Cambridge Audio DacMagic 200M
+
+[Service]
+ExecStart=pw-metadata -n settings 0 clock.allowed-rates '[ 44100 48000 88200 96000 176400 192000 352800 384000 705600 768000 ]' ''
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

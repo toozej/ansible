@@ -7,7 +7,7 @@
         base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
       when: base_playbook is not defined
 
-- import_playbook: common.yml
+        #- import_playbook: common.yml
 
 - name: Setup physical hardware fixes
   hosts: all
@@ -16,24 +16,24 @@
   roles:
     - role: physical
 
-- import_playbook: file-server.yml
-- import_playbook: docker-server.yml
-- import_playbook: virt-server.yml
-- import_playbook: gnome.yml
-
-- name: Setup programs and tools
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: chrome
-    - role: vivaldi
-    - role: audio-cli
-    - role: audio-gui
-    - role: dev-common
-    - role: dev-gui
-    - role: dev-python
-    - role: office
-    - role: photography
-    - role: wine
-    - role: gaming
+      #- import_playbook: file-server.yml
+      #- import_playbook: docker-server.yml
+      #- import_playbook: virt-server.yml
+      #- import_playbook: gnome.yml
+      #
+      #- name: Setup programs and tools
+      #  hosts: all
+      #  become: true
+      #  become_user: root
+      #  roles:
+      #    - role: chrome
+      #    - role: vivaldi
+      #    - role: audio-cli
+      #    - role: audio-gui
+      #    - role: dev-common
+      #    - role: dev-gui
+      #    - role: dev-python
+      #    - role: office
+      #    - role: photography
+      #    - role: wine
+      #    - role: gaming
