@@ -14,6 +14,7 @@
     group: root
     mode: 0644
   when: base_playbook == "desktop.yml"
+  tags: ci
 
 - name: just force systemd to reread configs (2.4 and above)
   systemd: daemon_reload=true
@@ -28,6 +29,7 @@
   become_user: james
   command: id -u
   register: myuid
+  tags: ci
 
 - name: just force systemd to reread user configs (2.4 and above)
   systemd:
@@ -37,6 +39,7 @@
   become_user: james
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ myuid.stdout }}"
+  tags: ci
 
 - name: enable dacmagic_pipewire_settings systemd service
   systemd:
@@ -48,3 +51,4 @@
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ myuid.stdout }}"
   when: base_playbook == "desktop.yml"
+  tags: ci
