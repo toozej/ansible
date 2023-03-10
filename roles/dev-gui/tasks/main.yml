@@ -41,3 +41,8 @@
   register: install_postman
   until: install_postman is not failed
   retries: 5
+
+- name: Install neovim
+  package:
+    name: neovim
+    state: latest
