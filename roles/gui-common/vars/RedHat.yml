@@ -2,3 +2,4 @@
 powerline_fonts_package_name: powerline-fonts
 sensors_package_name: lm_sensors
 simplenote_arch: x86_64
+hack_font_package_name: source-foundry-hack-fonts
