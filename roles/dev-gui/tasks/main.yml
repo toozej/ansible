@@ -42,6 +42,11 @@
   until: install_postman is not failed
   retries: 5
 
+- name: Install g++ as pre-req for neovim
+  package:
+    name: g++
+    state: latest
+
 - name: Install neovim
   package:
     name: neovim
