@@ -50,6 +50,11 @@
     group: james
     mode: 0644
 
+- name: Install latest version of Kitty terminal terminal
+  package:
+    name: kitty
+    state: latest
+
 - name: Install latest version of Calibre
   package:
     name: calibre
