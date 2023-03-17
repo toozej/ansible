@@ -51,3 +51,22 @@
   package:
     name: neovim
     state: latest
+
+- name: confirm neovimfiles repo exists
+  stat:
+    path: "{{ home_dir_path }}/neovimfiles"
+  register: neovimfiles_repo
+
+- name: clone neovimfiles from github
+  git:
+    repo: 'https://github.com/toozej/neovimfiles.git'
+    accept_hostkey: true
+    dest: "{{ home_dir_path }}/.config/nvim"
+    recursive: true
+  register: clone_or_pull
+  when: (not ansible_check_mode) and (not neovimfiles_repo.stat.exists)
+
+- name: setup neovimfiles
+  raw: "sudo -u {{ james_user }} {{ home_dir_path|quote }}/neovimfiles/setup.sh"
+  when: (clone_or_pull.changed == true) and (not ansible_check_mode)
+  tags: ci
