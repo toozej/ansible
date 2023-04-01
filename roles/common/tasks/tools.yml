@@ -22,6 +22,7 @@
       - net-tools
       - nmap
       - "{{ dig_package_name }}"
+      - entr
     state: latest
 
 - name: install packages except on CentOS
