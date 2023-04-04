@@ -69,3 +69,6 @@
 - name: install flyctl as james
   become_user: james
   shell: curl -L https://fly.io/install.sh | sh
+
+- name: Setup cron + repo sync cronjob
+  include_tasks: repo-sync.yml
