@@ -60,3 +60,12 @@
   package:
     name: "{{ exiftool_package_name }}"
     state: latest
+
+- name: install latest versions of heif tools
+  package:
+    name:
+      - libheif
+      - libheif-tools
+      - libheif-hevc
+    state: latest
+  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
