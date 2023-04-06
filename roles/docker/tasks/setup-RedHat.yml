@@ -22,4 +22,4 @@
 
 - name: if using unsupported distribution version for Docker, replace with working one
   shell: sed -i -e 's/$releasever/{{ docker_supported_distribution_version }}/g' /etc/yum.repos.d/docker-{{ docker_edition }}.repo
-  when: ansible_distribution == "Fedora" and (ansible_distribution_version == "36" or ansible_distribution_version == "37")
+  when: ansible_distribution == "Fedora" and (ansible_distribution_version == "37" or ansible_distribution_version == "38")
