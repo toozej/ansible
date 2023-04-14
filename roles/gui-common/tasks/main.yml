@@ -31,25 +31,6 @@
     name: filezilla
     state: latest
 
-- name: Install latest version of Terminator
-  package:
-    name: terminator
-    state: latest
-
-- name: Ensures ~/.config/terminator exists
-  file:
-    path: /home/james/.config/terminator
-    state: directory
-    recurse: true
-
-- name: lay out Terminator config file
-  template:
-    src: terminator.conf.j2
-    dest: /home/james/.config/terminator/config
-    owner: james
-    group: james
-    mode: 0644
-
 - name: Install latest version of Kitty terminal terminal
   package:
     name: kitty
