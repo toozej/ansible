@@ -53,7 +53,6 @@ homebrew_cask_apps:
   - google-chrome
   - google-drive
   - gpg-suite
-  - hyperdock
   - istumbler
   - iterm2
   - karabiner-elements
@@ -64,6 +63,7 @@ homebrew_cask_apps:
   - plexamp
   - plex-media-player
   - homebrew/cask-drivers/qmk-toolbox
+  - rectangle
   - sensiblesidebuttons
   - scroll-reverser
   - simplenote

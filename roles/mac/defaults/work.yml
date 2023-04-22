@@ -20,6 +20,7 @@ homebrew_installed_packages_work:
   - packer
   - pipenv
   - plantuml
+  - postgresql
   - pre-commit
   - prettier
   - pyenv
