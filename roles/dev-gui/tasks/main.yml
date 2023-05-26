@@ -54,7 +54,7 @@
 
 - name: confirm neovimfiles repo exists
   stat:
-    path: "{{ home_dir_path }}/neovimfiles"
+    path: "{{ home_dir_path }}/.config/nvim"
   register: neovimfiles_repo
 
 - name: clone neovimfiles from github
@@ -67,6 +67,6 @@
   when: (not ansible_check_mode) and (not neovimfiles_repo.stat.exists)
 
 - name: setup neovimfiles
-  raw: "sudo -u {{ james_user }} {{ home_dir_path|quote }}/neovimfiles/setup.sh"
+  raw: "sudo -u {{ james_user }} {{ home_dir_path|quote }}/.config/nvim/setup.sh"
   when: (clone_or_pull.changed == true) and (not ansible_check_mode)
   tags: ci
