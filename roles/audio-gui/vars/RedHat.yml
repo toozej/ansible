@@ -7,5 +7,5 @@ gstreamer1_plugins_bad_package_name: gstreamer1-plugins-bad-free-extras
 gstreamer1_plugins_bad_free_package_name: gstreamer1-plugins-bad-free
 gstreamer1_plugins_ugly_package_name: gstreamer1-plugins-ugly
 gstreamer1_plugins_ugly_free_package_name: gstreamer1-plugins-ugly-free
-ansible_distribution_release: "{{ 'fc35' if ansible_distribution == 'Fedora' }}"
+ansible_distribution_release: "{{ 'fc38' if ansible_distribution == 'Fedora' }}"
 strawberry_arch: x86_64
