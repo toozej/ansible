@@ -3,6 +3,8 @@
   package:
     name: ffmpeg
     state: latest
+  # temporarily ignore errors due to Fedora + RPMFusion repo conflicts
+  ignore_errors: true
 
 - name: install latest version of mediainfo
   package:
