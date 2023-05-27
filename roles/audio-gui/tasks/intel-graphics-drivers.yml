@@ -1,5 +1,5 @@
 ---
-# from https://ask.fedoraproject.org/t/intel-graphics-best-practices-and-settings-for-hardware-acceleration/21119 
+# from https://ask.fedoraproject.org/t/intel-graphics-best-practices-and-settings-for-hardware-acceleration/21119
 - name: install Intel drivers
   package:
     name:
@@ -17,13 +17,13 @@
     state: latest
 
 # options from https://wiki.archlinux.org/title/Intel_graphics#Enable_GuC_/_HuC_firmware_loading
-- name: configure kernel to use iGPU options
-  blockinfile:
-    path: /etc/modprobe.d/i915.conf
-    block: |
-      options i915 enable_guc=2
-      options i915 enable_fbc=1
-
-- name: rebuild initramfs with graphics driver changes
-  shell:
-    cmd: LIBVA_DRIVER_NAME=iHD dracut --force
+#- name: configure kernel to use iGPU options
+#  blockinfile:
+#    path: /etc/modprobe.d/i915.conf
+#    block: |
+#      options i915 enable_guc=2
+#      options i915 enable_fbc=1
+#
+#- name: rebuild initramfs with graphics driver changes
+#  shell:
+#    cmd: LIBVA_DRIVER_NAME=iHD dracut --force
