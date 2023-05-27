@@ -19,7 +19,7 @@ gnome_dconf:
   - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding
     value: "'<Primary><Alt>t'"
   - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command
-    value: "'kitty --start-as fullscreen'"
+    value: "'kitty --start-as maximized'"
   - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name
     value: "'Terminal'"
   - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding
