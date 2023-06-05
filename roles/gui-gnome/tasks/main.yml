@@ -30,6 +30,14 @@
     group: james
     mode: 0644
 
+- name: lay out mimeapps.list (default applications)
+  copy:
+    src: mimeapps.list
+    dest: /home/james/.config/mimeapps.list
+    owner: james
+    group: james
+    mode: 0600
+
 - name: install psutil Python package
   package:
     name: python3-psutil
