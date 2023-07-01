@@ -66,7 +66,7 @@ if [ -f /etc/debian_version ]; then
     os="Debian $(cat /etc/debian_version)"
     apt-get update
     apt-get install -y lsb-release git python3-pip python3-apt dirmngr --install-recommends
-    echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu focal main" > /etc/apt/sources.list.d/ansible.list
+    echo "deb https://ppa.launchpad.net/ansible/ansible/ubuntu jammy main" > /etc/apt/sources.list.d/ansible.list
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
     apt-get update
     apt-get install -y ansible ansible-lint
@@ -87,9 +87,7 @@ elif [ "$(uname)" == "Darwin" ]; then
     # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
     ANSIBLE_REPO_DIR=~/tmp/ansible
 
-    # for now, still using Python 2.7 for Ansible on MacOS, so force last version of pip that supports Python 2.7
-    easy_install pip==20.3.4
-    pip install ansible ansible-lint
+    pip3 install ansible ansible-lint
 
 # otherwise...
 else
