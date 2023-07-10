@@ -1,0 +1,39 @@
+---
+- name: enable contrib repository
+  ansible.builtin.apt_repository:
+    repo: "deb http://debian.osuosl.org/debian/ {{ ansible_distribution_release }} main contrib non-free non-free-firmware"
+    state: present
+  when: ansible_distribution == 'Debian'
+
+- name: purge raspberry pi firmware to avoid initramfs errors
+  apt:
+    name:
+      - raspi-firmware
+    state: absent
+    purge: true
+  ignore_errors: true
+
+- name: install zfs tools
+  package:
+    name:
+      - zfsutils-linux
+      - zfs-dkms
+    state: latest
+
+# https://www.reddit.com/r/zfs/comments/10qg6yo/openzfs_2171_on_debian_how_to_auto_mount_natively/
+# https://wiki.archlinux.org/title/ZFS#Unlock/Mount_at_boot_time:_systemd
+- name: set up zfs-load-keys-custom SystemD service unit
+  copy:
+    src: zfs-load-keys-custom.service
+    dest: /etc/systemd/system/zfs-load-keys-custom.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: just force systemd to reread configs
+  systemd: daemon_reload=true
+
+- name: enable zfs-load-keys-custom systemd service
+  systemd:
+    name: zfs-load-keys-custom
+    enabled: true
