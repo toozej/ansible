@@ -1,0 +1,37 @@
+# test playbook
+- hosts: localhost
+  connection: local
+  pre_tasks:
+    - name: Set base_playbook Fact
+      set_fact:
+        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      when: base_playbook is not defined
+
+- hosts: localhost
+  connection: local
+  become: true
+  become_user: root
+  roles:
+    - role: ansible-enablement
+    - role: common
+    - role: user
+    - role: flatpak
+    - role: audio-cli
+    - role: audio-gui
+    - role: chrome
+    - role: vivaldi
+    - role: java
+    - role: dev-common
+    - role: dev-gui
+    - role: docker
+    - role: gaming
+    - role: gui-common
+    - role: gui-i3
+    - role: gui-gnome
+    - role: office
+    - role: photography
+    - role: physical
+    - role: repo-extra
+    - role: unattended-upgrades
+    - role: wireguard
+    - role: wine
