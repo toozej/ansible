@@ -49,6 +49,7 @@ jobs:
       matrix:
         playbook:
           - dev
+          - gui-dev
           - gui
           - server
       fail-fast: false

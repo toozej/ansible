@@ -16,15 +16,11 @@
     - role: common
     - role: user
     - role: flatpak
-    - role: audio-cli
-    - role: audio-gui
-    - role: chrome
-    - role: vivaldi
-    - role: gaming
+    - role: java
+    - role: dev-common
+    - role: dev-gui
+    - role: docker
     - role: gui-common
-    - role: gui-i3
-    - role: gui-gnome
-    - role: office
-    - role: photography
-    - role: physical
-    - role: wine
+    - role: repo-extra
+    - role: unattended-upgrades
+    - role: wireguard

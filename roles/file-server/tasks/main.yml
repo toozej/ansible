@@ -67,3 +67,4 @@
 - name: install and configure ZFS on Debian-based systems
   include_tasks: zfs.yml
   when: ansible_os_family == 'Debian'
+  tags: ci
