@@ -1,11 +1,19 @@
 ---
+- name: Get latest Go version from upstream
+  shell: "curl -s 'https://go.dev/dl/?mode=json' | jq -r '.[0].version' | sed 's/go//'"
+  register: go_version_target
+
+- name: Set Go Tarball name
+  set_fact:
+    go_tarball: "go{{ go_version_target.stdout }}.linux-amd64.tar.gz"
+
 - name: Download the Go tarball
   get_url:
-    url: "{{ go_download_location }}"
+    url: "https://storage.googleapis.com/golang/{{ go_tarball }}"
     dest: /usr/local/src/{{ go_tarball }}
 
 - name: Register the current Go version (if any)
-  command: /usr/local/go/bin/go version
+  shell: "/usr/local/go/bin/go version | awk '{print $3}' | sed 's/go//'"
   ignore_errors: true
   register: go_version
   changed_when: false
@@ -14,14 +22,14 @@
   file:
     path: /usr/local/go
     state: absent
-  when: go_version is failed or go_version.stdout != go_version_target
+  when: go_version is failed or go_version.stdout != go_version_target.stdout
 
 - name: Extract the Go tarball if Go is not yet installed or not the desired version
   unarchive:
     src: /usr/local/src/{{ go_tarball }}
     dest: /usr/local
     copy: false
-  when: go_version is failed or go_version.stdout != go_version_target
+  when: go_version is failed or go_version.stdout != go_version_target.stdout
 
 - name: Add the Go bin directory to the PATH environment variable for all users
   copy:
