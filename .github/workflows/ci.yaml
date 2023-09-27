@@ -51,6 +51,7 @@ jobs:
           - dev
           - gui-dev
           - gui
+          - gui-gaming
           - server
       fail-fast: false
 
