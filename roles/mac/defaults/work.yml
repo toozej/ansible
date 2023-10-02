@@ -38,10 +38,8 @@ homebrew_installed_packages_work:
 homebrew_cask_apps_work:
   - apache-directory-studio
   - beyond-compare
-  - corsair-icue
+  - bruno
   - dbeaver-community
-  - keepassxc
-  - postman
   - pycharm-ce
   - utc-menu-clock
   - xmind
