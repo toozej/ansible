@@ -8,6 +8,13 @@
       - "../vars/{{ ansible_os_family }}.yml"
       - "../vars/default.yml"
       skip: true
+  when: (libebur128_package_name is not defined)
+
+- name: install Strawberry dependencies
+  package:
+    name:
+      - "{{ libebur128_package_name }}"
+    state: latest
 
 - name: install latest Strawberry from GitHub releases
   import_role:

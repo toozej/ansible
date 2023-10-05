@@ -6,3 +6,4 @@ gstreamer1_plugins_bad_package_name: gstreamer1.0-plugins-bad
 gstreamer1_plugins_ugly_package_name: gstreamer1.0-plugins-ugly
 ansible_distribution_release: "{{ ansible_facts['distribution_release'] }}"
 strawberry_arch: amd64
+libebur128_package_name: libebur128-1
