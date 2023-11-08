@@ -6,30 +6,6 @@
       become: true
       become_user: james
 
-- name: Ensures ~/.local/share/backgrounds exists
-  file:
-    path: /home/james/.local/share/backgrounds
-    state: directory
-    recurse: true
-
-# from https://www.deviantart.com/arsenixc/art/Tokyo-Street-Sunset-680726181
-- name: lay out wallpaper
-  copy:
-    src: 2019-10-29-11-03-21-tokyo_street_sunset_by_arsenixc_db9abol.jpg
-    dest: /home/james/.local/share/backgrounds/2019-10-29-11-03-21-tokyo_street_sunset_by_arsenixc_db9abol.jpg
-    owner: james
-    group: james
-    mode: 0644
-
-# from https://www.deviantart.com/arsenixc/art/Tokyo-Street-Night-684804497
-- name: lay out "screensaver" (lock-screen wallpaper)
-  copy:
-    src: 2019-10-29-11-03-25-tokyo_street_night_by_arsenixc_dbbpqj5.jpg
-    dest: /home/james/.local/share/backgrounds/2019-10-29-11-03-25-tokyo_street_night_by_arsenixc_dbbpqj5.jpg
-    owner: james
-    group: james
-    mode: 0644
-
 - name: lay out mimeapps.list (default applications)
   copy:
     src: mimeapps.list

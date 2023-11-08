@@ -63,6 +63,9 @@
     name: solaar
     state: latest
 
+- name: Lay out wallpaper
+  include_tasks: wallpaper.yml
+
 - name: Install and configure Sensors
   include_tasks: sensors.yml
 

@@ -1,1 +1,2 @@
-terraform_supported_distribution_version: 36
+---
+terraform_supported_distribution_version: 38
