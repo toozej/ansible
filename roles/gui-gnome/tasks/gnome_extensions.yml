@@ -7,6 +7,14 @@
 - set_fact:
     gnome_shell_version: "{{ r_gnome_extension_parse_shell_version.stdout }}"
 
+- name: set extensions dir permissions
+  file:
+    path: ~/.local/share/gnome-shell
+    state: directory
+    owner: "{{ james_user }}"
+    group: "{{ james_group }}"
+    mode: 0700
+
 - name: Get Gnome Shell extension info
   uri:
     url: https://extensions.gnome.org/extension-info/?pk={{ item }}&shell_version={{ gnome_shell_version }}
