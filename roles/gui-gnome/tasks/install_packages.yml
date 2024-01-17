@@ -23,7 +23,6 @@
   flatpak:
     name: org.gnome.Extensions
     state: present
-    remote: fedora
   register: install_extensions
   until: install_extensions is not failed
   retries: 5
