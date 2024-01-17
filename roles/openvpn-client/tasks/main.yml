@@ -1,8 +1,19 @@
 ---
+# Load a variable file based on the OS type, or a default if not found.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+      - "../vars/{{ ansible_distribution }}.yml"
+      - "../vars/{{ ansible_os_family }}.yml"
+      - "../vars/default.yml"
+      skip: true
+  when: (nm_openvpn_package_name is not defined) or (nm_openvpn_gnome_package_name is not defined)
+
 - name: install openvpn client
   package:
     name:
       - openvpn
-      - NetworkManager-openvpn
-      - NetworkManager-openvpn-gnome
+      - "{{ nm_openvpn_package_name }}"
+      - "{{ nm_openvpn_gnome_package_name }}"
     state: latest
