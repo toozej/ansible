@@ -21,7 +21,7 @@
   vars:
     docker_users: "[james]"
 
-- import_playbook: virt-server.yml
+# - import_playbook: virt-server.yml
 - import_playbook: gnome.yml
 
 - name: Setup programs and tools
@@ -29,8 +29,8 @@
   become: true
   become_user: root
   roles:
-    - role: chrome
-    - role: vivaldi
+    # - role: chrome
+    # - role: vivaldi
     - role: audio-cli
     - role: audio-gui
     - role: office
@@ -39,4 +39,4 @@
     - role: photography
     - role: fs-common
 
-- import_playbook: development.yml
+# - import_playbook: development.yml
