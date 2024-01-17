@@ -65,11 +65,7 @@ echo -e "determining OS and distro, then installing python, git, and ansible pac
 if [ -f /etc/debian_version ]; then
     os="Debian $(cat /etc/debian_version)"
     apt-get update
-    apt-get install -y lsb-release git python3-pip python3-apt dirmngr --install-recommends
-    echo "deb https://ppa.launchpad.net/ansible/ansible/ubuntu jammy main" > /etc/apt/sources.list.d/ansible.list
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-    apt-get update
-    apt-get install -y ansible ansible-lint
+    apt-get install -y lsb-release git python3-pip python3-apt dirmngr ansible ansible-lint
 
 # if Fedora
 elif [ -f /etc/fedora-release ]; then
@@ -86,13 +82,14 @@ elif [ "$(uname)" == "Darwin" ]; then
     os="mac"
     # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
     ANSIBLE_REPO_DIR=~/tmp/ansible
-
     pip3 install ansible ansible-lint
 
 # otherwise...
 else
     os="$(uname -s) $(uname -r)"
 fi
+
+echo "Detected OS: ${os}"
 
 # download and configure ansible on localhost
 # trash ANSIBLE_REPO_DIR if it already exists
@@ -102,7 +99,7 @@ if  [ -d $ANSIBLE_REPO_DIR ]; then
 fi
 echo -e "pulling down ansible repo from github"
 git clone https://github.com/toozej/ansible.git $ANSIBLE_REPO_DIR
-cd $ANSIBLE_REPO_DIR
+cd $ANSIBLE_REPO_DIR || exit
 
 echo -e "setting up default ansible.cfg"
 cp ansible.cfg.example ansible.cfg
@@ -117,7 +114,7 @@ else
 fi
 
 # check if github SSH key is configured, and if it's not request user to place it there
-if [ -z /home/james/.ssh/id_rsa_github ]; then
+if [ ! -f /home/james/.ssh/id_ed25519_github ]; then
   echo "Github SSH key is not in the correct path, please add and retry"
   exit 1
 fi
