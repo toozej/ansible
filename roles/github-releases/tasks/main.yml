@@ -44,7 +44,7 @@
         label: "{{ item.name }}"
       when: |
         (filename|string in item.name) and (arch|string in item.name) and
-        (".zip" not in item.name and ".tar" not in item.name and ".7z" not in item.name and ".rar" not in item.name and ".sha" not in item.name) and
+        (".zip" not in item.name and ".tar" not in item.name and ".7z" not in item.name and ".rar" not in item.name and ".sha" not in item.name and "debug" not in item.name and "source" not in item.name and "src" not in item.name) and
         ("darwin" not in item.name and "win" not in item.name and "bsd" not in item.name)
       get_url:
         url: "{{ item.browser_download_url }}"
@@ -141,7 +141,7 @@
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
-      when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name) and (distro is defined and distro|string in item.name)
+      when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name) and ('debug' not in item.name and 'source' not in item.name and 'src' not in item.name) and (distro is defined and distro|string in item.name)
 
     - name: "installing rpm {{ repo }} {{ latest_version.json.tag_name }}"
       dnf:

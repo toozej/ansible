@@ -63,6 +63,6 @@
     state: latest
   when: ansible_distribution == 'Fedora'
 
-- name: install graphics drivers for Fedora
-  include_tasks: graphics-drivers.yml
-  when: ansible_distribution == 'Fedora'
+    #- name: install graphics drivers for Fedora
+    #  include_tasks: graphics-drivers.yml
+    #  when: ansible_distribution == 'Fedora'
