@@ -73,7 +73,7 @@ gnome_dconf:
   - key: /org/gnome/shell/enabled-extensions
     value: "['background-logo@fedorahosted.org', 'dash-to-dock@micxgx.gmail.com', 'caffeine@patapon.info', 'hidetopbar@mathieu.bidon.ca', 'unlockDialogBackground@sun.wxg@gmail.com']"
   - key: /org/gnome/shell/favorite-apps
-    value: "['google-chrome.desktop', 'firefox.desktop', 'slack.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop', 'simplenote.desktop', 'com.spotify.Client.desktop', 'strawberry.desktop', 'org.gnome.Connections.desktop']"
+    value: "['firefox.desktop', 'com.slack.Slack.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop', 'simplenote.desktop', 'com.spotify.Client.desktop', 'strawberry.desktop', 'org.gnome.Connections.desktop']"
   - key: /org/gnome/shell/extensions/caffeine/show-notifications
     value: "false"
   - key: /org/gnome/shell/extensions/caffeine/user-enabled

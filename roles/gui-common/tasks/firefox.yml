@@ -9,31 +9,50 @@
     dest: /etc/apt/preferences.d/firefox-no-snap
     force: true
     mode: 0644
-
-- name: remove Firefox package
-  package:
-    name: firefox
-    state: absent
+  when: ansible_distribution == 'Ubuntu'
 
 - name: remove Firefox snap
   community.general.snap:
     name: firefox
     state: absent
 
-- name: Add Mozilla stable repository from PPA
-  ansible.builtin.apt_repository:
-    repo: ppa:mozillateam/ppa
+- name: remove firefox package
+  package:
+    name: firefox
+    state: absent
 
-- name: install Firefox package from PPA
+- name: remove firefox-esr package
+  package:
+    name: firefox-esr
+    state: absent
+
+# instructions from https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions
+- name: Add Mozilla signing key
+  get_url:
+    url: https://packages.mozilla.org/apt/repo-signing-key.gpg
+    dest: /etc/apt/keyrings/packages.mozilla.org.asc
+    mode: '0644'
+
+- name: setup Mozilla apt repo
+  copy:
+    content: "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main"
+    dest: /etc/apt/sources.list.d/mozilla.list
+  register: mozilla_repo.changed
+
+- name: setup Mozilla apt repo priority
+  copy:
+    content: |
+      "Package: *
+       Pin: origin packages.mozilla.org
+       Pin-Priority: 1000"
+    dest: /etc/apt/preferences.d/mozilla
+
+- name: update apt cache
   apt:
+    update_cache: true
+  when: mozilla_repo.changed
+
+- name: install Firefox from Mozilla repo
+  package:
     name: firefox
     state: latest
-    update_cache: true
-
-- name: Allow upgrades via unattended-upgrades
-  blockinfile:
-    path: /etc/apt/apt.conf.d/51unattended-upgrades-firefox
-    create: true
-    mode: 0644
-    block: |
-      Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";
