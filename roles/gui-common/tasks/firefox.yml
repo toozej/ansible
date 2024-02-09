@@ -37,15 +37,17 @@
   copy:
     content: "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main"
     dest: /etc/apt/sources.list.d/mozilla.list
-  register: mozilla_repo.changed
+    mode: '0644'
+  register: mozilla_repo
 
 - name: setup Mozilla apt repo priority
   copy:
     content: |
-      "Package: *
-       Pin: origin packages.mozilla.org
-       Pin-Priority: 1000"
+      Package: *
+      Pin: origin packages.mozilla.org
+      Pin-Priority: 1000
     dest: /etc/apt/preferences.d/mozilla
+    mode: '0644'
 
 - name: update apt cache
   apt:

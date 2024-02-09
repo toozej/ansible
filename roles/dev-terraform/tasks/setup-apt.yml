@@ -1,13 +1,15 @@
 ---
 - name: "apt | ensure Hashicorp Apt signing key present"
-  apt_key:
+  get_url:
     url: https://apt.releases.hashicorp.com/gpg
-    state: present
+    dest: /etc/apt/keyrings/hashicorp.gpg
+    mode: '0644'
 
 - name: "apt | ensure Hashicorp repo present"
   copy:
-    content:  "deb [arch=amd64] https://apt.releases.hashicorp.com focal main"
+    content: "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com jammy main"
     dest: "/etc/apt/sources.list.d/hashicorp.list"
+    mode: '0644'
   register: hashicorp_repo
 
 - name: "apt | update cache"
