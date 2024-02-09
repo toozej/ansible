@@ -30,6 +30,7 @@
   package:
     name: gnome-browser-connector
     state: latest
+  when: ansible_distribution != 'Ubuntu'
 
 - name: Install dconf binary
   package:
