@@ -42,13 +42,8 @@
     name: mediainfo-gui
     state: latest
 
-- name: install latest version of Spotify client apt
-  include_tasks: spotify-apt.yml
-  when: ansible_pkg_mgr == 'apt'
-
-- name: install latest version of Spotify client flatpak
-  include_tasks: spotify-flatpak.yml
-  when: ansible_pkg_mgr != 'apt'
+- name: install latest version of Spotify client
+  include_tasks: spotify.yml
 
 - name: install latest version of Strawberry
   include_tasks: strawberry.yml
