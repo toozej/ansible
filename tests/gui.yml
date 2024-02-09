@@ -18,8 +18,6 @@
     - role: flatpak
     - role: audio-cli
     - role: audio-gui
-    - role: chrome
-    - role: vivaldi
     - role: gui-common
     - role: gui-i3
     - role: gui-gnome

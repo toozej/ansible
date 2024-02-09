@@ -1,8 +1,0 @@
-[Unit]
-Description=Fedora default kernel updater
-
-[Path]
-PathChanged=/boot
-
-[Install]
-WantedBy=default.target

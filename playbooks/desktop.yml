@@ -26,8 +26,6 @@
       #  become: true
       #  become_user: root
       #  roles:
-      #    - role: chrome
-      #    - role: vivaldi
       #    - role: audio-cli
       #    - role: audio-gui
       #    - role: dev-common

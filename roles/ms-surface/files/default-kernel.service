@@ -1,6 +1,0 @@
-[Unit]
-Description=Fedora default kernel updater
-
-[Service]
-Type=oneshot
-ExecStart=/bin/sh -c "grubby --set-default /boot/vmlinuz*surface*"
