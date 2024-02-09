@@ -25,6 +25,7 @@
   package:
     name: chromium
     state: latest
+  when: ansible_distribution != 'Ubuntu'
 
 - name: Install latest version of xournal PDF editor
   package:
