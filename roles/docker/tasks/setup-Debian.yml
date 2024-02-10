@@ -16,22 +16,9 @@
     state: present
 
 - name: Add Docker apt key.
-  apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-    state: present
+  shell: wget -O- https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor > /etc/apt/keyrings/docker.gpg
   register: add_repository_key
   ignore_errors: "{{ docker_apt_ignore_key_error }}"
-
-- name: Ensure curl is present (on older systems without SNI).
-  package: name=curl state=present
-  when: add_repository_key is failed
-
-- name: Add Docker apt key (alternative for older systems without SNI).
-  shell: "curl -sSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
-  args:
-    warn: false
-  when: add_repository_key is failed
 
 - name: include Debian ansible_distribution_release for Bullseye/Sid
   include_vars: "../vars/Debian.yml"

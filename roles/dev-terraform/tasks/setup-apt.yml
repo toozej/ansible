@@ -1,23 +1,14 @@
 ---
 - name: "apt | ensure Hashicorp Apt signing key present"
-  get_url:
-    url: https://apt.releases.hashicorp.com/gpg
-    dest: /etc/apt/keyrings/hashicorp.gpg
-    mode: '0644'
+  shell: wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor > /etc/apt/keyrings/hashicorp.gpg
 
 - name: "apt | ensure Hashicorp repo present"
-  copy:
-    content: "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com jammy main"
-    dest: "/etc/apt/sources.list.d/hashicorp.list"
-    mode: '0644'
-  register: hashicorp_repo
-
-- name: "apt | update cache"
-  apt:
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com jammy main"
+    state: present
     update_cache: true
-  when: hashicorp_repo.changed
 
 - name: "apt | ensure Terraform latest"
-  apt:
+  package:
     name: terraform
     state: latest
