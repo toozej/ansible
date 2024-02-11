@@ -27,4 +27,3 @@
       - texlive-multirow
       - texlive-arydshln
     state: latest
-  when: ansible_distribution == 'Fedora'
