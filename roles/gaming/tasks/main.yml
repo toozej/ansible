@@ -40,15 +40,21 @@
   until: install_heroic is not failed
   retries: 5
 
-- name: "apt | pre-requisites for installing Lutris on Debian"
-  include_tasks: lutris-debian.yml
-  when: (ansible_distribution == 'Debian')
+- name: "flatpak | install latest version of Lutris"
+  flatpak:
+    name: net.lutris.Lutris
+    state: present
+  register: install_lutris
+  until: install_lutris is not failed
+  retries: 5
 
-- name: install latest version of Lutris
-  package:
-    name: lutris
-    state: latest
-  when: (ansible_distribution != 'CentOS')
+- name: "flatpak | install latest version of Bottles"
+  flatpak:
+    name: com.usebottles.bottles
+    state: present
+  register: install_bottles
+  until: install_bottles is not failed
+  retries: 5
 
 - name: install latest version of Mumble
   package:
