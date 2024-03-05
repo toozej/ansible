@@ -19,7 +19,7 @@
     name: latexmk
     state: latest
 
-- name: install moderncv package and dependencies for LaTeX
+- name: install moderncv package and dependencies for LaTeX on Fedora
   package:
     name:
       - texlive-moderncv
@@ -27,3 +27,12 @@
       - texlive-multirow
       - texlive-arydshln
     state: latest
+  when: ansible_distribution == 'Fedora'
+
+- name: install moderncv package and dependencies for LaTeX on Debian-based
+  package:
+    name:
+      - texlive-latex-extra
+      - texlive-fonts-extra
+    state: latest
+  when: ansible_os_family == 'Debian'
