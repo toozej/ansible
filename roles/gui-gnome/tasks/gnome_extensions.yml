@@ -14,6 +14,7 @@
     owner: "{{ james_user }}"
     group: "{{ james_group }}"
     mode: 0700
+  tags: ci
 
 - name: Get Gnome Shell extension info
   uri:

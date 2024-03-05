@@ -14,6 +14,7 @@
     apply:
       become: true
       become_user: james
+  tags: ci
 
 - name: lay out mimeapps.list (default applications)
   copy:
@@ -22,6 +23,7 @@
     owner: james
     group: james
     mode: 0600
+  tags: ci
 
 - name: install psutil Python package
   package:
