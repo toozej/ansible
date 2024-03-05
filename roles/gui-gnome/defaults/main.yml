@@ -106,7 +106,15 @@ gnome_dconf:
     value: "true"
   - key: /org/gnome/shell/extensions/dash-to-dock/disable-overview-on-startup
     value: "true"
+  - key: /org/gnome/software/allow-updates
+    value: "false"
   - key: /org/gnome/software/download-updates
     value: "false"
   - key: /org/gnome/software/download-updates-notify
     value: "false"
+  - key: /org/gnome/desktop/search-providers/disable-external
+    value: "true"
+  - key: /org/gnome/desktop/privacy/report-technical-problems
+    value: "false"
+  - key: /org/gnome/desktop/privacy/remove-old-trash-files
+    value: "true"

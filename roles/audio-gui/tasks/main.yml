@@ -24,9 +24,9 @@
     state: latest
   ignore_errors: true
 
-- name: "flatpak | install the 22.08 full version of ffmpeg"
+- name: "flatpak | install the 23.08 full version of ffmpeg"
   flatpak:
-    name: org.freedesktop.Platform.ffmpeg-full/x86_64/22.08
+    name: org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
     state: present
   register: install_ffmpeg
   until: install_ffmpeg is not failed

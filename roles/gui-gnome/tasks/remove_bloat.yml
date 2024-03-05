@@ -1,0 +1,42 @@
+---
+- name: remove unneeded / bloatware packages
+  package:
+    name:
+      - evolution
+      - evolution-ews
+      - evolution-help
+      - gfbgraph
+      - gnome-calendar
+      - gnome-contacts
+      - gnome-documents
+      - gnome-getting-started-docs
+      - gnome-online-miners
+      - gnome-photos
+      - gnome-software
+      - gnome-user-docs
+      - gnome-user-share
+      - gnome-video-effects
+      - totem
+      - tracker-miners
+      - yelp
+    state: absent
+  ignore_errors: true
+
+- name: mask unwanted gnome services
+  systemd:
+    name:
+      - evolution-addressbook-factory.service
+      - evolution-calendar-factory.service
+      - evolution-source-registry.service
+      - gvfs-goa-volume-monitor.service
+      - tracker-store.service
+    user: true
+    masked: true
+    state: stopped
+  ignore_errors: true
+
+- name: remove tracker databases
+  file:
+    name: ~/.cache/tracker
+    state: absent
+  ignore_errors: true
