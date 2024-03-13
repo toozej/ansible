@@ -30,7 +30,7 @@
       - evolution-source-registry.service
       - gvfs-goa-volume-monitor.service
       - tracker-store.service
-    user: true
+    scope: user
     masked: true
     state: stopped
   ignore_errors: true

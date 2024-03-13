@@ -15,6 +15,7 @@
   community.general.snap:
     name: firefox
     state: absent
+  ignore_errors: true
 
 - name: remove firefox package
   package:
