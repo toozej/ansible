@@ -21,11 +21,14 @@
     name: "{{ powerline_fonts_package_name }}"
     state: latest
 
-- name: Install latest version of chromium web browser
-  package:
-    name: chromium
-    state: latest
-  when: ansible_distribution != 'Ubuntu'
+- name: Install latest version of Chromium web browser
+  flatpak:
+    name: com.github.Eloston.UngoogledChromium
+    state: present
+    remote: flathub
+  register: install_chromium
+  until: install_chromium is not failed
+  retries: 5
 
 - name: Install latest version of xournal PDF editor
   package:
