@@ -1,13 +1,10 @@
 ---
 # Playbook to setup a mac
-- name: Setup common environment
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: user
-
+#
+# MUST NOT BE RAN AS ROOT AS HOMEBREW WILL FAIL
 - name: Setup Mac software
-  hosts: all
+  hosts: localhost
   roles:
     - role: mac
+    # tags:
+    #     - work

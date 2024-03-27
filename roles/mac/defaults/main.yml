@@ -10,7 +10,6 @@ homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
 
 homebrew_installed_packages:
   - bash-completion
-  - docker-compose
   - fzf
   - gh
   - git
@@ -34,12 +33,11 @@ homebrew_installed_packages:
   - vssh
   - watch
   - wget
+  - wireguard-tools
 
 homebrew_upgrade_all_packages: false
 
 homebrew_taps:
-  - homebrew/core
-  - homebrew/cask
   - Yleisradio/terraforms
   - shkm/brew
 
@@ -47,38 +45,21 @@ homebrew_cask_apps:
   - alfred
   - balenaetcher
   - beardedspice
-  - docker
   - firefox
   - gimp
   - google-chrome
   - google-drive
   - gpg-suite
-  - istumbler
   - iterm2
-  - karabiner-elements
   - keepingyouawake
-  - macdown
-  - macs-fan-control
   - muzzle
-  - plexamp
-  - plex-media-player
-  - homebrew/cask-drivers/qmk-toolbox
   - rectangle
   - sensiblesidebuttons
   - scroll-reverser
-  - simplenote
   - slack
   - speedcrunch
-  - spotify
-  - tunnelblick
-  - turbo-boost-switcher
-  - vagrant
   - visual-studio-code
-  - virtualbox
-  - virtualbox-extension-pack
-  - vivaldi
   - vlc
-  - wireguard-tools
 
 homebrew_cask_appdir: /Applications
 homebrew_cask_accept_external_apps: false

@@ -1,4 +1,8 @@
 ---
+
+homebrew_taps_work:
+  - carvel-dev/carvel
+
 homebrew_installed_packages_work:
   - autoconf
   - awscli
@@ -25,21 +29,22 @@ homebrew_installed_packages_work:
   - prettier
   - pyenv
   - rbenv
-  - terraform
-  - terraform-docs
-  - terraform-inventory
-  - terragrunt
+  # knowingly out of order
   - tfenv
+  - terragrunt
   - tflint
   - vault
-  - vmware-tanzu/varvel/ytt
+  - ytt
   - yamllint
 
 homebrew_cask_apps_work:
   - apache-directory-studio
-  - beyond-compare
-  - bruno
+  - insomnium
   - dbeaver-community
+  - goland
+  - rancher
   - pycharm-ce
   - utc-menu-clock
+  - utm
+  - vagrant
   - xmind

@@ -1,0 +1,32 @@
+---
+homebrew_user: jtooze
+homebrew_group: staff
+
+homebrew_repo: https://github.com/Homebrew/brew
+
+homebrew_prefix: /usr/local
+homebrew_install_path: "{{ homebrew_prefix }}/Homebrew"
+homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
+
+homebrew_installed_packages:
+  - docker-compose
+
+homebrew_upgrade_all_packages: false
+
+homebrew_taps: []
+
+homebrew_cask_apps:
+  - beardedspice
+  - docker
+  - karabiner-elements
+  - macs-fan-control
+  - plexamp
+  - plex-media-player
+  - homebrew/cask-drivers/qmk-toolbox
+  - simplenote
+  - spotify
+  - tunnelblick
+  - turbo-boost-switcher
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_accept_external_apps: false
