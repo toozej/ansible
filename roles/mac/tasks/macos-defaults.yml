@@ -372,3 +372,13 @@
 #   multi colour accent
 #   highlight colour accent colour
 #   uncheck close windows when quitting an app
+# sys prefs -> desktop and dock
+#   make Firefox the default browser
+# sys prefs -> desktop and dock -> mission control
+#   uncheck automatiically rearrange spaces based on most recent use
+# sys prefs -> keyboard -> keyboard shortcuts -> mission control
+#   mission control -> move left a space set to shift+command+left
+#   mission control -> move right a space set to shift+command+right
+# sys prefs -> control center -> menu bar only
+#   always hide and show menu bar = always
+#   spotlight = don't show in menu bar

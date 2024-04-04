@@ -1,10 +1,12 @@
 ---
 # Playbook to setup a mac
 #
-# MUST NOT BE RAN AS ROOT AS HOMEBREW WILL FAIL
+# Run with sudo and `--skip-tags=personal` for work, or `--skip-tags=work` for personal
 - name: Setup Mac software
   hosts: localhost
+  become: true
   roles:
     - role: mac
-    # tags:
-    #     - work
+      tags:
+        - work
+        - personal

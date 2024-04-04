@@ -13,16 +13,19 @@ homebrew_installed_packages:
   - fzf
   - gh
   - git
+  - go
   - htop
   - jq
   - mr
   - neofetch
+  - neovim
   - nmap
   - openssl
   - p7zip
   - pigz
   - pylint
   - python
+  - shared-mime-info
   - shellcheck
   - sqlite
   - ssh-copy-id
@@ -44,7 +47,6 @@ homebrew_taps:
 homebrew_cask_apps:
   - alfred
   - balenaetcher
-  - beardedspice
   - firefox
   - gimp
   - google-chrome
@@ -52,12 +54,13 @@ homebrew_cask_apps:
   - gpg-suite
   - iterm2
   - keepingyouawake
-  - muzzle
+  - pycharm-ce
   - rectangle
   - sensiblesidebuttons
   - scroll-reverser
   - slack
   - speedcrunch
+  - stats
   - visual-studio-code
   - vlc
 

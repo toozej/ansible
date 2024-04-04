@@ -1,4 +1,6 @@
 ---
+homebrew_user: jtooze
+homebrew_group: staff
 
 homebrew_taps_work:
   - carvel-dev/carvel
@@ -12,38 +14,48 @@ homebrew_installed_packages_work:
   - dive
   - fx
   - gnu-sed
-  - go
+  - google-cloud-sdk
   - graphviz
   - helm
   - ipcalc
   - jfrog-cli
   - kpcli
   - kubernetes-cli
+  - maven
   - minikube
   - node
+  - openjdk
+  - openjdk@17
   - packer
   - pipenv
   - plantuml
+  - poetry
   - postgresql
   - pre-commit
   - prettier
   - pyenv
   - rbenv
+  - ruff
+  - saml2aws
   # knowingly out of order
   - tfenv
   - terragrunt
   - tflint
   - vault
+  - volta
+  - vulture
   - ytt
   - yamllint
 
 homebrew_cask_apps_work:
   - apache-directory-studio
-  - insomnium
   - dbeaver-community
   - goland
+  - insomnium
+  - intellij-idea
+  - libreoffice
+  - muzzle
   - rancher
-  - pycharm-ce
   - utc-menu-clock
   - utm
   - vagrant

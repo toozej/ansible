@@ -17,16 +17,15 @@ homebrew_taps: []
 
 homebrew_cask_apps:
   - beardedspice
+  - darktable
   - docker
   - karabiner-elements
-  - macs-fan-control
   - plexamp
   - plex-media-player
   - homebrew/cask-drivers/qmk-toolbox
   - simplenote
   - spotify
   - tunnelblick
-  - turbo-boost-switcher
 
 homebrew_cask_appdir: /Applications
 homebrew_cask_accept_external_apps: false

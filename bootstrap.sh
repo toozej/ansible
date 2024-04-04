@@ -82,7 +82,9 @@ elif [ "$(uname)" == "Darwin" ]; then
     os="mac"
     # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
     ANSIBLE_REPO_DIR=~/tmp/ansible
-    pip3 install ansible ansible-lint
+    # install homebrew to install ansible with
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    /opt/homebrew/bin/brew install python3 ansible
 
 # otherwise...
 else
