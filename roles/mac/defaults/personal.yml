@@ -25,6 +25,7 @@ homebrew_cask_apps:
   - homebrew/cask-drivers/qmk-toolbox
   - simplenote
   - spotify
+  - submariner
   - tunnelblick
 
 homebrew_cask_appdir: /Applications
