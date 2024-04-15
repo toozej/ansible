@@ -33,7 +33,7 @@ function set_defaults {
 set_defaults
 
 # get user input
-while getopts ":hc:d:r:t:" option
+while getopts ":hc:d:r:s:t:" option
 do
   case $option in
     h)
@@ -45,6 +45,9 @@ do
       ;;
     r)
       RUN=true
+      ;;
+    s)
+      SKIP_TAGS=true
       ;;
     t)
       TAGS=true
@@ -83,8 +86,8 @@ elif [ "$(uname)" == "Darwin" ]; then
     # set ANSIBLE_REPO_DIR within home directory since MacOS cleans /tmp too quickly
     ANSIBLE_REPO_DIR=~/tmp/ansible
     # install homebrew to install ansible with
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    /opt/homebrew/bin/brew install python3 ansible
+    command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    command -v ansible || /opt/homebrew/bin/brew install python3 ansible
 
 # otherwise...
 else
@@ -116,30 +119,50 @@ else
 fi
 
 # check if github SSH key is configured, and if it's not request user to place it there
-if [ ! -f /home/james/.ssh/id_ed25519_github ]; then
-  echo "Github SSH key is not in the correct path, please add and retry"
-  exit 1
+if [[ "${os}" == "mac" && ! -f /Users/${SUDO_USER}/.ssh/id_ed25519_github ]]; then
+  echo "Github SSH key is not in the correct path, some Ansible roles / playbooks may not function correctly until the key is present"
+elif [[ ! -f /home/${SUDO_USER}/.ssh/id_ed25519_github ]]; then
+  echo "Github SSH key is not in the correct path, some Ansible roles / playbooks may not function correctly until the key is present"
 fi
 
 # if github key is configured, run ansible playbook
 echo -e "running ansible playbook based on user input\n"
-if [[ $CHECK == "true" && $DEBUG == "false" && $TAGS == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2)
-elif [[ $CHECK == "true" && $DEBUG == "true" && $TAGS == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check -vvv $ANSIBLE_REPO_DIR/playbooks/$2 | tee $ANSIBLE_REPO_DIR/playbook_check.out)
-elif [[ $CHECK == "true" && $DEBUG == "false" && $TAGS == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4")
-elif [[ $CHECK == "true" && $DEBUG == "true" && $TAGS == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook --check -vvv $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4" | tee $ANSIBLE_REPO_DIR/playbook_check.out)
-elif [[ $RUN == "true" && $DEBUG == "false" && $TAGS == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 | tee /tmp/bootstrap.log)
-elif [[ $RUN == "true" && $DEBUG == "true" && $TAGS == "false" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook -vvv $ANSIBLE_REPO_DIR/playbooks/$2 | tee /tmp/bootstrap.log)
-elif [[ $RUN == "true" && $DEBUG == "false" && $TAGS == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4" | tee /tmp/bootstrap.log)
-elif [[ $RUN == "true" && $DEBUG == "true" && $TAGS == "true" ]]; then
-  ANSIBLE_OUTPUT=$(ansible-playbook -vvv $ANSIBLE_REPO_DIR/playbooks/$2 --tags "$4"| tee /tmp/bootstrap.log)
+ANSIBLE_FULL_COMMAND="ansible-playbook"
+ANSIBLE_PLAYBOOK_PATH="${ANSIBLE_REPO_DIR}/playbooks/${2}"
+RUN_ARG="| tee /tmp/bootstrap.log"
+CHECK_ARG="--check"
+DEBUG_ARG="-vvv"
+DEBUG_OUTPUT_ARG="| tee ${ANSIBLE_REPO_DIR}/playbook_check.out"
+TAGS_ARG="--tags \"${4}\""
+SKIP_TAGS_ARG="--skip-tags \"${4}\""
+
+# ansible-playbook options
+if [[ ${CHECK} == "true" ]]; then
+    ANSIBLE_FULL_COMMAND="${ANSIBLE_FULL_COMMAND} ${CHECK_ARG}"
 fi
+if [[ ${DEBUG} == "true" ]]; then
+    ANSIBLE_FULL_COMMAND="${ANSIBLE_FULL_COMMAND} ${DEBUG_ARG}"
+fi
+
+# ansible-playbook path
+ANSIBLE_FULL_COMMAND="${ANSIBLE_FULL_COMMAND} ${ANSIBLE_PLAYBOOK_PATH}"
+
+# ansible-playbook args
+if [[ ${TAGS} == "true" ]]; then
+    ANSIBLE_FULL_COMMAND="${ANSIBLE_FULL_COMMAND} ${TAGS_ARG}"
+elif [[ ${SKIP_TAGS} == "true" ]]; then
+    ANSIBLE_FULL_COMMAND="${ANSIBLE_FULL_COMMAND} ${SKIP_TAGS_ARG}"
+fi
+
+# output redirection
+if [[ ${DEBUG} == "true" ]]; then
+    ANSIBLE_FULL_COMMAND="${ANSIBLE_FULL_COMMAND} ${DEBUG_OUTPUT_ARG}"
+elif [[ ${RUN} == "true" ]]; then
+    ANSIBLE_FULL_COMMAND="${ANSIBLE_FULL_COMMAND} ${RUN_ARG}"
+fi
+
+# actually run ansible-playbook
+ANSIBLE_OUTPUT=$("${ANSIBLE_FULL_COMMAND}")
 
 echo -e "\n\n"
 if [[ $ANSIBLE_OUTPUT == 0 ]]; then
