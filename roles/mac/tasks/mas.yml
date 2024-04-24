@@ -1,0 +1,13 @@
+---
+- name: install packages via MacOS Store
+  # must be signed in first via GUI!
+  community.general.mas:
+    id:
+      - 449155338  # SomaFM
+      - 1295203466  # Microsoft Remote Desktop
+      - 682658836  # Garageband
+      - 408981434  # iMovie
+      - 409201541  # Pages
+      - 409183694  # Keynote
+      - 409203825  # Numbers
+    state: present

@@ -5,6 +5,9 @@
 - name: Configure MacOS Defaults
   include_tasks: macos-defaults.yml
 
+- name: install applications via MacOS App Store
+  include_tasks: mas.yml
+
 - name: setup PyCharm helper script
   copy:
     src: pycharm-helper
@@ -12,7 +15,3 @@
     owner: "{{ homebrew_user }}"
     group: "{{ homebrew_group }}"
     mode: 0644
-
-# additional manual things to install via MacOS app store
-# - somafm radio player
-# - MS Remote Desktop

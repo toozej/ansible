@@ -60,3 +60,6 @@ homebrew_cask_apps_work:
   - utm
   - vagrant
   - xmind
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_accept_external_apps: false
