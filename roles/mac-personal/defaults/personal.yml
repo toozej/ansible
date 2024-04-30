@@ -4,18 +4,19 @@ homebrew_group: staff
 
 homebrew_taps_personal: []
 
-homebrew_installed_packages_personal:
-  - docker-compose
+homebrew_installed_packages_personal: []
 
 homebrew_cask_apps_personal:
   - beardedspice
   - darktable
   - docker
   - karabiner-elements
+  - lyx
   - macs-fan-control
   - plexamp
-  - plex-media-player
-  - homebrew/cask-drivers/qmk-toolbox
+  - plex
+  - qmk-toolbox
+  - rawtherapee
   - simplenote
   - spotify
   - steam

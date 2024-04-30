@@ -10,6 +10,7 @@ homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
 
 homebrew_installed_packages:
   - bash-completion
+  - coreutils
   - fzf
   - gh
   - git
@@ -53,6 +54,7 @@ homebrew_cask_apps:
   - google-chrome
   - google-drive
   - gpg-suite
+  - insomnium
   - iterm2
   - keepingyouawake
   - pycharm-ce

@@ -4,7 +4,7 @@
     homebrew_user: '{{ homebrew_user | default(ansible_user_id) }}'
     homebrew_group: '{{ homebrew_group | default(ansible_user_gid) }}'
 
-- name: import work-related defaults if tagged work
+- name: import work-related defaults
   include_vars:
     file: ../defaults/work.yml
 

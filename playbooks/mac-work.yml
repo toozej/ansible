@@ -1,10 +1,9 @@
 ---
 # Playbook to setup a work mac
 #
-# Run with sudo
+# Do NOT run with sudo
 - name: Setup Mac software
   hosts: localhost
-  become: true
   roles:
     - role: mac
     - role: mac-work

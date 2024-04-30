@@ -7,7 +7,6 @@
     type: int
     value: 1
     state: present
-  become: true
   notify:
     - restart Dock
     - restart Finder
@@ -19,7 +18,6 @@
     type: int
     value: 0
     state: present
-  become: true
   notify:
     - restart Dock
     - restart Finder

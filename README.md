@@ -9,7 +9,10 @@ running against localhost periodically using Cron.
 
 ## How to use it
 - scp private SSH key into ~/.ssh/
-- curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+- grab bootstrap.sh
+```bash
+curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+```
 - check the playbook: sudo ./bootstrap.sh -c $playbook\_name.yml
 - run the playbook: sudo ./bootstrap.sh -r $playbook\_name.yml
 

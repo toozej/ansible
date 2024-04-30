@@ -87,7 +87,7 @@ elif [ "$(uname)" == "Darwin" ]; then
     ANSIBLE_REPO_DIR=~/tmp/ansible
     # install homebrew to install ansible with
     command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    command -v ansible || /opt/homebrew/bin/brew install python3 ansible
+    command -v ansible || brew install python3 ansible
 
 # otherwise...
 else
@@ -110,10 +110,7 @@ echo -e "setting up default ansible.cfg"
 cp ansible.cfg.example ansible.cfg
 
 echo -e "setting up localhost in the ansible inventory\n"
-if [ "$(uname)" == "Darwin" ]; then
-    mkdir /etc/ansible
-    echo "localhost ansible_connection=local" >> /etc/ansible/hosts
-else
+if [ "$(uname)" != "Darwin" ]; then
     mkdir /etc/ansible
     echo "localhost ansible_connection=local ansible_python_interpreter=python3" >> /etc/ansible/hosts
 fi
