@@ -13,6 +13,7 @@ homebrew_cask_apps_personal:
   - karabiner-elements
   - lyx
   - macs-fan-control
+  - mactex
   - plexamp
   - plex
   - qmk-toolbox
@@ -21,6 +22,7 @@ homebrew_cask_apps_personal:
   - spotify
   - steam
   - submariner
+  - tex-live-utility
   - tunnelblick
 
 homebrew_cask_appdir: /Applications
