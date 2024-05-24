@@ -15,6 +15,7 @@ homebrew_installed_packages:
   - gh
   - git
   - go
+  - gsed
   - htop
   - jq
   - mas
