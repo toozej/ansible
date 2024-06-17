@@ -7,8 +7,10 @@ homebrew_taps_personal: []
 homebrew_installed_packages_personal: []
 
 homebrew_cask_apps_personal:
+  - adobe-creative-cloud
   - beardedspice
   - darktable
+  - discord
   - docker
   - karabiner-elements
   - lyx
