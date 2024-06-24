@@ -13,6 +13,7 @@ homebrew_cask_apps_personal:
   - discord
   - docker
   - karabiner-elements
+  - llm
   - lyx
   - macs-fan-control
   - mactex

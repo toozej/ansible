@@ -8,3 +8,8 @@
 - name: enable startup chime
   # https://mrmacintosh.com/how-to-enable-the-mac-startup-chime-on-your-2016-macbook-pro/
   shell: nvram StartupMute=%00
+
+- name: install llm plugins
+  command: "llm install {{ item }}"
+  with_items:
+    - llm-gemini
