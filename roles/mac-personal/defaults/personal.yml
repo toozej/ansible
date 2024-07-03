@@ -4,7 +4,14 @@ homebrew_group: staff
 
 homebrew_taps_personal: []
 
-homebrew_installed_packages_personal: []
+homebrew_installed_packages_personal:
+  - entr
+  - exiftool
+  - flyctl
+  - hugo
+  - imagemagick
+  - wireguard-go
+  - wireguard-tools
 
 homebrew_cask_apps_personal:
   - adobe-creative-cloud

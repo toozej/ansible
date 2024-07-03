@@ -26,6 +26,7 @@ homebrew_installed_packages:
   - openssl
   - p7zip
   - pigz
+  - pre-commit
   - pylint
   - python
   - shared-mime-info
@@ -39,7 +40,6 @@ homebrew_installed_packages:
   - vssh
   - watch
   - wget
-  - wireguard-tools
 
 homebrew_upgrade_all_packages: false
 
