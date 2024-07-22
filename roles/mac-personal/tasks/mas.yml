@@ -3,6 +3,7 @@
   # must be signed in first via GUI!
   community.general.mas:
     id:
+      - 692867256  # Simplenote
       - 449155338  # SomaFM
       - 1295203466  # Microsoft Remote Desktop
       - 682658836  # Garageband
