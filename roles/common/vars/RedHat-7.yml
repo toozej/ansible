@@ -7,3 +7,4 @@ p7zip_package_name: p7zip
 pip3_package_name: python36-pip
 gnupg_package_name: gnupg2
 dig_package_name: bind-utils
+fetch_package_name: neofetch

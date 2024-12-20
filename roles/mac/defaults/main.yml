@@ -11,6 +11,7 @@ homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
 homebrew_installed_packages:
   - bash-completion
   - coreutils
+  - fastfetch
   - fzf
   - gh
   - git
@@ -20,7 +21,6 @@ homebrew_installed_packages:
   - jq
   - mas
   - mr
-  - neofetch
   - neovim
   - nmap
   - openssl
@@ -55,7 +55,6 @@ homebrew_cask_apps:
   - google-chrome
   - google-drive
   - gpg-suite
-  - insomnium
   - iterm2
   - keepingyouawake
   - pycharm-ce
@@ -65,8 +64,10 @@ homebrew_cask_apps:
   - slack
   - speedcrunch
   - stats
+  - utm
   - visual-studio-code
   - vlc
+  - yaak
 
 homebrew_cask_appdir: /Applications
 homebrew_cask_accept_external_apps: false

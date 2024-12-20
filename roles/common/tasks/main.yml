@@ -25,6 +25,6 @@
 - name: Remove default /etc/issue.d/*
   include_tasks: issue.yml
 
-- name: Install latest version of Neofetch
-  include_tasks: neofetch.yml
+- name: Install latest version of fetch tool
+  include_tasks: fetch.yml
   when: ansible_distribution != 'CentOS'
