@@ -40,6 +40,8 @@ homebrew_installed_packages:
   - vssh
   - watch
   - wget
+  - yamllint
+  - yq
 
 homebrew_upgrade_all_packages: false
 

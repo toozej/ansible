@@ -6,6 +6,7 @@ homebrew_taps_work:
   - carvel-dev/carvel
 
 homebrew_installed_packages_work:
+  - astro
   - autoconf
   - awscli
   - bfg
@@ -16,16 +17,13 @@ homebrew_installed_packages_work:
   - gnu-sed
   - google-cloud-sdk
   - graphviz
+  - hadolint
   - helm
   - ipcalc
-  - jfrog-cli
-  - kpcli
+  - krew
+  - kube-ps1
   - kubernetes-cli
-  - maven
   - minikube
-  - node
-  - openjdk
-  - openjdk@17
   - packer
   - pipenv
   - plantuml
@@ -36,26 +34,21 @@ homebrew_installed_packages_work:
   - pyenv
   - rbenv
   - ruff
-  - saml2aws
+  - switch
+  - switcher
   # knowingly out of order
   - tfenv
   - terragrunt
   - tflint
-  - vault
-  - volta
   - vulture
   - ytt
   - yamllint
+  - yh
 
 homebrew_cask_apps_work:
-  - apache-directory-studio
   - dbeaver-community
-  - goland
-  - insomnium
-  - intellij-idea
-  - libreoffice
+  - docker-desktop
   - muzzle
-  - rancher
   - utc-menu-clock
   - utm
   - vagrant
