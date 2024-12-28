@@ -53,6 +53,7 @@ homebrew_cask_apps:
   - alfred
   - balenaetcher
   - firefox
+  - ghostty
   - gimp
   - google-chrome
   - google-drive
