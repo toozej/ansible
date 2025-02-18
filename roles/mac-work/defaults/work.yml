@@ -31,7 +31,6 @@ homebrew_installed_packages_work:
   - postgresql
   - pre-commit
   - prettier
-  - pyenv
   - rbenv
   - ruff
   - switch

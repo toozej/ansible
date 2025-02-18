@@ -2,8 +2,7 @@
 homebrew_user: james
 homebrew_group: staff
 
-homebrew_taps_personal:
-  - aerugo/prelude
+homebrew_taps_personal: {}
 
 homebrew_installed_packages_personal:
   - 1password-cli
@@ -12,7 +11,7 @@ homebrew_installed_packages_personal:
   - flyctl
   - hugo
   - imagemagick
-  - prelude
+  - mise
   - tea
   - wireguard-go
   - wireguard-tools
@@ -21,8 +20,6 @@ homebrew_cask_apps_personal:
   - adobe-creative-cloud
   - beardedspice
   - discord
-  # temporarily disabled since the built-in auto-updater conflicts with `brew upgrade`
-  # - docker
   - drivedx
   - gpxsee
   - jettison
@@ -32,6 +29,7 @@ homebrew_cask_apps_personal:
   - macs-fan-control
   - mactex
   - microsoft-teams
+  - orbstack
   - plexamp
   - plex
   - qmk-toolbox

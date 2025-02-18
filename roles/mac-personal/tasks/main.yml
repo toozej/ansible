@@ -13,3 +13,6 @@
   command: "llm install {{ item }}"
   with_items:
     - llm-gemini
+
+- name: install sncli with uv
+  command: "uv tool install sncli --python=3.11"
