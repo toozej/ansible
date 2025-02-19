@@ -6,7 +6,7 @@
 
 - name: "apt | ensure JetBrains repo present"
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/jetbrains.gpg] http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com {{ ansible_distribution_release }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/jetbrains.gpg] http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com any main"
     state: present
     update_cache: true
 
