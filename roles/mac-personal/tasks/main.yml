@@ -12,7 +12,9 @@
 - name: install llm plugins
   command: "llm install {{ item }}"
   with_items:
+    - llm-anthropic
     - llm-gemini
+    - llm-ollama
 
 - name: install sncli with uv
   command: "uv tool install sncli --python=3.11"
