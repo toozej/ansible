@@ -72,12 +72,12 @@ if [ -f /etc/debian_version ]; then
 
 # if Fedora
 elif [ -f /etc/fedora-release ]; then
-    os=`cat /etc/fedora-release`
+    os=$(cat /etc/fedora-release)
     dnf install -y git ansible python3-ansible-lint python3-dnf
 
 # if RedHat-based (but not Fedora)
 elif [ -f /etc/redhat-release ]; then
-    os=`cat /etc/redhat-release`
+    os=$(cat /etc/redhat-release)
     dnf install -y git ansible
 
 # if MacOS-based

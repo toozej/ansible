@@ -1,0 +1,6 @@
+---
+- name: "apt | install chrony as ntp client for Debian"
+  package:
+    name: chrony
+    state: latest
+  when: ansible_distribution == 'Debian'

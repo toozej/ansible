@@ -8,7 +8,7 @@ arch:
   - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
 fedora:
- template: Fedora-Cloud-Base-31-1.9.x86_64.qcow2
+ template: Fedora-Cloud-Base-Generic-41-1.4.x86_64.qcow2
  numcpus: 2
  memory: 2048
  disks:
@@ -26,7 +26,7 @@ opensuse:
   - curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
 debian:
-  template: debian-11-generic-amd64.qcow2
+  template: debian-12-generic-amd64.qcow2
   numcpus: 2
   memory: 2048
   disks:
@@ -37,7 +37,7 @@ debian:
     chmod +x bootstrap.sh
   - sudo ./bootstrap.sh -r common.yml > /tmp/bootstrap.log 2>&1
 ubuntu:
-  template: focal-server-cloudimg-amd64.img
+  template: noble-server-cloudimg-amd64.img
   numcpus: 2
   memory: 2048
   disks:

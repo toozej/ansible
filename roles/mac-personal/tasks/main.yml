@@ -15,6 +15,7 @@
     - llm-anthropic
     - llm-gemini
     - llm-ollama
+    - llm-commit
 
 - name: install sncli with uv
   command: "uv tool install sncli --python=3.11"

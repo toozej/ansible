@@ -46,25 +46,26 @@
       - "{{ gvfs_backend_package_name }}"
     state: latest
 
-# equivalent to sysctl -n -w fs.inotify.max_user_watches=524288
+# equivalent to sysctl -n -w fs.inotify.max_user_watches=800000
 - name: "increase inotify max_user_watches limit"
   sysctl:
     name: fs.inotify.max_user_watches
-    value: 524288
+    value: 800000
     sysctl_set: true
     state: present
     reload: true
 
-# equivalent to sysctl -n -w fs.inotify.max_user_instances=8192
+# equivalent to sysctl -n -w fs.inotify.max_user_instances=12000
 - name: "increase inotify max_user_instances limit"
   sysctl:
     name: fs.inotify.max_user_instances
-    value: 8192
+    value: 12000
     sysctl_set: true
     state: present
     reload: true
 
-- name: install and configure ZFS on Debian-based systems
-  include_tasks: zfs.yml
-  when: ansible_os_family == 'Debian'
-  tags: ci
+# disabled ZFS setup for now until needed
+#- name: install and configure ZFS on Debian-based systems
+#  include_tasks: zfs.yml
+#  when: ansible_os_family == 'Debian'
+#  tags: ci
