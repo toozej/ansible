@@ -1,8 +1,7 @@
 ---
-# comment out for now until ready for it
-#- name: disable NetworkManager
-#  include_tasks: networking.yml
-#  when: base_playbook != "laptop.yml" and base_playbook != "tablet.yml"
+- name: disable NetworkManager
+  include_tasks: networking.yml
+  when: base_playbook != "laptop.yml" and base_playbook != "tablet.yml"
 
 - name: install latest version of ethtool package
   package:
