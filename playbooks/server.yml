@@ -12,9 +12,10 @@
 - import_playbook: docker-server.yml
 - import_playbook: virt-server.yml
 
-- name: Setup hardening
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - role: hardening
+# disable until ready for it
+#- name: Setup hardening
+#  hosts: all
+#  become: true
+#  become_user: root
+#  roles:
+#    - role: hardening
