@@ -2,7 +2,8 @@
 homebrew_user: james
 homebrew_group: staff
 
-homebrew_taps_personal: {}
+homebrew_taps_personal:
+  - th-ch/youtube-music
 
 homebrew_installed_packages_personal:
   - 1password-cli
@@ -39,6 +40,7 @@ homebrew_cask_apps_personal:
   - submariner
   - tex-live-utility
   - tunnelblick
+  - youtube-music
 
 homebrew_cask_appdir: /Applications
 homebrew_cask_accept_external_apps: false
