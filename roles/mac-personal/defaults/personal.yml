@@ -4,6 +4,7 @@ homebrew_group: staff
 
 homebrew_taps_personal:
   - th-ch/youtube-music
+  - supersonic-app/supersonic
 
 homebrew_installed_packages_personal:
   - 1password-cli
@@ -37,7 +38,7 @@ homebrew_cask_apps_personal:
   - rar
   - spotify
   - steam
-  - submariner
+  - supersonic
   - tex-live-utility
   - tunnelblick
   - youtube-music
