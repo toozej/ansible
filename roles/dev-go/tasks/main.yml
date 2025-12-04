@@ -3,13 +3,18 @@
   shell: "curl -s 'https://go.dev/dl/?mode=json' | jq -r '.[0].version' | sed 's/go//'"
   register: go_version_target
 
+- name: Set Go version when version override
+  shell: "echo {{ go_version_override }}"
+  register: go_version_target
+  when: go_version_override is defined and go_version_override != ""
+
 - name: Set Go Tarball name
   set_fact:
     go_tarball: "go{{ go_version_target.stdout }}.linux-amd64.tar.gz"
 
 - name: Download the Go tarball
   get_url:
-    url: "https://storage.googleapis.com/golang/{{ go_tarball }}"
+    url: "https://go.dev/dl/{{ go_tarball }}"
     dest: /usr/local/src/{{ go_tarball }}
 
 - name: Register the current Go version (if any)

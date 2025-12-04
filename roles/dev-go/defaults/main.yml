@@ -1,2 +1,6 @@
 ---
 set_go_path: true
+
+# temporarily set to latest 1.24 release as 1.25 has issues
+# https://github.com/golang/go/issues/74462
+go_version_override: 1.24.11
