@@ -1,16 +1,22 @@
 ---
 - name: Get latest Go version from upstream
   shell: "curl -s 'https://go.dev/dl/?mode=json' | jq -r '.[0].version' | sed 's/go//'"
-  register: go_version_target
+  register: go_version_result
+  changed_when: false
 
 - name: Set Go version when version override
-  shell: "echo {{ go_version_override }}"
-  register: go_version_target
+  set_fact:
+    go_version_target: "{{ go_version_override }}"
   when: go_version_override is defined and go_version_override != ""
+
+- name: Set Go version from upstream when no override
+  set_fact:
+    go_version_target: "{{ go_version_result.stdout }}"
+  when: go_version_override is not defined or go_version_override == ""
 
 - name: Set Go Tarball name
   set_fact:
-    go_tarball: "go{{ go_version_target.stdout }}.linux-amd64.tar.gz"
+    go_tarball: "go{{ go_version_target }}.linux-amd64.tar.gz"
 
 - name: Download the Go tarball
   get_url:
@@ -27,14 +33,14 @@
   file:
     path: /usr/local/go
     state: absent
-  when: go_version is failed or go_version.stdout != go_version_target.stdout
+  when: go_version is failed or go_version.stdout != go_version_target
 
 - name: Extract the Go tarball if Go is not yet installed or not the desired version
   unarchive:
     src: /usr/local/src/{{ go_tarball }}
     dest: /usr/local
     copy: false
-  when: go_version is failed or go_version.stdout != go_version_target.stdout
+  when: go_version is failed or go_version.stdout != go_version_target
 
 - name: Add the Go bin directory to the PATH environment variable for all users
   copy:
