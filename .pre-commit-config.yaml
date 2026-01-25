@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
         name: Check for valid YAML syntax in repo
@@ -27,3 +27,9 @@ repos:
         #      - id: ansible-lint
         #        exclude: .travis.yml
         #        files: \.(yaml|yml)$
+
+  # lint GitHub Actions workflows
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.10
+    hooks:
+      - id: actionlint
