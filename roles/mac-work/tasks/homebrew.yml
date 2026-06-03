@@ -19,6 +19,13 @@
     become_user: "{{ homebrew_user }}"
     ignore_errors: true
 
+  # Trust taps.
+  - name: Trust configured taps.
+    shell: brew trust '{{ item.name | default(item) }}'
+    loop: "{{ homebrew_taps }}"
+    become_user: "{{ homebrew_user }}"
+    ignore_errors: true
+
   # Cask work.
   - name: Install configured work-related cask applications.
     homebrew_cask:
