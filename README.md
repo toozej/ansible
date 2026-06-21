@@ -11,14 +11,14 @@ running against localhost periodically using Cron.
 - scp private SSH key into ~/.ssh/
 - grab bootstrap.sh
 ```bash
-curl https://raw.githubusercontent.com/toozej/ansible/master/bootstrap.sh -O && chmod +x bootstrap.sh
+curl https://raw.githubusercontent.com/toozej/ansible/main/bootstrap.sh -O && chmod +x bootstrap.sh
 ```
 - check the playbook: sudo ./bootstrap.sh -c $playbook\_name.yml
 - run the playbook: sudo ./bootstrap.sh -r $playbook\_name.yml
 
 Or if you would rather just automatically run the common playbook as a minimal install:
 ```bash
-curl https://raw.githubusercontent.com/toozej/ansible/master/minimal.sh -O && chmod +x minimal.sh && ./minimal.sh
+curl https://raw.githubusercontent.com/toozej/ansible/main/minimal.sh -O && chmod +x minimal.sh && ./minimal.sh
 ```
 
 Or if you would rather just run one playbook stand-alone:

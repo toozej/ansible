@@ -5,7 +5,7 @@ name: CI
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
       - github_actions
   schedule:
     - cron: "0 1 * * 1"
