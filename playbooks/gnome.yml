@@ -1,13 +1,14 @@
 ---
-- hosts: all
+- name: Initialize gnome environment
+  hosts: all
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "gnome.yml"
       when: base_playbook is not defined
 
-- import_playbook: common.yml
-
+- name: Import common.yml
+  ansible.builtin.import_playbook: common.yml
 - name: Setup Gnome Desktop environment
   hosts: all
   become: true

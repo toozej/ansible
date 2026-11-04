@@ -1,28 +1,29 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version | int }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
   when: (ssh_client_package_name is not defined) or (ssh_daemon_package_name is not defined) or (sshd_service_name is not defined)
 
-- name: install the latest version of sshd
-  package:
+- name: Install the latest version of sshd
+  ansible.builtin.package:
     name: "{{ ssh_daemon_package_name }}"
     state: latest
 
-- name: install the latest version of ssh client
-  package:
+- name: Install the latest version of ssh client
+  ansible.builtin.package:
     name: "{{ ssh_client_package_name }}"
     state: latest
 
 - name: Disallow root SSH access
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: "^PermitRootLogin"
     line: "PermitRootLogin no"
@@ -30,7 +31,7 @@
   notify: Restart ssh
 
 - name: Disallow password authentication
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: "^PasswordAuthentication"
     line: "PasswordAuthentication no"
@@ -38,35 +39,47 @@
   notify: Restart ssh
 
 - name: Disallow agent forwarding
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: "^AllowAgentForwarding"
     line: "AllowAgentForwarding no"
     state: present
   notify: Restart ssh
 
-- name: regenerate RSA and ED25519 keys
-  shell: |
-    rm -f /etc/ssh/ssh_host_*
-    ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
-    ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
+- name: Create the RSA host key
+  ansible.builtin.command: ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ''
+  args:
+    creates: /etc/ssh/ssh_host_rsa_key
   notify: Restart ssh
 
-- name: set permissions on regenerated RSA and ED25519 keys for RHEL family
-  shell: |
-    chgrp ssh_keys /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_rsa_key
-    chmod g+r /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_rsa_key
-  when: ansible_os_family == 'RedHat'
-
-# below tasks from https://infosec.mozilla.org/guidelines/openssh
-- name: remove small diffie-hellman moduli
-  shell: |
-    awk '$5 >= 3071' /etc/ssh/moduli > /etc/ssh/moduli.safe
-    mv -f /etc/ssh/moduli.safe /etc/ssh/moduli
+- name: Create the ED25519 host key
+  ansible.builtin.command: ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ''
+  args:
+    creates: /etc/ssh/ssh_host_ed25519_key
   notify: Restart ssh
 
-- name: set allowed algorithms, ciphers and MACs in ssh client config
-  blockinfile:
+- name: Set host key permissions for the Red Hat family
+  ansible.builtin.file:
+    path: "/etc/ssh/ssh_host_{{ item }}_key"
+    group: ssh_keys
+    mode: "0640"
+  loop: [rsa, ed25519]
+  when: ansible_facts.os_family == 'RedHat'
+
+- name: Read SSH moduli with at least 3072 bits
+  ansible.builtin.command: awk '$5 >= 3071' /etc/ssh/moduli
+  register: common_ssh_moduli
+  changed_when: false
+
+- name: Remove small Diffie-Hellman moduli
+  ansible.builtin.copy:
+    content: "{{ common_ssh_moduli.stdout }}\n"
+    dest: /etc/ssh/moduli
+    mode: "0644"
+  notify: Restart ssh
+
+- name: Set allowed algorithms, ciphers and MACs in ssh client config
+  ansible.builtin.blockinfile:
     path: /etc/ssh/ssh_config
     insertafter: EOF
     state: present
@@ -74,15 +87,15 @@
       # Ensure KnownHosts are unreadable if leaked - it is otherwise easier to know which hosts your keys have access to.
       HashKnownHosts yes
       # Host keys the client accepts - order here is honored by OpenSSH
-      HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp521,ecdsa-sha2-nistp384,ecdsa-sha2-nistp256
+      HostKeyAlgorithms {{ common_ssh_host_key_algorithms | join(',') }}
       KexAlgorithms curve25519-sha256@libssh.org,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256
       MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
       Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
     backup: true
   notify: Restart ssh
 
-- name: set allowed algorithms, ciphers and MACs in sshd config
-  blockinfile:
+- name: Set allowed algorithms, ciphers and MACs in sshd config
+  ansible.builtin.blockinfile:
     path: /etc/ssh/sshd_config
     insertafter: EOF
     state: present

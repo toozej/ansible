@@ -1,8 +1,8 @@
 ---
 # restart Dock
-- name: restart Dock
-  shell: killall Dock
-
-# restart Finder
-- name: restart Finder
-  shell: killall Finder
+- name: Restart Dock
+  ansible.builtin.command: killall Dock
+  changed_when: true
+- name: Restart Finder
+  ansible.builtin.command: killall Finder
+  changed_when: true

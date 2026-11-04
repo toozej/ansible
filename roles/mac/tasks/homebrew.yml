@@ -1,55 +1,66 @@
 ---
 - name: Determine Homebrew ownership variables
-  set_fact:
-    homebrew_user: '{{ homebrew_user | default(ansible_user_id) }}'
-    homebrew_group: '{{ homebrew_group | default(ansible_user_gid) }}'
+  ansible.builtin.set_fact:
+    homebrew_user: "{{ homebrew_user | default(ansible_facts.user_id) }}"
+    homebrew_group: "{{ homebrew_group | default(ansible_facts.user_gid) }}"
 
 # Homebrew setup
-- name: install homebrew
-  raw: echo | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+- name: Download the Homebrew installer
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    dest: /tmp/homebrew-install.sh
+    mode: "0755"
+- name: Install Homebrew
+  ansible.builtin.command: /bin/bash /tmp/homebrew-install.sh
+  args:
+    creates: "{{ homebrew_brew_bin_path }}"
+  become: true
   become_user: "{{ homebrew_user }}"
-
-- block:
+  environment:
+    NONINTERACTIVE: "1"
+- name: Configure role
+  block:
   # Tap.
-  - name: Ensure configured taps are tapped.
-    homebrew_tap:
-      tap: '{{ item.name | default(item) }}'
-      url: '{{ item.url | default(omit) }}'
-      state: present
-    loop: "{{ homebrew_taps }}"
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
-
-  # Trust taps.
-  - name: Trust configured taps.
-    shell: brew trust '{{ item.name | default(item) }}'
-    loop: "{{ homebrew_taps }}"
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
-
-  # Cask.
-  - name: Install configured cask applications.
-    homebrew_cask:
-      name: "{{ item.name | default(item) }}"
-      state: present
-      install_options: "{{ item.install_options | default('appdir=' + homebrew_cask_appdir) }}"
-      accept_external_apps: "{{ homebrew_cask_accept_external_apps }}"
-    loop: "{{ homebrew_cask_apps }}"
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
-
-  # Brew.
-  - name: Ensure configured homebrew packages are installed.
-    homebrew:
-      name: "{{ item.name | default(item) }}"
-      install_options: "{{ item.install_options | default(omit) }}"
-      state: present
-    loop: "{{ homebrew_installed_packages }}"
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
-
-  - name: Upgrade all homebrew packages (if configured).
-    homebrew: update_homebrew=true upgrade_all=true
-    when: homebrew_upgrade_all_packages
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
+    - name: Ensure configured taps are tapped.
+      community.general.homebrew_tap:
+        tap: "{{ item.name | default(item) }}"
+        url: "{{ item.url | default(omit) }}"
+        state: present
+      loop: "{{ homebrew_taps }}"
+      become_user: "{{ homebrew_user }}"
+      become: true
+    - name: Trust configured taps.
+      ansible.builtin.shell: |
+        set -o pipefail
+        brew trust '{{ item.name | default(item) }}'
+      loop: "{{ homebrew_taps }}"
+      become_user: "{{ homebrew_user }}"
+      become: true
+      args:
+        executable: /bin/bash
+      register: homebrew_trust_result
+      changed_when: "'already trusted' not in homebrew_trust_result.stdout"
+    - name: Install configured cask applications.
+      community.general.homebrew_cask:
+        name: "{{ item.name | default(item) }}"
+        state: present
+        install_options: "{{ item.install_options | default('appdir=' + homebrew_cask_appdir) }}"
+        accept_external_apps: "{{ homebrew_cask_accept_external_apps }}"
+      loop: "{{ homebrew_cask_apps }}"
+      become_user: "{{ homebrew_user }}"
+      become: true
+    - name: Ensure configured homebrew packages are installed.
+      community.general.homebrew:
+        name: "{{ item.name | default(item) }}"
+        install_options: "{{ item.install_options | default(omit) }}"
+        state: present
+      loop: "{{ homebrew_installed_packages }}"
+      become_user: "{{ homebrew_user }}"
+      become: true
+    - name: Upgrade all homebrew packages (if configured).
+      community.general.homebrew:
+        update_homebrew: "true"
+        upgrade_all: "true"
+      when: homebrew_upgrade_all_packages
+      become_user: "{{ homebrew_user }}"
+      become: true

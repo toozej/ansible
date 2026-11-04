@@ -1,14 +1,15 @@
 ---
 # Playbook to setup a SSH bastion server
-- hosts: all
+- name: Initialize bastion environment
+  hosts: all
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "bastion.yml"
       when: base_playbook is not defined
 
-- import_playbook: common.yml
-
+- name: Import common.yml
+  ansible.builtin.import_playbook: common.yml
 - name: Setup bastion
   hosts: all
   become: true

@@ -1,85 +1,88 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
   when: (home_dir_path is not defined)
 
-- name: create "james" user
-  user:
+- name: Create "james" user
+  ansible.builtin.user:
     name: "{{ james_user }}"
     comment: "James"
     shell: /bin/bash
     state: present
-  when: ansible_os_family != 'Darwin'
+  when: ansible_facts.os_family != 'Darwin'
 
-- name: allow "james" as sudoer
-  lineinfile:
+- name: Allow "james" as sudoer
+  ansible.builtin.lineinfile:
     path: /etc/sudoers
     regexp: "^{{ james_user }}"
-    insertafter: "^root	ALL=(ALL:ALL) ALL"
-    line: "{{ james_user }}	ALL=(ALL:ALL) ALL"
+    insertafter: "^root\tALL=(ALL:ALL) ALL"
+    line: "{{ james_user }}\tALL=(ALL:ALL) ALL"
 
 - name: Set authorized key
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ james_user }}"
     state: present
     key: https://github.com/toozej.keys
     validate_certs: true
-  when: ansible_os_family != 'Darwin'
+  when: ansible_facts.os_family != 'Darwin'
 
-- name: confirm dotfiles repo exists
-  stat:
+- name: Confirm dotfiles repo exists
+  ansible.builtin.stat:
     path: "{{ home_dir_path }}/dotfiles"
   register: dotfiles_repo
 
-- name: clone dotfiles from github
-  git:
-    repo: 'https://github.com/toozej/dotfiles.git'
+- name: Clone dotfiles from github
+  ansible.builtin.git: # noqa: latest[git] -- Track the user configuration repository.
+    repo: "https://github.com/toozej/dotfiles.git"
     accept_hostkey: true
     dest: "{{ home_dir_path }}/dotfiles"
     recursive: true
   register: clone_or_pull
   when: (not ansible_check_mode) and (not dotfiles_repo.stat.exists)
 
-- name: set correct permissions on dotfiles
-  file:
+- name: Set correct permissions on dotfiles
+  ansible.builtin.file:
     path: "{{ home_dir_path }}/dotfiles"
     recurse: true
     owner: "{{ james_user }}"
     group: "{{ james_group }}"
-  when: (clone_or_pull.changed == true) and (not ansible_check_mode)
+  when: (clone_or_pull.changed) and (not ansible_check_mode)
 
-- name: set git config URL on dotfiles
-  lineinfile:
+- name: Set git config URL on dotfiles
+  ansible.builtin.lineinfile:
     path: "{{ home_dir_path }}/dotfiles/.git/config"
     regexp: "^\t url = https://github.com/toozej/dotfiles.git"
     insertafter: '^[remote "origin"]'
     line: "\t url = git@github.com:toozej/dotfiles.git"
-  when: (clone_or_pull.changed == true) and (not ansible_check_mode)
+  when: (clone_or_pull.changed) and (not ansible_check_mode)
 
 # TODO: fix this for Travis runs, works great with KCLI
-- name: setup dotfiles
-  raw: "sudo -u {{ james_user }} {{ home_dir_path|quote }}/dotfiles/setup.sh"
-  when: (clone_or_pull.changed == true) and (not ansible_check_mode)
+- name: Setup dotfiles
+  ansible.builtin.raw: "sudo -u {{ james_user }} {{ home_dir_path | quote }}/dotfiles/setup.sh"
+  when: (clone_or_pull.changed) and (not ansible_check_mode)
   tags: ci
 
-- name: set git config URL on vimfiles
-  lineinfile:
+  # The user setup script runs on each requested provisioning run.
+  changed_when: true
+- name: Set git config URL on vimfiles
+  ansible.builtin.lineinfile:
     path: "{{ home_dir_path }}/.vim/.git/config"
-    regexp: '^\t url = https://github.com/toozej/vimfiles.git'
+    regexp: "^\\t url = https://github.com/toozej/vimfiles.git"
     insertafter: '^[remote "origin"]'
     line: "\turl = git@github.com:toozej/vimfiles.git"
-  when: (clone_or_pull.changed == true) and (not ansible_check_mode)
+  when: (clone_or_pull.changed) and (not ansible_check_mode)
   tags: ci
 
-- name: setup src directory structure
-  file:
+- name: Setup src directory structure
+  ansible.builtin.file:
     path: "{{ home_dir_path }}/src/github/toozej/"
     state: directory
     recurse: true

@@ -1,38 +1,41 @@
+---
 - name: Setup systemd service for disabling wakeup on Logitech mouse event
-  template:
+  ansible.builtin.template:
     src: disable-mouse-wakeup.service.j2
     dest: /etc/systemd/system/disable-mouse-wakeup.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 - name: Setup systemd service for dacmagic_pipewire_settings
-  template:
+  ansible.builtin.template:
     src: dacmagic_pipewire_settings.service.j2
     dest: /etc/systemd/user/dacmagic_pipewire_settings.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   when: base_playbook == "desktop.yml"
   tags: ci
 
-- name: just force systemd to reread configs (2.4 and above)
-  systemd: daemon_reload=true
+- name: Just force systemd to reread configs (2.4 and above)
+  ansible.builtin.systemd:
 
-- name: enable disable-mouse-wakeup systemd service
-  systemd:
+    daemon_reload: "true"
+- name: Enable disable-mouse-wakeup systemd service
+  ansible.builtin.systemd:
     name: disable-mouse-wakeup
     enabled: true
 
-- name: get my user id
+- name: Get my user id
   become: true
   become_user: james
-  command: id -u
+  ansible.builtin.command: id -u
   register: myuid
   tags: ci
 
-- name: just force systemd to reread user configs (2.4 and above)
-  systemd:
+  changed_when: false
+- name: Just force systemd to reread user configs (2.4 and above)
+  ansible.builtin.systemd:
     daemon_reload: true
     scope: user
   become: true
@@ -41,8 +44,8 @@
     XDG_RUNTIME_DIR: "/run/user/{{ myuid.stdout }}"
   tags: ci
 
-- name: enable dacmagic_pipewire_settings systemd service
-  systemd:
+- name: Enable dacmagic_pipewire_settings systemd service
+  ansible.builtin.systemd:
     name: dacmagic_pipewire_settings
     enabled: true
     scope: user

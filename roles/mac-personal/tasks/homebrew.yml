@@ -1,48 +1,49 @@
 ---
 - name: Determine Homebrew ownership variables
-  set_fact:
-    homebrew_user: '{{ homebrew_user | default(ansible_user_id) }}'
-    homebrew_group: '{{ homebrew_group | default(ansible_user_gid) }}'
+  ansible.builtin.set_fact:
+    homebrew_user: "{{ homebrew_user | default(ansible_facts.user_id) }}"
+    homebrew_group: "{{ homebrew_group | default(ansible_facts.user_gid) }}"
 
-- name: import personal-related defaults
-  include_vars:
+- name: Import personal-related defaults
+  ansible.builtin.include_vars:
     file: ../defaults/personal.yml
 
-- block:
+- name: Configure role
+  block:
   # taps personal
-  - name: Ensure configured personal taps are tapped.
-    homebrew_tap:
-      tap: '{{ item.name | default(item) }}'
-      url: '{{ item.url | default(omit) }}'
-      state: present
-    loop: "{{ homebrew_taps_personal }}"
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
-
-  # Trust taps.
-  - name: Trust configured taps.
-    shell: brew trust '{{ item.name | default(item) }}'
-    loop: "{{ homebrew_taps }}"
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
-
-  # Cask personal.
-  - name: Install configured personal-related cask applications.
-    homebrew_cask:
-      name: "{{ item.name | default(item) }}"
-      state: present
-      install_options: "{{ item.install_options | default('appdir=' + homebrew_cask_appdir) }}"
-      accept_external_apps: "{{ homebrew_cask_accept_external_apps }}"
-    loop: "{{ homebrew_cask_apps_personal }}"
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
-
-  # Brew.
-  - name: Ensure configured personal-related homebrew packages are installed.
-    homebrew:
-      name: "{{ item.name | default(item) }}"
-      install_options: "{{ item.install_options | default(omit) }}"
-      state: present
-    loop: "{{ homebrew_installed_packages_personal }}"
-    become_user: "{{ homebrew_user }}"
-    ignore_errors: true
+    - name: Ensure configured personal taps are tapped.
+      community.general.homebrew_tap:
+        tap: "{{ item.name | default(item) }}"
+        url: "{{ item.url | default(omit) }}"
+        state: present
+      loop: "{{ homebrew_taps_personal }}"
+      become_user: "{{ homebrew_user }}"
+      become: true
+    - name: Trust configured taps.
+      ansible.builtin.shell: |
+        set -o pipefail
+        brew trust '{{ item.name | default(item) }}'
+      loop: "{{ homebrew_taps }}"
+      become_user: "{{ homebrew_user }}"
+      become: true
+      args:
+        executable: /bin/bash
+      register: homebrew_trust_result
+      changed_when: "'already trusted' not in homebrew_trust_result.stdout"
+    - name: Install configured personal-related cask applications.
+      community.general.homebrew_cask:
+        name: "{{ item.name | default(item) }}"
+        state: present
+        install_options: "{{ item.install_options | default('appdir=' + homebrew_cask_appdir) }}"
+        accept_external_apps: "{{ homebrew_cask_accept_external_apps }}"
+      loop: "{{ homebrew_cask_apps_personal }}"
+      become_user: "{{ homebrew_user }}"
+      become: true
+    - name: Ensure configured personal-related homebrew packages are installed.
+      community.general.homebrew:
+        name: "{{ item.name | default(item) }}"
+        install_options: "{{ item.install_options | default(omit) }}"
+        state: present
+      loop: "{{ homebrew_installed_packages_personal }}"
+      become_user: "{{ homebrew_user }}"
+      become: true

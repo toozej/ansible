@@ -1,20 +1,19 @@
 ---
 - name: Check if iptables or ufw package is installed
-  package_facts:
+  ansible.builtin.package_facts:
     manager: "auto"
-  ignore_errors: true
   changed_when: false
   when: "firewall_disable_iptables or firewall_disable_ufw"
 
 - name: Disable the iptables service if iptables package installed
-  service:
+  ansible.builtin.service:
     name: iptables
     state: stopped
     enabled: false
   when: "firewall_disable_iptables and 'iptables' in ansible_facts.packages"
 
 - name: Disable the ufw firewall
-  service:
+  ansible.builtin.service:
     name: ufw
     state: stopped
     enabled: false

@@ -1,15 +1,17 @@
 ---
 - name: Install latest version of sensors
-  package:
+  ansible.builtin.package:
     name: "{{ sensors_package_name }}"
     state: latest
 
 - name: Run automatic sensor configuration
-  shell: "sensors-detect --auto"
   register: sensorsdetect
 
+  ansible.builtin.command: "sensors-detect --auto"
+  args:
+    creates: /etc/sysconfig/lm_sensors
 - name: Restart sensors service
-  service:
+  ansible.builtin.service:
     name: "{{ sensors_package_name }}"
     state: restarted
     enabled: true

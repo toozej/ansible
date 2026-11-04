@@ -1,16 +1,23 @@
 ---
-# https://wiki.debian.org/JetBrains
+- name: Create APT key directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
 
-- name: "apt | ensure JetBrains signing key present"
-  shell: wget -O- http://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | gpg --dearmor > /etc/apt/keyrings/jetbrains.gpg
+- name: Add repository signing key
+  ansible.builtin.get_url:
+    url: https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc
+    dest: /etc/apt/keyrings/jetbrains.asc
+    mode: "0644"
 
-- name: "apt | ensure JetBrains repo present"
-  apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/jetbrains.gpg] http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com any main"
+- name: "Apt | Ensure JetBrains repo present"
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/jetbrains.asc] http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com any main"
     state: present
     update_cache: true
 
-- name: "apt | ensure JetBrains PyCharm Community latest instaled"
-  apt:
+- name: "Apt | Ensure JetBrains PyCharm Community latest instaled"
+  ansible.builtin.apt:
     name: pycharm-community
     state: latest

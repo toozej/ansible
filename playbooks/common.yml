@@ -1,10 +1,11 @@
 ---
 # Playbook to setup a common environment for system bootstrapping
-- hosts: all
+- name: Initialize common environment
+  hosts: all
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "common.yml"
       when: base_playbook is not defined
 
 - name: Setup common environment

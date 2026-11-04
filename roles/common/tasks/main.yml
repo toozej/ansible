@@ -1,26 +1,26 @@
 ---
 - name: Tweaks for DNF
-  include_tasks: dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
+  ansible.builtin.include_tasks: dnf.yml
+  when: ansible_facts.pkg_mgr in ['dnf', 'dnf5']
 
 - name: Install VIM
-  include_tasks: vim.yml
+  ansible.builtin.include_tasks: vim.yml
 
 - name: Install and configure SSH
-  include_tasks: ssh.yml
+  ansible.builtin.include_tasks: ssh.yml
 
 - name: Install tools and utilities
-  include_tasks: tools.yml
+  ansible.builtin.include_tasks: tools.yml
 
 - name: Install and configure GPG
-  include_tasks: gpg.yml
+  ansible.builtin.include_tasks: gpg.yml
 
 - name: Install and configure tmux
-  include_tasks: tmux.yml
+  ansible.builtin.include_tasks: tmux.yml
 
 - name: Remove default /etc/issue.d/*
-  include_tasks: issue.yml
+  ansible.builtin.include_tasks: issue.yml
 
 - name: Install latest version of fetch tool
-  include_tasks: fetch.yml
-  when: (ansible_distribution != 'CentOS') and (ansible_distribution == 'Debian' and ansible_distribution_major_version != 'n/a')
+  ansible.builtin.include_tasks: fetch.yml
+  when: (ansible_facts.distribution != 'CentOS') and (ansible_facts.distribution == 'Debian' and ansible_facts.distribution_major_version != 'n/a')

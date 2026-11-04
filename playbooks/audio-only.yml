@@ -1,11 +1,11 @@
 ---
 # execute this playbook `sudo ANSIBLE_ROLES_PATH=/home/james/src/github/toozej/ansible/roles ansible-playbook playbooks/go-only.yml`
-- name: audio-only
+- name: Audio-only
   hosts: all
   tasks:
-    - name: audio-cli
-      include_role:
+    - name: Audio-cli
+      ansible.builtin.include_role:
         name: audio-cli
-    - name: audio-gui
-      include_role:
+    - name: Audio-gui
+      ansible.builtin.include_role:
         name: audio-gui

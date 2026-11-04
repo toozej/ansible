@@ -1,6 +1,6 @@
 ---
 - name: Ensure old versions of Docker are not installed.
-  package:
+  ansible.builtin.package:
     name:
       - docker
       - docker-engine
@@ -9,23 +9,30 @@
     state: absent
 
 - name: Ensure dependencies are installed.
-  apt:
+  ansible.builtin.apt:
     name:
       - apt-transport-https
       - ca-certificates
     state: present
 
-- name: Add Docker apt key.
-  shell: wget -O- https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor > /etc/apt/keyrings/docker.gpg
-  register: add_repository_key
-  ignore_errors: "{{ docker_apt_ignore_key_error }}"
+- name: Create APT key directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
 
-- name: include Debian ansible_distribution_release for Bullseye/Sid
-  include_vars: "../vars/Debian.yml"
-  when: ansible_distribution == 'Debian'
+- name: Add repository signing key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/{{ ansible_facts.distribution | lower }}/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+
+- name: Include Debian ansible_facts.distribution_release for Bullseye/Sid
+  ansible.builtin.include_vars: "../vars/Debian.yml"
+  when: ansible_facts.distribution == 'Debian'
 
 - name: Add Docker repository.
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ docker_apt_repository }}"
     state: present
     update_cache: true

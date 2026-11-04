@@ -1,61 +1,59 @@
 ---
 # instructions from https://balintreczey.hu/blog/firefox-on-ubuntu-22-04-from-deb-not-from-snap/
-- name: pin to no snap
-  copy:
+- name: Pin to no snap
+  ansible.builtin.copy:
     content: |
       Package: firefox*
       Pin: release o=Ubuntu*
       Pin-Priority: -1
     dest: /etc/apt/preferences.d/firefox-no-snap
     force: true
-    mode: 0644
-  when: ansible_distribution == 'Ubuntu'
+    mode: "0644"
+  when: ansible_facts.distribution == 'Ubuntu'
 
-- name: remove Firefox snap
+- name: Remove Firefox snap
   community.general.snap:
     name: firefox
     state: absent
-  ignore_errors: true
-
-- name: remove firefox package
-  package:
+  when: ansible_facts.distribution == 'Ubuntu'
+- name: Remove firefox package
+  ansible.builtin.package:
     name: firefox
     state: absent
 
-- name: remove firefox-esr package
-  package:
+- name: Remove firefox-esr package
+  ansible.builtin.package:
     name: firefox-esr
     state: absent
 
 # instructions from https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions
 - name: Add Mozilla signing key
-  get_url:
+  ansible.builtin.get_url:
     url: https://packages.mozilla.org/apt/repo-signing-key.gpg
     dest: /etc/apt/keyrings/packages.mozilla.org.asc
-    mode: '0644'
+    mode: "0644"
 
-- name: setup Mozilla apt repo
-  copy:
+- name: Setup Mozilla apt repo
+  ansible.builtin.copy:
     content: "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main"
     dest: /etc/apt/sources.list.d/mozilla.list
-    mode: '0644'
+    mode: "0644"
   register: mozilla_repo
 
-- name: setup Mozilla apt repo priority
-  copy:
+- name: Setup Mozilla apt repo priority
+  ansible.builtin.copy:
     content: |
       Package: *
       Pin: origin packages.mozilla.org
       Pin-Priority: 1000
     dest: /etc/apt/preferences.d/mozilla
-    mode: '0644'
+    mode: "0644"
 
-- name: update apt cache
-  apt:
+- name: Update apt cache
+  ansible.builtin.apt:
     update_cache: true
-  when: mozilla_repo.changed
-
-- name: install Firefox from Mozilla repo
-  package:
+    cache_valid_time: 3600
+- name: Install Firefox from Mozilla repo
+  ansible.builtin.package:
     name: firefox
     state: latest

@@ -1,6 +1,6 @@
 ---
 - name: Ensure old versions of Docker are not installed.
-  package:
+  ansible.builtin.package:
     name:
       - docker
       - docker-common
@@ -8,18 +8,21 @@
     state: absent
 
 - name: Add Docker GPG key.
-  rpm_key:
+  ansible.builtin.rpm_key:
     key: https://download.docker.com/linux/fedora/gpg
     state: present
 
 - name: Add Docker repository.
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ docker_yum_repo_url }}"
-    dest: '/etc/yum.repos.d/docker-{{ docker_edition }}.repo'
+    dest: "/etc/yum.repos.d/docker-{{ docker_edition }}.repo"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
-- name: if using unsupported distribution version for Docker, replace with working one
-  shell: sed -i -e 's/$releasever/{{ docker_supported_distribution_version }}/g' /etc/yum.repos.d/docker-{{ docker_edition }}.repo
-  when: ansible_distribution == "Fedora" and (ansible_distribution_version == "38" or ansible_distribution_version == "39")
+- name: If using unsupported distribution version for Docker, replace with working one
+  when: ansible_facts.distribution == "Fedora" and (ansible_facts.distribution_version == "38" or ansible_facts.distribution_version == "39")
+  ansible.builtin.replace:
+    path: /etc/yum.repos.d/docker-{{ docker_edition }}.repo
+    regexp: \$releasever
+    replace: "{{ docker_supported_distribution_version }}"

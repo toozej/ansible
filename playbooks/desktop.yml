@@ -1,13 +1,14 @@
 ---
 # Playbook to setup a desktop system with full toolchain
-- hosts: all
+- name: Initialize desktop environment
+  hosts: all
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "desktop.yml"
       when: base_playbook is not defined
 
-        #- import_playbook: common.yml
+      # - import_playbook: common.yml
 
 - name: Setup physical hardware fixes
   hosts: all
@@ -16,22 +17,22 @@
   roles:
     - role: physical
 
-      #- import_playbook: file-server.yml
-      #- import_playbook: docker-server.yml
-      #- import_playbook: virt-server.yml
-      #- import_playbook: gnome.yml
-      #
-      #- name: Setup programs and tools
-      #  hosts: all
-      #  become: true
-      #  become_user: root
-      #  roles:
-      #    - role: audio-cli
-      #    - role: audio-gui
-      #    - role: dev-common
-      #    - role: dev-gui
-      #    - role: dev-python
-      #    - role: office
-      #    - role: photography
-      #    - role: wine
-      #    - role: gaming
+    # - import_playbook: file-server.yml
+    # - import_playbook: docker-server.yml
+    # - import_playbook: virt-server.yml
+    # - import_playbook: gnome.yml
+    #
+    # - name: Setup programs and tools
+    #  hosts: all
+    #  become: true
+    #  become_user: root
+    #  roles:
+    #    - role: audio-cli
+    #    - role: audio-gui
+    #    - role: dev-common
+    #    - role: dev-gui
+    #    - role: dev-python
+    #    - role: office
+    #    - role: photography
+    #    - role: wine
+    #    - role: gaming

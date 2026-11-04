@@ -1,10 +1,11 @@
 ---
 # Playbook to setup a laptop system
-- hosts: all
+- name: Initialize laptop environment
+  hosts: all
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "laptop.yml"
       when: base_playbook is not defined
 
 # Do NOT run with sudo

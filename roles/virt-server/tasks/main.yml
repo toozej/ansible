@@ -1,15 +1,15 @@
 ---
-- name: disable NetworkManager
-  include_tasks: networking.yml
+- name: Disable NetworkManager
+  ansible.builtin.include_tasks: networking.yml
   when: base_playbook != "laptop.yml" and base_playbook != "tablet.yml"
 
-- name: install latest version of ethtool package
-  package:
+- name: Install latest version of ethtool package
+  ansible.builtin.package:
     name: ethtool
     state: latest
 
-- name: include libvirt and KVM
-  include_tasks: libvirt.yml
+- name: Include libvirt and KVM
+  ansible.builtin.include_tasks: libvirt.yml
 
-- name: include kcli tool
-  include_tasks: kcli.yml
+- name: Include kcli tool
+  ansible.builtin.include_tasks: kcli.yml

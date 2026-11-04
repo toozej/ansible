@@ -1,13 +1,16 @@
+---
 # test playbook
-- hosts: localhost
+- name: Initialize server environment
+  hosts: localhost
   connection: local
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "server.yml"
       when: base_playbook is not defined
 
-- hosts: localhost
+- name: Configure server environment
+  hosts: localhost
   connection: local
   become: true
   become_user: root

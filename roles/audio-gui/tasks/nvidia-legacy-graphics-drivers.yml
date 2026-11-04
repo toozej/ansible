@@ -1,15 +1,15 @@
 ---
 # from https://rpmfusion.org/Howto/NVIDIA#Legacy_GeForce_600.2F700
-- name: install NVIDIA Legacy drivers
-  package:
+- name: Install NVIDIA Legacy drivers
+  ansible.builtin.package:
     name:
       - xorg-x11-drv-nvidia-470xx
       - akmod-nvidia-470xx
       - xorg-x11-drv-nvidia-470xx-power
     state: latest
 
-- name: install NVIDIA-centric codecs and other tools
-  package:
+- name: Install NVIDIA-centric codecs and other tools
+  ansible.builtin.package:
     name:
       - nvidia-settings-470xx
       - vdpauinfo
@@ -17,8 +17,8 @@
       - libva-utils
     state: latest
 
-- name: configure suspend with NVIDIA drivers
-  systemd:
+- name: Configure suspend with NVIDIA drivers
+  ansible.builtin.systemd:
     name:
       - nvidia-suspend
       - nvidia-resume
@@ -26,5 +26,11 @@
     enabled: true
     state: started
 
-- name: configure kernel to use NVIDIA DRM options
-  shell: grubby --update-kernel=ALL --args='nvidia-drm.modeset=1'
+- name: Read kernel arguments
+  ansible.builtin.command: grubby --info=ALL
+  register: graphics_kernel_args
+  changed_when: false
+- name: Configure kernel to use NVIDIA DRM options
+  ansible.builtin.command: grubby --update-kernel=ALL --args='nvidia-drm.modeset=1'
+  when: "'nvidia-drm.modeset=1' not in graphics_kernel_args.stdout"
+  changed_when: true

@@ -1,15 +1,17 @@
+---
 - name: Setup systemd service for suspend_fix_13-V001NF
-  template:
+  ansible.builtin.template:
     src: suspendfix_pwrb.service.j2
     dest: /etc/systemd/system/suspendfix_pwrb.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
-- name: just force systemd to reread configs (2.4 and above)
-  systemd: daemon_reload=true
+- name: Just force systemd to reread configs (2.4 and above)
+  ansible.builtin.systemd:
 
-- name: enable suspendfix_pwrb systemd service
-  systemd:
+    daemon_reload: "true"
+- name: Enable suspendfix_pwrb systemd service
+  ansible.builtin.systemd:
     name: suspendfix_pwrb
     enabled: true

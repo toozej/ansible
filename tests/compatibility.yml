@@ -1,0 +1,69 @@
+---
+- name: Check Ansible compatibility without provisioning
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  tasks:
+    - name: Check the minimum runtime versions
+      ansible.builtin.assert:
+        that:
+          - ansible_version.full is version('2.19.11', '>=')
+          - ansible_facts.python.version.major == 3
+          - ansible_facts.python.version.minor >= 11
+          - ansible_distribution is not defined
+
+    - name: Find role variable files
+      ansible.builtin.find:
+        paths: "{{ playbook_dir }}/../roles"
+        recurse: true
+        patterns: "*.yml"
+      register: compatibility_var_files
+
+    - name: Load distribution variables for each role
+      ansible.builtin.include_tasks: tasks/variable-check.yml
+      loop: "{{ compatibility_var_files.files | map(attribute='path') | select('search', '/vars/') | list }}"
+      loop_control:
+        loop_var: compatibility_var_file
+        label: "{{ compatibility_var_file }}"
+      when: >-
+        compatibility_var_file | basename in
+        [ansible_facts.distribution ~ '.yml', ansible_facts.os_family ~ '.yml', 'default.yml']
+
+    - name: Load Docker defaults
+      ansible.builtin.include_vars:
+        file: ../roles/docker/defaults/main.yml
+
+    - name: Check Docker repository templates
+      ansible.builtin.assert:
+        that:
+          - docker_apt_arch | length > 0
+          - docker_distribution_release == ansible_facts.distribution_release
+          - ansible_facts.distribution_release in docker_apt_repository
+          - "'signed-by=/etc/apt/keyrings/docker.asc' in docker_apt_repository"
+
+- name: Check Fedora variables without provisioning
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ansible_facts:
+      distribution: Fedora
+      distribution_major_version: '44'
+      distribution_release: Forty Four
+      os_family: RedHat
+  tasks:
+    - name: Load Terraform variables for Fedora
+      ansible.builtin.include_vars:
+        file: ../roles/dev-terraform/vars/Fedora.yml
+
+    - name: Load Strawberry variables for Fedora
+      ansible.builtin.include_vars:
+        file: ../roles/audio-gui/vars/RedHat.yml
+
+    - name: Check Fedora repository values
+      ansible.builtin.assert:
+        that:
+          - terraform_distribution == 'fedora'
+          - strawberry_distribution_release == 'fc44'
+          - ansible_facts.distribution == 'Fedora'
+          - ansible_facts.distribution_release == 'Forty Four'

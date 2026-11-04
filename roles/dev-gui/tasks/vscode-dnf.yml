@@ -1,6 +1,6 @@
 ---
-- name: add vscode repository
-  yum_repository:
+- name: Add vscode repository
+  ansible.builtin.yum_repository:
     name: vscode
     description: vscode repository
     baseurl: https://packages.microsoft.com/yumrepos/vscode
@@ -9,7 +9,7 @@
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     enabled: true
 
-- name: install latest version of vscode editor via DNF
-  dnf:
+- name: Install latest version of vscode editor via DNF
+  ansible.builtin.dnf:
     name: code
     state: present

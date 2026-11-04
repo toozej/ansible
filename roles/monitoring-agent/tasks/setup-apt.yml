@@ -1,26 +1,31 @@
 ---
-- name: "apt | ensure Sensu linux signing key present"
-  get_url:
+- name: "Apt | Ensure Sensu linux signing key present"
+  ansible.builtin.get_url:
     url: https://packagecloud.io/sensu/stable/gpgkey
     dest: /tmp/sensu_gpgkey
-    mode: '0600'
+    mode: "0600"
     force: true
 
-- name: "apt | load Sensu linux signing key to keyring"
-  shell: gpg --dearmor < /tmp/sensu_gpgkey > /usr/share/keyrings/sensu_stable-archive-keyring.gpg
+- name: "Apt | Load Sensu linux signing key to keyring"
+  ansible.builtin.shell: gpg --dearmor < /tmp/sensu_gpgkey > /usr/share/keyrings/sensu_stable-archive-keyring.gpg
 
-- name: "apt | ensure Sensu repo present"
-  copy:
-    content: "deb [signed-by=/usr/share/keyrings/sensu_stable-archive-keyring.gpg] https://packagecloud.io/sensu/stable/{{ ansible_facts['distribution'] | lower }}/ {{ ansible_facts['distribution_release'] | lower }} main"
+  args:
+    creates: /usr/share/keyrings/sensu_stable-archive-keyring.gpg
+- name: "Apt | Ensure Sensu repo present"
+  ansible.builtin.copy:
+    content: >-
+      deb [signed-by=/usr/share/keyrings/sensu_stable-archive-keyring.gpg]
+      https://packagecloud.io/sensu/stable/{{ ansible_facts.distribution | lower }}/
+      {{ ansible_facts.distribution_release | lower }} main
     dest: "/etc/apt/sources.list.d/sensu_stable.list"
+    mode: "0644"
   register: sensu_repo
 
-- name: "apt | update cache"
-  apt:
+- name: "Apt | Update cache"
+  ansible.builtin.apt:
     update_cache: true
-  when: sensu_repo.changed
-
-- name: "apt | remove temp downloaded Sensu signing key"
-  file:
+    cache_valid_time: 3600
+- name: "Apt | Remove temp downloaded Sensu signing key"
+  ansible.builtin.file:
     path: /tmp/sensu_gpgkey
     state: absent

@@ -1,33 +1,43 @@
 ---
 # explicitly excludes docker and libvirt zones as those are managed by their respective
 # parent tool
-- name: reload firewalld to get latest information
-  shell: firewall-cmd --reload
-
-- name: get default firewalld zone
-  shell: firewall-cmd --get-default-zone
+- name: Reload firewalld to get latest information
+  ansible.builtin.command: firewall-cmd --reload
+  changed_when: true
+- name: Get default firewalld zone
   register: initial_default_zone
 
-- name: get interfaces for default firewalld zone
-  shell: "firewall-cmd --zone {{ initial_default_zone.stdout }} --list-interfaces"
+  ansible.builtin.command: firewall-cmd --get-default-zone
+  changed_when: false
+- name: Get interfaces for default firewalld zone
   register: initial_default_zone_interfaces
 
-- name: list existing firewalld zones
-  shell: firewall-cmd --get-zones
+  ansible.builtin.command: "firewall-cmd --zone {{ initial_default_zone.stdout }} --list-interfaces"
+  changed_when: false
+- name: List existing firewalld zones
   register: existing_zones
 
-- name: create new default zone
-  shell: "firewall-cmd --permanent --new-zone {{ default_zone }}"
+  ansible.builtin.command: firewall-cmd --get-zones
+  changed_when: false
+- name: Create new default zone
   when: "(initial_default_zone.stdout != default_zone) and (default_zone not in existing_zones.stdout)"
 
-- name: reload firewalld to pick up new default zone
-  shell: firewall-cmd --reload
+  ansible.builtin.command: "firewall-cmd --permanent --new-zone {{ default_zone }}"
+  register: firewall_command_result
+  changed_when: "'ALREADY_ENABLED' not in firewall_command_result.stderr"
+- name: Reload firewalld to pick up new default zone
   when: "(initial_default_zone.stdout != default_zone) and (default_zone not in existing_zones.stdout)"
 
-- name: set new default zone as default
-  shell: "firewall-cmd --set-default-zone {{ default_zone }}"
+  ansible.builtin.command: firewall-cmd --reload
+  changed_when: true
+- name: Set new default zone as default
   when: "initial_default_zone.stdout != default_zone"
 
-- name: set interfaces on new default zone
-  shell: "firewall-cmd --permanent --zone {{ default_zone }} --add-interface {{ item }}"
+  ansible.builtin.command: "firewall-cmd --set-default-zone {{ default_zone }}"
+  register: firewall_command_result
+  changed_when: "'ALREADY_ENABLED' not in firewall_command_result.stderr"
+- name: Set interfaces on new default zone
   with_items: "{{ initial_default_zone_interfaces.stdout.split() }}"
+  ansible.builtin.command: "firewall-cmd --permanent --zone {{ default_zone }} --add-interface {{ item }}"
+  register: firewall_command_result
+  changed_when: "'ALREADY_ENABLED' not in firewall_command_result.stderr"

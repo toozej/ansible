@@ -1,6 +1,6 @@
 ---
 - name: Add Sensu Agent repository
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: sensu_stable
     description: "Sensu Agent Stable repository"
     baseurl: https://packagecloud.io/sensu/stable/fedora/34/$basearch

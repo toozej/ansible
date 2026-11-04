@@ -1,6 +1,6 @@
 ---
-- name: install latest version of i3 window manager
-  package:
+- name: Install latest version of i3 window manager
+  ansible.builtin.package:
     name:
       - i3
       - i3lock
@@ -10,29 +10,35 @@
     state: latest
 
 - name: Ensures ~/.config/i3 exists
-  file: path=/home/james/.config/i3/ state=directory recurse=true
+  ansible.builtin.file:
+    path: /home/james/.config/i3/
+    state: directory
+    recurse: "true"
 - name: Setup i3 config
-  template:
+  ansible.builtin.template:
     src: i3_config.j2
     dest: /home/james/.config/i3/config
     owner: james
     group: james
-    mode: 0644
+    mode: "0644"
 
 - name: Ensures ~/.config/dunst exists
-  file: path=/home/james/.config/dunst/ state=directory recurse=true
+  ansible.builtin.file:
+    path: /home/james/.config/dunst/
+    state: directory
+    recurse: "true"
 - name: Setup dunst config
-  template:
+  ansible.builtin.template:
     src: dunstrc.j2
     dest: /home/james/.config/dunst/dunstrc
     owner: james
     group: james
-    mode: 0644
+    mode: "0644"
 
 - name: Setup Xdefaults config
-  template:
+  ansible.builtin.template:
     src: Xdefaults.j2
     dest: /home/james/.Xdefaults
     owner: james
     group: james
-    mode: 0644
+    mode: "0644"

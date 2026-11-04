@@ -1,26 +1,29 @@
 ---
-- name: include RedHat ansible_distribution_release for RHEL
-  include_vars: "../vars/RedHat.yml"
-  when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
+- name: Include RedHat ansible_facts.distribution_release for RHEL
+  ansible.builtin.include_vars: "../vars/RedHat.yml"
+  when: ansible_facts.distribution == 'RedHat' or ansible_facts.distribution == 'CentOS'
 
-- name: include Fedora ansible_distribution_release for fedora
-  include_vars: "../vars/Fedora.yml"
-  when: ansible_distribution == 'Fedora'
+- name: Include Fedora ansible_facts.distribution_release for fedora
+  ansible.builtin.include_vars: "../vars/Fedora.yml"
+  when: ansible_facts.distribution == 'Fedora'
 
 - name: Add Hashicorp repo
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: hashicorp
     description: "Hashicorp Stable repository"
-    baseurl: "https://rpm.releases.hashicorp.com/{{ ansible_distribution }}/$releasever/x86_64/stable"
+    baseurl: "https://rpm.releases.hashicorp.com/{{ terraform_distribution }}/$releasever/x86_64/stable"
     gpgkey: https://rpm.releases.hashicorp.com/gpg
     gpgcheck: true
     enabled: true
 
-- name: if using unsupported distribution version for Terraform, replace with working one
-  shell: sed -i -e 's/$releasever/{{ terraform_supported_distribution_version }}/g' /etc/yum.repos.d/hashicorp.repo
-  when: ansible_distribution == "fedora" and (ansible_distribution_version == "38" or ansible_distribution_version == "39")
+- name: If using unsupported distribution version for Terraform, replace with working one
+  when: ansible_facts.distribution == "Fedora" and (ansible_facts.distribution_version == "38" or ansible_facts.distribution_version == "39")
 
-- name: "dnf | ensure Terraform present"
-  dnf:
+  ansible.builtin.replace:
+    path: /etc/yum.repos.d/hashicorp.repo
+    regexp: \$releasever
+    replace: "{{ terraform_supported_distribution_version }}"
+- name: "Dnf | Ensure Terraform present"
+  ansible.builtin.dnf:
     name: terraform
     state: latest

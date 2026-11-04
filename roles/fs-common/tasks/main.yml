@@ -1,6 +1,6 @@
 ---
-- name: install latest versions of disk wiping and filesystem recovery tools
-  package:
+- name: Install latest versions of disk wiping and filesystem recovery tools
+  ansible.builtin.package:
     name:
       - nwipe
       - testdisk

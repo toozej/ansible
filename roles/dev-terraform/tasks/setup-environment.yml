@@ -1,35 +1,35 @@
 ---
 - name: Create qemu group if doesn't already exist
-  group:
+  ansible.builtin.group:
     name: qemu
     state: present
 
 - name: Create qemu user if doesn't already exist
-  user:
+  ansible.builtin.user:
     name: qemu
     system: true
     groups: qemu,kvm
 
 - name: Add your user to libvirt and qemu groups
-  user:
+  ansible.builtin.user:
     name: james
     groups: libvirt,qemu
     append: true
 
-- name: create base VM directory
-  file:
+- name: Create base VM directory
+  ansible.builtin.file:
     path: "/VMs/"
     state: directory
     recurse: true
     owner: qemu
     group: qemu
-    mode: 0775
+    mode: "0775"
 
-- name: create ssh directory
-  file:
+- name: Create ssh directory
+  ansible.builtin.file:
     path: "/VMs/.ssh/"
     state: directory
     recurse: true
     owner: qemu
     group: qemu
-    mode: 0700
+    mode: "0700"

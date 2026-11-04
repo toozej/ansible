@@ -1,28 +1,23 @@
 ---
-- name: Add vscode apt key.
-  apt_key:
+- name: Create APT key directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Add Microsoft signing key
+  ansible.builtin.get_url:
     url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
-  register: add_repository_key
-  ignore_errors: "{{ docker_apt_ignore_key_error }}"
+    dest: /etc/apt/keyrings/microsoft.asc
+    mode: "0644"
 
-- name: Ensure curl is present (on older systems without SNI).
-  package: name=curl state=present
-  when: add_repository_key is failed
-
-- name: Add vscode apt key (alternative for older systems without SNI).
-  shell: "curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -"
-  args:
-    warn: false
-  when: add_repository_key is failed
-
-- name: Add repository for vscode editor
-  apt_repository:
-    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+- name: Add repository for VS Code
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.asc] https://packages.microsoft.com/repos/code stable main
     state: present
     filename: vscode
 
-- name: install latest version of vscode editor via APT
-  apt:
+- name: Install VS Code
+  ansible.builtin.apt:
     name: code
     state: latest

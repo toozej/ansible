@@ -1,17 +1,17 @@
 ---
 - name: Install homebrew
-  include_tasks: homebrew.yml
+  ansible.builtin.include_tasks: homebrew.yml
 
 - name: Configure MacOS Defaults
-  include_tasks: macos-defaults.yml
+  ansible.builtin.include_tasks: macos-defaults.yml
 
-- name: install applications via MacOS App Store
-  include_tasks: mas.yml
+- name: Install applications via MacOS App Store
+  ansible.builtin.include_tasks: mas.yml
 
-- name: setup PyCharm helper script
-  copy:
+- name: Setup PyCharm helper script
+  ansible.builtin.copy:
     src: pycharm-helper
     dest: /usr/local/bin/pycharm
     owner: "{{ homebrew_user }}"
     group: "{{ homebrew_group }}"
-    mode: 0644
+    mode: "0644"

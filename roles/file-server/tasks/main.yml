@@ -1,45 +1,46 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version | int }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
   when: (clamav_daemon_package_name is not defined) or (clamav_freshclam_package_name is not defined) or (gvfs_backend_package_name is not defined)
 
-- name: install latest versions of Samba daemon
-  package:
+- name: Install latest versions of Samba daemon
+  ansible.builtin.package:
     name: samba
     state: latest
 
-- name: install latest version of common clamscan anti-virus tools
-  package:
+- name: Install latest version of common clamscan anti-virus tools
+  ansible.builtin.package:
     name:
       - clamav
       - "{{ clamav_daemon_package_name }}"
       - "{{ clamav_freshclam_package_name }}"
     state: latest
 
-- name: install latest version of clamdscan on Debian-based systems
-  package:
+- name: Install latest version of clamdscan on Debian-based systems
+  ansible.builtin.package:
     name: clamdscan
     state: latest
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
 
-- name: lay out copy-from-time-machine script to /usr/local/bin
-  copy:
+- name: Lay out copy-from-time-machine script to /usr/local/bin
+  ansible.builtin.copy:
     src: copy-from-time-machine
     dest: /usr/local/bin/copy-from-time-machine
     owner: root
     group: root
-    mode: 0744
+    mode: "0744"
 
-- name: install latest versions of misc tools
-  package:
+- name: Install latest versions of misc tools
+  ansible.builtin.package:
     name:
       - rsync
       - inotify-tools
@@ -47,8 +48,8 @@
     state: latest
 
 # equivalent to sysctl -n -w fs.inotify.max_user_watches=800000
-- name: "increase inotify max_user_watches limit"
-  sysctl:
+- name: "Increase inotify max_user_watches limit"
+  ansible.posix.sysctl:
     name: fs.inotify.max_user_watches
     value: 800000
     sysctl_set: true
@@ -56,8 +57,8 @@
     reload: true
 
 # equivalent to sysctl -n -w fs.inotify.max_user_instances=12000
-- name: "increase inotify max_user_instances limit"
-  sysctl:
+- name: "Increase inotify max_user_instances limit"
+  ansible.posix.sysctl:
     name: fs.inotify.max_user_instances
     value: 12000
     sysctl_set: true
@@ -65,7 +66,7 @@
     reload: true
 
 # disabled ZFS setup for now until needed
-#- name: install and configure ZFS on Debian-based systems
+# - name: install and configure ZFS on Debian-based systems
 #  include_tasks: zfs.yml
-#  when: ansible_os_family == 'Debian'
+#  when: ansible_facts.os_family == 'Debian'
 #  tags: ci

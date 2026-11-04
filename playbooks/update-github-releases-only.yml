@@ -1,23 +1,23 @@
 ---
 # execute this playbook `sudo ANSIBLE_ROLES_PATH=/home/james/src/github/toozej/ansible/roles ansible-playbook playbooks/udpate-gh-releases-only.yml`
-- name: update-gh-releases-only
+- name: Update-gh-releases-only
   hosts: localhost
   connection: local
   become: true
   tasks:
-    - name: update Simplenote
-      include_role:
+    - name: Update Simplenote
+      ansible.builtin.include_role:
         name: gui-common
         tasks_from: simplenote
-    - name: update Strawberry
-      include_role:
+    - name: Update Strawberry
+      ansible.builtin.include_role:
         name: audio-gui
         tasks_from: strawberry
-    - name: update Docker Compose
-      include_role:
+    - name: Update Docker Compose
+      ansible.builtin.include_role:
         name: docker
         tasks_from: docker-compose
-    - name: update Wuzz
-      include_role:
+    - name: Update Wuzz
+      ansible.builtin.include_role:
         name: dev-common
         tasks_from: wuzz

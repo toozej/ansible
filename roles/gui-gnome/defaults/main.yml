@@ -11,7 +11,10 @@ gnome_extension_ids:
   - 1476
 gnome_dconf:
   - key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
-    value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']"
+    value: >-
+      ['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/',
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/',
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
   - key: /org/gnome/settings-daemon/plugins/media-keys/www
     value: "['<Primary><Alt>w']"
   - key: /org/gnome/settings-daemon/plugins/media-keys/home
@@ -71,9 +74,14 @@ gnome_dconf:
   - key: /org/gnome/shell/app-picker-view
     value: "uint32 1"
   - key: /org/gnome/shell/enabled-extensions
-    value: "['background-logo@fedorahosted.org', 'dash-to-dock@micxgx.gmail.com', 'caffeine@patapon.info', 'hidetopbar@mathieu.bidon.ca', 'unlockDialogBackground@sun.wxg@gmail.com']"
+    value: >-
+      ['background-logo@fedorahosted.org', 'dash-to-dock@micxgx.gmail.com', 'caffeine@patapon.info', 'hidetopbar@mathieu.bidon.ca',
+      'unlockDialogBackground@sun.wxg@gmail.com']
   - key: /org/gnome/shell/favorite-apps
-    value: "['firefox.desktop', 'com.slack.Slack.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop', 'simplenote.desktop', 'com.spotify.Client.desktop', 'strawberry.desktop', 'org.gnome.Connections.desktop']"
+    value: >-
+      ['firefox.desktop', 'com.slack.Slack.desktop', 'org.gnome.Nautilus.desktop',
+      'kitty.desktop', 'simplenote.desktop', 'com.spotify.Client.desktop',
+      'strawberry.desktop', 'org.gnome.Connections.desktop']
   - key: /org/gnome/shell/extensions/caffeine/show-notifications
     value: "false"
   - key: /org/gnome/shell/extensions/caffeine/user-enabled

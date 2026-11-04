@@ -1,11 +1,11 @@
 ---
-- name: install the latest version of VIM
-  package:
+- name: Install the latest version of VIM
+  ansible.builtin.package:
     name: vim
     state: latest
 
 # yamllint package required by ALE vim plugin
-- name: install the latest version of yamllint
-  package:
+- name: Install the latest version of yamllint
+  ansible.builtin.package:
     name: yamllint
     state: latest

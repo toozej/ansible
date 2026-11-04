@@ -3,7 +3,7 @@
 # https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/
 
 - name: Add JetBrains PyCharm Community repository
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: _copr_phracek-PyCharm
     description: "Copr repo for PyCharm owned by phracek"
     baseurl: https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/fedora-$releasever-$basearch/
@@ -12,12 +12,12 @@
     gpgcheck: true
     enabled: true
 
-- name: "dnf | ensure JetBrains PyCharm Community present"
-  dnf:
+- name: "Dnf | Ensure JetBrains PyCharm Community present"
+  ansible.builtin.dnf:
     name: pycharm-community.x86_64
     state: latest
 
-- name: "dnf | ensure JetBrains PyCharm Plugins present"
-  dnf:
+- name: "Dnf | Ensure JetBrains PyCharm Plugins present"
+  ansible.builtin.dnf:
     name: pycharm-community-plugins.x86_64
     state: latest

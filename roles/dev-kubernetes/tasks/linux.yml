@@ -1,17 +1,31 @@
 ---
-- name: download the latest version of Minikube on Linux
-  raw: curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube
+- name: Download Minikube
+  ansible.builtin.get_url:
+    url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    dest: /usr/local/bin/minikube
+    mode: "0755"
 
-- name: ensure $USER in libvirt groups
-  user:
+- name: Add James to the libvirt groups
+  ansible.builtin.user:
     name: james
     groups: libvirt,kvm
+    append: true
 
-- name: install Minikube
-  shell: install minikube /usr/local/bin/
+- name: Configure the Minikube driver
+  ansible.builtin.command: minikube config set driver kvm2
+  args:
+    creates: /home/james/.minikube/config/config.json
+  become: true
+  become_user: james
 
-- name: setup Minikube with kvm driver
-  shell: minikube config set vm-driver kvm2
+- name: Read the current Kubectl release
+  ansible.builtin.uri:
+    url: https://dl.k8s.io/release/stable.txt
+    return_content: true
+  register: kubectl_release
 
-- name: download the latest version of Kubectl on Linux
-  raw:  curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
+- name: Download Kubectl
+  ansible.builtin.get_url:
+    url: https://dl.k8s.io/release/{{ kubectl_release.content | trim }}/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: "0755"

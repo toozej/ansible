@@ -1,32 +1,33 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
   when: (rake_package_name is not defined) or (ruby_dev_package_name is not defined)
 
-- name: install the latest version of ruby
-  package:
+- name: Install the latest version of ruby
+  ansible.builtin.package:
     name: ruby
     state: latest
 
-- name: install the latest dev package for ruby
-  package:
+- name: Install the latest dev package for ruby
+  ansible.builtin.package:
     name: "{{ ruby_dev_package_name }}"
     state: latest
 
-- name: install the latest version of ruby gems
-  package:
+- name: Install the latest version of ruby gems
+  ansible.builtin.package:
     name: rubygems
     state: latest
-  when:  (ansible_pkg_mgr == 'yum') or (ansible_pkg_mgr == 'dnf')
+  when: (ansible_facts.pkg_mgr == 'yum') or (ansible_facts.pkg_mgr in ['dnf', 'dnf5'])
 
-- name: install the latest version of rake
-  package:
+- name: Install the latest version of rake
+  ansible.builtin.package:
     name: "{{ rake_package_name }}"
     state: latest

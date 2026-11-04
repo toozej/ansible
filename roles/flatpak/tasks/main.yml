@@ -1,22 +1,22 @@
 ---
-- name: install latest version of flatpak package
-  package:
+- name: Install latest version of flatpak package
+  ansible.builtin.package:
     name: flatpak
     state: latest
 
 - name: Remove Fedora third-party filtered flathub remote
-  flatpak_remote:
+  community.general.flatpak_remote:
     name: flathub
     state: absent
 
 - name: Add the flathub flatpak repository remote
-  flatpak_remote:
+  community.general.flatpak_remote:
     name: flathub
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
-- name: "flatpak | install latest version of flatseal"
-  flatpak:
+- name: "Flatpak | Install latest version of flatseal"
+  community.general.flatpak:
     name: com.github.tchx84.Flatseal
     state: present
   register: install_flatseal

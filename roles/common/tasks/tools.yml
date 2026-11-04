@@ -1,18 +1,19 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version | int }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
   when: (ag_package_name is not defined) or (pip3_package_name is not defined) or (p7zip_package_name is not defined) or (dig_package_name is not defined)
 
-- name: install the latest versions of system monitoring utilities
-  package:
+- name: Install the latest versions of system monitoring utilities
+  ansible.builtin.package:
     name:
       - htop
       - iotop
@@ -25,59 +26,59 @@
       - entr
     state: latest
 
-- name: install packages except on CentOS
-  package:
+- name: Install packages except on CentOS
+  ansible.builtin.package:
     name:
       - bwm-ng
       - "{{ ag_package_name }}"
       - unrar-free
     state: latest
-  when: ansible_distribution != 'CentOS'
+  when: ansible_facts.distribution != 'CentOS'
 
-- name: install the latest version of Samba client and tools
-  package:
+- name: Install the latest version of Samba client and tools
+  ansible.builtin.package:
     name:
       - samba-client
       - cifs-utils
     state: latest
 
-- name: install the latest version of pip3
-  package:
+- name: Install the latest version of pip3
+  ansible.builtin.package:
     name: "{{ pip3_package_name }}"
     state: latest
 
-- name: install the latest versions of download tools
-  package:
+- name: Install the latest versions of download tools
+  ansible.builtin.package:
     name:
       - wget
       - curl
     state: latest
 
-- name: install the latest version of archiving tools
-  package:
+- name: Install the latest version of archiving tools
+  ansible.builtin.package:
     name:
       - zip
       - "{{ p7zip_package_name }}"
       - pigz
     state: latest
 
-- name: install the latest version of tree
-  package:
+- name: Install the latest version of tree
+  ansible.builtin.package:
     name: tree
     state: latest
 
-- name: install the latest version of strace
-  package:
+- name: Install the latest version of strace
+  ansible.builtin.package:
     name: strace
     state: latest
 
-- name: install the latest version of jq
-  package:
+- name: Install the latest version of jq
+  ansible.builtin.package:
     name: jq
     state: latest
 
-- name: install the latest version of cal binary
-  package:
+- name: Install the latest version of cal binary
+  ansible.builtin.package:
     name: ncal
     state: latest
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
