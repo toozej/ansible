@@ -1,32 +1,28 @@
 ---
-# Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version | int }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
   when: (gnupg_package_name is not defined)
 
-- name: install the latest version of gnupg (GPG)
-  package:
+- name: Install the latest version of gnupg (GPG)
+  ansible.builtin.package:
     name: "{{ gnupg_package_name }}"
     state: latest
 
-- name: install the latest version of gnupg-agent (gpg-agent)
-  package:
+- name: Install the latest version of gnupg-agent (gpg-agent)
+  ansible.builtin.package:
     name: gnupg-agent
     state: latest
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
 
-- name: install the latest version of rng-tools
-  package:
+- name: Install the latest version of rng-tools
+  ansible.builtin.package:
     name: rng-tools
     state: latest
-
-- name: run rng-tools to generate entropy in /dev/urandom
-  command: rngd -r /dev/urandom
-  when: ansible_os_family != 'Debian'

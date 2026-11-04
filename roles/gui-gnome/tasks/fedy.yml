@@ -1,13 +1,15 @@
 ---
-- name: install fedy repo
-  get_url:
-    url: "https://copr.fedorainfracloud.org/coprs/kwizart/fedy/repo/fedora-{{ ansible_distribution_version }}/kwizart-fedy-fedora-{{ ansible_distribution_version }}.repo"
+- name: Install fedy repo
+  ansible.builtin.get_url:
+    url: >-
+      https://copr.fedorainfracloud.org/coprs/kwizart/fedy/repo/fedora-{{ ansible_facts.distribution_version
+      }}/kwizart-fedy-fedora-{{ ansible_facts.distribution_version }}.repo
     dest: /etc/yum.repos.d/fedy.repo
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
-- name: install fedy
-  package:
+- name: Install fedy
+  ansible.builtin.package:
     name: fedy
     state: latest

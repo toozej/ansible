@@ -1,14 +1,15 @@
 ---
 # Playbook to setup a laptop system
-- hosts: all
+- name: Initialize linux laptop environment
+  hosts: all
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "linux-laptop.yml"
       when: base_playbook is not defined
 
-- import_playbook: common.yml
-
+- name: Import common.yml
+  ansible.builtin.import_playbook: common.yml
 - name: Setup physical hardware fixes
   hosts: all
   become: true
@@ -17,13 +18,14 @@
     - role: hp-spectre-13
     - role: physical
 
-- import_playbook: docker-server.yml
+- name: Import docker-server.yml
   vars:
     docker_users: "[james]"
 
-# - import_playbook: virt-server.yml
-- import_playbook: gnome.yml
-
+  # - import_playbook: virt-server.yml
+  ansible.builtin.import_playbook: docker-server.yml
+- name: Import gnome.yml
+  ansible.builtin.import_playbook: gnome.yml
 - name: Setup programs and tools
   hosts: all
   become: true

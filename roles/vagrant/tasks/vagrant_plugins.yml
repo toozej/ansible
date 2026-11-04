@@ -1,5 +1,5 @@
 ---
-- name: install vagrant plugins
-  package:
+- name: Install vagrant plugins
+  ansible.builtin.package:
     name: vagrant-sshfs
     state: latest

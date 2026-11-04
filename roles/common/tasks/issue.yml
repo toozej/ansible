@@ -1,3 +1,15 @@
 ---
-- name: remove any default issue.d/* files
-  shell: /bin/rm -rf /etc/issue.d/*
+- name: Find issue fragments
+  ansible.builtin.find:
+    paths: /etc/issue.d
+    file_type: any
+    hidden: true
+  register: common_issue_files
+
+- name: Remove issue fragments
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ common_issue_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"

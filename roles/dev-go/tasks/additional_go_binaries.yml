@@ -1,7 +1,10 @@
 ---
 - name: Install latest version of GoReleaser
-  shell: /usr/local/go/bin/go install github.com/goreleaser/goreleaser@latest
   become_user: "james"
   environment:
     GO111MODULE: "on"
   tags: ci
+  become: true
+  ansible.builtin.command: /usr/local/go/bin/go install github.com/goreleaser/goreleaser@latest
+  # The command builds the requested latest Go binary on each run.
+  changed_when: true

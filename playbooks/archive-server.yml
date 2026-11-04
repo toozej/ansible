@@ -1,17 +1,19 @@
 ---
 # Playbook to setup an archive server system
-- hosts: all
+- name: Initialize archive server environment
+  hosts: all
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "archive-server.yml"
       when: base_playbook is not defined
 
-- import_playbook: common.yml
-- import_playbook: docker-server.yml
-- import_playbook: file-server.yml
-
-
+- name: Import common.yml
+  ansible.builtin.import_playbook: common.yml
+- name: Import docker-server.yml
+  ansible.builtin.import_playbook: docker-server.yml
+- name: Import file-server.yml
+  ansible.builtin.import_playbook: file-server.yml
 - name: Setup programs and tools
   hosts: all
   become: true

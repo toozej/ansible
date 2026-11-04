@@ -1,6 +1,6 @@
 ---
-- name: allow services
-  firewalld:
+- name: Allow services
+  ansible.posix.firewalld:
     service: "{{ item }}"
     zone: "{{ default_zone }}"
     permanent: true
@@ -10,8 +10,8 @@
     - check firewalld config
   with_items: "{{ firewall_allowed_services }}"
 
-- name: allow local network traffic
-  firewalld:
+- name: Allow local network traffic
+  ansible.posix.firewalld:
     source: 192.168.1.0/24
     zone: "{{ default_zone }}"
     permanent: true
@@ -21,8 +21,8 @@
     - check firewalld config
   when: "default_zone != 'home'"
 
-- name: allow monitoring agents
-  firewalld:
+- name: Allow monitoring agents
+  ansible.posix.firewalld:
     port: "{{ item }}"
     zone: "{{ default_zone }}"
     permanent: true
@@ -36,8 +36,8 @@
     - 45876/tcp
     - 45876/udp
 
-- name: allow TCP ports
-  firewalld:
+- name: Allow TCP ports
+  ansible.posix.firewalld:
     port: "{{ item }}/tcp"
     zone: "{{ default_zone }}"
     permanent: true
@@ -47,8 +47,8 @@
     - check firewalld config
   with_items: "{{ firewall_allowed_tcp_ports }}"
 
-- name: allow UDP ports
-  firewalld:
+- name: Allow UDP ports
+  ansible.posix.firewalld:
     port: "{{ item }}/udp"
     zone: "{{ default_zone }}"
     permanent: true
@@ -58,8 +58,8 @@
     - check firewalld config
   with_items: "{{ firewall_allowed_udp_ports }}"
 
-- name: forward TCP ports
-  firewalld:
+- name: Forward TCP ports
+  ansible.posix.firewalld:
     rich_rule: rule family=ipv4 forward-port port="{{ item }}" protocol=tcp to-port="{{ item }}"
     zone: "{{ default_zone }}"
     permanent: true
@@ -69,8 +69,8 @@
     - check firewalld config
   with_items: "{{ firewall_forwarded_tcp_ports }}"
 
-- name: forward UDP ports
-  firewalld:
+- name: Forward UDP ports
+  ansible.posix.firewalld:
     rich_rule: rule family=ipv4 forward-port port="{{ item }}" protocol=udp to-port="{{ item }}"
     zone: "{{ default_zone }}"
     permanent: true

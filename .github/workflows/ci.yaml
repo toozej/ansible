@@ -1,93 +1,87 @@
 ---
 name: CI
-'on':
+"on":
   pull_request:
   workflow_dispatch:
   push:
-    branches:
-      - main
-      - github_actions
+    branches: [main]
   schedule:
     - cron: "0 1 * * 1"
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    working-directory: 'ansible'
+env:
+  ANSIBLE_ROLES_PATH: ${{ github.workspace }}/roles
+  ANSIBLE_INJECT_FACT_VARS: "false"
 
 jobs:
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    container: python:3.13-slim-trixie
     steps:
-      - name: Check out the codebase.
+      - name: Install Git
+        run: apt-get update && apt-get install -y --no-install-recommends git
+      - name: Check repository
         uses: actions/checkout@v7.0.1
-        with:
-          path: 'ansible'
-
-      - name: Set up Python 3.
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.x'
-
-      - name: Install test dependencies.
-        run: pip3 install yamllint ansible-lint ansible
-
-      - name: Lint code.
+      - name: Install lint dependencies
         run: |
-          # yamllint .
-          # ansible-lint
-          ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-        env:
-          ANSIBLE_ROLES_PATH: '/home/runner/work/ansible/ansible/ansible/roles'
-          ANSIBLE_HOST_KEY_CHECKING: false
+          python -m pip install -r requirements-lint.txt
+          ansible-galaxy collection install -r requirements.yml
+      - name: Check YAML
+        run: yamllint --strict .
+      - name: Check Ansible
+        run: ansible-lint --strict
 
-  test:
-    name: Test
+  compatibility:
+    name: Python ${{ matrix.python }} / core ${{ matrix.core }}
     runs-on: ubuntu-latest
+    container: python:${{ matrix.python }}-slim-trixie
     strategy:
-      matrix:
-        playbook:
-          - dev
-          - gui-dev
-          - gui
-          - gui-gaming
-          - server
       fail-fast: false
-
+      matrix:
+        include:
+          - { python: "3.11", core: "2.19" }
+          - { python: "3.12", core: "2.19" }
+          - { python: "3.13", core: "2.19" }
+          - { python: "3.12", core: "2.20" }
+          - { python: "3.13", core: "2.20" }
+          - { python: "3.14", core: "2.20" }
+          - { python: "3.12", core: "2.21" }
+          - { python: "3.13", core: "2.21" }
+          - { python: "3.14", core: "2.21" }
     steps:
-      - name: Check out the codebase.
+      - name: Install Git
+        run: apt-get update && apt-get install -y --no-install-recommends git
+      - name: Check repository
         uses: actions/checkout@v7.0.1
-        with:
-          path: 'ansible'
-
-      - name: Set up Python 3.
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.x'
-
-      - name: Install test dependencies.
-        run: pip3 install ansible pyopenssl ndg-httpsclient pyasn1
-
-      - name: Set up James user
-        run: sudo useradd -m -c "james" james -s /bin/bash
-
-      - name: Use more reliable Ubuntu apt mirror
-        run: |
-          sudo sed -i 's|http://azure.archive.ubuntu.com|https://ubuntu.osuosl.org|g' /etc/apt/sources.list && \
-          sudo apt-get update
-
-      - name: Run tests.
-        run: ansible-playbook -vv --skip-tags github,copy_host_ssh_id,ci,gh-releases -i tests/inventory tests/${{ matrix.playbook }}.yml
+      - name: Install Ansible and collections
         env:
-          ANSIBLE_ROLES_PATH: '/home/runner/work/ansible/ansible/ansible/roles'
-          PY_COLORS: '1'
-          ANSIBLE_FORCE_COLOR: '1'
-          ANSIBLE_HOST_KEY_CHECKING: false
+          ANSIBLE_CORE: ${{ matrix.core }}
+        run: |
+          python -m pip install -r requirements.txt "ansible-core==${ANSIBLE_CORE}.*"
+          ansible-galaxy collection install -r requirements.yml
+      - name: Check syntax and compatibility
+        run: python tests/validate.py
+
+  distribution:
+    name: Debian 13 packages
+    runs-on: ubuntu-latest
+    container: debian:13
+    steps:
+      - name: Install distribution packages
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ansible ca-certificates git python3
+      - name: Check repository
+        uses: actions/checkout@v7.0.1
+      - name: Check syntax and compatibility
+        run: python3 tests/validate.py
 
   workflow-keepalive:
     if: github.event_name == 'schedule'

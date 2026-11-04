@@ -1,13 +1,13 @@
 ---
-- name: install the latest version of tmux
-  package:
+- name: Install the latest version of tmux
+  ansible.builtin.package:
     name: tmux
     state: latest
 
 - name: Setup config file for tmux
-  template:
+  ansible.builtin.template:
     src: tmux.conf.j2
     dest: /home/james/.tmux.conf
     owner: james
     group: james
-    mode: 0664
+    mode: "0664"

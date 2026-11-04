@@ -1,10 +1,5 @@
 ---
-- name: import DBeaver gpg key
-  apt_key:
-    url: https://dbeaver.io/debs/dbeaver.gpg.key
-    state: present
-
-- name: install latest version of DBeaver via APT
-  apt:
-    deb:  https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
+- name: Install DBeaver
+  ansible.builtin.apt:
+    deb: https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
     state: present

@@ -1,27 +1,27 @@
 ---
 - name: Install latest version of Sensu Agent using APT
-  include_tasks: setup-apt.yml
-  when: ansible_pkg_mgr == 'apt'
+  ansible.builtin.include_tasks: setup-apt.yml
+  when: ansible_facts.pkg_mgr == 'apt'
 
 - name: Install latest version of Sensu Agent using DNF
-  include_tasks: setup-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
+  ansible.builtin.include_tasks: setup-dnf.yml
+  when: ansible_facts.pkg_mgr in ['dnf', 'dnf5']
 
-- name: "ensure Sensu Agent present"
-  package:
+- name: "Ensure Sensu Agent present"
+  ansible.builtin.package:
     name: sensu-go-agent
     state: latest
 
-- name: lay out base Sensu Agent config
-  template:
+- name: Lay out base Sensu Agent config
+  ansible.builtin.template:
     src: agent.yml.j2
     dest: /etc/sensu/agent.yml
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 # explicitly don't start the service since user will need to fill in "secure" portions of Sensu Agent config
-- name: enable Sensu Agent service
-  service:
+- name: Enable Sensu Agent service
+  ansible.builtin.service:
     name: sensu-agent
     enabled: true

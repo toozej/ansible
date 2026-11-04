@@ -1,6 +1,6 @@
 ---
-- name: setup fail2ban
-  include_tasks: fail2ban.yml
+- name: Setup fail2ban
+  ansible.builtin.include_tasks: fail2ban.yml
 
-- name: setup firewall
-  include_tasks: firewall.yml
+- name: Setup firewall
+  ansible.builtin.include_tasks: firewall.yml

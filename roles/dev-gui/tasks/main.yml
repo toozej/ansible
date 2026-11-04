@@ -1,41 +1,41 @@
 ---
 - name: Install latest version of DBeaver using APT
-  include_tasks: dbeaver-apt.yml
-  when: ansible_pkg_mgr == 'apt'
+  ansible.builtin.include_tasks: dbeaver-apt.yml
+  when: ansible_facts.pkg_mgr == 'apt'
   tags: gui
 
 - name: Install latest version of DBeaver using DNF
-  include_tasks: dbeaver-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
+  ansible.builtin.include_tasks: dbeaver-dnf.yml
+  when: ansible_facts.pkg_mgr in ['dnf', 'dnf5']
   tags: gui
 
 - name: Install latest version of DBeaver using YUM
-  include_tasks: dbeaver-yum.yml
-  when: ansible_pkg_mgr == 'yum'
+  ansible.builtin.include_tasks: dbeaver-yum.yml
+  when: ansible_facts.pkg_mgr == 'yum'
   tags: gui
 
 - name: Install latest version of vscode editor using APT
-  include_tasks: vscode-apt.yml
-  when: ansible_pkg_mgr == 'apt'
+  ansible.builtin.include_tasks: vscode-apt.yml
+  when: ansible_facts.pkg_mgr == 'apt'
   tags: gui
 
 - name: Install latest version of vscode editor using DNF
-  include_tasks: vscode-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
+  ansible.builtin.include_tasks: vscode-dnf.yml
+  when: ansible_facts.pkg_mgr in ['dnf', 'dnf5']
   tags: gui
 
 - name: Install latest version of vscode editor using YUM
-  include_tasks: vscode-yum.yml
-  when: ansible_pkg_mgr == 'yum'
+  ansible.builtin.include_tasks: vscode-yum.yml
+  when: ansible_facts.pkg_mgr == 'yum'
   tags: gui
 
 - name: Install Zeal docs tool
-  package:
+  ansible.builtin.package:
     name: zeal
     state: latest
 
-- name: "flatpak | install the latest version of Postman"
-  flatpak:
+- name: "Flatpak | Install the latest version of Postman"
+  community.general.flatpak:
     name: com.getpostman.Postman
     state: present
   register: install_postman
@@ -43,30 +43,32 @@
   retries: 5
 
 - name: Install g++ as pre-req for neovim
-  package:
+  ansible.builtin.package:
     name: g++
     state: latest
 
 - name: Install neovim
-  package:
+  ansible.builtin.package:
     name: neovim
     state: latest
 
-- name: confirm neovimfiles repo exists
-  stat:
+- name: Confirm neovimfiles repo exists
+  ansible.builtin.stat:
     path: "{{ home_dir_path }}/.config/nvim"
   register: neovimfiles_repo
 
-- name: clone neovimfiles from github
-  git:
-    repo: 'https://github.com/toozej/neovimfiles.git'
+- name: Clone neovimfiles from github
+  ansible.builtin.git: # noqa: latest[git] -- Track the user configuration repository.
+    repo: "https://github.com/toozej/neovimfiles.git"
     accept_hostkey: true
     dest: "{{ home_dir_path }}/.config/nvim"
     recursive: true
   register: clone_or_pull
   when: (not ansible_check_mode) and (not neovimfiles_repo.stat.exists)
 
-- name: setup neovimfiles
-  raw: "sudo -u {{ james_user }} {{ home_dir_path|quote }}/.config/nvim/setup.sh"
-  when: (clone_or_pull.changed == true) and (not ansible_check_mode)
+- name: Setup neovimfiles
+  ansible.builtin.raw: "sudo -u {{ james_user }} {{ home_dir_path | quote }}/.config/nvim/setup.sh"
+  when: (clone_or_pull.changed) and (not ansible_check_mode)
   tags: ci
+  # The user setup script runs on each requested provisioning run.
+  changed_when: true

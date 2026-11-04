@@ -1,19 +1,19 @@
 ---
-- name: install vagrant lxc provider
-  package:
+- name: Install vagrant lxc provider
+  ansible.builtin.package:
     name: vagrant-lxc
     state: latest
 
-- name: create ~/VMs/vagrant/lxc_template/ directory
-  file:
+- name: Create ~/VMs/vagrant/lxc_template/ directory
+  ansible.builtin.file:
     dest: /home/james/VMs/vagrant/lxc_template/
     state: directory
     recurse: true
 
-- name: lay out lxc Vagrantfile template
-  template:
+- name: Lay out lxc Vagrantfile template
+  ansible.builtin.template:
     src: Vagrantfile_lxc
     dest: /home/james/VMs/vagrant/lxc_template/Vagranfile
     owner: james
     group: james
-    mode: 0644
+    mode: "0644"

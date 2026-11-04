@@ -1,9 +1,9 @@
+---
+strict: true
 skip_list:
-    - line-length
-    - role-name
-    - package-latest
-    - ignore-errors
-    - command-instead-of-shell
-    - no-changed-when
-    - no-handler
-    - git-latest
+  # Existing role paths use hyphens. Keep these public paths compatible.
+  - role-name
+  # Roles share package names and user settings through include_vars.
+  - var-naming[no-role-prefix]
+  # Provisioning includes upgrades to the latest distribution packages.
+  - package-latest

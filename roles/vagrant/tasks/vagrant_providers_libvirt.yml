@@ -1,22 +1,22 @@
 ---
-- name: install vagrant libvirt provider
-  package:
+- name: Install vagrant libvirt provider
+  ansible.builtin.package:
     name: vagrant-libvirt
     state: latest
 
-- name: create ~/VMs/vagrant/libvirt_template/ directory
-  file:
+- name: Create ~/VMs/vagrant/libvirt_template/ directory
+  ansible.builtin.file:
     dest: /home/james/VMs/vagrant/libvirt_template/
     state: directory
     recurse: true
     owner: james
     group: james
-    mode: 0744
+    mode: "0744"
 
-- name: lay out libvirt Vagrantfile template
-  template:
+- name: Lay out libvirt Vagrantfile template
+  ansible.builtin.template:
     src: Vagrantfile_libvirt
     dest: /home/james/VMs/vagrant/libvirt_template/Vagrantfile
     owner: james
     group: james
-    mode: 0644
+    mode: "0644"

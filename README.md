@@ -7,6 +7,28 @@ Currently I have Ansible run itself locally on a server during provisioning/boot
 I have plans to also have Ansible update itself (by pulling this repo) and 
 running against localhost periodically using Cron.
 
+## Supported versions
+
+Use Python 3.11 or later with a compatible Ansible release. The minimum
+ansible-core version is 2.19.11, which Debian 13 provides. CI checks Python
+3.11–3.14 with ansible-core 2.19–2.21, subject to upstream Python support.
+Ansible 2.19 supports Python 3.11–3.13. Ansible 2.20 and 2.21 support
+Python 3.12–3.14. These releases do not support Python 3.15.
+
+For a Python installation, use a virtual environment:
+
+```sh
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements-lint.txt
+ansible-galaxy collection install -r requirements.yml
+```
+
+The distribution `ansible` package also provides the required collections on
+Debian 13. The bootstrap script installs the declared collections.
+See [validation instructions](tests/README.md) for container checks and
+version sources. CI does not provision the runner host.
+
 ## How to use it
 - scp private SSH key into ~/.ssh/
 - grab bootstrap.sh
@@ -41,7 +63,7 @@ Or if you want to run a playbook straight from the repo directory:
 
 ### Setting up Pre-commit hooks
 From the root of this repo, run the following commands:
-- `sudo pip install pre-commit`
+- `python -m pip install pre-commit`
 - `pre-commit install`
 - `pre-commit autoupdate`
 - commit any changes made, and ensure that pre-commit functions as expected

@@ -1,65 +1,70 @@
 ---
-- name: get latest {{ repo }} version
-  uri:
+- name: Get latest version | {{ repo }}
+  ansible.builtin.uri:
     url: "{{ project_url }}/{{ version }}"
     return_content: true
   register: latest_version
 
-- name: setup temp directory
-  tempfile:
+- name: Setup temp directory
+  ansible.builtin.tempfile:
     state: directory
     suffix: dwnld
   register: tempfolder_results
   when: (base_playbook is not defined) or (base_playbook is defined and base_playbook != "test.yml")
 
-- name: set fact for temp directory
-  set_fact:
+- name: Set fact for temp directory
+  ansible.builtin.set_fact:
     tempfolder: "{{ tempfolder_results }}"
   when: (base_playbook is not defined) or (base_playbook is defined and base_playbook != "test.yml") and (tempfolder_results is defined)
 
-- name: setup temp directory for GitHub Actions only
-  tempfile:
+- name: Setup temp directory for GitHub Actions only
+  ansible.builtin.tempfile:
     state: directory
     path: "{{ lookup('env', 'RUNNER_TEMP') | default('/home/runner/work/ansible/ansible/ansible/', True) }}"
     suffix: dwnld
   register: tempfolder_results
   when: (base_playbook is defined) and (base_playbook == "test.yml")
 
-- name: set fact for temp directory for GitHub Actions only
-  set_fact:
+- name: Set fact for temp directory for GitHub Actions only
+  ansible.builtin.set_fact:
     tempfolder: "{{ tempfolder_results }}"
   when: (base_playbook is defined) and (base_playbook == "test.yml") and (tempfolder_results is defined)
 
-- name: download latest version to specific install path
+- name: Download latest version to specific install path
+  when: instpath is defined
+
   block:
-    - name: "check if {{ instpath }} exists"
-      file:
+    - name: "Check if exists | {{ instpath }}"
+      ansible.builtin.file:
         path: "{{ instpath }}"
         state: directory
-        mode: '0755'
+        mode: "0755"
 
-    - name: "downloading {{ repo }} {{ latest_version.json.tag_name }} binary"
+    - name: "Downloading binary | {{ repo  ~ ' ' ~  latest_version.json.tag_name }}"
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
       when: |
-        (filename|string in item.name) and (arch|string in item.name) and
-        (".zip" not in item.name and ".tar" not in item.name and ".7z" not in item.name and ".rar" not in item.name and ".sha" not in item.name and "debug" not in item.name and "source" not in item.name and "src" not in item.name) and
+        (filename | string in item.name) and (arch | string in item.name) and
+        (".zip" not in item.name and ".tar" not in item.name and ".7z" not in item.name and
+        ".rar" not in item.name and ".sha" not in item.name and "debug" not in item.name and
+        "source" not in item.name and "src" not in item.name) and
         ("darwin" not in item.name and "win" not in item.name and "bsd" not in item.name)
-      get_url:
+      ansible.builtin.get_url:
         url: "{{ item.browser_download_url }}"
         dest: "{{ tempfolder.path }}/{{ repo }}"
 
-    - name: "downloading and extracting {{ repo }} {{ latest_version.json.tag_name }} binary"
-      # idea from: https://stackoverflow.com/a/62672308/886659
+        mode: "0644"
+    - name: "Downloading and extracting binary | {{ repo  ~ ' ' ~  latest_version.json.tag_name }}"
+    # idea from: https://stackoverflow.com/a/62672308/886659
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
       when: |
-        (filename|string in item.name) and (arch|string in item.name) and
+        (filename | string in item.name) and (arch | string in item.name) and
         (".zip" in item.name or ".tar" in item.name or ".7z" in item.name or ".rar" in item.name) and
         ("darwin" not in item.name and "win" not in item.name and "bsd" not in item.name)
-      unarchive:
+      ansible.builtin.unarchive:
         remote_src: true
         src: "{{ item.browser_download_url }}"
         dest: "{{ tempfolder.path }}"
@@ -69,91 +74,93 @@
           - --no-anchored
           - "{{ repo }}"
 
-    - name: "installing {{ repo }} {{ latest_version.json.tag_name }} binary"
-      copy:
+    - name: "Installing binary | {{ repo  ~ ' ' ~  latest_version.json.tag_name }}"
+      ansible.builtin.copy:
         src: "{{ tempfolder.path }}/{{ repo }}"
         dest: "{{ instpath }}{{ repo }}"
         remote_src: true
         owner: root
         group: root
-        mode: '0755'
+        mode: "0755"
       when: final_filename is not defined
 
-    - name: "installing {{ final_filename }} {{ latest_version.json.tag_name }} binary"
-      copy:
+    - name: "Installing binary | {{ final_filename  ~ ' ' ~  latest_version.json.tag_name }}"
+      ansible.builtin.copy:
         src: "{{ tempfolder.path }}/{{ repo }}"
         dest: "{{ instpath }}{{ final_filename }}"
         remote_src: true
         owner: root
         group: root
-        mode: '0755'
+        mode: "0755"
       when: final_filename is defined
-  when: instpath is defined
+- name: Apt | Download latest version and install with package manager
+  when: (instpath is not defined) and (ansible_facts.pkg_mgr == 'apt')
 
-- name: apt | download latest version and install with package manager
   block:
-    - name: "download deb package {{ repo }} {{ latest_version.json.tag_name }}"
-      # idea from: https://stackoverflow.com/a/62672308/886659
-      get_url:
+    - name: "Download deb package | {{ repo  ~ ' ' ~  latest_version.json.tag_name }}"
+    # idea from: https://stackoverflow.com/a/62672308/886659
+      ansible.builtin.get_url:
         url: "{{ item.browser_download_url }}"
         dest: "{{ tempfolder.path }}/{{ filename }}.deb"
         force: true
+        mode: "0644"
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
-      when: (filename|string in item.name) and (arch|string in item.name) and ('.deb' in item.name) and (distro is not defined)
+      when: (filename | string in item.name) and (arch | string in item.name) and ('.deb' in item.name) and (distro is not defined)
 
-    - name: "download deb package {{ repo }} {{ latest_version.json.tag_name }} for distro {{ distro }}"
-      # idea from: https://stackoverflow.com/a/62672308/886659
-      get_url:
+    - name: "Download deb package for distro | {{ repo  ~ ' ' ~  latest_version.json.tag_name  ~ ' ' ~  distro }}"
+    # idea from: https://stackoverflow.com/a/62672308/886659
+      ansible.builtin.get_url:
         url: "{{ item.browser_download_url }}"
         dest: "{{ tempfolder.path }}/{{ filename }}.deb"
         force: true
+        mode: "0644"
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
-      when: (filename|string in item.name) and (arch|string in item.name) and ('.deb' in item.name) and (distro is defined and distro|string in item.name)
+      when: (filename | string in item.name) and (arch | string in item.name) and ('.deb' in item.name) and (distro is defined and distro | string in item.name)
 
-    - name: "installing deb {{ repo }} {{ latest_version.json.tag_name }}"
-      apt:
+    - name: "Installing deb | {{ repo  ~ ' ' ~  latest_version.json.tag_name }}"
+      ansible.builtin.apt:
         deb: "{{ tempfolder.path }}/{{ filename }}.deb"
-  when: (instpath is not defined) and (ansible_pkg_mgr == 'apt')
+- name: Dnf | Download latest version and install with package manager
+  when: (instpath is not defined) and (ansible_facts.pkg_mgr in ['dnf', 'dnf5'])
 
-- name: dnf | download latest version and install with package manager
+  # cleanup when done
   block:
-    - name: "download rpm package {{ repo }} {{ latest_version.json.tag_name }}"
-      # idea from: https://stackoverflow.com/a/62672308/886659
-      get_url:
+    - name: "Download rpm package | {{ repo  ~ ' ' ~  latest_version.json.tag_name }}"
+    # idea from: https://stackoverflow.com/a/62672308/886659
+      ansible.builtin.get_url:
         url: "{{ item.browser_download_url }}"
         dest: "{{ tempfolder.path }}/{{ filename }}.rpm"
         force: true
+        mode: "0644"
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
-      when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name) and (distro is not defined)
+      when: (filename | string in item.name) and (arch | string in item.name) and ('.rpm' in item.name) and (distro is not defined)
 
-    - name: "download rpm package {{ repo }} {{ latest_version.json.tag_name }} for distro {{ distro }}"
-      # idea from: https://stackoverflow.com/a/62672308/886659
-      get_url:
+    - name: "Download rpm package for distro | {{ repo  ~ ' ' ~  latest_version.json.tag_name  ~ ' ' ~  distro }}"
+    # idea from: https://stackoverflow.com/a/62672308/886659
+      ansible.builtin.get_url:
         url: "{{ item.browser_download_url }}"
         dest: "{{ tempfolder.path }}/{{ filename }}.rpm"
         force: true
+        mode: "0644"
       loop: "{{ latest_version.json.assets }}"
       loop_control:
         label: "{{ item.name }}"
-      when: (filename|string in item.name) and (arch|string in item.name) and ('.rpm' in item.name) and ('debug' not in item.name and 'source' not in item.name and 'src' not in item.name) and (distro is defined and distro|string in item.name)
+      when: (filename | string in item.name) and (arch | string in item.name) and ('.rpm' in item.name) and ('debug' not in item.name and 'source' not in
+        item.name and 'src' not in item.name) and (distro is defined and distro | string in item.name)
 
-    - name: "installing rpm {{ repo }} {{ latest_version.json.tag_name }}"
-      dnf:
+    - name: "Installing rpm | {{ repo  ~ ' ' ~  latest_version.json.tag_name }}"
+      ansible.builtin.dnf:
         name: "{{ tempfolder.path }}/{{ filename }}.rpm"
         state: present
         disable_gpg_check: true
-  when: (instpath is not defined) and (ansible_pkg_mgr == 'dnf')
-
-# cleanup when done
-- name: delete {{ tempfolder.path|default("tempfolder") }}
-  file:
+- name: Delete | {{ tempfolder.path | Default("tempfolder") }}
+  ansible.builtin.file:
     path: "{{ tempfolder.path }}"
     state: absent
   when: tempfolder.path is defined
-  ignore_errors: true

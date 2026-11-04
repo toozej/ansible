@@ -1,37 +1,40 @@
 ---
-- name: install gnome metapackage when running tests in ci
-  package:
+- name: Install gnome metapackage when running tests in ci
+  ansible.builtin.package:
     name:
       - gnome-session
       - gdm3
     state: latest
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_facts.distribution == 'Ubuntu'
 
-- include_tasks: remove_bloat.yml
-- include_tasks: install_packages.yml
-- include_tasks: gnome_extensions.yml
+- name: Include task file | remove_bloat.yml
+  ansible.builtin.include_tasks: remove_bloat.yml
+- name: Include task file | install_packages.yml
+  ansible.builtin.include_tasks: install_packages.yml
+- name: Include task file | gnome_extensions.yml
+  ansible.builtin.include_tasks: gnome_extensions.yml
   args:
     apply:
       become: true
       become_user: james
   tags: ci
 
-- name: lay out mimeapps.list (default applications)
-  copy:
+- name: Lay out mimeapps.list (default applications)
+  ansible.builtin.copy:
     src: mimeapps.list
     dest: /home/james/.config/mimeapps.list
     owner: james
     group: james
-    mode: 0600
+    mode: "0600"
   tags: ci
 
-- name: install psutil Python package
-  package:
+- name: Install psutil Python package
+  ansible.builtin.package:
     name: python3-psutil
     state: latest
 
 - name: Modify application settings using dconf
-  dconf:
+  community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
     state: present

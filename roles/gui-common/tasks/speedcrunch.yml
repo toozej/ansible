@@ -1,5 +1,5 @@
 ---
 - name: Install latest version of Speedcrunch
-  package:
+  ansible.builtin.package:
     name: speedcrunch
     state: latest

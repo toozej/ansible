@@ -1,14 +1,23 @@
 ---
-- name: "apt | ensure Hashicorp Apt signing key present"
-  shell: wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor > /etc/apt/keyrings/hashicorp.gpg
+- name: Create APT key directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
 
-- name: "apt | ensure Hashicorp repo present"
-  apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com jammy main"
+- name: Add repository signing key
+  ansible.builtin.get_url:
+    url: https://apt.releases.hashicorp.com/gpg
+    dest: /etc/apt/keyrings/hashicorp.asc
+    mode: "0644"
+
+- name: "Apt | Ensure Hashicorp repo present"
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_facts.distribution_release }} main"
     state: present
     update_cache: true
 
-- name: "apt | ensure Terraform latest"
-  package:
+- name: "Apt | Ensure Terraform latest"
+  ansible.builtin.package:
     name: terraform
     state: latest

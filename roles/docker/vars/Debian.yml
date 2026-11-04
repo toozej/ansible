@@ -1,4 +1,2 @@
 ---
-ansible_distribution_release: '{{ "bullseye"
-                                      if ansible_facts["distribution_major_version"] == "bullseye/sid"
-                                      else ansible_facts["distribution_release"] }}'
+docker_distribution_release: "{{ ansible_facts.distribution_release }}"

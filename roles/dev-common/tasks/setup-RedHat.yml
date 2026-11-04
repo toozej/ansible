@@ -1,11 +1,11 @@
 ---
-- name: Add Github CLI repo with DNF
-  command:
-    cmd: dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-  args:
-    creates: /etc/yum.repos.d/gh-cli.repo
+- name: Add the GitHub CLI repository
+  ansible.builtin.get_url:
+    url: https://cli.github.com/packages/rpm/gh-cli.repo
+    dest: /etc/yum.repos.d/gh-cli.repo
+    mode: '0644'
 
-- name: install the latest version of Github CLI
-  package:
+- name: Install GitHub CLI
+  ansible.builtin.package:
     name: gh
     state: latest

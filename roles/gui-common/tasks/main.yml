@@ -1,28 +1,30 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
-  when: (powerline_fonts_package_name is not defined) or (sensors_package_name is not defined) or (simplenote_arch is not defined) or (hack_font_package_name is not defined)
+  when: (powerline_fonts_package_name is not defined) or (sensors_package_name is not defined) or (simplenote_arch is not defined) or (hack_font_package_name is
+    not defined)
 
 - name: Ensures ~/.config exists
-  file:
+  ansible.builtin.file:
     path: /home/james/.config/
     state: directory
     recurse: true
 
 - name: Install latest version of powerline fonts
-  package:
+  ansible.builtin.package:
     name: "{{ powerline_fonts_package_name }}"
     state: latest
 
 - name: Install latest version of Chromium web browser
-  flatpak:
+  community.general.flatpak:
     name: com.github.Eloston.UngoogledChromium
     state: present
     remote: flathub
@@ -31,66 +33,67 @@
   retries: 5
 
 - name: Install latest version of xournal PDF editor
-  package:
+  ansible.builtin.package:
     name: xournal
     state: latest
 
 - name: Install latest version of Filezilla FTP tool
-  package:
+  ansible.builtin.package:
     name: filezilla
     state: latest
 
 - name: Install latest version of Kitty terminal terminal
-  package:
+  ansible.builtin.package:
     name: kitty
     state: latest
 
 - name: Install latest version of Hack font
-  package:
+  ansible.builtin.package:
     name: "{{ hack_font_package_name }}"
     state: latest
 
 - name: Install latest version of Calibre
-  package:
+  ansible.builtin.package:
     name: calibre
     state: latest
 
 - name: Install latest version of CA certificates
-  package:
+  ansible.builtin.package:
     name: ca-certificates
     state: latest
 
 # available in default Fedora repos
 - name: Install latest version of GPXSee
-  package:
+  ansible.builtin.package:
     name: gpxsee
     state: latest
-  when: ansible_distribution == 'Fedora'
+  when: ansible_facts.distribution == 'Fedora'
 
 - name: Lay out wallpaper
-  include_tasks: wallpaper.yml
+  ansible.builtin.include_tasks: wallpaper.yml
 
 - name: Install and configure Sensors
-  include_tasks: sensors.yml
+  ansible.builtin.include_tasks: sensors.yml
 
 - name: Install Simplenote
-  include_tasks: simplenote.yml
+  ansible.builtin.include_tasks: simplenote.yml
 
 - name: Install Zoom
-  include_tasks: zoom.yml
+  ansible.builtin.include_tasks: zoom.yml
 
 - name: Install Speedcrunch
-  include_tasks: speedcrunch.yml
+  ansible.builtin.include_tasks: speedcrunch.yml
 
 - name: Install Firefox from .deb instead of Snap on Ubuntu
-  include_tasks: firefox.yml
-  when: (ansible_distribution == 'Ubuntu')
+  ansible.builtin.include_tasks: firefox.yml
+  when: (ansible_facts.distribution == 'Ubuntu')
 
-- name: "flatpak | force repair"
-  shell: "/usr/bin/flatpak repair"
-
-- name: "flatpak | install latest version of Slack"
-  flatpak:
+- name: "Flatpak | Force repair"
+  ansible.builtin.command: "/usr/bin/flatpak repair"
+  register: flatpak_repair_result
+  changed_when: "'Nothing to do' not in flatpak_repair_result.stdout"
+- name: "Flatpak | Install latest version of Slack"
+  community.general.flatpak:
     name: com.slack.Slack
     state: present
     remote: flathub
@@ -98,8 +101,8 @@
   until: install_slack is not failed
   retries: 5
 
-- name: "flatpak | install latest version of Anki"
-  flatpak:
+- name: "Flatpak | Install latest version of Anki"
+  community.general.flatpak:
     name: net.ankiweb.Anki
     state: present
     remote: flathub
@@ -107,8 +110,8 @@
   until: install_anki is not failed
   retries: 5
 
-- name: "flatpak | install latest version of Signal"
-  flatpak:
+- name: "Flatpak | Install latest version of Signal"
+  community.general.flatpak:
     name: org.signal.Signal
     state: present
     remote: flathub
@@ -116,8 +119,8 @@
   until: install_signal is not failed
   retries: 5
 
-- name: "flatpak | install latest version of Plex"
-  flatpak:
+- name: "Flatpak | Install latest version of Plex"
+  community.general.flatpak:
     name: tv.plex.PlexDesktop
     state: present
     remote: flathub
@@ -125,8 +128,8 @@
   until: install_plex is not failed
   retries: 5
 
-- name: "flatpak | install latest version of Jellyfin"
-  flatpak:
+- name: "Flatpak | Install latest version of Jellyfin"
+  community.general.flatpak:
     name: com.github.iwalton3.jellyfin-media-player
     state: present
     remote: flathub

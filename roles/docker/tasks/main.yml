@@ -1,49 +1,38 @@
 ---
-- include_tasks: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+- name: Include task file | setup-RedHat.yml
+  ansible.builtin.include_tasks: setup-RedHat.yml
+  when: ansible_facts.os_family == 'RedHat'
 
-- include_tasks: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
+- name: Include task file | setup-Debian.yml
+  ansible.builtin.include_tasks: setup-Debian.yml
+  when: ansible_facts.os_family == 'Debian'
 
 - name: Install Docker
-  package:
+  ansible.builtin.package:
     name: "{{ docker_package }}"
     state: latest
-  notify: restart docker
+  notify: Restart docker
 
-# docker-py from https://github.com/docker/docker-py renamed to docker on PyPi https://pypi.org/project/docker/
-- name: ensure deprecated docker-py lib is absent
-  pip:
-    name: docker-py
-    state: absent
-  when: (packages['pip'] is defined) or (packages['pip3'] is defined) or (packages['python-pip'] is defined) or (packages['python-pip3'] is defined)
-
-- name: Install latest docker-py lib
-  pip:
-    name: docker
-    state: latest
-  environment:
-    PIP_BREAK_SYSTEM_PACKAGES: 1
-
-- name: Install docker python library
-  package:
+- name: Install the distribution Docker Python library
+  ansible.builtin.package:
     name: python3-docker
     state: present
-  when: ansible_distribution_release == "buster" or ansible_distribution_release == "bullseye"
 
 # Docker must be stopped to work Docker in Docker (testing with Jenkins)
 - name: Ensure Docker is stopped and enabled at boot.
-  service:
+  ansible.builtin.service:
     name: docker
     state: "{{ docker_service_state }}"
     enabled: "{{ docker_service_enabled }}"
-  when: (ansible_service_mgr == "systemd") or (ansible_service_mgr == "upstart")
+  when: (ansible_facts.service_mgr == "systemd") or (ansible_facts.service_mgr == "upstart")
 
-- include_tasks: docker-compose.yml
+- name: Include task file | docker-compose.yml
+  ansible.builtin.include_tasks: docker-compose.yml
   when: docker_install_compose
 
-- include_tasks: docker-users.yml
+- name: Include task file | docker-users.yml
+  ansible.builtin.include_tasks: docker-users.yml
 
 - name: Ensure handlers are notified now to avoid firewall conflicts.
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
   tags: ci

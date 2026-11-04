@@ -7,6 +7,9 @@ gstreamer1_plugins_bad_package_name: gstreamer1-plugins-bad-free-extras
 gstreamer1_plugins_bad_free_package_name: gstreamer1-plugins-bad-free
 gstreamer1_plugins_ugly_package_name: gstreamer1-plugins-ugly
 gstreamer1_plugins_ugly_free_package_name: gstreamer1-plugins-ugly-free
-ansible_distribution_release: "{{ 'fc39' if ansible_distribution == 'Fedora' }}"
+strawberry_distribution_release: >-
+  {{ 'fc' ~ ansible_facts.distribution_major_version
+     if ansible_facts.distribution == 'Fedora'
+     else ansible_facts.distribution_release }}
 strawberry_arch: x86_64
 libebur128_package_name: libebur128

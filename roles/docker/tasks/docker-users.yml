@@ -1,8 +1,8 @@
 ---
 - name: Ensure docker users are added to the docker group.
-  user:
+  ansible.builtin.user:
     name: james
     groups: docker
     append: true
-  notify: reset SSH connection
+  notify: Reset SSH connection
   tags: ci

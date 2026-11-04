@@ -1,7 +1,7 @@
 ---
 # from https://ostechnix.com/how-to-speed-up-dnf-package-manager-in-fedora/
-- name: performance tweaks for DNF
-  blockinfile:
+- name: Performance tweaks for DNF
+  ansible.builtin.blockinfile:
     path: /etc/dnf/dnf.conf
     block: |
       max_parallel_downloads=20

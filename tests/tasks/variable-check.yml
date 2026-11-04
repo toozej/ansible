@@ -1,0 +1,14 @@
+---
+- name: Load the role variable file
+  ansible.builtin.include_vars:
+    file: "{{ compatibility_var_file }}"
+    name: compatibility_role_vars
+
+- name: Check all values in the role variable file
+  ansible.builtin.assert:
+    that:
+      - item.key is not match('^ansible_')
+      - item.value is not none
+  loop: "{{ compatibility_role_vars | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"

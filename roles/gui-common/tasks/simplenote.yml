@@ -1,17 +1,18 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
   when: (simplenote_arch is not defined)
 
-- name: install latest Simplenote from GitHub releases
-  import_role:
+- name: Install latest Simplenote from GitHub releases
+  ansible.builtin.import_role:
     name: github-releases
   vars:
     org: Automattic
@@ -23,9 +24,9 @@
   tags: gh-releases
 
 # https://github.com/Automattic/simplenote-electron/issues/3044
-- name: workaround Simplenote sandbox error
-  replace:
+- name: Workaround Simplenote sandbox error
+  ansible.builtin.replace:
     path: /usr/share/applications/simplenote.desktop
-    regexp: 'Exec=/opt/Simplenote/simplenote %U'
-    replace: 'Exec=/opt/Simplenote/simplenote --no-sandbox %U'
+    regexp: "Exec=/opt/Simplenote/simplenote %U"
+    replace: "Exec=/opt/Simplenote/simplenote --no-sandbox %U"
   tags: gh-releases

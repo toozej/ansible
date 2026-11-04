@@ -1,29 +1,35 @@
 ---
 - name: Parse Gnome Shell version
-  shell: gnome-shell --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'
+  ansible.builtin.shell: |
+    set -o pipefail
+    gnome-shell --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'
   register: r_gnome_extension_parse_shell_version
   changed_when: false
 
-- set_fact:
+  args:
+    executable: /bin/bash
+- name: Set role facts
+  ansible.builtin.set_fact:
     gnome_shell_version: "{{ r_gnome_extension_parse_shell_version.stdout }}"
 
-- name: set extensions dir permissions
-  file:
+- name: Set extensions dir permissions
+  ansible.builtin.file:
     path: ~/.local/share/gnome-shell
     state: directory
     owner: "{{ james_user }}"
     group: "{{ james_group }}"
-    mode: 0700
+    mode: "0700"
   tags: ci
 
 - name: Get Gnome Shell extension info
-  uri:
+  ansible.builtin.uri:
     url: https://extensions.gnome.org/extension-info/?pk={{ item }}&shell_version={{ gnome_shell_version }}
     return_content: true
   loop: "{{ gnome_extension_ids }}"
   register: r_gnome_extension_info
 
-- include_tasks: install_extension.yml
+- name: Include task file | install_extension.yml
+  ansible.builtin.include_tasks: install_extension.yml
   vars:
     gnome_extension_info: "{{ item.json }}"
   loop: "{{ r_gnome_extension_info.results }}"

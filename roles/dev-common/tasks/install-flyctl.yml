@@ -1,0 +1,13 @@
+---
+- name: Download the Fly installer
+  ansible.builtin.get_url:
+    url: https://fly.io/install.sh
+    dest: /tmp/fly-install.sh
+    mode: "0755"
+
+- name: Install Fly as James
+  ansible.builtin.command: /bin/sh /tmp/fly-install.sh
+  args:
+    creates: /home/james/.fly/bin/flyctl
+  become: true
+  become_user: james

@@ -1,14 +1,15 @@
 ---
-- name: "flatpak | force repair"
-  shell: "/usr/bin/flatpak repair"
-
-- name: install gnome-tweak-tool
-  package:
+- name: "Flatpak | Force repair"
+  ansible.builtin.command: "/usr/bin/flatpak repair"
+  register: flatpak_repair_result
+  changed_when: "'Nothing to do' not in flatpak_repair_result.stdout"
+- name: Install gnome-tweak-tool
+  ansible.builtin.package:
     name: gnome-tweaks
     state: latest
 
-- name: "flatpak | install latest version of Gnome Extensions"
-  flatpak:
+- name: "Flatpak | Install latest version of Gnome Extensions"
+  community.general.flatpak:
     name: org.gnome.Extensions
     state: present
   register: install_extensions
@@ -16,24 +17,24 @@
   retries: 5
 
 - name: Include repo-extra for Fedora as pre-requisite for Fedy
-  include_role:
+  ansible.builtin.include_role:
     name: repo-extra
-  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
+  when: (ansible_facts.pkg_mgr in ['dnf', 'dnf5']) and (ansible_facts.distribution == 'Fedora')
 
 - name: Install latest version of Fedy on Fedora using DNF
-  include_tasks: fedy.yml
-  when: (ansible_pkg_mgr == 'dnf') and (ansible_distribution == 'Fedora')
+  ansible.builtin.include_tasks: fedy.yml
+  when: (ansible_facts.pkg_mgr in ['dnf', 'dnf5']) and (ansible_facts.distribution == 'Fedora')
 
 # eventually more distros will change package name, see
 # https://repology.org/project/gnome-browser-connector/versions
 - name: Install Gnome Shell Extensions integration for web browsers
-  package:
+  ansible.builtin.package:
     name: gnome-browser-connector
     state: latest
-  when: ansible_distribution != 'Ubuntu'
+  when: ansible_facts.distribution != 'Ubuntu'
 
 - name: Install dconf binary
-  package:
+  ansible.builtin.package:
     name: dconf-cli
     state: latest
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'

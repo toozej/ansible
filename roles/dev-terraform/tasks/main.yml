@@ -1,11 +1,11 @@
 ---
 - name: Install latest version of Terraform using APT
-  include_tasks: setup-apt.yml
-  when: ansible_pkg_mgr == 'apt'
+  ansible.builtin.include_tasks: setup-apt.yml
+  when: ansible_facts.pkg_mgr == 'apt'
 
 - name: Install latest version of Terraform using DNF
-  include_tasks: setup-dnf.yml
-  when: ansible_pkg_mgr == 'dnf'
+  ansible.builtin.include_tasks: setup-dnf.yml
+  when: ansible_facts.pkg_mgr in ['dnf', 'dnf5']
 
 - name: Setup Terraform Local Environment
-  include_tasks: setup-environment.yml
+  ansible.builtin.include_tasks: setup-environment.yml

@@ -1,6 +1,6 @@
 ---
-- name: install the latest versions of Ansible
-  package:
+- name: Install the latest versions of Ansible
+  ansible.builtin.package:
     name: ansible
     state: latest
 
@@ -13,7 +13,7 @@
 #   become: true
 
 # comment out until safe to use ansible-core and ansible-lint on all distros/versions
-#- name: install the latest version of Ansible-Review
+# - name: install the latest version of Ansible-Review
 #  pip:
 #    name: ansible-review
 #    state: latest

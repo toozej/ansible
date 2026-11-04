@@ -1,31 +1,32 @@
 ---
-- name: pull latest kcli docker image
-  docker_image:
+- name: Pull latest kcli docker image
+  community.docker.docker_image:
     name: quay.io/karmab/kcli
     tag: latest
     source: pull
 
-- name: create ~/.kcli
-  file:
+- name: Create ~/.kcli
+  ansible.builtin.file:
     path: /home/james/.kcli
     state: directory
-    mode: 0740
+    mode: "0740"
 
-- name: copy in config template
-  template:
+- name: Copy in config template
+  ansible.builtin.template:
     src: config.yml.j2
     dest: /home/james/.kcli/config.yml
     owner: james
     group: james
 
-- name: copy in profiles template
-  template:
+    mode: "0600"
+- name: Copy in profiles template
+  ansible.builtin.template:
     src: profiles.yml.j2
     dest: /home/james/.kcli/profiles.yml
     owner: james
     group: james
 
-    #- name: hard-link lab SSH keys
+    # - name: hard-link lab SSH keys
 
-
-    #- name: download commonly used base images (in qcow2)
+    # - name: download commonly used base images (in qcow2)
+    mode: "0600"

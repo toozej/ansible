@@ -3,10 +3,13 @@ galaxy_info:
   author: toozej
   description: Common role for all Linux machines
   company: toozej
-  min_ansible_version: 1.2
+  license: MIT
+  min_ansible_version: "2.19"
   platforms:
-  - name: Centos
-    versions:
-      - 7
-
-dependencies:
+    - name: Debian
+      versions:
+        - trixie
+    - name: Fedora
+      versions:
+        - all
+dependencies: []

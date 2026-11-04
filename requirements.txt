@@ -1,0 +1,2 @@
+# Debian 13 provides ansible-core 2.19.11.
+ansible-core>=2.19.11,<2.22

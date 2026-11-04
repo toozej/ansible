@@ -1,56 +1,57 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version | int }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
   when: (automatic_updater_package_name is not defined) or (automatic_updater_config_path is not defined) or (mailx_package_name is not defined)
 
-- name: install mailx package
-  package:
+- name: Install mailx package
+  ansible.builtin.package:
     name: "{{ mailx_package_name }}"
     state: latest
 
-- name: install unattended-upgrades package for Debian-based systems
-  package:
+- name: Install unattended-upgrades package for Debian-based systems
+  ansible.builtin.package:
     name: unattended-upgrades
     state: latest
-  when: ansible_os_family == "Debian"
+  when: ansible_facts.os_family == "Debian"
 
 - name: Setup unattended-upgrades config file for Debian-based systems
-  template:
+  ansible.builtin.template:
     src: 50unattended-upgrades.debian.j2
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
     owner: root
     group: root
-    mode: 0644
-  when: ansible_distribution == "Debian"
+    mode: "0644"
+  when: ansible_facts.distribution == "Debian"
 
 - name: Setup unattended-upgrades config file for Ubuntu-based systems
-  template:
+  ansible.builtin.template:
     src: 50unattended-upgrades.ubuntu.j2
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
     owner: root
     group: root
-    mode: 0644
-  when: ansible_distribution == "Ubuntu"
+    mode: "0644"
+  when: ansible_facts.distribution == "Ubuntu"
 
-- name: install automatic updater package for RHEL-based systems
-  package:
+- name: Install automatic updater package for RHEL-based systems
+  ansible.builtin.package:
     name: "{{ automatic_updater_package_name }}"
     state: latest
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts.os_family == "RedHat"
 
 - name: Setup automatic updater config file for RHEL-based systems
-  template:
+  ansible.builtin.template:
     src: yum-cron.conf.j2
     dest: "{{ automatic_updater_config_path }}"
     owner: root
     group: root
-    mode: 0644
-  when: ansible_os_family == "RedHat"
+    mode: "0644"
+  when: ansible_facts.os_family == "RedHat"

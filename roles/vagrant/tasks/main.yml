@@ -1,21 +1,21 @@
 ---
-- name: install vagrant
-  package:
+- name: Install vagrant
+  ansible.builtin.package:
     name: vagrant
     state: latest
 
 - name: Install latest version of virt-manager
-  package:
+  ansible.builtin.package:
     name: virt-manager
     state: latest
 
-- name: install bridge-utils networking
-  package:
+- name: Install bridge-utils networking
+  ansible.builtin.package:
     name: bridge-utils
     state: latest
 
 - name: Install vagrant libvirt provider on modern distros
-  include_tasks: vagrant_providers_libvirt.yml
+  ansible.builtin.include_tasks: vagrant_providers_libvirt.yml
 
 - name: Install vagrant plugins on modern distros
-  include_tasks: vagrant_plugins.yml
+  ansible.builtin.include_tasks: vagrant_plugins.yml

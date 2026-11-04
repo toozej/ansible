@@ -1,12 +1,12 @@
 ---
 # Playbook to setup a development environment
-- hosts: all
+- name: Initialize development gui environment
+  hosts: all
   pre_tasks:
     - name: Set base_playbook Fact
-      set_fact:
-        base_playbook: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+      ansible.builtin.set_fact:
+        base_playbook: "development-gui.yml"
       when: base_playbook is not defined
-
 
 - name: Setup dev environment
   hosts: all

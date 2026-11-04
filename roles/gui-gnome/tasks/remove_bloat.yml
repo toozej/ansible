@@ -1,6 +1,6 @@
 ---
-- name: remove unneeded / bloatware packages
-  package:
+- name: Remove unneeded / bloatware packages
+  ansible.builtin.package:
     name:
       - evolution
       - evolution-ews
@@ -20,23 +20,20 @@
       - tracker-miners
       - yelp
     state: absent
-  ignore_errors: true
-
-- name: mask unwanted gnome services
-  systemd:
-    name:
-      - evolution-addressbook-factory.service
-      - evolution-calendar-factory.service
-      - evolution-source-registry.service
-      - gvfs-goa-volume-monitor.service
-      - tracker-store.service
+- name: Mask unwanted gnome services
+  ansible.builtin.systemd:
+    name: '{{ item }}'
     scope: user
     masked: true
     state: stopped
-  ignore_errors: true
+  loop:
+    - evolution-addressbook-factory.service
+    - evolution-calendar-factory.service
+    - evolution-source-registry.service
+    - gvfs-goa-volume-monitor.service
+    - tracker-store.service
 
-- name: remove tracker databases
-  file:
+- name: Remove tracker databases
+  ansible.builtin.file:
     name: ~/.cache/tracker
     state: absent
-  ignore_errors: true

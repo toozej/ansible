@@ -73,7 +73,7 @@ if [ -f /etc/debian_version ]; then
 # if Fedora
 elif [ -f /etc/fedora-release ]; then
     os=$(cat /etc/fedora-release)
-    dnf install -y git ansible python3-ansible-lint python3-dnf
+    dnf install -y git ansible ansible-lint python3-dnf
 
 # if RedHat-based (but not Fedora)
 elif [ -f /etc/redhat-release ]; then
@@ -108,6 +108,9 @@ cd $ANSIBLE_REPO_DIR || exit
 
 echo -e "setting up default ansible.cfg"
 cp ansible.cfg.example ansible.cfg
+
+# Install the collections required by the roles.
+ansible-galaxy collection install -r requirements.yml || exit 1
 
 echo -e "setting up localhost in the ansible inventory\n"
 if [ "$(uname)" != "Darwin" ]; then

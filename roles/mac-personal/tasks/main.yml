@@ -1,16 +1,22 @@
 ---
 - name: Install homebrew
-  include_tasks: homebrew.yml
+  ansible.builtin.include_tasks: homebrew.yml
 
-- name: install applications via MacOS App Store
-  include_tasks: mas.yml
+- name: Install applications via MacOS App Store
+  ansible.builtin.include_tasks: mas.yml
 
-- name: enable startup chime
+- name: Read the startup chime setting
+  ansible.builtin.command: nvram StartupMute
+  register: startup_mute
+  changed_when: false
+  failed_when: startup_mute.rc not in [0, 1]
+- name: Enable startup chime
   # https://mrmacintosh.com/how-to-enable-the-mac-startup-chime-on-your-2016-macbook-pro/
-  shell: nvram StartupMute=%00
-
-- name: install llm plugins
-  command: "llm install {{ item }}"
+  ansible.builtin.command: nvram StartupMute=%00
+  when: "'%00' not in startup_mute.stdout"
+  changed_when: true
+- name: Install llm plugins
+  ansible.builtin.command: "llm install {{ item }}"
   with_items:
     - llm-anthropic
     - llm-gemini
@@ -20,5 +26,9 @@
     - llm-fragments-go
     - llm-github-models
 
-- name: install sncli with uv
-  command: "uv tool install sncli --python=3.11"
+  register: llm_plugin_install
+  changed_when: "'Successfully installed' in llm_plugin_install.stdout"
+- name: Install sncli with uv
+  ansible.builtin.command: "uv tool install sncli --python=3.11"
+  args:
+    creates: /Users/{{ homebrew_user }}/.local/bin/sncli

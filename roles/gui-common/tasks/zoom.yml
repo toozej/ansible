@@ -1,44 +1,41 @@
 ---
 - name: Download Zoom gpg signing key
-  get_url:
+  ansible.builtin.get_url:
     url: https://zoom.us/linux/download/pubkey?version=5-12-6
     dest: /tmp/zoom.pub
     force: true
 
-- name: Install Zoom gpg signing key for Debian-based systems
-  apt_key:
-    file: /tmp/zoom.pub
-    state: present
-  when: ansible_os_family == 'Debian'
-
+    mode: "0644"
 - name: Download latest version of Zoom for Debian-based systems
-  get_url:
+  ansible.builtin.get_url:
     url: https://zoom.us/client/latest/zoom_amd64.deb
     dest: /tmp/zoom.deb
     force: true
-  when: ansible_os_family == 'Debian'
+    mode: "0644"
+  when: ansible_facts.os_family == 'Debian'
 
 - name: Install latest version of Zoom for Debian-based systems
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/zoom.deb
     state: present
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
 
 - name: Install Zoom gpg signing key for RedHat-based systems
-  rpm_key:
+  ansible.builtin.rpm_key:
     key: /tmp/zoom.pub
     state: present
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts.os_family == 'RedHat'
 
 - name: Download latest version of Zoom for RedHat-based systems
-  get_url:
+  ansible.builtin.get_url:
     url: https://zoom.us/client/latest/zoom_x86_64.rpm
     dest: /tmp/zoom.rpm
     force: true
-  when: ansible_os_family == 'RedHat'
+    mode: "0644"
+  when: ansible_facts.os_family == 'RedHat'
 
 - name: Install latest version of Zoom using DNF
-  dnf:
+  ansible.builtin.dnf:
     name: /tmp/zoom.rpm
     state: present
-  when: ansible_pkg_mgr == 'dnf'
+  when: ansible_facts.pkg_mgr in ['dnf', 'dnf5']

@@ -1,6 +1,6 @@
 ---
-- name: install the latest version of Minikube and Kubectl on Mac OS X
-  homebrew:
-    name: ['kubectl', 'minikube']
+- name: Install the latest version of Minikube and Kubectl on Mac OS X
+  community.general.homebrew:
+    name: ["kubectl", "minikube"]
     state: latest
     update_homebrew: true

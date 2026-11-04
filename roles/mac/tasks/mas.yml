@@ -1,7 +1,7 @@
 ---
-- name: install packages via MacOS Store
+- name: Install packages via MacOS Store
   # must be signed in first via GUI!
   community.general.mas:
     id:
-      - 1451685025  # Wireguard
+      - 1451685025 # Wireguard
     state: present

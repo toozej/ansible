@@ -1,17 +1,15 @@
 ---
-- name: install latest version of ffmpeg
-  package:
+- name: Install latest version of ffmpeg
+  ansible.builtin.package:
     name: ffmpeg
     state: latest
-  # temporarily ignore errors due to Fedora + RPMFusion repo conflicts
-  ignore_errors: true
-
-- name: install latest version of mediainfo
-  package:
+# temporarily ignore errors due to Fedora + RPMFusion repo conflicts
+- name: Install latest version of mediainfo
+  ansible.builtin.package:
     name: mediainfo
     state: latest
 
-- name: install latest version of mkvtoolnix
-  package:
+- name: Install latest version of mkvtoolnix
+  ansible.builtin.package:
     name: mkvtoolnix
     state: latest

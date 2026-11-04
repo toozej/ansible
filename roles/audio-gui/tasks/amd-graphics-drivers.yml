@@ -1,14 +1,14 @@
 ---
 # info from https://www.schotty.com/EL_And_Fedora/amdgpu_Plus_Fedora/
-- name: install AMD drivers
-  package:
+- name: Install AMD drivers
+  ansible.builtin.package:
     name:
       - mesa-dri-drivers
       - mesa-vulkan-drivers
     state: latest
 
-- name: install AMD-centric codecs and other tools
-  package:
+- name: Install AMD-centric codecs and other tools
+  ansible.builtin.package:
     name:
       - libva
       - libva-utils
@@ -16,5 +16,11 @@
       - vulkan-loader
     state: latest
 
+- name: Read kernel arguments
+  ansible.builtin.command: grubby --info=ALL
+  register: graphics_kernel_args
+  changed_when: false
 - name: Update kernel options
-  shell: grubby --update-kernel=ALL --args="amdgpu.dc=0 radeon.cik_support=0 amdgpu.cik_support=1"
+  ansible.builtin.command: grubby --update-kernel=ALL --args="amdgpu.dc=0 radeon.cik_support=0 amdgpu.cik_support=1"
+  when: "'amdgpu.dc=0 radeon.cik_support=0 amdgpu.cik_support=1' not in graphics_kernel_args.stdout"
+  changed_when: true

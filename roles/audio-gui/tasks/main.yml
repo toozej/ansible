@@ -1,17 +1,21 @@
 ---
 # Load a variable file based on the OS type, or a default if not found.
-- include_vars: "{{ item }}"
+- name: Load distribution variables
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
-      - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
-      - "../vars/{{ ansible_distribution }}.yml"
-      - "../vars/{{ ansible_os_family }}.yml"
-      - "../vars/default.yml"
+        - "../vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version | int }}.yml"
+        - "../vars/{{ ansible_facts.distribution }}.yml"
+        - "../vars/{{ ansible_facts.os_family }}.yml"
+        - "../vars/default.yml"
       skip: true
-  when: (gstreamer1_package_name is not defined) or (gstreamer1_plugins_base_package_name is not defined) or (gstreamer1_plugins_good_package_name is not defined) or (gstreamer1_plugins_good_extras_package_name is not defined) or (gstreamer1_plugins_bad_package_name is not defined) or (gstreamer1_plugins_bad_free_package_name is not defined) or (gstreamer1_plugins_ugly_package_name is not defined) or (gstreamer1_plugins_ugly_free_package_name is not defined) or (strawberry_arch is not defined)
+  when: (gstreamer1_package_name is not defined) or (gstreamer1_plugins_base_package_name is not defined) or (gstreamer1_plugins_good_package_name is not
+    defined) or (gstreamer1_plugins_good_extras_package_name is not defined) or (gstreamer1_plugins_bad_package_name is not defined) or
+    (gstreamer1_plugins_bad_free_package_name is not defined) or (gstreamer1_plugins_ugly_package_name is not defined) or
+    (gstreamer1_plugins_ugly_free_package_name is not defined) or (strawberry_arch is not defined)
 
-- name: install latest versions of gstreamer plugins
-  package:
+- name: Install latest versions of gstreamer plugins
+  ansible.builtin.package:
     name:
       - "{{ gstreamer1_package_name }}"
       - "{{ gstreamer1_plugins_base_package_name }}"
@@ -22,42 +26,40 @@
       - "{{ gstreamer1_plugins_ugly_package_name }}"
       - "{{ gstreamer1_plugins_ugly_free_package_name }}"
     state: latest
-  ignore_errors: true
-
-- name: "flatpak | install the 23.08 full version of ffmpeg"
-  flatpak:
+- name: "Flatpak | Install the 23.08 full version of ffmpeg"
+  community.general.flatpak:
     name: org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
     state: present
   register: install_ffmpeg
   until: install_ffmpeg is not failed
   retries: 5
 
-- name: install latest version of VLC
-  package:
+- name: Install latest version of VLC
+  ansible.builtin.package:
     name: vlc
     state: latest
 
-- name: install latest version of mediainfo-gui
-  package:
+- name: Install latest version of mediainfo-gui
+  ansible.builtin.package:
     name: mediainfo-gui
     state: latest
 
-- name: install latest version of Spotify client
-  include_tasks: spotify.yml
+- name: Install latest version of Spotify client
+  ansible.builtin.include_tasks: spotify.yml
 
-- name: install latest version of Strawberry
-  include_tasks: strawberry.yml
+- name: Install latest version of Strawberry
+  ansible.builtin.include_tasks: strawberry.yml
 
-- name: install openh264 from Fedora Cisco repo
-  dnf:
+- name: Install openh264 from Fedora Cisco repo
+  ansible.builtin.dnf:
     enablerepo: fedora-cisco-openh264
     name:
       - gstreamer1-plugin-openh264
       - gstreamer1-libav
       - mozilla-openh264
     state: latest
-  when: ansible_distribution == 'Fedora'
+  when: ansible_facts.distribution == 'Fedora'
 
-    #- name: install graphics drivers for Fedora
-    #  include_tasks: graphics-drivers.yml
-    #  when: ansible_distribution == 'Fedora'
+  # - name: install graphics drivers for Fedora
+  #  include_tasks: graphics-drivers.yml
+  #  when: ansible_facts.distribution == 'Fedora'

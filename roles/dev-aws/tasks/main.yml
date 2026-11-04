@@ -1,6 +1,6 @@
 ---
-- name: remove any pre-existing AWS CLI installation
-  file:
+- name: Remove any pre-existing AWS CLI installation
+  ansible.builtin.file:
     path: "{{ item }}"
     state: absent
   with_items:
@@ -8,53 +8,54 @@
     - /usr/local/bin/aws-completer
     - /usr/local/aws-cli
 
-- name: download awscli
-  get_url:
+- name: Download awscli
+  ansible.builtin.get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: /tmp/awscli.zip
-    mode: '0644'
+    mode: "0644"
 
-- name: extract awscli zip
-  unarchive:
+- name: Extract awscli zip
+  ansible.builtin.unarchive:
     src: /tmp/awscli.zip
     dest: /tmp/
     remote_src: true
 
-- name: install awscli
-  shell: "/tmp/aws/install"
-
-- name: make ~/.aws dir
-  file:
+- name: Install awscli
+  ansible.builtin.command: "/tmp/aws/install"
+  args:
+    creates: /usr/local/bin/aws
+- name: Make ~/.aws dir
+  ansible.builtin.file:
     path: /home/james/.aws/
     state: directory
     owner: james
     group: james
-    mode: '0644'
+    mode: "0700"
 
-- name: check for existence of ~/.aws/config
-  stat:
+- name: Check for existence of ~/.aws/config
+  ansible.builtin.stat:
     path: "/home/james/.aws/config"
   register: aws_config
 
-- name: check for existence of ~/.aws/credentials
-  stat:
+- name: Check for existence of ~/.aws/credentials
+  ansible.builtin.stat:
     path: "/home/james/.aws/credentials"
   register: aws_credentials
 
-- name: lay out localstack-compatible ~/.aws/config
-  copy:
+- name: Lay out localstack-compatible ~/.aws/config
+  ansible.builtin.copy:
     src: config
     dest: /home/james/.aws/config
     owner: james
     group: james
-    mode: '0600'
-  when: aws_config.stat.exists == false
+    mode: "0600"
+  when: not aws_config.stat.exists
 
-- name: lay out localstack-compatible ~/.aws/credentials
-  copy:
+- name: Lay out localstack-compatible ~/.aws/credentials
+  ansible.builtin.copy:
     src: credentials
     dest: /home/james/.aws/credentials
     owner: james
     group: james
-    mode: '0600'
-  when: aws_credentials.stat.exists == false
+    mode: "0600"
+  when: not aws_credentials.stat.exists

@@ -1,29 +1,29 @@
 ---
-- name: make backup of current /etc/resolv.conf and store temporarily
-  copy:
+- name: Make backup of current /etc/resolv.conf and store temporarily
+  ansible.builtin.copy:
     src: /etc/resolv.conf
     dest: /tmp/resolv.conf
     remote_src: true
     follow: true
 
+    mode: "0644"
 - name: Populate service facts
-  service_facts:
+  ansible.builtin.service_facts:
 
-- name: stop and disable NetworkManager service
-  systemd:
+- name: Stop and disable NetworkManager service
+  ansible.builtin.systemd:
     name: NetworkManager
     state: stopped
     enabled: false
-  when: "'NetworkManager.service' in services"
-  ignore_errors: true
-
-- name: unlink NetworkManager-created /etc/resolv.conf
-  file:
+  when: "'NetworkManager.service' in ansible_facts.services"
+- name: Unlink NetworkManager-created /etc/resolv.conf
+  ansible.builtin.file:
     path: /etc/resolv.conf
     state: absent
 
-- name: restore /etc/resolv.conf
-  copy:
+- name: Restore /etc/resolv.conf
+  ansible.builtin.copy:
     src: /tmp/resolv.conf
     dest: /etc/resolv.conf
     remote_src: true
+    mode: "0644"
